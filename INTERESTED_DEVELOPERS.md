@@ -1,5 +1,5 @@
 # Interested Developers:
-This file will help us track people that are interested in taking decisions of the specification of GraphQL over HTTP until merged to the main repository located at https://github.com/facebook/graphql
+This file will help us track people that are interested in taking decisions of the specification of GraphQL over HTTP until migrated to a official repository of the https://github.com/graphql organization.
 
 If you want to be listed here, open a PR with your information, just order yourself by name.
 
