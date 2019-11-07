@@ -13,5 +13,8 @@ If you want to be listed here, open a PR with your information, just order yours
 * @mike-marcacci
   * Company/Project/Repo: https://github.com/boltline
   * Reason: Interested in client/server spec
+* @erikwittern
+  * Company/Project/Repo: https://github.com/graphql/libgraphqlparser, https://github.com/IBM/openapi-to-graphql
+  * Reason: Interested in server on JavaScript/C++
 ## CC Helper:
 CC: @deinok @jaydenseric @mike-marcacci
