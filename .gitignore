@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# Visual Studio project specific, machine local files
+.vs/
