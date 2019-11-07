@@ -59,7 +59,7 @@ Note: This is an example of a non-normative note.
 
 # Overview
 
-Serving GraphQL over HTTP provides the ability to use then full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
+Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
 semantics of HTTP but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
 
 GraphQL naturally follows the HTTP request/response message model providing a GraphQL request in an HTTP request and
@@ -70,7 +70,7 @@ GraphQL response in an HTTP response.
 A GraphQL server operates on a single URL and all GraphQL requests for a given service should be directed
 at this URL. Other protocols may also use that URL.
 
-It is recommended to end the path component of URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
+It is recommended to end the path component of the URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
 
 # Serialization Format
 
@@ -79,20 +79,21 @@ For consistency and ease of notation, examples of the response are given in JSON
 
 # Request
 
-The GraphQL HTTP server should handle the HTTP GET and POST methods.
+The GraphQL HTTP server SHOULD handle the HTTP GET and POST methods.
 Additionally, GraphQL MAY be used in combination with other HTTP request methods.
 
 ## Request Parameters
+
 A request for execution should contain the following request parameters:
 
 * `query` - A Document containing GraphQL Operations and Fragments to execute.
 * `operationName` - [*Optional*]: The name of the Operation in the Document to execute.
-* `variables`- [*Optional*]: Values for any Variables defined by the Operation.
+* `variables` - [*Optional*]: Values for any Variables defined by the Operation.
 
 Note: depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
 
-Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equal to not specifying them at all.
+Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.
 
 ## GET
 
@@ -138,6 +139,8 @@ For example if the `Content-Type` is `application/json` then the request body ma
   "variables": { "id": "QVBJcy5ndXJ1" }
 }
 ```
+
+Note: both query and mutation operations can be sent over POST requests.
 
 # Response
 
