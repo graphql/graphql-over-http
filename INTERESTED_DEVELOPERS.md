@@ -16,5 +16,8 @@ If you want to be listed here, open a PR with your information, just order yours
 * @sjparsons
   * Company/Project/Repo: PayPal & Braintree https://github.com/sjparsons
   * Reason: Interested in common spec
+* @sungam3r
+  * Company/Project/Repo: https://github.com/graphql-dotnet/server
+  * Reason: Interested in client/server spec
 ## CC Helper:
-CC: @deinok @jaydenseric @mike-marcacci @sjparsons
+CC: @deinok @jaydenseric @mike-marcacci @sjparsons @sungam3r
