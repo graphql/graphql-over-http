@@ -13,5 +13,8 @@ If you want to be listed here, open a PR with your information, just order yours
 * @mike-marcacci
   * Company/Project/Repo: https://github.com/boltline
   * Reason: Interested in client/server spec
+* @sjparsons
+  * Company/Project/Repo: PayPal & Braintree https://github.com/sjparsons
+  * Reason: Interested in common spec
 ## CC Helper:
-CC: @deinok @jaydenseric @mike-marcacci
+CC: @deinok @jaydenseric @mike-marcacci @sjparsons
