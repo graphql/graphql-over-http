@@ -25,5 +25,8 @@ If you want to be listed here, open a PR with your information, just order yours
 * @sungam3r
   * Company/Project/Repo: https://github.com/graphql-dotnet/server
   * Reason: Interested in client/server spec
+* @michaelstaib
+  * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
+  * Reason: Interested in client/server in JavaScript/C++/C#
 ## CC Helper:
-CC: @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r
+CC: @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib
