@@ -28,5 +28,9 @@ If you want to be listed here, open a PR with your information, just order yours
 * @michaelstaib
   * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
   * Reason: Interested in client/server in JavaScript/C++/C#
+* @spawnia
+  * Company/Project/Repo: https://github.com/nuwave/lighthouse
+  * Reason: Interested in client/server in PHP
+
 ## CC Helper:
-CC: @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib
+CC: @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib @spawnia
