@@ -88,7 +88,7 @@ A request for execution should contain the following request parameters:
 * `query` - A Document containing GraphQL Operations and Fragments to execute.
 * `operationName` - [*Optional*]: The name of the Operation in the Document to execute.
 * `variables`- [*Optional*]: Values for any Variables defined by the Operation.
-* `extensions`- [*Optional*]: This entry is reserved for implementors to extend the protocol however they see fit.
+* `extensions` - [*Optional*]: This entry is reserved for implementors to extend the protocol however they see fit.
 
 Note: depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
