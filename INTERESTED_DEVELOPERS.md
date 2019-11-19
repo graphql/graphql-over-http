@@ -16,6 +16,9 @@ If you want to be listed here, open a PR with your information, just order yours
 * @jaydenseric
   * Company/Project/Repo: https://github.com/jaydenseric/graphql-multipart-request-spec
   * Reason: Interested in multipart request spec
+* @michaelstaib
+  * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
+  * Reason: Interested in client/server in JavaScript/C++/C#
 * @mike-marcacci
   * Company/Project/Repo: https://github.com/boltline
   * Reason: Interested in client/server spec
@@ -25,15 +28,12 @@ If you want to be listed here, open a PR with your information, just order yours
 * @sjparsons
   * Company/Project/Repo: PayPal & Braintree https://github.com/sjparsons
   * Reason: Interested in common spec
-* @sungam3r
-  * Company/Project/Repo: https://github.com/graphql-dotnet/server
-  * Reason: Interested in client/server spec
-* @michaelstaib
-  * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
-  * Reason: Interested in client/server in JavaScript/C++/C#
 * @spawnia
   * Company/Project/Repo: https://github.com/nuwave/lighthouse
   * Reason: Interested in client/server in PHP
+* @sungam3r
+  * Company/Project/Repo: https://github.com/graphql-dotnet/server
+  * Reason: Interested in client/server spec
 
 ## CC Helper:
-CC: @benjie @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib @spawnia
+CC: @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r
