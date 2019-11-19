@@ -4,6 +4,9 @@ This file will help us track people that are interested in taking decisions of t
 If you want to be listed here, open a PR with your information, just order yourself by name.
 
 ## List of Developers:
+* @benjie
+  * Company/Project/Repo: https://github.com/graphql/graphiql, https://github.com/graphile/postgraphile
+  * Reason: Interested in a common HTTP spec
 * @deinok
   * Company/Project/Repo: https://github.com/graphql-dotnet/graphql-client
   * Reason: Interested in client/server on C# stack
@@ -33,4 +36,4 @@ If you want to be listed here, open a PR with your information, just order yours
   * Reason: Interested in client/server in PHP
 
 ## CC Helper:
-CC: @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib @spawnia
+CC: @benjie @deinok @erikwittern @jaydenseric @mike-marcacci @mmatsa @sjparsons @sungam3r @michaelstaib @spawnia
