@@ -1,9 +1,19 @@
-# Interested Developers:
-This file will help us track people that are interested in taking decisions of the specification of GraphQL over HTTP until migrated to a official repository of the https://github.com/graphql organization.
+# Interested Developers
+
+## Want to get involved? 
+
+If you're interested in this spec and helping contribute to it, you can get involved with the following steps:
+
+1. Read the [Roadmap](ROADMAP.md) which outlines the planned development of this spec.
+2. See [Agendas](agendas) for upcoming meetings of the GraphQL-over-HTTP working group.
+3. Add yourself to `List of Developers` below.
+
+## List of Developers
+
+This list helps us keep track people that are interested in taking decisions of the specification of GraphQL over HTTP.
 
 If you want to be listed here, open a PR with your information, just order yourself by name.
 
-## List of Developers:
 * @benjie
   * Company/Project/Repo: https://github.com/graphql/graphiql, https://github.com/graphile/postgraphile
   * Reason: Interested in a common HTTP spec
@@ -35,5 +45,6 @@ If you want to be listed here, open a PR with your information, just order yours
   * Company/Project/Repo: https://github.com/graphql-dotnet/server
   * Reason: Interested in client/server spec
 
-## CC Helper:
-CC: @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r
+### CC Helper
+
+`@benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r`
