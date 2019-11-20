@@ -1,6 +1,12 @@
+> **Stage 1: Proposal** 
+> 
+> This spec is under active development. For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
+
+---
+
 # GraphQL over HTTP
 
-*Current Working Draft*
+
 
 **Introduction**
 
