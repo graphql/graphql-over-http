@@ -6,12 +6,15 @@
 
 # GraphQL over HTTP
 
-
-
 **Introduction**
 
 HTTP is the most common choice as the client-server protocol when using GraphQL because of its ubiquity.
 However the [GraphQL specification](http://facebook.github.io/graphql/) deliberately does not specify the transport layer.
+
+The closest thing to an official specification is the article [Serving over HTTP](https://graphql.org/learn/serving-over-http/).
+Leading implementations on both client and server have mostly upheld those best practices and thus established
+a de-facto standard that is commonly used throughout the ecosystem.
+
 This specification is intended to fill this gap by specifying how GraphQL should be served over HTTP.
 The main intention of this specification is to provide interoperability between different client libraries, tools
 and server implementations.
