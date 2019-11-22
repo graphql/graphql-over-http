@@ -1,6 +1,6 @@
 # Batching
 
-Modern apps are chatty—they require a lot of data,
+Modern apps are chatty — they require a lot of data,
 and thus make a lot of requests to underlying services to fulfill those needs.
 Layering GraphQL over your services solves this issue,
 since it encapsulates multiple requests into a single operation, avoiding the cost of multiple round trips.
