@@ -1,7 +1,5 @@
 # GraphQL over HTTP Spec Roadmap
 
-The GraphQL over HTTP working group is a sub group of the GraphQL working group. Our aim is to prepare and publish version 1.0 of this spec.
-
 ## Version 1.0
 
 ### Goal
