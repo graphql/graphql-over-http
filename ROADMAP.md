@@ -7,8 +7,8 @@ _Provide a specification that allows GraphQL clients and servers with different 
 ## Guiding principles
 
 - Development is based on use cases
-- Backwards-compatible progress
-  - Servers supporting later versions of this spec will support clients using earlier versions of this spec.
+- Strive for backwards-compatible progress
+  - Servers supporting later versions of this spec should support clients using earlier versions of this spec.
 
 ## Version 1.0
 
@@ -25,7 +25,7 @@ We intend 1.0 of the spec to establish and codify existing common usages of Grap
 ### Actions
 
 - Move to the GraphQL Foundation
-- Set of running examples of ~5 of the most popular servers/clients
+- Set of running examples of ~5 of the most popular servers/clients with a standard, minimal GraphQL schema
 - Test suite to automate testing of GraphQL servers compliance with the spec
   - Can be applied to examples of popular server or public GraphQL APIs
 - Results of popular libraries and APIs compliance with current spec
@@ -34,13 +34,13 @@ We intend 1.0 of the spec to establish and codify existing common usages of Grap
 - Update links to point to the GraphQL Foundation repos and websites not FB
 - Adopt similar formatting/tooling for spec to match the GraphQL spec
 
-## Version 2 and beyond
+## Future versions
 
 Future versions of the spec may include these concepts:
 
 - Caching
 - Batching
-- Versioning
+- Versioning mechanism for servers/clients to communicate what versions they support
 - Modularity - A way to communicate what features (and possibly versions) of the HTTP spec are supported by a server
 - Persisted queries
 - Multi-part uploads
