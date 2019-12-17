@@ -110,25 +110,6 @@ For HTTP GET requests, the query parameters should be provided in the query comp
 `key=value` pairs with `&` symbol as a separator and both the key and value having their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
 The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
 
-For example, a function in JavaScript to build the URL for an operation might look like:
-
-```js
-function getURLForOperation(query, variables, operationName) {
-  let queryString = `query=${encodeURIComponent(query)}`;
-  if (variables) {
-    queryString += `&variables=${encodeURIComponent(
-      JSON.stringify(variables)
-    )}`;
-  }
-  if (operationName) {
-    queryString += `&operationName=${encodeURIComponent(
-      operationName
-    )}`;
-  }
-  return `/graphql?${queryString}`;
-}
-```
-
 GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
 
 For example, if we wanted to execute the following GraphQL query:
