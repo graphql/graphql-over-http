@@ -1,50 +1,48 @@
-# GraphQL over HTTP Spec Roadmap
+# GraphQL over HTTP Specification Roadmap
+
+## Vision
+
+_Provide a specification that allows GraphQL clients and servers with different implementations and technology stacks to interact freely over HTTP if both client and server are compliant._
+
+## Guiding principles
+
+- Development is based on use cases
+- Backwards-compatible progress
+  - Servers supporting later versions of this spec will support clients using earlier versions of this spec.
 
 ## Version 1.0
 
-### Goal
-
-Provide a spec that allows clients and servers with different implementations and technology stacks to interact freely over HTTP if both client and server are compliant with the GraphQL over HTTP spec.
-
-We intend 1.0 of the spec to largely establish and codify existing usage of GraphQL over HTTP. It should lay a foundation for future development and standardization.
-
-
-### Date
-
-_TBD_
-
+We intend 1.0 of the spec to establish and codify existing common usages of GraphQL over HTTP. In layout and structure it should lay a foundation for future development and standardization. However, we intend to see no major new features or standards emerging in this version. 
 
 ### Scope
 
-_Under active discussion_
-
-- Express defacto standards
-
+- GET/POST Requests
+- Request parameters
+- Serialization format
+- Response body
 - Status codes
-  - document the currently supported edge cases in common implementations
-
-- Test suite 
-  - Alongside the spec itself, provide a test suite that should pass if a server implements the spec
-
-- Minimal Versioning/Modularity via OPTIONS
-  - returning list of specs supported, and versions
-  - Can we not add versioning until we need it, can we find the use cases. 
-
 
 ### Actions
 
-_Under active discussion_
+- Move to the GraphQL Foundation
+- Set of running examples of ~5 of the most popular servers/clients
+- Test suite to automate testing of GraphQL servers compliance with the spec
+  - Can be applied to examples of popular server or public GraphQL APIs
+- Results of popular libraries and APIs compliance with current spec
+- Structuring of existing spec to be easier to extend in later versions
+- Fine detail focus on each of the main sections of the spec
+- Update links to point to the GraphQL Foundation repos and websites not FB
+- Adopt similar formatting/tooling for spec to match the GraphQL spec
 
-- [ ] Review existing implementations over HTTP and consider if there are standards that can be documented and extracted
-- [ ] Update links to point to the GraphQL Foundation repos and websites not FB
-- [ ] Copyright notice
+## Version 2 and beyond
 
+Future versions of the spec may include these concepts:
 
-## Future
-
-_Placeholder for future items we may wish to address_
-
-- Submit mime type application/graphql+json to IANA
-- New HTTP SEARCH method and how it could be used https://tools.ietf.org/html/draft-snell-search-method-01
+- Caching
+- Batching
+- Versioning
 - Modularity - A way to communicate what features (and possibly versions) of the HTTP spec are supported by a server
 - Persisted queries
+- Multi-part uploads
+- Submit MIME type application/graphql+json to IANA
+- New HTTP SEARCH method and how it could be used https://tools.ietf.org/html/draft-snell-search-method-01
