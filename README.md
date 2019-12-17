@@ -107,7 +107,7 @@ Note: specifying `null` in JSON (or equivalent values in other formats) as value
 ## GET
 
 For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
-`key=value` pairs with `&` symbol as a separator and both the key and value having their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
+`key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
 The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
 
 GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
