@@ -69,6 +69,7 @@ This broadly includes GraphQL servers, clients, middleware, SDK level libraries 
 | [Altair](https://github.com/imolorhe/altair)                                  | TypeScript | 1900  |
 | [Lokka](https://github.com/kadirahq/lokka)                                    | JavaScript | 1486  |
 | [graphql-hooks](https://github.com/nearform/graphql-hooks)                    | JavaScript | 1045  |
+| [apollo-upload-client](https://github.com/jaydenseric/apollo-upload-client)   | JavaScript | 859   |
 | [graphql-react](https://github.com/jaydenseric/graphql-react)                 | JavaScript | 482   |
 | [machinebox/graphql](https://github.com/machinebox/graphql)                   | Go         | 473   |
 | [nanographql](https://github.com/yoshuawuyts/nanographql)                     | JavaScript | 360   |
