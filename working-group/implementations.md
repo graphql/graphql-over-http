@@ -6,12 +6,12 @@ The following is a list of existing server and client implementations of GraphQL
 
 > The project has more than 100 stars on its GitHub repo. 
 
-Thought it's not a perfect measure, it's a commonly accessible measure get a sense of how popular a library or project is.
+Though it's not a perfect measure, it is a commonly accessible measure get a sense of how popular a library or project is.
 
 ## Popular Servers
 
 | Name | Language | ⭐️ |
-|---|---|---|---|---|
+|---|---|---|
 | [apollo-server](https://github.com/apollographql/apollo-server) | JavaScript | 8500
 | [graphql](https://github.com/graphql-go/graphql) | Go | 5700
 | [Graphene](https://github.com/graphql-python/graphene) | Python | 5200
@@ -26,7 +26,9 @@ Thought it's not a perfect measure, it's a commonly accessible measure get a sen
 | [graphql-go](https://github.com/graph-gophers/graphql-go) | Go | 3000
 | [Juniper](https://github.com/graphql-rust/juniper) | Rust | 1900
 | [Sangria](https://github.com/sangria-graphql/sangria) | Scala | 1600
+| [Lighthouse](https://github.com/nuwave/lighthouse) | PHP/Laravel | 1400
 | [lacinia](https://github.com/walmartlabs/lacinia) | Clojure | 1300
+| [graphql-laravel](https://github.com/rebing/graphql-laravel) | PHP/Laravel | 1100
 | [Thunder](https://github.com/samsarahq/thunder) | Go | 914
 | [graphql-elixir](https://github.com/graphql-elixir/graphql) | Elixir | 837
 | [Siler](https://github.com/leocavalcante/siler) | PHP | 837
@@ -45,7 +47,7 @@ Thought it's not a perfect measure, it's a commonly accessible measure get a sen
 ## Popular Clients
 
 | Name | Language | ⭐️ |
-|---|---|---|---|---|
+|---|---|---|
 | [Relay](https://github.com/facebook/relay) | JavaScript | 13800
 | [apollo-client](https://github.com/apollographql/apollo-client) | TypeScript | 12600
 | [graphiql](https://github.com/graphql/graphiql) | JavaScript | 9600
