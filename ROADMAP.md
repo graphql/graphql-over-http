@@ -43,6 +43,6 @@ Future versions of the spec may include these concepts:
 - Versioning mechanism for servers/clients to communicate what versions they support
 - Modularity - A way to communicate what features (and possibly versions) of the HTTP spec are supported by a server
 - Persisted queries
-- Multi-part uploads
+- Multipart requests (file uploads)
 - Submit MIME type application/graphql+json to IANA
 - New HTTP SEARCH method and how it could be used https://tools.ietf.org/html/draft-snell-search-method-01
