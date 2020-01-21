@@ -9,7 +9,7 @@
 **Introduction**
 
 HTTP is the most common choice as the client-server protocol when using GraphQL because of its ubiquity.
-However the [GraphQL specification](http://facebook.github.io/graphql/) deliberately does not specify the transport layer.
+However the [GraphQL specification](https://graphql.github.io/graphql-spec/) deliberately does not specify the transport layer.
 
 The closest thing to an official specification is the article [Serving over HTTP](https://graphql.org/learn/serving-over-http/).
 Leading implementations on both client and server have mostly upheld those best practices and thus established
@@ -159,7 +159,7 @@ any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it should follow the requirements for [GraphQL response](http://facebook.github.io/graphql/October2016/#sec-Response).
+If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
 Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
