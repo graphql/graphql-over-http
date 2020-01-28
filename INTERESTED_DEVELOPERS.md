@@ -12,7 +12,7 @@ If you're interested in this spec and helping contribute to it, you can get invo
 
 This list helps us keep track people that are interested in taking decisions of the specification of GraphQL over HTTP.
 
-If you want to be listed here, open a PR with your information, just order yourself by name.
+If you want to be listed here, open a PR with your information, just order yourself by username.
 
 
 * @abernix
