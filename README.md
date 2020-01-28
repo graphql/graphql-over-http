@@ -107,8 +107,8 @@ Note: specifying `null` in JSON (or equivalent values in other formats) as value
 ## GET
 
 For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
-`key=value` pairs with `&` symbol as a separator.
-The value of the `variables` parameter should be represented as a JSON-encoded string.
+`key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
+The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
 
 GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
 
@@ -130,10 +130,10 @@ With the following query variables:
 This request could be sent via an HTTP GET as follows:
 
 ```
-http://example.com/graphql?query=query($id: ID!){user(id:$id){name}}&variables={"id":"QVBJcy5ndXJ1"}
+http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
-Note: `query` and `operationName` parameters are encoded as raw strings in the query component. Therefore `null` should be interpreted as the string `"null"`.
+Note: `query` and `operationName` parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the `operationName` being the string `"null"`. If a literal `null` is desired, the parameter (e.g. `operationName`) should be omitted.
 
 ## POST
 
