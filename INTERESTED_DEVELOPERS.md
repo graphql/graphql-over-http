@@ -14,9 +14,13 @@ This list helps us keep track people that are interested in taking decisions of 
 
 If you want to be listed here, open a PR with your information, just order yourself by name.
 
+
 * @abernix
   * Company/Project/Repo: https://github.com/apollographql/apollo-server, https://github.com/apollographql/apollo-client
   * Reason: Interested in client/server spec
+* @balshor
+  * Company/Project/Repo: https://github.com/linkedin
+  * Reason: Interested in a common HTTP spec
 * @benjie
   * Company/Project/Repo: https://github.com/graphql/graphiql, https://github.com/graphile/postgraphile
   * Reason: Interested in a common HTTP spec
@@ -50,4 +54,4 @@ If you want to be listed here, open a PR with your information, just order yours
 
 ### CC Helper
 
-`@abernix @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r`
