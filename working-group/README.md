@@ -6,5 +6,5 @@ The GraphQL over HTTP working group is a sub group of the GraphQL working group.
 
 > **Last Tuesday of the month at 19:00 - 21:00 UTC**
 
-See [Agendas](Agendas) for upcoming scheduled meetings and notes from previous meetings.
+See [Agendas](agendas) for upcoming scheduled meetings and notes from previous meetings.
 
