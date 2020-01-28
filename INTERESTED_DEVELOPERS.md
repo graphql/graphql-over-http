@@ -7,6 +7,7 @@ If you're interested in this spec and helping contribute to it, you can get invo
 1. Read the [Roadmap](ROADMAP.md) which outlines the planned development of this spec.
 2. See [Agendas](agendas) for upcoming meetings of the GraphQL-over-HTTP working group.
 3. Add yourself to `List of Developers` below.
+4. Find our working group on the [GraphQL Foundation slack community](https://graphql-slack.herokuapp.com/) in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT).
 
 ## List of Developers
 
