@@ -7,7 +7,7 @@ This is an open meeting in which anyone in the GraphQL community may attend.
 
 - **Video Conference Link**: TBD
 - **Live Notes**: TBD
-- **Date & Time**: [MONTH DAY YEAR 17:00 - 20:00 UTC](https://www.timeanddate.com/worldclock/meetingdetails.html?year=2019&month=11&day=21&hour=17&min=0&sec=0&p1=224&p2=179&p3=136&p4=37&p5=239&p6=101&p7=152).
+- **Date & Time**: [MONTH DAY YEAR 19:00 - 21:00 UTC](https://www.timeanddate.com/worldclock/meetingdetails.html?year=2019&month=11&day=21&hour=19&min=0&sec=0&p1=224&p2=179&p3=136&p4=37&p5=239&p6=101&p7=152).
 
   <small>*NOTE:* Meeting date and time may change. Please check this agenda the week of the meeting to confirm.</small>
 
