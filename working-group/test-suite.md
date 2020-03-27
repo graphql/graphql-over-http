@@ -1,12 +1,12 @@
 # Test Suite
 
-These are the description of the test that we intend to build. This document is a scaffold until we have the tests implemented. At that point, the code itself will become the documentation. 
+These are the descriptions of the test that we intend to build. This document is a scaffold until we have the tests implemented. At that point, the code itself will become the documentation and this document will be removed.
 
 ## Requests
 
-Server expense serialization format to be declared in the content-type of the request. 
+Server expects serialization format to be declared in the content-type of the request.
 
-Server should validate the content-type based in the request to ensure it's a content type (serialization format) that it supports 
+Server should validate the content-type based in the request to ensure it's a content type (serialization format) that it supports
 * Return `415 Unsupported Media Type` otherwise
 
 A GET method should be successful
