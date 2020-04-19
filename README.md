@@ -159,15 +159,22 @@ any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
+If the server's response contains a body it MUST follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
-may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
+Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format.
+The source of the response may not be the GraphQL server, but instead some intermediary such as API gateways, firewalls, etc.
 
 ## Status Codes
 
-If the `data` entry in the response has any value other than `null` (when the operation has successfully executed
-without error) then the response should use the 200 (OK) status code.
-If the operation failed before or during execution, due to a syntax error, missing information, validation error
-or any other reason, then response should use the 4XX or 5XX status codes.
+A server must differentiate between different error conditions.
+
+The result of executing a GraphQL operation may contain partial data as well as encountered errors.
+Errors that happen during execution of the GraphQL operation become part of the result.
+If the server successfully executed parts of the operation and returns a well-formed response
+that contains the key `data`, the status code MUST be `200` (OK).
+
+If an error happens before execution of the GraphQL operation, the server MAY respond with a status code other than `200`.
+If the response is not a well-formed GraphQL response, the server MUST NOT respond with a status code of `200`.
+The server SHOULD respond with the appropriate status code, e.g. `401` (Unauthorized) or `500` (Internal Server Error).
+
 It is recommended to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
