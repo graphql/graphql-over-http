@@ -173,8 +173,12 @@ Errors that happen during execution of the GraphQL operation become part of the 
 If the server successfully executed parts of the operation and returns a well-formed response
 that contains the key `data`, the status code MUST be `200` (OK).
 
-If an error happens before execution of the GraphQL operation, the server MAY respond with a status code other than `200`.
 If the response is not a well-formed GraphQL response, the server MUST NOT respond with a status code of `200`.
-The server SHOULD respond with the appropriate status code, e.g. `401` (Unauthorized) or `500` (Internal Server Error).
+If an error happens before execution of the GraphQL operation, the server MAY respond with a status code other than `200`.
 
-It is recommended to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
+The server MUST respond with status code `400` in case of an error in the [validation phase](http://spec.graphql.org/June2018/#sec-Validation).
+
+The server SHOULD respond with the appropriate status code depending on the concrete error condition,
+for example `401` (Unauthorized) or `500` (Internal Server Error).
+
+It is RECOMMENDED to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
