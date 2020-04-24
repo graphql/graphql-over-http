@@ -93,15 +93,11 @@ The following are the officially recognized GraphQL content types to designate e
 | `application/graphql+json` | Required
 | `application/json` | To support legacy clients
 
-Servers MUST support requests from clients with HTTP header `Content-Type: application/graphql+json`.
+A server MUST support requests from clients with HTTP header `Content-Type: application/graphql+json`.
 
-Servers MAY support requests from clients with other content types.
+A server MAY support requests from clients with other content types.
 
 A client MUST handle receiving responses with HTTP header `Content-Type: application/graphql+json` since any compliant server must support this type.
-
-If another content type is preferable to a client, it MAY include an `Accept` HTTP header listing other acceptable content types. In this case a client SHOULD include `application/graphql+json` in the list, according to their preferred priority.
-
-According to the HTTP specification, when a client does not include at least one content type supported in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MAY respond in a default content type and specify this in the `Content-Type` header of the response. Alternatively, it MAY respond with a `415 Unsupported Media Type` status code. See § Status Codes for detailed explanation of status codes.
 
 # Request
 
@@ -195,11 +191,16 @@ any errors encountered during the request.
 
 If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type.
+A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type. By default the response MUST be serialized as JSON and MUST include a  "Content-type: application/graphql+json` header.
 
-When sending a successful response to a client, the server SHOULD respect the given `Accept` header on the request and attempt to encode the response in the desired content type. The server MUST support a content type of `application/graphql+json`.
+If another content type is preferable to a client, it MAY include an `Accept` HTTP header listing other acceptable content types in order of preference. In this case a client SHOULD include `application/graphql+json` in the list, according to their preferred priority.
 
 If no `Accept` header is given, the server MUST respond with a content type of `application/graphql+json`.
+
+The server MUST respect the given `Accept` header and attempt to encode the respond in the first supported content type listed. According to the [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2) specification, when a client does not include at least one supported content type in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MUST either:
+
+1. Disregard the `Accept` header and respond with the default content type of `application/graphql`, specifying this in the `Content-type` header; OR
+2. Respond with a `406 Not Acceptable` status code
 
 Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
