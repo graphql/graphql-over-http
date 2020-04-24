@@ -93,11 +93,13 @@ The following are the officially recognized GraphQL content types to designate e
 | `application/graphql+json` | Required
 | `application/json` | To support legacy clients
 
-A server MUST support requests from clients with HTTP header `Content-Type: application/graphql+json`.
+A server MUST support requests from clients with HTTP header `Content-Type: application/graphql+json` indicating that the body of the request is a JSON document with a GraphQL request. A server must indicate the content type of the response with a `Content-Type` header. This default value should be `Content-Type: application/graphql+json` indicating that the response is a valid JSON document containing at least one of the `data` or `errors` as a top-level attribute.
 
 A server MAY support requests from clients with other content types.
 
 A client MUST handle receiving responses with HTTP header `Content-Type: application/graphql+json` since any compliant server must support this type.
+
+This header MAY include encoding information (e.g. `Content-type: application/json; charset=utf-8`)
 
 # Request
 
