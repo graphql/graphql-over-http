@@ -1,6 +1,6 @@
 # GraphQL over HTTP Specification Roadmap
 
-## Vision
+## Mission
 
 _Provide a specification that allows GraphQL clients and servers with different implementations and technology stacks to interact freely over HTTP if both client and server are compliant._
 
