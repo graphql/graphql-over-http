@@ -1,47 +1,58 @@
-# Test Suite
+# Automated Test Suite
 
-These are the descriptions of the test that we intend to build. This document is a scaffold until we have the tests implemented. At that point, the code itself will become the documentation and this document will be removed.
+> These are the descriptions of the tests that we intend to build. This document is a scaffold until we have the tests implemented. At that point, the code itself will become the documentation and this document will be removed.
+
+| Instruction in specification | Meaning | Result of test failure |
+|---|---|---|
+| MUST | Required behavior | ERROR
+| SHOULD | Recommended behavior | WARNING
+| MAY  | Allowed behavior  | NONE
+
+The tests described below indicate whether they will raise an ERROR or a WARNING if the assertion is violated. In order for a server to be marked as fully compliant it must receive no ERROR assertion failures when this automated test suite is run. In order to have a 100% scored-card the server must receive no ERROR or WARNING assertion failures when this automated test suite is run. 
 
 ## Requests
 
-Server expects serialization format to be declared in the content-type of the request.
+A GET method SHOULD be successful
+* Send a GET HTTP request for introspection
+  * **WARNING** Assert that the server returns a 200 HTTP response
 
-Server should validate the content-type based in the request to ensure it's a content type (serialization format) that it supports
-* Return `415 Unsupported Media Type` otherwise
 
-A GET method should be successful
-* Attempt a GET method request for introspection
-   query (serialized as URL encoded key-value pair)
+A GET method with `query`, `operationName` and `variables` SHOULD be successful
+* Send a GET HTTP request for introspection using `query`, `operationName`, and `variables`. These should encoded as key-value pairs as query params. `variables` must be a URL-encoded valid JSON string.
+  * **WARNING** Assert that the server returns a 200 HTTP response
 
-A POST method should be successful
-* Attempt a POST method for introspection
-   query (serialized in body)
+At least one of either a POST or a GET method MUST be successful
+* Send a GET HTTP request for introspection AND send a POST HTTP request for introspection:
+  * **ERROR** Assert that the server returns a 200 HTTP response to one of the requests
 
-A GET method with query, operationName and variable should be successful
+A POST method SHOULD be successful
+* Send a POST HTTP request for introspection
+  * **WARNING** Assert that the server returns a 200 HTTP response
 
-A POST method with query, operationName and variable should be successful
+A POST method with `query`, `operationName` and `variables` SHOULD be successful
+* Send a POST HTTP request for introspection using `query`, `operationName`, and `variables`. These will be encoded as a JSON object.
+  * **WARNING** Assert that the server returns a 200 HTTP response
+
 
 ## Responses
 
-A 200 response should include a body. The body should include at least a `data` attribute or an `errors` attribute.
+A 200 HTTP response to a request without a specified content-type MUST include a body and MUST indicate the encoding with the `content-type` HTTP header.
+* Send a GraphQL query in an HTTP request without an `Accept` header. May be a GET or POST, based on which is supported by this server.
+  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql+json`
+  * **ERROR** Assert that the HTTP response body is valid JSON containing at least a non-null `data` or a non-null `error` top-level attribute.
+    * This header MAY include encoding information (e.g. `Content-type: application/graphql-json; charset=utf-8`)
 
-If no `Accept` header is sent in the request the server MAY choose whatever serialization format it defaults to. 
+Servers MUST respect the content type requested in the `Accept` HTTP header in the request.
+* Send a GraphQL query in an HTTP request with HTTP Header `Accept: application/graphql+json`.
+  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql+json`
+  * **ERROR** Assert that the HTTP response body is valid JSON
+* Send a GraphQL query in an HTTP request with HTTP Header `Accept: unknown/content-type`, and invalid and unsupported content-type
+  * **ERROR** Assert that either:
+    * The HTTP response is `406 Not Acceptable`; OR
+    * The HTTP response includes an HTTP Header `Content-type: application/graphql+json` and the HTTP response body is valid JSON
 
-The server SHOULD include a `content-type` header in the response to indicate what serialization format was used in the response.
-
-If `Accept` header is given in the request, the server should serialize the body in the response according to one of the content-types in the `Accepted` HTTP header.
-
-If all of the content-types listed in `Accept` are not supported by the server there are two valid options: return a 406 or return in the default content-type.
-
-> If the header field is
-   present in a request and none of the available representations for
-   the response have a media type that is listed as acceptable, the
-   origin server can either honor the header field by sending a 406 (Not
-   Acceptable) response or disregard the header field by treating the
-   response as if it is not subject to content negotiation.
-   [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2)
-
-
-Server may response with non-200 status codes
-
-Syntax error in the query should result in either a 200 with an `error` attribute in the body or a 400 response. 
+A syntax error in the query MUST result in either a 200 and a body with an  `error` attribute OR a 400 response
+* Send a GraphQL query with a valid structured request, but an invalid GraphQL query document. Include an `Accept: application/graphql-json` to ensure we receive JSON-encoded body.
+  * **ERROR** Assert that either
+    * The server responds with a 200 HTTP response and a JSON document containing a non-null `errors` top level attribute; OR
+    * The server responds with a 400 HTTP response
