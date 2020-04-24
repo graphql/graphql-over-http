@@ -1,5 +1,5 @@
-> **Stage 1: Proposal** 
-> 
+> **Stage 1: Proposal**
+>
 > This spec is under active development. For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
 
 ---
@@ -83,13 +83,31 @@ It is recommended to end the path component of the URL with `/graphql`, for exam
 
 # Serialization Format
 
-Similar to the GraphQL specification this specification does not require a specific serialization format.
-For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
+The GraphQL specification allows for many [serialization formats to be implemented](https://spec.graphql.org/June2018/#sec-Serialization-Format). In practice JSON is the most common serialization format. In order to be compliant, servers and clients implementing GraphQL over HTTP must support JSON serialization.
+
+## Content Types
+
+The following are the officially recognized GraphQL content types to designate encoding JSON over HTTP.
+
+| Name | Description |
+| `application/graphql+json` | Required
+| `application/json` | To support legacy clients
+
+Servers MUST support requests from clients with HTTP header `Content-Type: application/graphql+json`.
+
+Servers MAY support requests from clients with other content types.
+
+A client MUST handle receiving responses with HTTP header `Content-Type: application/graphql+json` since any compliant server must support this type.
+
+If another content type is preferable to a client, it MAY include an `Accept` HTTP header listing other acceptable content types. In this case a client SHOULD include `application/graphql+json` in the list, according to their preferred priority.
+
+According to the HTTP specification, when a client does not include at least one content type supported in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MAY respond in a default content type and specify this in the `Content-Type` header of the response. Alternatively, it MAY respond with a `415 Unsupported Media Type` status code. See § Status Codes for detailed explanation of status codes.
 
 # Request
 
-The GraphQL HTTP server SHOULD handle the HTTP GET and POST methods.
-Additionally, GraphQL MAY be used in combination with other HTTP request methods.
+A server MUST accept either GET requests or POST requests.
+
+A server SHOULD handle both GET and POST requests.
 
 ## Request Parameters
 
@@ -99,6 +117,8 @@ A request for execution should contain the following request parameters:
 * `operationName` - [*Optional*]: The name of the Operation in the Document to execute.
 * `variables` - [*Optional*]: Values for any Variables defined by the Operation.
 
+Note: Be aware that `query` is a misleading name as it can contain a string describing the operation that may be either a query, a mutation or a subscription.
+
 Note: depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
 
@@ -106,11 +126,19 @@ Note: specifying `null` in JSON (or equivalent values in other formats) as value
 
 ## GET
 
-For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
+For HTTP GET requests, the query parameters MUST be provided in the query component of the request URL in the form of
 `key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
-The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
+The unencoded value of the `variables` parameter MUST be represented as a URL-encoded JSON string.
 
-GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
+GET requests must ONLY be used for executing queries and MUST NOT be used for mutations or subscriptions.
+
+Servers MUST return an _Error response_ if a GET request includes a `query` and `operationName` (if present) describing an operation other than a query, such as a mutation or subscription.
+
+Clients MUST NOT send GET requests for non-query operations.
+
+Clients SHOULD NOT send a `Content-type` header on a GET request.
+
+### Example
 
 For example, if we wanted to execute the following GraphQL query:
 
@@ -121,12 +149,15 @@ query ($id: ID!) {
   }
 }
 ```
+
 With the following query variables:
-``` graphql
+
+```json
 {
-  id:"QVBJcy5ndXJ1"
+  "id": "QVBJcy5ndXJ1"
 }
 ```
+
 This request could be sent via an HTTP GET as follows:
 
 ```
@@ -137,10 +168,15 @@ Note: `query` and `operationName` parameters are encoded as raw strings in the q
 
 ## POST
 
-A standard GraphQL POST request should have a body which contains values of the request parameters encoded according to
-the value of `Content-Type` header.
+A GraphQL POST request instructs the server to perform a query, mutation or subscription operation. A GraphQL POST request should have a body which contains values of the request parameters encoded according to the value of `Content-Type` header of the request.
 
-For example if the `Content-Type` is `application/json` then the request body may be:
+When sending a POST request to a GraphQL server a client MUST include a body.
+
+A client MUST include a `content-type` with a POST request.
+
+### Example
+
+Given a POST request with a content type of `application/graphql+json` here is an example request body:
 
 ```json
 {
@@ -149,17 +185,21 @@ For example if the `Content-Type` is `application/json` then the request body ma
 }
 ```
 
-Note: both query and mutation operations can be sent over POST requests.
-
 # Response
 
-When a GraphQL server receives a request, it must return a well‐formed response. The server’s
+When a GraphQL server receives a request, it must return a well‐formed response. The server's
 response describes the result of executing the requested operation if successful, and describes
 any errors encountered during the request.
 
 ## Body
 
 If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
+
+A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type.
+
+When sending a successful response to a client, the server SHOULD respect the given `Accept` header on the request and attempt to encode the response in the desired content type. The server MUST support a content type of `application/graphql+json`.
+
+If no `Accept` header is given, the server MUST respond with a content type of `application/graphql+json`.
 
 Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
