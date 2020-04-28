@@ -1,11 +1,20 @@
-# GraphQL over HTTP
+> **Stage 1: Proposal** 
+> 
+> This spec is under active development. For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
 
-*Current Working Draft*
+---
+
+# GraphQL over HTTP
 
 **Introduction**
 
 HTTP is the most common choice as the client-server protocol when using GraphQL because of its ubiquity.
-However the [GraphQL specification](http://facebook.github.io/graphql/) deliberately does not specify the transport layer.
+However the [GraphQL specification](https://graphql.github.io/graphql-spec/) deliberately does not specify the transport layer.
+
+The closest thing to an official specification is the article [Serving over HTTP](https://graphql.org/learn/serving-over-http/).
+Leading implementations on both client and server have mostly upheld those best practices and thus established
+a de-facto standard that is commonly used throughout the ecosystem.
+
 This specification is intended to fill this gap by specifying how GraphQL should be served over HTTP.
 The main intention of this specification is to provide interoperability between different client libraries, tools
 and server implementations.
@@ -59,7 +68,7 @@ Note: This is an example of a non-normative note.
 
 # Overview
 
-Serving GraphQL over HTTP provides the ability to use then full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
+Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
 semantics of HTTP but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
 
 GraphQL naturally follows the HTTP request/response message model providing a GraphQL request in an HTTP request and
@@ -70,7 +79,7 @@ GraphQL response in an HTTP response.
 A GraphQL server operates on a single URL and all GraphQL requests for a given service should be directed
 at this URL. Other protocols may also use that URL.
 
-It is recommended to end the path component of URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
+It is recommended to end the path component of the URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
 
 # Serialization Format
 
@@ -79,10 +88,11 @@ For consistency and ease of notation, examples of the response are given in JSON
 
 # Request
 
-The GraphQL HTTP server should handle the HTTP GET and POST methods.
+The GraphQL HTTP server SHOULD handle the HTTP GET and POST methods.
 Additionally, GraphQL MAY be used in combination with other HTTP request methods.
 
 ## Request Parameters
+
 A request for execution should contain the following request parameters:
 
 * `query` - A Document containing GraphQL Operations and Fragments to execute.
@@ -93,15 +103,15 @@ A request for execution should contain the following request parameters:
 Note: depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
 
-Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equal to not specifying them at all.
+Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.
 
 Note: variables and extensions, if set, must have a map as its value.
 
 ## GET
 
 For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
-`key=value` pairs with `&` symbol as a separator.
-The value of the `variables` parameter should be represented as a JSON-encoded string.
+`key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
+The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
 
 GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
 
@@ -123,10 +133,10 @@ With the following query variables:
 This request could be sent via an HTTP GET as follows:
 
 ```
-http://example.com/graphql?query=query($id: ID!){user(id:$id){name}}&variables={"id":"QVBJcy5ndXJ1"}
+http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
-Note: `query` and `operationName` parameters are encoded as raw strings in the query component. Therefore `null` should be interpreted as the string `"null"`.
+Note: `query` and `operationName` parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the `operationName` being the string `"null"`. If a literal `null` is desired, the parameter (e.g. `operationName`) should be omitted.
 
 ## POST
 
@@ -142,6 +152,8 @@ For example if the `Content-Type` is `application/json` then the request body ma
 }
 ```
 
+Note: both query and mutation operations can be sent over POST requests.
+
 # Response
 
 When a GraphQL server receives a request, it must return a well‐formed response. The server’s
@@ -150,7 +162,7 @@ any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it should follow the requirements for [GraphQL response](http://facebook.github.io/graphql/October2016/#sec-Response).
+If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
 Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
