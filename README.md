@@ -170,7 +170,7 @@ The result of executing a GraphQL operation may contain partial data as well as 
 Errors that happen during execution of the GraphQL operation become part of the result.
 
 If the server successfully executed parts of the operation and returns a well-formed response
-that contains a non-null key `data`, the status code SHOULD be `200` (OK).
+that contains a non-null key `data`, the status code SHOULD be `2xx`.
 
 If the status code is `200`, the response MUST be a well-formed GraphQL response.
 
