@@ -166,17 +166,16 @@ The source of the response may not be the GraphQL server, but instead some inter
 
 ## Status Codes
 
-A server must differentiate between different error conditions.
-
 The result of executing a GraphQL operation may contain partial data as well as encountered errors.
 Errors that happen during execution of the GraphQL operation become part of the result.
+
 If the server successfully executed parts of the operation and returns a well-formed response
-that contains the key `data`, the status code MUST be `200` (OK).
+that contains a non-null key `data`, the status code SHOULD be `200` (OK).
 
-If the response is not a well-formed GraphQL response, the server MUST NOT respond with a status code of `200`.
-If an error happens before execution of the GraphQL operation, the server MAY respond with a status code other than `200`.
+If the status code is `200`, the response MUST be a well-formed GraphQL response.
 
-The server MUST respond with status code `400` in case of an error in the [validation phase](http://spec.graphql.org/June2018/#sec-Validation).
+The server SHOULD respond with status code `400` (Bad Request) in case of a validation error that
+prevented execution of the request.
 
 The server SHOULD respond with the appropriate status code depending on the concrete error condition,
 for example `401` (Unauthorized) or `500` (Internal Server Error).
