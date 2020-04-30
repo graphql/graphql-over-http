@@ -81,7 +81,8 @@ A GraphQL over HTTP compliant server MUST designate at least one URL that handle
 It is allowed for the same GraphQL schema to be available on multiple URLs.
 
 All GraphQL operations that are available in the schema MUST be available on each designated URL.
-That means the client can send all their GraphQL operations to one endpoint.
+That means the client can send all their GraphQL requests to a single endpoint, regardless
+of the contained Operations, Fragments or Variables.
 
 Other protocols may also use those URLs.
 
