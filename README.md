@@ -39,7 +39,6 @@ A conforming implementation of GraphQL over HTTP may provide additional function
 but must not where explicitly disallowed or it would otherwise result
 in non-conformance.
 
-
 **Non-Normative Portions**
 
 All contents of this document are normative except portions explicitly
@@ -68,18 +67,28 @@ Note: This is an example of a non-normative note.
 
 # Overview
 
-Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
-semantics of HTTP but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
+Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP.
+Carrying GraphQL in HTTP does not mean that GraphQL overrides existing semantics of HTTP,
+but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
 
-GraphQL naturally follows the HTTP request/response message model providing a GraphQL request in an HTTP request and
-GraphQL response in an HTTP response.
+GraphQL naturally follows the HTTP request/response message model,
+providing a GraphQL request in an HTTP request and GraphQL response in an HTTP response.
 
 # URL
 
-A GraphQL server operates on a single URL and all GraphQL requests for a given service should be directed
-at this URL. Other protocols may also use that URL.
+A GraphQL over HTTP compliant server MUST designate at least one URL that handles GraphQL requests.
 
-It is recommended to end the path component of the URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
+It is allowed for the same GraphQL schema to be available on multiple URLs.
+
+All GraphQL operations that are available in the schema MUST be available on each designated URL.
+That means the client can send all their GraphQL operations to one endpoint.
+
+Other protocols may also use those URLs.
+
+It is RECOMMENDED to end the path component of the URL with `/graphql`, for example:
+- `http://example.com/graphql`
+- `http://product.example.com/graphql`
+- `http://example.com/product/graphql`
 
 # Serialization Format
 
