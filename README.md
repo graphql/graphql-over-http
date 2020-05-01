@@ -172,7 +172,8 @@ that contains a non-null key `data`, the status code MUST be `200`.
 If the status code is `200`, the response MUST be a well-formed GraphQL response.
 
 The result of executing a GraphQL operation may contain partial data as well as encountered errors.
-Errors that happen during execution of the GraphQL operation become part of the result.
+Errors that happen during execution of the GraphQL operation typically become part of the result,
+as long as the server is still able to produce well-formed response.
 
 In case of errors that completely prevent the successful execution of the request, the server SHOULD respond
 with the appropriate status code depending on the concrete error condition. For example:
@@ -180,5 +181,12 @@ with the appropriate status code depending on the concrete error condition. For 
 - `400` (Bad Request), in case of a validation error
 - `401` (Unauthorized), if an unauthenticated client is not allowed to access the schema
 - `500` (Internal Server Error), for unexpected failures in the server
+
+As an example, the way authorization errors may be handled illustrates the different error conditions.
+If a client is forbidden from making any GraphQL requests at all, the server may respond with
+status code `403` (Forbidden) and not return any GraphQL data.
+In contrast to that, a client might be allowed to access the schema, but requests some restricted fields.
+Given the server can provide at least partial `data`, the response would have status code `200` (OK) and 
+include `errors` as part of the GraphQL response.
 
 It is RECOMMENDED to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
