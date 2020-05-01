@@ -178,7 +178,7 @@ In case of errors that completely prevent the successful execution of the reques
 with the appropriate status code depending on the concrete error condition. For example:
 
 - `400` (Bad Request), in case of a validation error
-- `401` (Unauthorized), if the client is not allowed to access the schema or any of the requested fields
+- `401` (Unauthorized), if an unauthenticated client is not allowed to access the schema
 - `500` (Internal Server Error), for unexpected failures in the server
 
 It is RECOMMENDED to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
