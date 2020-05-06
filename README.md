@@ -173,7 +173,7 @@ If the status code is `200`, the response MUST be a well-formed GraphQL response
 
 The result of executing a GraphQL operation may contain partial data as well as encountered errors.
 Errors that happen during execution of the GraphQL operation typically become part of the result,
-as long as the server is still able to produce well-formed response.
+as long as the server is still able to produce a well-formed response.
 
 In case of errors that completely prevent the successful execution of the request, the server SHOULD respond
 with the appropriate status code depending on the concrete error condition. For example:
