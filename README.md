@@ -83,7 +83,7 @@ That means the client can send all their GraphQL requests to a single endpoint, 
 of the contained Operations, Fragments or Variables.
 
 Multiple URLs MAY exist on a server to handle GraphQL requests, potentially serving different
-but independent schemas. It is allowed for the same GraphQL schema to be available on multiple URLs.
+but independent schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
 
 Other protocols or services may also use those URLs, as long as they don't conflict with the
 server's responsibility to handle GraphQL requests.
