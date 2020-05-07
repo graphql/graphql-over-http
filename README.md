@@ -85,7 +85,7 @@ of the contained Operations, Fragments or Variables.
 Multiple URLs MAY exist on a server to handle GraphQL requests, potentially serving different
 but independent schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
 
-Other protocols or services may also use those URLs, as long as they don't conflict with the
+Those URLs MAY also be used for other purposes, as long as they don't conflict with the
 server's responsibility to handle GraphQL requests.
 
 It is RECOMMENDED to end the path component of the URL with `/graphql`, for example:
