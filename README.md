@@ -78,12 +78,17 @@ providing a GraphQL request in an HTTP request and GraphQL response in an HTTP r
 
 A GraphQL over HTTP compliant server MUST designate at least one URL that handles GraphQL requests.
 
-All GraphQL operations that are available in a schema MUST be available on all URLs that are designated to it.
-That means the client can send all their GraphQL requests to a single endpoint, regardless
-of the contained Operations, Fragments or Variables.
+A GraphQL schema allows clients to know the available operations on a GraphQL server.
+Clients can discover the schema by sending an introspection query, which the server MUST answer with a proper response. 
+
+The schema on a single URL MAY not be the same for every client.
+For example, certain fields could be restricted to authenticated users or alpha testers.
+
+All Queries and Mutations a client discovered in the schema MUST be available on the same URL.
+That means the client can send all their GraphQL requests to a single endpoint.
 
 Multiple URLs MAY exist on a server to handle GraphQL requests, potentially serving different
-but independent schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
+but self-sufficient schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
 
 Those URLs MAY also be used for other purposes, as long as they don't conflict with the
 server's responsibility to handle GraphQL requests.
