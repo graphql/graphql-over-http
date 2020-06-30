@@ -41,7 +41,6 @@ A conforming implementation of GraphQL over HTTP may provide additional function
 but must not where explicitly disallowed or it would otherwise result
 in non-conformance.
 
-
 **Non-Normative Portions**
 
 All contents of this document are normative except portions explicitly
@@ -70,18 +69,36 @@ Note: This is an example of a non-normative note.
 
 # Overview
 
-Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not mean that GraphQL overrides existing
-semantics of HTTP but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
+Serving GraphQL over HTTP provides the ability to use the full advantages of GraphQL with the rich feature set of HTTP.
+Carrying GraphQL in HTTP does not mean that GraphQL overrides existing semantics of HTTP,
+but rather that the semantics of GraphQL over HTTP map naturally to HTTP semantics.
 
-GraphQL naturally follows the HTTP request/response message model providing a GraphQL request in an HTTP request and
-GraphQL response in an HTTP response.
+GraphQL naturally follows the HTTP request/response message model,
+providing a GraphQL request in an HTTP request and GraphQL response in an HTTP response.
 
 # URL
 
-A GraphQL server operates on a single URL and all GraphQL requests for a given service should be directed
-at this URL. Other protocols may also use that URL.
+A GraphQL over HTTP compliant server MUST designate at least one URL that handles GraphQL requests.
 
-It is recommended to end the path component of the URL with `/graphql`, for example: `http://example.com/graphql` or `http://example.com/product/graphql`.
+A GraphQL schema allows clients to know the available operations on a GraphQL server.
+Clients can discover the schema by sending an introspection query, which the server MUST answer with a proper response. 
+
+The schema on a single URL MAY not be the same for every client.
+For example, certain fields could be restricted to authenticated users or alpha testers.
+
+All Queries and Mutations a client discovered in the schema MUST be available on the same URL.
+That means the client can send all their GraphQL requests to a single endpoint.
+
+Multiple URLs MAY exist on a server to handle GraphQL requests, potentially serving different
+but self-sufficient schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
+
+Those URLs MAY also be used for other purposes, as long as they don't conflict with the
+server's responsibility to handle GraphQL requests.
+
+It is RECOMMENDED to end the path component of the URL with `/graphql`, for example:
+- `http://example.com/graphql`
+- `http://product.example.com/graphql`
+- `http://example.com/product/graphql`
 
 # Serialization Format
 
