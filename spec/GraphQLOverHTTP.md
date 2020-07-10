@@ -1,8 +1,9 @@
-> **Stage 1: Proposal** 
-> 
-> This spec is under active development. For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
->
-> You can find our community in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the [GraphQL Foundation slack](https://graphql-slack.herokuapp.com/).
+GraphQL Over HTTP
+-----------------
+
+Note: **Stage 1: Proposal** 
+This spec is under active development. For more information, please see the [Roadmap](https://github.com/APIs-guru/graphql-over-http/blob/master/ROADMAP.md) or [how to get involved](https://github.com/APIs-guru/graphql-over-http/blob/master/INTERESTED_DEVELOPERS.md).
+You can find our community in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the [GraphQL Foundation slack](https://graphql-slack.herokuapp.com/).
 
 ---
 
@@ -96,9 +97,18 @@ Those URLs MAY also be used for other purposes, as long as they don't conflict w
 server's responsibility to handle GraphQL requests.
 
 It is RECOMMENDED to end the path component of the URL with `/graphql`, for example:
-- `http://example.com/graphql`
-- `http://product.example.com/graphql`
-- `http://example.com/product/graphql`
+
+```url example
+http://example.com/graphql
+```
+
+```url example
+http://product.example.com/graphql
+```
+
+```url example
+http://example.com/product/graphql
+```
 
 # Serialization Format
 
@@ -114,48 +124,51 @@ Additionally, GraphQL MAY be used in combination with other HTTP request methods
 
 A request for execution should contain the following request parameters:
 
-* `query` - A Document containing GraphQL Operations and Fragments to execute.
-* `operationName` - [*Optional*]: The name of the Operation in the Document to execute.
-* `variables` - [*Optional*]: Values for any Variables defined by the Operation.
-* `extensions` - [*Optional*]: This entry is reserved for implementors to extend the protocol however they see fit.
+* {query} - A Document containing GraphQL Operations and Fragments to execute.
+* {operationName} - (*Optional*): The name of the Operation in the Document to execute.
+* {variables} - (*Optional*): Values for any Variables defined by the Operation.
+* {extensions} - (*Optional*): This entry is reserved for implementors to extend the protocol however they see fit.
 
 Note: depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
 
 Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.
 
-Note: variables and extensions, if set, must have a map as its value.
+Note: {variables} and {extensions}, if set, must have a map as its value.
 
 ## GET
 
 For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
 `key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
-The unencoded value of the `variables` parameter should be represented as a JSON-encoded string.
+The unencoded value of the {variables} parameter should be represented as a JSON-encoded string.
 
-GET requests can be used for executing ONLY queries. If the values of `query` and `operationName` indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
+GET requests can be used for executing ONLY queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
 
 For example, if we wanted to execute the following GraphQL query:
 
-```graphql
+```graphql example
 query ($id: ID!) {
   user(id:$id) {
     name
   }
 }
 ```
+
 With the following query variables:
-``` graphql
+
+```graphql example
 {
   id:"QVBJcy5ndXJ1"
 }
 ```
+
 This request could be sent via an HTTP GET as follows:
 
-```
+```url example
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
-Note: `query` and `operationName` parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the `operationName` being the string `"null"`. If a literal `null` is desired, the parameter (e.g. `operationName`) should be omitted.
+Note: {query} and {operationName} parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the {operationName} being the string `"null"`. If a literal `null` is desired, the parameter (e.g. {operationName}) should be omitted.
 
 ## POST
 
@@ -164,7 +177,7 @@ the value of `Content-Type` header.
 
 For example if the `Content-Type` is `application/json` then the request body may be:
 
-```json
+```json example
 {
   "query": "query($id: ID!){user(id:$id){name}}",
   "variables": { "id": "QVBJcy5ndXJ1" }
