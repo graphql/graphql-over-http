@@ -215,3 +215,24 @@ as long as the server is still able to produce a well-formed response.
 
 In case of errors that completely prevent the successful execution of the request,
 the server SHOULD respond with the appropriate status code depending on the concrete error condition.
+
+There are four types of validation errors:
+
+1. Unparseable or invalid request body, for example `NONSENSE` or `{"qeury": "{__typename}"}`
+2. GraphQL Specification document validation errors (valid syntax, no loops in fragments, etc)
+3. Custom document validations that can be performed before execution (e.g. graphql-depth-limit)
+4. Runtime validations performed by resolvers (i.e. during the execution of the GraphQL operation).
+
+The error types 1. and 2. prevent execution of the request entirely and MUST result in
+status code `400` (Bad Request). Types 3. and 4. may still allow partial execution and
+MUST result in status code `200`.
+
+If an unauthenticated client is not allowed to access the schema, the server MUST respond with
+status code `401` (Unauthorized).
+
+If the server failed unexpectedly, it MUST respond with status code `500` (Internal Server Error).
+
+If a client is not authorized to access any of the requested fields, the server MUST respond with
+status code `403` (Forbidden) and not return any `data`.
+If only some requested fields are restricted, and the server can provide at least partial `data`,
+the response MUST have status code `200` (OK) and include `errors` as part of the GraphQL response.
