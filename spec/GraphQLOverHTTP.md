@@ -201,8 +201,17 @@ may not be the GraphQL server but instead some intermediary such as API gateways
 
 ## Status Codes
 
-If the `data` entry in the response has any value other than `null` (when the operation has successfully executed
-without error) then the response should use the 200 (OK) status code.
-If the operation failed before or during execution, due to a syntax error, missing information, validation error
-or any other reason, then response should use the 4XX or 5XX status codes.
-It is recommended to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
+If the response has Content-Type GraphQL and contains a non-null `data` entry,
+then it MUST have status code `2xx`, and it SHOULD have status code `200`.
+
+If the response has Content-Type GraphQL and has status code `2xx`,
+the entry `data` entry must be either:
+- equal to `null` (in case of an execution error)
+- not present (in case of a validation error)
+
+The result of executing a GraphQL operation may contain partial data as well as encountered errors.
+Errors that happen during execution of the GraphQL operation typically become part of the result,
+as long as the server is still able to produce a well-formed response.
+
+In case of errors that completely prevent the successful execution of the request,
+the server SHOULD respond with the appropriate status code depending on the concrete error condition.
