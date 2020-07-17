@@ -5,7 +5,7 @@
 If you're interested in this spec and helping contribute to it, you can get involved with the following steps:
 
 1. Read the [Roadmap](ROADMAP.md) which outlines the planned development of this spec.
-2. See [Agendas](agendas) for upcoming meetings of the GraphQL-over-HTTP working group.
+2. See [Agendas](working-group/agendas) for upcoming meetings of the GraphQL-over-HTTP working group.
 3. Add yourself to `List of Developers` below.
 4. Find our working group on the [GraphQL Foundation slack community](https://graphql-slack.herokuapp.com/) in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT).
 
@@ -28,6 +28,9 @@ If you want to be listed here, open a PR with your information, just order yours
 * @deinok
   * Company/Project/Repo: https://github.com/graphql-dotnet/graphql-client
   * Reason: Interested in client/server on C# stack
+* @enisdenjo
+  * Company/Project/Repo: https://github.com/domonda, https://github.com/bhidapa, https://github.com/enisdenjo/relay-modern-boilerplate
+  * Reason: Interested in a common subscriptions spec
 * @erikwittern
   * Company/Project/Repo: https://github.com/graphql/libgraphqlparser, https://github.com/IBM/openapi-to-graphql
   * Reason: Interested in client/server in JavaScript/C++
@@ -55,4 +58,4 @@ If you want to be listed here, open a PR with your information, just order yours
 
 ### CC Helper
 
-`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @enisdenjo`
