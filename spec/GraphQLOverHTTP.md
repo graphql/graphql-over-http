@@ -204,8 +204,8 @@ may not be the GraphQL server but instead some intermediary such as API gateways
 If the response has Content-Type GraphQL and contains a non-null `data` entry,
 then it MUST have status code `2xx`, and it SHOULD have status code `200`.
 
-If the response has Content-Type GraphQL and has status code `2xx`,
-the entry `data` entry must be either:
+If the response has Content-Type GraphQL and has a non-`2xx` status code,
+the `data` entry must be either:
 - equal to `null` (in case of an execution error)
 - not present (in case of a validation error)
 
