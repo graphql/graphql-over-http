@@ -29,7 +29,7 @@ If you want to be listed here, open a PR with your information, just order yours
   * Company/Project/Repo: https://github.com/graphql-dotnet/graphql-client
   * Reason: Interested in client/server on C# stack
 * @enisdenjo
-  * Company/Project/Repo: https://github.com/domonda, https://github.com/bhidapa, https://github.com/enisdenjo/relay-modern-boilerplate
+  * Company/Project/Repo: https://github.com/domonda, https://github.com/bhidapa, https://github.com/enisdenjo/graphql-transport-ws
   * Reason: Interested in a common subscriptions spec
 * @erikwittern
   * Company/Project/Repo: https://github.com/graphql/libgraphqlparser, https://github.com/IBM/openapi-to-graphql
