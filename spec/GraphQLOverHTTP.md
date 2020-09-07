@@ -209,7 +209,7 @@ the `data` entry must be either:
 - equal to `null`
 - not present
 
-The result of executing a GraphQL operation may contain partial data as well as encountered errors.
+Note: The result of executing a GraphQL operation may contain partial data as well as encountered errors.
 Errors that happen during execution of the GraphQL operation typically become part of the result,
 as long as the server is still able to produce a well-formed response.
 
