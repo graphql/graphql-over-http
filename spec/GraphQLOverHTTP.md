@@ -144,6 +144,8 @@ For HTTP GET requests, the query parameters MUST be provided in the query compon
 `key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
 The unencoded value of the {variables} parameter SHOULD be represented as a JSON-encoded string.
 
+GET requests can be used for executing ONLY queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
+
 For example, if we wanted to execute the following GraphQL query:
 
 ```graphql example
@@ -169,11 +171,6 @@ http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname
 ```
 
 Note: {query} and {operationName} parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the {operationName} being the string `"null"`. If a literal `null` is desired, the parameter (e.g. {operationName}) should be omitted.
-
-GET requests MUST only be used for executing queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server SHOULD immediately respond with error status code 405 Method Not Allowed and halt execution.
-
-This restriction is necessary to conform with the long-established semantics of safe methods within HTTP.
-
 
 ## POST
 
