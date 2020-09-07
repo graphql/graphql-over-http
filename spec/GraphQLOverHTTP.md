@@ -88,7 +88,8 @@ The schema on a single URL MAY not be the same for every client.
 For example, certain fields could be restricted to authenticated users or alpha testers.
 
 All Queries and Mutations a client discovered in the schema MUST be available on the same URL.
-That means the client can send all their GraphQL requests to a single endpoint.
+
+Note: This means the client can send all their GraphQL requests to a single endpoint.
 
 Multiple URLs MAY exist on a server to handle GraphQL requests, potentially serving different
 but self-sufficient schemas. The same GraphQL schema MAY be available on multiple URLs on the server.
@@ -113,7 +114,8 @@ http://example.com/product/graphql
 # Serialization Format
 
 Similar to the GraphQL specification this specification does not require a specific serialization format.
-For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
+
+Note: For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
 
 # Request
 
@@ -129,7 +131,7 @@ A request for execution should contain the following request parameters:
 * {variables} - (*Optional*): Values for any Variables defined by the Operation.
 * {extensions} - (*Optional*): This entry is reserved for implementors to extend the protocol however they see fit.
 
-Note: depending on the serialization format used, values of the aforementioned parameters can be
+Note: Depending on the serialization format used, values of the aforementioned parameters can be
 encoded differently but their names and semantics must stay the same.
 
 Note: specifying `null` in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.
@@ -138,11 +140,9 @@ Note: {variables} and {extensions}, if set, must have a map as its value.
 
 ## GET
 
-For HTTP GET requests, the query parameters should be provided in the query component of the request URL in the form of
+For HTTP GET requests, the query parameters MUST be provided in the query component of the request URL in the form of
 `key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
-The unencoded value of the {variables} parameter should be represented as a JSON-encoded string.
-
-GET requests can be used for executing ONLY queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
+The unencoded value of the {variables} parameter SHOULD be represented as a JSON-encoded string.
 
 For example, if we wanted to execute the following GraphQL query:
 
@@ -170,9 +170,14 @@ http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname
 
 Note: {query} and {operationName} parameters are encoded as raw strings in the query component. Therefore if the query string contained `operationName=null` then it should be interpreted as the {operationName} being the string `"null"`. If a literal `null` is desired, the parameter (e.g. {operationName}) should be omitted.
 
+GET requests MUST only be used for executing queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server SHOULD immediately respond with error status code 405 Method Not Allowed and halt execution.
+
+This restriction is necessary to conform with the long-established semantics of safe methods within HTTP.
+
+
 ## POST
 
-A standard GraphQL POST request should have a body which contains values of the request parameters encoded according to
+A standard GraphQL POST request SHOULD have a body which contains values of the request parameters encoded according to
 the value of `Content-Type` header.
 
 For example if the `Content-Type` is `application/json` then the request body may be:
@@ -188,21 +193,21 @@ Note: both query and mutation operations can be sent over POST requests.
 
 # Response
 
-When a GraphQL server receives a request, it must return a well‐formed response. The server’s
+When a GraphQL server receives a request, it MUST return a well‐formed response. The server’s
 response describes the result of executing the requested operation if successful, and describes
 any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
+If the server's response contains a body it SHOULD follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
+Note: For any non-2XX response, the client SHOULD NOT rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
 
 ## Status Codes
 
 If the `data` entry in the response has any value other than `null` (when the operation has successfully executed
-without error) then the response should use the 200 (OK) status code.
+without error) then the response SHOULD use the 200 (OK) status code.
 If the operation failed before or during execution, due to a syntax error, missing information, validation error
-or any other reason, then response should use the 4XX or 5XX status codes.
+or any other reason, the response SHOULD use the 4XX or 5XX status codes.
 It is recommended to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
