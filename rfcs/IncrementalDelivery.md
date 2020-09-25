@@ -39,6 +39,7 @@ Content-Length: 57
 
 ## Server Implementations
 * `express-graphql`: [pull request](https://github.com/graphql/express-graphql/pull/583)
+* `Hot Chocolate`: [release](https://github.com/ChilliCream/hotchocolate/releases/tag/11.0.0-preview.146)
 
 ## Client Implementations
 * [fetch-multipart-graphql](https://github.com/relay-tools/fetch-multipart-graphql) - Browser support using `fetch` or `XMLHttpRequest`
