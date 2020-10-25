@@ -243,4 +243,4 @@ _The client and the server has already gone through [successful connection initi
 
 ## Implementations
 
-- [graphql-transport-ws](https://github.com/enisdenjo/graphql-transport-ws)
+- [graphql-ws](https://github.com/enisdenjo/graphql-ws)
