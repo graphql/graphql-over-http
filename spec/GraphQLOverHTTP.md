@@ -230,7 +230,7 @@ MUST result in status code `2xx`, and SHOULD result in status code `200` (Okay).
 If a client is not allowed to access the schema, the server MUST respond with
 status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate, and MAY respond with status code `404` (Not Found) if security concerns demand it.
 
-If the server failed unexpectedly, it MUST respond with status code `500` (Internal Server Error).
+If the server failed unexpectedly, it MUST respond with the appropriate `5xx` status code.
 
 If a client is not authorized to access any of the requested fields, the server MUST respond with
 status code `403` (Forbidden) and not return any `data`.
