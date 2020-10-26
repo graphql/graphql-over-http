@@ -231,6 +231,3 @@ If a client is not allowed to access the schema, the server MUST respond with
 status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate, and MAY respond with status code `404` (Not Found) if security concerns demand it.
 
 If the server failed unexpectedly, it MUST respond with the appropriate `5xx` status code.
-
-If only some requested fields are restricted, and the server can provide at least partial `data`,
-the response MUST have status code `200` (OK) and include `errors` as part of the GraphQL response.
