@@ -206,10 +206,10 @@ then it MUST have status code `2xx`, and it SHOULD have status code `200`.
 
 If the response has Content-Type GraphQL and has a non-`2xx` status code,
 the `data` entry must be either:
-- equal to `null` (in case of an execution error)
-- not present (in case of a validation error)
+- equal to `null`
+- not present
 
-The result of executing a GraphQL operation may contain partial data as well as encountered errors.
+Note: The result of executing a GraphQL operation may contain partial data as well as encountered errors.
 Errors that happen during execution of the GraphQL operation typically become part of the result,
 as long as the server is still able to produce a well-formed response.
 
