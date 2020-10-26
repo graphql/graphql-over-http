@@ -221,7 +221,7 @@ There are four types of validation errors:
 1. Unparseable or invalid request body, for example `NONSENSE` or `{"qeury": "{__typename}"}`
 2. GraphQL Specification document validation errors (valid syntax, no loops in fragments, etc)
 3. Custom document validations that can be performed before execution (e.g. graphql-depth-limit)
-4. Runtime validations performed by resolvers (i.e. during the execution of the GraphQL operation).
+4. Runtime validations performed by resolvers (e.g. during the execution of the GraphQL operation).
 
 Error types 1. and 2. prevent execution of the request in its entirety; they MUST result in
 status code `4xx` or `5xx`, and SHOULD result in status code `400` (Bad Request). Types 3. and 4. may still allow partial execution; they
