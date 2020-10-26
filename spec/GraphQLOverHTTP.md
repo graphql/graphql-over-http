@@ -227,8 +227,8 @@ Error types 1. and 2. prevent execution of the request in its entirety; they MUS
 status code `4xx` or `5xx`, and SHOULD result in status code `400` (Bad Request). Types 3. and 4. may still allow partial execution; they
 MUST result in status code `2xx`, and SHOULD result in status code `200` (Okay).
 
-If an unauthenticated client is not allowed to access the schema, the server MUST respond with
-status code `401` (Unauthorized).
+If a client is not allowed to access the schema, the server MUST respond with
+status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate, and MAY respond with status code `404` (Not Found) if security concerns demand it.
 
 If the server failed unexpectedly, it MUST respond with status code `500` (Internal Server Error).
 
