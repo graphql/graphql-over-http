@@ -224,10 +224,12 @@ There are four types of validation errors:
 4. Runtime validations performed by resolvers (e.g. during the execution of the GraphQL operation).
 
 Error types 1. and 2. prevent execution of the request in its entirety; they MUST result in
-status code `4xx` or `5xx`, and SHOULD result in status code `400` (Bad Request). Types 3. and 4. may still allow partial execution; they
-MUST result in status code `2xx`, and SHOULD result in status code `200` (Okay).
+status code `4xx` or `5xx`, and SHOULD result in status code `400` (Bad Request).
+Types 3. and 4. may still allow partial execution; they MUST result in
+status code `2xx`, and SHOULD result in status code `200` (Okay).
 
 If a client is not allowed to access the schema, the server MUST respond with
-status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate, and MAY respond with status code `404` (Not Found) if security concerns demand it.
+status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate,
+and MAY respond with status code `404` (Not Found) if security concerns demand it.
 
 If the server failed unexpectedly, it MUST respond with the appropriate `5xx` status code.
