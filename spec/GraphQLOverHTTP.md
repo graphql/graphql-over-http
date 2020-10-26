@@ -232,7 +232,5 @@ status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden)
 
 If the server failed unexpectedly, it MUST respond with the appropriate `5xx` status code.
 
-If a client is not authorized to access any of the requested fields, the server MUST respond with
-status code `403` (Forbidden) and not return any `data`.
 If only some requested fields are restricted, and the server can provide at least partial `data`,
 the response MUST have status code `200` (OK) and include `errors` as part of the GraphQL response.
