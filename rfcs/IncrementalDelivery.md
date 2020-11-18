@@ -27,7 +27,7 @@ Content-Type: application/json; charset=utf-8
 {"data":{"test":"Hello World"},"path":[],"hasNext":false}
 -----
 ```
-* The boundary used is - and is passed to the client in the http response's `Content-Type` header. Note that headers can appear in both the HTTP response itself and as part of the response body. The `Content-Type` header must be sent in the HTTP response.
+* The boundary used is `-` and is passed to the client in the http response's `Content-Type` header. Note that headers can appear in both the HTTP response itself and as part of the response body. The `Content-Type` header must be sent in the HTTP response.
 * An initial boundary is sent marking the end of the preamble area.
 * Each part of the multipart response must contain a `Content-Type` header. Similar to the GraphQL specification this specification does not require a specific serialization format. For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
 * After all headers, an additional `CRLF` is sent.
