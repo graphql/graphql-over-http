@@ -45,3 +45,4 @@ Content-Length: 57
 
 ## Client Implementations
 * [fetch-multipart-graphql](https://github.com/relay-tools/fetch-multipart-graphql) - Browser support using `fetch` or `XMLHttpRequest`
+* [meros](https://github.com/maraisr/meros) - A fast utility for reading streamed multipart/mixed responses on the client.
