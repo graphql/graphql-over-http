@@ -37,6 +37,9 @@ If you want to be listed here, open a PR with your information, just order yours
 * @jaydenseric
   * Company/Project/Repo: https://github.com/jaydenseric/graphql-multipart-request-spec
   * Reason: Interested in multipart request spec
+* @maraisr
+  * Company/Project/Repo: https://github.com/maraisr/meros
+  * Reason: Interested in common incremental delivery spec
 * @michaelstaib
   * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
   * Reason: Interested in client/server in JavaScript/C++/C#
