@@ -27,12 +27,12 @@ Content-Type: application/json; charset=utf-8
 {"data":{"test":"Hello World"},"path":[],"hasNext":false}
 -----
 ```
-* The boundary used is `-` and is passed to the client in the http response's `Content-Type` header. Note that headers can appear in both the HTTP response itself and as part of the response body. The `Content-Type` header must be sent in the HTTP response.
+* The boundary used is - and is passed to the client in the http response's `Content-Type` header. Note that headers can appear in both the HTTP response itself and as part of the response body. The `Content-Type` header must be sent in the HTTP response.
 * An initial boundary is sent marking the end of the preamble area.
-* Each part of the multipart response must end with `---` and wrapped with `CRLF`, meaning the boundary occupy it's own line.
 * Each part of the multipart response must contain a `Content-Type` header. Similar to the GraphQL specification this specification does not require a specific serialization format. For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
 * After all headers, an additional `CRLF` is sent.
-* The last part of the multipart response, a terminating boundary `-----` is sent (inistead of a boundary), followed by a `CRLF`
+* The payload is sent, followed by a `CRLF`.
+* After each payload, a boundary is sent. For the final payload, the terminating boundary of `-----` followed by a `CRLF` is sent. For all other payloads a boundary of `---` followed by a `CRFL` is sent.
 
 ## Server Implementations
 * `express-graphql`: [pull request](https://github.com/graphql/express-graphql/pull/583)
