@@ -8,4 +8,4 @@ The GraphQL over HTTP working group is a sub group of the GraphQL working group.
 
 See [Agendas](agendas) for upcoming scheduled meetings and notes from previous meetings.
 
-*December 2020 Update:  Given our world-wide span over many timezones, we are doing an experiment of attempting to advance the spec with fewer meetings, using asynchronous communication.  During this experiment, please reach out over slack and github.*
+*December 2020 Update:  Given our world-wide span over many time-zones, we are doing an experiment of attempting to advance the spec with fewer meetings, using asynchronous communication.  During this experiment, please reach out over Slack and GitHub.*
