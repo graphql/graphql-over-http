@@ -1,8 +1,8 @@
-> **Stage 1: Proposal** 
+> **Stage 0: Preliminary**
 > 
-> This spec is under active development. For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
+> This spec is in a preliminary stage of active development, and can change a lot before reaching `Draft` stage.  For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
 >
-> You can find our community in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the [GraphQL Foundation slack](https://graphql-slack.herokuapp.com/).
+> You can find our community in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the [GraphQL Foundation slack](https://slack.graphql.org).
 
 ---
 
@@ -26,3 +26,7 @@ and server implementations.
 The GraphQL over HTTP specification is edited in the [spec-md markdown file](./spec/GraphQLOverHTTP.md).
 
 In the future, we plan that you would be able to view the generated form of the specification as well.
+
+---
+Copyright Joint Development Foundation Projects, LLC, GraphQL Series.<br>
+[graphql.org](https://graphql.org) | [Spec](https://spec.graphql.org) | [GitHub](https://github.com/graphql/graphql-over-http) | [GraphQL Foundation](https://foundation.graphql.org) | [Code of Conduct](https://code-of-conduct.graphql.org) | [Slack](https://graphql.slack.com/archives/CRTKLUZRT) | [Store](https://store.graphql.org)
