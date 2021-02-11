@@ -142,7 +142,7 @@ Note: {variables} and {extensions}, if set, must have a map as its value.
 
 For HTTP GET requests, the query parameters MUST be provided in the query component of the request URL in the form of
 `key=value` pairs with `&` symbol as a separator and both the key and value should have their "reserved" characters percent-encoded as specified in [section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2).
-The unencoded value of the {variables} parameter SHOULD be represented as a JSON-encoded string.
+The unencoded value of the {variables} parameter MUST be represented as a JSON-encoded string.
 
 GET requests can be used for executing ONLY queries. If the values of {query} and {operationName} indicates that a non-query operation is to be executed, the server should immediately respond with an error status code, and halt execution.
 
@@ -174,7 +174,7 @@ Note: {query} and {operationName} parameters are encoded as raw strings in the q
 
 ## POST
 
-A standard GraphQL POST request SHOULD have a body which contains values of the request parameters encoded according to
+A standard GraphQL POST request MUST have a body which contains values of the request parameters encoded according to
 the value of `Content-Type` header.
 
 For example if the `Content-Type` is `application/json` then the request body may be:
@@ -196,7 +196,7 @@ any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it SHOULD follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
+If the server's response contains a body it MUST follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
 Note: For any non-2XX response, the client SHOULD NOT rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
@@ -204,7 +204,7 @@ may not be the GraphQL server but instead some intermediary such as API gateways
 ## Status Codes
 
 If the `data` entry in the response has any value other than `null` (when the operation has successfully executed
-without error) then the response SHOULD use the 200 (OK) status code.
+without error) then the response MUST use a 2xx (success) status code, and SHOULD use the 200 (OK) status code.
 If the operation failed before or during execution, due to a syntax error, missing information, validation error
 or any other reason, the response SHOULD use the 4XX or 5XX status codes.
 It is recommended to use the same error codes as the [reference implementation](https://github.com/graphql/express-graphql).
