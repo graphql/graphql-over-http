@@ -83,7 +83,7 @@ It is recommended to end the path component of the URL with `/graphql`, for exam
 
 # Serialization Format
 
-The GraphQL specification allows for many [serialization formats to be implemented](https://spec.graphql.org/June2018/#sec-Serialization-Format). In practice JSON is the most common serialization format. In order to be compliant, servers and clients implementing GraphQL over HTTP must support JSON serialization.
+The GraphQL specification allows for many [serialization formats to be implemented](https://spec.graphql.org/June2018/#sec-Serialization-Format). Servers and clients over HTTP MUST support JSON and MAY support other, additional serialization formats.
 
 ## Content Types
 
@@ -99,7 +99,7 @@ A server MAY support requests from clients with other content types.
 
 A client MUST handle receiving responses with HTTP header `Content-Type: application/graphql+json` since any compliant server must support this type.
 
-This header MAY include encoding information (e.g. `Content-type: application/json; charset=utf-8`)
+This header MAY include encoding information (e.g. `Content-type: application/graphql+json; charset=utf-8`)
 
 # Request
 
