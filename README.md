@@ -103,7 +103,7 @@ This header MAY include encoding information (e.g. `Content-Type: application/gr
 
 # Request
 
-A server MUST accept either GET requests or POST requests.
+A server MUST accept POST requests, and MAY accept other HTTP methods, such as GET.
 
 A server SHOULD handle both GET and POST requests.
 
@@ -134,7 +134,7 @@ Servers MUST return an _Error response_ if a GET request includes a `query` and 
 
 Clients MUST NOT send GET requests for non-query operations.
 
-Clients SHOULD NOT send a `Content-type` header on a GET request.
+Clients SHOULD NOT send a `Content-Type` header on a GET request.
 
 ### Example
 
@@ -166,11 +166,9 @@ Note: `query` and `operationName` parameters are encoded as raw strings in the q
 
 ## POST
 
-A GraphQL POST request instructs the server to perform a query, mutation or subscription operation. A GraphQL POST request should have a body which contains values of the request parameters encoded according to the value of `Content-Type` header of the request.
+A GraphQL POST request instructs the server to perform a query, mutation or subscription operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded according to the value of `Content-Type` header of the request.
 
-When sending a POST request to a GraphQL server a client MUST include a body.
-
-A client MUST include a `content-type` with a POST request.
+A client MUST include a `Content-Type` with a POST request.
 
 ### Example
 
@@ -193,7 +191,7 @@ any errors encountered during the request.
 
 If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type. By default the response MUST be serialized as JSON and MUST include a  "Content-type: application/graphql+json` header.
+A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type. By default the response MUST be serialized as JSON and MUST include a  "Content-Type: application/graphql+json` header.
 
 If another content type is preferable to a client, it MAY include an `Accept` HTTP header listing other acceptable content types in order of preference. In this case a client SHOULD include `application/graphql+json` in the list, according to their preferred priority.
 
@@ -201,7 +199,7 @@ If no `Accept` header is given, the server MUST respond with a content type of `
 
 The server MUST respect the given `Accept` header and attempt to encode the respond in the first supported content type listed. According to the [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2) specification, when a client does not include at least one supported content type in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MUST either:
 
-1. Disregard the `Accept` header and respond with the default content type of `application/graphql`, specifying this in the `Content-type` header; OR
+1. Disregard the `Accept` header and respond with the default content type of `application/graphql+json`, specifying this in the `Content-Type` header; OR
 2. Respond with a `406 Not Acceptable` status code
 
 Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
