@@ -99,7 +99,7 @@ A server MAY support requests from clients with other content types.
 
 A client MUST handle receiving responses with HTTP header `Content-Type: application/graphql+json` since any compliant server must support this type.
 
-This header MAY include encoding information (e.g. `Content-type: application/graphql+json; charset=utf-8`)
+This header MAY include encoding information (e.g. `Content-Type: application/graphql+json; charset=utf-8`)
 
 # Request
 
