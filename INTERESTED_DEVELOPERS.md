@@ -5,9 +5,9 @@
 If you're interested in this spec and helping contribute to it, you can get involved with the following steps:
 
 1. Read the [Roadmap](ROADMAP.md) which outlines the planned development of this spec.
-2. See [Agendas](working-group/agendas) for upcoming meetings of the GraphQL-over-HTTP working group.
+2. See [Agendas](working-group/agendas) for upcoming meetings of the GraphQL-over-HTTP working group.  Given our world-wide span over many timezones, we are doing an experiment of attempting to advance the spec with fewer meetings and more asynchronous communication.  During this experiment, please reach out over slack and github.
 3. Add yourself to `List of Developers` below.
-4. Find our working group on the [GraphQL Foundation slack community](https://graphql-slack.herokuapp.com/) in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT).
+4. Find our working group on the [GraphQL Foundation slack community](https://slack.graphql.org) in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT).
 
 ## List of Developers
 
@@ -37,6 +37,9 @@ If you want to be listed here, open a PR with your information, just order yours
 * @jaydenseric
   * Company/Project/Repo: https://github.com/jaydenseric/graphql-multipart-request-spec
   * Reason: Interested in multipart request spec
+* @maraisr
+  * Company/Project/Repo: https://github.com/maraisr/meros
+  * Reason: Interested in common incremental delivery spec
 * @michaelstaib
   * Company/Project/Repo: https://github.com/ChilliCream/hotchocolate
   * Reason: Interested in client/server in JavaScript/C++/C#
