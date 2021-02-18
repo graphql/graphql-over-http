@@ -196,13 +196,13 @@ any errors encountered during the request.
 
 If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
+Note: For any non-`2XX` response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
 
 ## Status Codes
 
 If the response has Content-Type GraphQL and contains a non-null `data` entry,
-then it MUST have status code `2xx`, and it SHOULD have status code `200`.
+then it MUST have status code `2xx`, and it SHOULD have status code `200` (Okay).
 
 If the response has Content-Type GraphQL and has a non-`2xx` status code,
 the `data` entry must be either:
@@ -216,20 +216,30 @@ as long as the server is still able to produce a well-formed response.
 In case of errors that completely prevent the successful execution of the request,
 the server SHOULD respond with the appropriate status code depending on the concrete error condition.
 
-There are four types of validation errors:
+The following examples provide guidance on how to deal with specific error cases:
 
-1. Unparseable or invalid request body, for example `NONSENSE` or `{"qeury": "{__typename}"}`
-2. GraphQL Specification document validation errors (valid syntax, no loops in fragments, etc)
-3. Custom document validations that can be performed before execution (e.g. graphql-depth-limit)
-4. Runtime validations performed by resolvers (e.g. during the execution of the GraphQL operation).
+### Unparseable or invalid request body
 
-Error types 1. and 2. prevent execution of the request in its entirety; they MUST result in
-status code `4xx` or `5xx`, and SHOULD result in status code `400` (Bad Request).
-Types 3. and 4. may still allow partial execution; they MUST result in
-status code `2xx`, and SHOULD result in status code `200` (Okay).
+For example: `NONSENSE`, `{"qeury": "{__typena`
 
-If a client is not allowed to access the schema, the server MUST respond with
-status code `4xx`, SHOULD respond with `401` (Unauthorized) or `403` (Forbidden) as appropriate,
-and MAY respond with status code `404` (Not Found) if security concerns demand it.
+Completely prevents execution of the GraphQL operation and SHOULD result in status code `4ß0` (Bad Request).
 
-If the server failed unexpectedly, it MUST respond with the appropriate `5xx` status code.
+### Document validation
+
+Includes validation steps that run before execution of the GraphQL operation:
+- [GraphQL specification validation](http://spec.graphql.org/June2018/#sec-Validation)
+- custom validation, for example: depth limit, complexity limit
+
+The server MAY choose to:
+- deny execution, the status code SHOULD be `400` (Bad Request)
+- attempt execution, the status code will depend on the validity of the result
+
+### Runtime validation
+
+Validation steps performed by resolvers during execution of the GraphQL operation.
+The status code will depend on the validity of the result.
+
+### Client is not allowed to access the schema
+
+In case the client can not access the schema at all, the server SHOULD respond
+with the appropriate `4xx` status code.
