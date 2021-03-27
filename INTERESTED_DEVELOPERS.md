@@ -64,7 +64,10 @@ If you want to be listed here, open a PR with your information, just order yours
 * @glennblock
   * Company/Project/Report: https://github.com/microsoft
   * Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP standards like HTTP SEARCH
-
+* @hemanth
+  * Company/Project/Repo: PayPal https://github.com/hemanth
+  * Reason: Interested in a common HTTP spec and common subscriptions spec.
+  
 ### CC Helper
 
 `@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @enisdenjo`
