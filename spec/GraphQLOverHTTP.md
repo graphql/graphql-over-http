@@ -158,7 +158,7 @@ With the following query variables:
 
 ```graphql example
 {
-  id:"QVBJcy5ndXJ1"
+  "id" : "QVBJcy5ndXJ1"
 }
 ```
 
