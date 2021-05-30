@@ -156,9 +156,9 @@ query ($id: ID!) {
 
 With the following query variables:
 
-```graphql example
+```json example
 {
-  id:"QVBJcy5ndXJ1"
+  "id" : "QVBJcy5ndXJ1"
 }
 ```
 
