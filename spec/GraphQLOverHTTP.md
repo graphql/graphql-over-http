@@ -238,7 +238,9 @@ known to be valid, the server MAY attempt execution regardless of validation err
 ### Runtime validation
 
 Validation steps performed by resolvers during execution of the GraphQL operation.
-The status code will depend on the validity of the result.
+
+The server SHOULD respond with a status code of `200` (Okay) to ensure clients receive
+a predictable result, no matter which fields they selected.
 
 ### Client is not allowed to access the schema
 
