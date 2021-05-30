@@ -230,9 +230,10 @@ Includes validation steps that run before execution of the GraphQL operation:
 - [GraphQL specification validation](http://spec.graphql.org/June2018/#sec-Validation)
 - custom validation, for example: depth limit, complexity limit
 
-The server MAY choose to:
-- deny execution, the status code SHOULD be `400` (Bad Request)
-- attempt execution, the status code will depend on the validity of the result
+The server SHOULD deny execution with a status code of `400` (Bad Request).
+
+Note: In certain circumstances, for example persisted queries that were previously
+known to be valid, the server MAY attempt execution regardless of validation errors.
 
 ### Runtime validation
 
