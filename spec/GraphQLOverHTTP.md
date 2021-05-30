@@ -222,7 +222,7 @@ The following examples provide guidance on how to deal with specific error cases
 
 For example: `NONSENSE`, `{"qeury": "{__typena`
 
-Completely prevents execution of the GraphQL operation and SHOULD result in status code `4ß0` (Bad Request).
+Completely prevents execution of the GraphQL operation and SHOULD result in status code `400` (Bad Request).
 
 ### Document validation
 
