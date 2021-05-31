@@ -187,7 +187,3 @@ _The client and the server has already gone through [successful connection initi
      <br>_or_
    - _Server_ dispatches the `Complete` message indicating that the source stream has completed
    - _Client_ completes the stream observer
-
-## Implementations
-
-- [graphql-ws](https://github.com/enisdenjo/graphql-ws)
