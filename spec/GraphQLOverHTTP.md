@@ -196,13 +196,13 @@ any errors encountered during the request.
 
 If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
 
-Note: For any non-2XX response, the client should not rely on the body to be in GraphQL format since the source of the response
+Note: For any non-`2XX` response, the client should not rely on the body to be in GraphQL format since the source of the response
 may not be the GraphQL server but instead some intermediary such as API gateways, firewalls, etc.
 
 ## Status Codes
 
 If the response has Content-Type GraphQL and contains a non-null `data` entry,
-then it MUST have status code `2xx`, and it SHOULD have status code `200`.
+then it MUST have status code `2xx`, and it SHOULD have status code `200` (Okay).
 
 If the response has Content-Type GraphQL and has a non-`2xx` status code,
 the `data` entry must be either:
@@ -215,3 +215,34 @@ as long as the server is still able to produce a well-formed response.
 
 In case of errors that completely prevent the successful execution of the request,
 the server SHOULD respond with the appropriate status code depending on the concrete error condition.
+
+The following examples provide guidance on how to deal with specific error cases:
+
+### Unparseable or invalid request body
+
+For example: `NONSENSE`, `{"qeury": "{__typena`
+
+Completely prevents execution of the GraphQL operation and SHOULD result in status code `400` (Bad Request).
+
+### Document validation
+
+Includes validation steps that run before execution of the GraphQL operation:
+- [GraphQL specification validation](http://spec.graphql.org/June2018/#sec-Validation)
+- custom validation, for example: depth limit, complexity limit
+
+The server SHOULD deny execution with a status code of `400` (Bad Request).
+
+Note: In certain circumstances, for example persisted queries that were previously
+known to be valid, the server MAY attempt execution regardless of validation errors.
+
+### Runtime validation
+
+Validation steps performed by resolvers during execution of the GraphQL operation.
+
+The server SHOULD respond with a status code of `200` (Okay) to ensure clients receive
+a predictable result, no matter which fields they selected.
+
+### Client is not allowed to access the schema
+
+In case the client can not access the schema at all, the server SHOULD respond
+with the appropriate `4xx` status code.
