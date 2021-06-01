@@ -120,7 +120,8 @@ For consistency and ease of notation, examples of the response are given in JSON
 
 The following are the officially recognized GraphQL content types to designate encoding JSON over HTTP.
 
-| Name | Description |
+| Name  | Description |
+| ------------- | ------------- |
 | `application/graphql+json` | Required |
 | `application/json` | To support legacy clients |
 
