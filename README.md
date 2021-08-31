@@ -2,7 +2,7 @@
 > 
 > This spec is in a preliminary stage of active development, and can change a lot before reaching `Draft` stage.  For more information, please see the [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
 >
-> You can find our community in the [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the [GraphQL Foundation slack](https://slack.graphql.org).
+> You can find our community in the [graphql-over-http channel](https://discord.com/channels/625400653321076807/863141924126588958) on the [GraphQL Foundation Discord](https://discord.graphql.org).
 
 ---
 
@@ -39,4 +39,4 @@ If your company benefits from GraphQL and you would like to provide essential fi
 
 ---
 Copyright Joint Development Foundation Projects, LLC, GraphQL Series.<br>
-[graphql.org](https://graphql.org) | [Spec](https://spec.graphql.org) | [GitHub](https://github.com/graphql/graphql-over-http) | [GraphQL Foundation](https://foundation.graphql.org) | [Code of Conduct](https://code-of-conduct.graphql.org) | [Slack](https://graphql.slack.com/archives/CRTKLUZRT) | [Store](https://store.graphql.org)
+[graphql.org](https://graphql.org) | [Spec](https://spec.graphql.org) | [GitHub](https://github.com/graphql/graphql-over-http) | [GraphQL Foundation](https://foundation.graphql.org) | [Code of Conduct](https://code-of-conduct.graphql.org) | [Discord](https://discord.com/channels/625400653321076807/863141924126588958) | [Store](https://store.graphql.org)
