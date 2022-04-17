@@ -112,7 +112,7 @@ http://example.com/product/graphql
 
 # Serialization Format
 
-The GraphQL specification allows for many [serialization formats to be implemented](https://spec.graphql.org/June2018/#sec-Serialization-Format). Servers and clients over HTTP MUST support JSON and MAY support other, additional serialization formats.
+The GraphQL specification allows for many [serialization formats to be implemented](https://spec.graphql.org/October2021/#sec-Serialization-Format). Servers and clients over HTTP MUST support JSON and MAY support other, additional serialization formats.
 
 For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
 
@@ -125,7 +125,7 @@ The following are the officially recognized GraphQL content types to designate e
 | `application/graphql+json` | Required |
 | `application/json` | To support legacy clients |
 
-A server MUST support requests from clients with HTTP header `Content-Type: application/graphql+json` indicating that the body of the request is a JSON document with a GraphQL request. A server must indicate the content type of the response with a `Content-Type` header. This default value should be `Content-Type: application/graphql+json` indicating that the response is a valid JSON document [conforming to the GraphQL spec](http://spec.graphql.org/June2018/#sec-Response-Format).
+A server MUST support requests from clients with HTTP header `Content-Type: application/graphql+json` indicating that the body of the request is a JSON document with a GraphQL request. A server must indicate the content type of the response with a `Content-Type` header. This default value should be `Content-Type: application/graphql+json` indicating that the response is a valid JSON document [conforming to the GraphQL spec](https://spec.graphql.org/October2021/#sec-Response-Format).
 
 A server MAY support requests from clients with other content types.
 
@@ -217,7 +217,7 @@ any errors encountered during the request.
 
 ## Body
 
-If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/June2018/#sec-Response).
+If the server's response contains a body it should follow the requirements for [GraphQL response](https://graphql.github.io/graphql-spec/October2021/#sec-Response).
 
 A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQL content type. If there is no `Accept` header in the request, the response MUST be serialized as JSON and MUST include a  `Content-Type: application/graphql+json` header.
 
@@ -259,7 +259,7 @@ Completely prevents execution of the GraphQL operation and SHOULD result in stat
 ### Document validation
 
 Includes validation steps that run before execution of the GraphQL operation:
-- [GraphQL specification validation](http://spec.graphql.org/June2018/#sec-Validation)
+- [GraphQL specification validation](https://spec.graphql.org/October2021/#sec-Validation)
 - custom validation, for example: depth limit, complexity limit
 
 The server SHOULD deny execution with a status code of `400` (Bad Request).
