@@ -194,7 +194,7 @@ GET requests MUST NOT be used for executing mutation operations. If the values o
 
 ## POST
 
-A GraphQL POST request instructs the server to perform a query or mutation operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded according to the value of `Content-Type` header of the request.
+A GraphQL POST request instructs the server to perform a query, mutation or subscription operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded according to the value of `Content-Type` header of the request.
 
 A client MUST include a `Content-Type` with a POST request.
 
