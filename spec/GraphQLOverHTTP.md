@@ -223,7 +223,7 @@ A server MUST return a `Content-Type` HTTP Header with a value of a valid GraphQ
 
 If another content type is preferable to a client, it MAY include an `Accept` HTTP header listing other acceptable content types in order of preference. In this case a client SHOULD include `application/graphql+json` in the list, according to their preferred priority.
 
-The server MUST respect the given `Accept` header and attempt to encode the respond in the first supported content type listed. According to the [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2) specification, when a client does not include at least one supported content type in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MUST either:
+The server MUST respect the given `Accept` header and attempt to encode the response in the first supported content type listed. According to the [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2) specification, when a client does not include at least one supported content type in the `Accept` HTTP header, the server MAY choose to respond in one of several ways. The server MUST either:
 
 1. Disregard the `Accept` header and respond with the default content type of `application/graphql+json`, specifying this in the `Content-Type` header; OR
 2. Respond with a `406 Not Acceptable` status code
