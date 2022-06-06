@@ -104,32 +104,33 @@ and a GraphQL response in an HTTP response.
 :: In this document, the term {GraphQL schema} refers to a
 [schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
 
-:: In this document, the term {GraphQL server} refers to a GraphQL over HTTP
-Specification compliant HTTP server.
+:: In this document, the term {server} refers to a GraphQL over HTTP
+Specification compliant HTTP server unless the context indicates otherwise.
+
+:: In this document, the term {client} refers to a GraphQL over HTTP
+Specification compliant HTTP client unless the context indicates otherwise.
 
 # URL
 
-A GraphQL server MUST enable GraphQL requests to one of more GraphQL schemas.
+A server MUST enable GraphQL requests to one of more GraphQL schemas.
 
-Each GraphQL schema a GraphQL server provides MUST be served via one or more
-URLs.
+Each GraphQL schema a server provides MUST be served via one or more URLs.
 
 A client MUST be able to send all their GraphQL query and mutation requests for
-a single GraphQL schema made available by a GraphQL server to a single URL
-endpoint on that server. A GraphQL server MUST NOT require the client to use
-different URLs for different GraphQL query and mutation requests to the same
-GraphQL schema.
+a single GraphQL schema made available by a server to a single URL endpoint on
+that server. A server MUST NOT require the client to use different URLs for
+different GraphQL query and mutation requests to the same GraphQL schema.
 
-Note: This means that a GraphQL client must be able to perform all GraphQL query
-and mutation operations it needs via a single endpoint.
+Note: This means that a client must be able to perform all GraphQL query and
+mutation operations it needs via a single endpoint.
 
 The GraphQL schema available via a single URL MAY be different for different
 clients. For example, alpha testers or authenticated users may have access to a
 schema with additional fields.
 
-GraphQL server URLs which enable GraphQL requests MAY also be used for other
-purposes, as long as they don't conflict with the server's responsibility to
-handle GraphQL requests.
+Server URLs which enable GraphQL requests MAY also be used for other purposes,
+as long as they don't conflict with the server's responsibility to handle
+GraphQL requests.
 
 It is RECOMMENDED to end the path component of the URL with `/graphql`, for
 example:
@@ -150,11 +151,11 @@ http://example.com/product/graphql
 
 The GraphQL specification allows for many
 [serialization formats to be implemented](https://spec.graphql.org/October2021/#sec-Serialization-Format).
-Servers and clients over HTTP MUST support JSON and MAY support other,
-additional serialization formats.
+Servers and clients MUST support JSON and MAY support other, additional
+serialization formats.
 
 For consistency and ease of notation, examples of the response are given in JSON
-throughout the spec.
+throughout this specification.
 
 ## Content Types
 
