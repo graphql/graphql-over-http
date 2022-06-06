@@ -250,29 +250,28 @@ A request for execution should contain the following request parameters:
 - {extensions} - (_Optional_): This entry is reserved for implementors to extend
   the protocol however they see fit.
 
-Note: Be aware that `query` is a misleading name as it can contain a string
-describing multiple operations, each of which may be a query, mutation or
-subscription. A better name would have been `document`, but the term `query` is
-well established.
+Note: Be aware that `query` is a misleading parameter name as its value is a
+string describing one or more operations, each of which may be a query, mutation
+or subscription. A better name would have been `document`, but the term `query`
+is well established.
 
-Note: depending on the serialization format used, values of the aforementioned
+Note: Depending on the serialization format used, values of the aforementioned
 parameters can be encoded differently but their names and semantics must stay
 the same.
 
-Note: specifying `null` in JSON (or equivalent values in other formats) as
+Note: Specifying `null` in JSON (or equivalent values in other formats) as
 values for optional request parameters is equivalent to not specifying them at
 all.
 
-Note: {variables} and {extensions}, if set, must have a map as its value.
+Note: {variables} and {extensions}, if set, must have a map as their value.
 
 ## GET
 
 For HTTP GET requests, the query parameters MUST be provided in the query
-component of the request URL in the form of `key=value` pairs with `&` symbol as
-a separator and both the key and value should have their "reserved" characters
-percent-encoded as specified in
-[section 2 of RFC3986](https://tools.ietf.org/html/rfc3986#section-2). The
-`variables` parameter, if used, MUST be represented as a URL-encoded JSON
+component of the request URL in the `application/x-www-form-urlencoded` format
+as specified by
+[WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+The `variables` parameter, if used, MUST be represented as a URL-encoded JSON
 string.
 
 ### Example
@@ -309,18 +308,19 @@ omitted.
 
 GET requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server SHOULD immediately respond with error status code `405`
-(Method Not Allowed) and halt execution. This restriction is necessary to
-conform with the long-established semantics of safe methods within HTTP.
+executed, the server MUST respond with error status code `405` (Method Not
+Allowed) and halt execution. This restriction is necessary to conform with the
+long-established semantics of safe methods within HTTP.
 
 ## POST
 
 A GraphQL POST request instructs the server to perform a query or mutation
 operation. A GraphQL POST request MUST have a body which contains values of the
-request parameters encoded according to the value of `Content-Type` header of
-the request.
+request parameters encoded according to the value of the `Content-Type` header
+in the request.
 
-A client MUST include a `Content-Type` with a POST request.
+Note: As stated in the Content-Type section, if the client does not supply a
+`Content-Type` header, then `application/json` should be assumed.
 
 ### Example
 
@@ -329,7 +329,7 @@ an example request body:
 
 ```json example
 {
-  "query": "query($id: ID!){user(id:$id){name}}",
+  "query": "query ($id: ID!) { user(id:$id) { name } }",
   "variables": { "id": "QVBJcy5ndXJ1" }
 }
 ```
