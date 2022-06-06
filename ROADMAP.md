@@ -15,11 +15,18 @@ client and server are compliant._
 
 ## Version 1.0
 
-After significant meetings, the Working Group has come to consensus that a first
-version of this spec should introduce some key changes over the prior existing
-uses of GraphQL over HTTP. This first version _might_ also codify existing prior
-common usages of GraphQL over HTTP. In layout and structure version 1.0 should
-lay a foundation for future development and standardization.
+Version 1 aims to codify the most common existing uses of GraphQL queries and
+mutations over HTTP whilst encouraging some improved practices. The majority of
+GraphQL servers should find that they are already compatible with Version 1.0 of
+the GraphQL-over-HTTP specification, although they should still put work in to
+address the `SHOULD` behaviours that they may be missing, most notably around
+the use of the `application/graphql+json` Content-Type.
+
+Subscriptions, websockets and server-sent events are out of scope for version
+1.0.
+
+In layout and structure version 1.0 should lay a foundation for future
+development and standardization.
 
 ### Scope
 

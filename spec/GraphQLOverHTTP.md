@@ -2,12 +2,11 @@
 
 Note: **Stage 0: Preliminary** This spec is under active development, and not
 ready for implementations yet. For more information, please see the
-[Roadmap](https://github.com/APIs-guru/graphql-over-http/blob/master/ROADMAP.md)
+[Roadmap](https://github.com/graphql/graphql-over-http/blob/master/ROADMAP.md)
 or
-[how to get involved](https://github.com/APIs-guru/graphql-over-http/blob/master/INTERESTED_DEVELOPERS.md).
-You can find our community in the
-[graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT) on the
-[GraphQL Foundation slack](https://slack.graphql.org).
+[how to get involved](https://github.com/graphql/graphql-over-http/blob/master/INTERESTED_DEVELOPERS.md).
+You can find our community in the #graphql-over-http channel on the
+[GraphQL Foundation Discord](https://discord.graphql.org).
 
 ---
 
@@ -15,25 +14,36 @@ You can find our community in the
 
 **Introduction**
 
-HTTP is the most common choice as the client-server protocol when using GraphQL
-because of its ubiquity. However the
-[GraphQL specification](https://graphql.github.io/graphql-spec/) deliberately
-does not specify the transport layer.
+This specification details how services that wish to publish and consume GraphQL
+APIs over HTTP should do so in order to maximize interoperability between
+different client libraries, tools and server implementations.
 
-The closest thing to an official specification is the article
-[Serving over HTTP](https://graphql.org/learn/serving-over-http/). Leading
-implementations on both client and server have mostly upheld those best
-practices and thus established a de-facto standard that is commonly used
-throughout the ecosystem.
+The [GraphQL specification](https://graphql.github.io/graphql-spec/)
+deliberately does not specify the transport layer, however HTTP is the most
+common choice when serving GraphQL to remote clients due to its ubiquity.
 
-This specification is intended to fill this gap by specifying how GraphQL should
-be served over HTTP. The main intention of this specification is to provide
-interoperability between different client libraries, tools and server
-implementations.
+Previous to this specification, the article
+[Serving over HTTP](https://graphql.org/learn/serving-over-http/) on the
+graphql.org website served as guidance, and leading implementations on both
+client and server have mostly upheld those best practices and thus established a
+de-facto standard that is commonly used throughout the ecosystem. This
+specification aims to codify and expand on this work.
 
 **Copyright notice**
 
-**TBD**
+Copyright © 2022-present, GraphQL contributors
+
+THESE MATERIALS ARE PROVIDED “AS IS.” The parties expressly disclaim any
+warranties (express, implied, or otherwise), including implied warranties of
+merchantability, non-infringement, fitness for a particular purpose, or title,
+related to the materials. The entire risk as to implementing or otherwise using
+the materials is assumed by the implementer and user. IN NO EVENT WILL THE
+PARTIES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT,
+SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES
+OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING
+AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR
+OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
 
 **Conformance**
 
@@ -49,7 +59,7 @@ in lowercase and still retain their meaning unless explicitly declared as
 non-normative.
 
 A conforming implementation of GraphQL over HTTP may provide additional
-functionality, but must not where explicitly disallowed or it would otherwise
+functionality, but must not where explicitly disallowed or would otherwise
 result in non-conformance.
 
 **Non-Normative Portions**
@@ -79,36 +89,47 @@ Note: This is an example of a non-normative note.
 
 # Overview
 
-Serving GraphQL over HTTP provides the ability to use the full advantages of
-GraphQL with the rich feature set of HTTP. Carrying GraphQL in HTTP does not
-mean that GraphQL overrides existing semantics of HTTP, but rather that the
-semantics of GraphQL over HTTP map naturally to HTTP semantics.
+Though [the GraphQL specification](https://spec.graphql.org) is transport
+agnostic, this GraphQL over HTTP specification aims to map GraphQL's semantics
+to their HTTP equivalents, enabling us to combine the full advantages of GraphQL
+with the rich feature set of HTTP.
 
-GraphQL naturally follows the HTTP request/response message model, providing a
-GraphQL request in an HTTP request and GraphQL response in an HTTP response.
+GraphQL queries and mutations naturally follow the request/response message
+model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
+and a GraphQL response in an HTTP response.
+
+:: In this document, the term {GraphQL request} refers to a
+[request as defined by the GraphQL Specification](https://spec.graphql.org/draft/#request).
+
+:: In this document, the term {GraphQL schema} refers to a
+[schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
+
+:: In this document, the term {GraphQL server} refers to a GraphQL over HTTP
+Specification compliant HTTP server.
 
 # URL
 
-A GraphQL over HTTP compliant server MUST designate at least one URL that
-handles GraphQL requests.
+A GraphQL server MUST enable GraphQL requests to one of more GraphQL schemas.
 
-A GraphQL schema allows clients to know the available operations on a GraphQL
-server. Clients can discover the schema by sending an introspection query, which
-the server MUST answer with a proper response.
+Each GraphQL schema a GraphQL server provides MUST be served via one or more
+URLs.
 
-The schema on a single URL MAY not be the same for every client. For example,
-certain fields could be restricted to authenticated users or alpha testers.
+A client MUST be able to send all their GraphQL query and mutation requests for
+a single GraphQL schema made available by a GraphQL server to a single URL
+endpoint on that server. A GraphQL server MUST NOT require the client to use
+different URLs for different GraphQL query and mutation requests to the same
+GraphQL schema.
 
-All Queries and Mutations a client discovered in the schema MUST be available on
-the same URL. That means the client can send all their GraphQL requests to a
-single endpoint.
+Note: This means that a GraphQL client must be able to perform all GraphQL query
+and mutation operations it needs via a single endpoint.
 
-Multiple URLs MAY exist on a server to handle GraphQL requests, potentially
-serving different but self-sufficient schemas. The same GraphQL schema MAY be
-available on multiple URLs on the server.
+The GraphQL schema available via a single URL MAY be different for different
+clients. For example, alpha testers or authenticated users may have access to a
+schema with additional fields.
 
-Those URLs MAY also be used for other purposes, as long as they don't conflict
-with the server's responsibility to handle GraphQL requests.
+GraphQL server URLs which enable GraphQL requests MAY also be used for other
+purposes, as long as they don't conflict with the server's responsibility to
+handle GraphQL requests.
 
 It is RECOMMENDED to end the path component of the URL with `/graphql`, for
 example:
