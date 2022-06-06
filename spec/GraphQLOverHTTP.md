@@ -162,27 +162,77 @@ throughout this specification.
 The following are the officially recognized GraphQL content types to designate
 encoding JSON over HTTP.
 
-| Name                       | Description               |
-| -------------------------- | ------------------------- |
-| `application/graphql+json` | Required                  |
-| `application/json`         | To support legacy clients |
+| Name                       | Description                                   |
+| -------------------------- | --------------------------------------------- |
+| `application/graphql+json` | The preferred type; better HTTP compatibility |
+| `application/json`         | To support legacy clients                     |
+
+A server must comply with
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+A client SHOULD indicate the media type of a request body using the
+`Content-Type` header as specified in
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+A client SHOULD indicate the media types that it supports in responses using the
+`Accept` HTTP header as specified in
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+A server MUST indicate the media type of the response with a `Content-Type`
+header.
+
+If the client does not supply a `Content-Type` header, the server MUST treat the
+request as if it had `Content-Type: application/json`.
+
+If the client does not supply an `Accept` header, the server MUST treat the
+request as if it had `Accept: application/json`.
+
+Note: These defaults are in place to maintain compatibility with legacy clients.
+
+It is RECOMMENDED that a client set the `Accept` header to
+`application/graphql+json, application/json`.
 
 A server MUST support requests from clients with HTTP header
-`Content-Type: application/graphql+json` indicating that the body of the request
-is a JSON document with a GraphQL request. A server must indicate the content
-type of the response with a `Content-Type` header. This default value should be
-`Content-Type: application/graphql+json` indicating that the response is a valid
-JSON document
-[conforming to the GraphQL spec](https://spec.graphql.org/October2021/#sec-Response-Format).
+`Content-Type: application/json`.
 
-A server MAY support requests from clients with other content types.
+A server MUST support requests from clients who `Accept` the media type
+`application/json`.
 
-A client MUST handle receiving responses with HTTP header
-`Content-Type: application/graphql+json` since any compliant server must support
-this type.
+A server SHOULD support requests from clients with HTTP header
+`Content-Type: application/graphql+json`.
 
-This header MAY include encoding information (e.g.
-`Content-Type: application/graphql+json; charset=utf-8`)
+A server SHOULD support requests from clients who `Accept` the media type
+`application/graphql+json`.
+
+A server MAY support requests from clients with other media types.
+
+If the media type in a `Content-Type` or `Accept` header includes encoding
+information, then the encoding MUST be `utf-8` (e.g.
+`Content-Type: application/graphql+json; charset=utf-8`). If encoding
+information is not included then `utf-8` should be assumed.
+
+### Legacy watershed
+
+From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
+from clients with HTTP header `Content-Type: application/graphql+json`.
+
+From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
+from clients who `Accept` the media type `application/graphql+json`.
+
+Before 1st January 2025 (`2025-01-01T00:00:00Z`), if a client does not know the
+media types the server supports then it SHOULD use
+`Content-Type: application/json` in requests. After this date, if a client does
+not know the media types the server supports then it SHOULD use
+`Content-Type: application/graphql+json` in requests.
+
+Note: Prior to this specification, the media type `application/json` was in wide
+use for both the HTTP request body type and the HTTP response payload type.
+Unfortunately this causes a number of issues, not least that it means clients
+cannot trust responses from the server that do not use an HTTP 2xx status code
+(since these replies may come from non-compliant HTTP servers or proxies
+somewhere in the request chain). For this reason, this specification introduces
+the `application/graphql+json` media type; however, to give existing servers
+time to move over, it is not required to be supported until 1st January 2025.
 
 # Request
 
