@@ -98,11 +98,14 @@ GraphQL queries and mutations naturally follow the request/response message
 model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
 and a GraphQL response in an HTTP response.
 
+:: In this document, the term {GraphQL schema} refers to a
+[schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
+
 :: In this document, the term {GraphQL request} refers to a
 [request as defined by the GraphQL Specification](https://spec.graphql.org/draft/#request).
 
-:: In this document, the term {GraphQL schema} refers to a
-[schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
+:: In this document, the term {GraphQL response} refers to a
+[response as defined by the GraphQL Specification](https://spec.graphql.org/draft/#sec-Response).
 
 :: In this document, the term {server} refers to a GraphQL over HTTP
 Specification compliant HTTP server unless the context indicates otherwise.
@@ -375,9 +378,46 @@ ways. The server MUST either:
 
 ## Status Codes
 
-If the response has Content-Type GraphQL and contains a non-null `data` entry,
-then it MUST have status code `2xx`, and it SHOULD have status code `200`
-(Okay).
+### application/json
+
+If the response body is to use `application/json` media type then the server
+MUST always use the `200` status code, independent of errors occuring during or
+before execution.
+
+Note: A status code in the 4xx or 5xx ranges or status code 203 (and maybe
+others) could originate from intermediary servers; since the client cannot
+determine if an `application/json` response with arbitrary status code is a
+well-formed GraphQL response (because it cannot trust the source) we must use
+`200` status code to guarantee that the response comes from the server.
+
+### application/graphql+json
+
+This section only applies when the response body is to use the
+`application/graphql+json` media type.
+
+If the GraphQL response contains the {data} entry (even if it is {null}), then
+the server MUST reply with a `2xx` status code and SHOULD reply with `200`
+status code.
+
+Note: There's currently not an approved HTTP status code to use for "partial
+success," contenders include WebDAV's status code "207 Multi-Status" and using a
+custom code such as "247 Partial Success."
+[IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
+states "codes are fully defined in section 10" implying that though more codes
+are expected to be supported over time, valid codes must be present in this
+document.
+
+If the GraphQL response does not contain the {data} entry then the server MUST
+reply with a `4xx` or `5xx` status code as appropriate.
+
+If the GraphQL request is invalid then the server SHOULD reply with `400` status
+code.
+
+If the client is not permitted to make the GraphQL request then the server
+SHOULD reply with `403` status code.
+
+has Content-Type GraphQL and contains a non-null `data` entry, then it MUST have
+status code `2xx`, and it SHOULD have status code `200` (Okay).
 
 If the response has Content-Type GraphQL and has a non-`2xx` status code, the
 `data` entry must be either:
