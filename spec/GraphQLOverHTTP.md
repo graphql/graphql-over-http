@@ -378,17 +378,35 @@ ways. The server MUST either:
 
 ## Status Codes
 
+In case of errors that completely prevent the generation of a well-formed
+GraphQL response, the server SHOULD respond with the appropriate status code
+depending on the concrete error condition.
+
+Otherwise, the status codes depends on the media type with which the GraphQL
+response will be served:
+
 ### application/json
 
-If the response body is to use `application/json` media type then the server
-MUST always use the `200` status code, independent of errors occuring during or
-before execution.
+This section only applies when the response body is to use the
+`application/json` media type.
+
+The server SHOULD use the `200` status code, independent of errors occurring
+during or before execution.
 
 Note: A status code in the 4xx or 5xx ranges or status code 203 (and maybe
 others) could originate from intermediary servers; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
 well-formed GraphQL response (because it cannot trust the source) we must use
 `200` status code to guarantee that the response comes from the server.
+
+If the GraphQL response contains a non-null {data} entry and no {errors} entry
+then the server MUST use the `200` status code.
+
+If the GraphQL response does not contain a {data} entry or the {data} entry is
+{null}, then the server MAY use a `4xx` or `5xx` status code.
+
+Note: This is for compatibility with legacy GraphQL servers, it is not
+recommended.
 
 ### application/graphql+json
 
@@ -399,9 +417,12 @@ If the GraphQL response contains the {data} entry and it is not {null}, then the
 server MUST reply with a `2xx` status code and SHOULD reply with `200` status
 code.
 
-Note: There's currently not an approved HTTP status code to use for "partial
-success," contenders include WebDAV's status code "207 Multi-Status" and using a
-custom code such as "247 Partial Success."
+Note: The result of executing a GraphQL operation may contain partial data as
+well as encountered errors. Errors that happen during execution of the GraphQL
+operation typically become part of the result, as long as the server is still
+able to produce a well-formed response. There's currently not an approved HTTP
+status code to use for "partial success," contenders include WebDAV's status
+code "207 Multi-Status" and using a custom code such as "247 Partial Success."
 [IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
 states "codes are fully defined in section 10" implying that though more codes
 are expected to be supported over time, valid codes must be present in this
@@ -416,35 +437,29 @@ Note: This is to enable compatibility with legacy GraphQL servers, including
 
 <!-- TODO: validate the above note, and the rule. -->
 
-If the GraphQL response does not contain the {data} entry then the server MUST
-reply with a `4xx` or `5xx` status code as appropriate.
+If the GraphQL response does not contain the {data} entry then it must contain
+the {errors} entry as indicated in the GraphQL specification, and the server
+MUST reply with a `4xx` or `5xx` status code as appropriate.
 
-If the GraphQL request is invalid then the server SHOULD reply with `400` status
-code.
+If the GraphQL request is invalid (is malformed, or does not pass validation)
+then the server SHOULD reply with `400` status code.
 
 If the client is not permitted to make the GraphQL request then the server
-SHOULD reply with `403` status code.
+SHOULD reply with `403`, `401` or similar appropriate status code.
 
-Note: The result of executing a GraphQL operation may contain partial data as
-well as encountered errors. Errors that happen during execution of the GraphQL
-operation typically become part of the result, as long as the server is still
-able to produce a well-formed response.
-
-In case of errors that completely prevent the successful execution of the
-request, the server SHOULD respond with the appropriate status code depending on
-the concrete error condition.
+#### Examples
 
 The following examples provide guidance on how to deal with specific error
 cases:
 
-### Unparseable or invalid request body
+##### Unparseable or invalid request body
 
 For example: `NONSENSE`, `{"qeury": "{__typena`
 
 Completely prevents execution of the GraphQL operation and SHOULD result in
 status code `400` (Bad Request).
 
-### Document validation
+##### Document validation
 
 Includes validation steps that run before execution of the GraphQL operation:
 
@@ -457,7 +472,7 @@ Note: In certain circumstances, for example persisted queries that were
 previously known to be valid, the server MAY attempt execution regardless of
 validation errors.
 
-### Runtime validation
+##### Runtime validation
 
 Validation steps performed by resolvers during execution of the GraphQL
 operation.
@@ -465,10 +480,10 @@ operation.
 The server SHOULD respond with a status code of `200` (Okay) to ensure clients
 receive a predictable result, no matter which fields they selected.
 
-### Client is not allowed to access the schema
+##### Client is not allowed to access the schema
 
-In case the client can not access the schema at all, the server SHOULD respond
-with the appropriate `4xx` status code.
+In case the client is not permitted to access the schema at all, the server
+SHOULD respond with the appropriate `4xx` status code.
 
 ## Processing the response
 
