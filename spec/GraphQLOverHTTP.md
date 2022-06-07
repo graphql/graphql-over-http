@@ -395,9 +395,9 @@ well-formed GraphQL response (because it cannot trust the source) we must use
 This section only applies when the response body is to use the
 `application/graphql+json` media type.
 
-If the GraphQL response contains the {data} entry (even if it is {null}), then
-the server MUST reply with a `2xx` status code and SHOULD reply with `200`
-status code.
+If the GraphQL response contains the {data} entry and it is not {null}, then the
+server MUST reply with a `2xx` status code and SHOULD reply with `200` status
+code.
 
 Note: There's currently not an approved HTTP status code to use for "partial
 success," contenders include WebDAV's status code "207 Multi-Status" and using a
@@ -407,6 +407,15 @@ states "codes are fully defined in section 10" implying that though more codes
 are expected to be supported over time, valid codes must be present in this
 document.
 
+If the GraphQL response contains the {data} entry and it is {null}, then the
+server SHOULD reply with a `2xx` status code and it is RECOMMENDED it replies
+with `200` status code, however it MAY reply with a `4xx` or `5xx` status code.
+
+Note: This is to enable compatibility with legacy GraphQL servers, including
+`graphql-express`.
+
+<!-- TODO: validate the above note, and the rule. -->
+
 If the GraphQL response does not contain the {data} entry then the server MUST
 reply with a `4xx` or `5xx` status code as appropriate.
 
@@ -415,15 +424,6 @@ code.
 
 If the client is not permitted to make the GraphQL request then the server
 SHOULD reply with `403` status code.
-
-has Content-Type GraphQL and contains a non-null `data` entry, then it MUST have
-status code `2xx`, and it SHOULD have status code `200` (Okay).
-
-If the response has Content-Type GraphQL and has a non-`2xx` status code, the
-`data` entry must be either:
-
-- equal to `null`
-- not present
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
