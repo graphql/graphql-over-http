@@ -18,16 +18,17 @@ This specification details how services that wish to publish and consume GraphQL
 APIs over HTTP should do so in order to maximize interoperability between
 different client libraries, tools and server implementations.
 
-The [GraphQL specification](https://graphql.github.io/graphql-spec/)
-deliberately does not specify the transport layer, however HTTP is the most
-common choice when serving GraphQL to remote clients due to its ubiquity.
+The [GraphQL specification](https://spec.graphql.org/) deliberately does not
+specify the transport layer, however HTTP is the most common choice when serving
+GraphQL to remote clients due to its ubiquity.
 
 Previous to this specification, the article
-[Serving over HTTP](https://graphql.org/learn/serving-over-http/) on the
-graphql.org website served as guidance, and leading implementations on both
-client and server have mostly upheld those best practices and thus established a
-de-facto standard that is commonly used throughout the ecosystem. This
-specification aims to codify and expand on this work.
+[Serving over HTTP](https://graphql.org/learn/serving-over-http/)
+([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http/))
+on the graphql.org website served as guidance, and leading implementations on
+both client and server have mostly upheld those best practices and thus
+established a de-facto standard that is commonly used throughout the ecosystem.
+This specification aims to codify and expand on this work.
 
 **Copyright notice**
 
@@ -163,12 +164,15 @@ throughout this specification.
 ## Media Types
 
 The following are the officially recognized GraphQL media types to designate
-encoding JSON over HTTP.
+using the JSON encoding for GraphQL requests and responses over HTTP.
 
 | Name                       | Description                                   |
 | -------------------------- | --------------------------------------------- |
 | `application/graphql+json` | The preferred type; better HTTP compatibility |
 | `application/json`         | To support legacy clients                     |
+
+For details of the shapes of these JSON payloads, please see
+[Request](#sec-Request) and [Response](#sec-Response).
 
 If the media type in a `Content-Type` or `Accept` header includes encoding
 information, then the encoding MUST be `utf-8` (e.g.
@@ -191,7 +195,7 @@ GET.
 
 ## Request Parameters
 
-A request for execution should contain the following request parameters:
+A {GraphQL-over-HTTP request} is formed of the following parameters:
 
 - {query} - A Document containing GraphQL Operations and Fragments to execute.
 - {operationName} - (_Optional_): The name of the Operation in the Document to
@@ -199,6 +203,11 @@ A request for execution should contain the following request parameters:
 - {variables} - (_Optional_): Values for any Variables defined by the Operation.
 - {extensions} - (_Optional_): This entry is reserved for implementors to extend
   the protocol however they see fit.
+
+Note: When comparing against
+[request in the GraphQL specification](https://spec.graphql.org/draft/#request)
+you should note the schema and "initial value" are not included in the
+GraphQL-over-HTTP request, they are handled by the server based on the URL used.
 
 Note: Be aware that `query` is a misleading parameter name as its value is a
 string describing one or more operations, each of which may be a query, mutation
@@ -214,6 +223,19 @@ values for optional request parameters is equivalent to not specifying them at
 all.
 
 Note: {variables} and {extensions}, if set, must have a map as their value.
+
+### JSON Encoding
+
+When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with
+the properties specified by the GraphQL-over-HTTP request:
+
+- {query} - the string representation the Source Text of the Document as
+  specified in
+  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
+- {operationName} - an optional string
+- {variables} - an optional object (map), the keys of which are the variable
+  names and the values of which are the variable values
+- {extensions} - an optional object (map)
 
 ## Accept
 
@@ -237,6 +259,11 @@ For HTTP GET requests, the query parameters MUST be provided in the query
 component of the request URL in the `application/x-www-form-urlencoded` format
 as specified by
 [WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+
+The `query` parameter MUST be the string representation the Source Text of the
+Document as specified in
+[the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
+
 The `variables` parameter, if used, MUST be represented as a URL-encoded JSON
 string.
 
@@ -244,12 +271,8 @@ string.
 
 If we wanted to execute the following GraphQL query:
 
-```graphql example
-query ($id: ID!) {
-  user(id: $id) {
-    name
-  }
-}
+```raw graphql example
+query($id: ID!){user(id:$id){name}}
 ```
 
 With the following query variables:
@@ -302,8 +325,33 @@ not know the media types the server supports then it SHOULD use
 
 ### Example
 
-Given a POST request with a media type of `application/graphql+json` here is an
-example request body:
+If we wanted to execute the following GraphQL query:
+
+```graphql example
+query ($id: ID!) {
+  user(id: $id) {
+    name
+  }
+}
+```
+
+With the following query variables:
+
+```json example
+{
+  "id": "QVBJcy5ndXJ1"
+}
+```
+
+This request could be sent via an HTTP POST to the relevant URL using the JSON
+encoding with the headers:
+
+```headers example
+Content-Type: application/graphql+json
+Accept: application/graphql+json
+```
+
+And the body:
 
 ```json example
 {
@@ -323,19 +371,19 @@ A server must comply with
 
 ## Interpreting the request
 
-A server MUST support requests from clients with HTTP header
-`Content-Type: application/json`.
+A server MUST support requests encoded with the `application/json` media type
+(as indicated by the `Content-Type` header).
 
-A server MUST support requests from clients who `Accept` the media type
-`application/json`.
+A server MUST support requests which accept the `application/json` media type
+(as indicated by the `Accept` header).
 
-A server SHOULD support requests from clients with HTTP header
-`Content-Type: application/graphql+json`.
+A server SHOULD support requests encoded with the `application/graphql+json`
+media type (as indicated by the `Content-Type` header).
 
-A server SHOULD support requests from clients who `Accept` the media type
-`application/graphql+json`.
+A server SHOULD support requests which accept the `application/graphql+json`
+media type (as indicated by the `Accept` header).
 
-A server MAY support requests from clients with other media types.
+A server MAY support requests encoded with and/or accepting other media types.
 
 If the client does not supply a `Content-Type` header, the server SHOULD treat
 the request as if it had `Content-Type: application/json`.
@@ -348,16 +396,18 @@ Note: These defaults are in place to maintain compatibility with legacy clients.
 ### Legacy watershed
 
 From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-from clients using the `application/graphql+json` media type for the request
-body.
+encoded with the `application/graphql+json` media type (as indicated by the
+`Content-Type` header).
 
 From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-from clients who `Accept` the `application/graphql+json` media type.
+which accept the `application/graphql+json` media type (as indicated by the
+`Accept` header).
 
 ## Body
 
 The body of the server's response MUST follow the requirements for a
-[GraphQL response in the GraphQL spec](https://graphql.github.io/graphql-spec/draft/#sec-Response).
+[GraphQL response in the GraphQL specification](https://graphql.github.io/graphql-spec/draft/#sec-Response),
+encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
 header.
@@ -369,12 +419,12 @@ media type listed.
 In alignment with the
 [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2)
 specification, when a client does not include at least one supported media type
-in the `Accept` HTTP header, the server MAY choose to respond in one of several
-ways. The server MUST either:
+in the `Accept` HTTP header, the server MUST either:
 
 1. Disregard the `Accept` header and respond with the default media type of
    `application/json`, specifying this in the `Content-Type` header; OR
-2. Respond with a `406 Not Acceptable` status code.
+2. Respond with a `406 Not Acceptable` status code and stop processing the
+   request.
 
 ## Status Codes
 
@@ -393,20 +443,22 @@ This section only applies when the response body is to use the
 The server SHOULD use the `200` status code, independent of errors occurring
 during or before execution.
 
-Note: A status code in the 4xx or 5xx ranges or status code 203 (and maybe
+Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
 others) could originate from intermediary servers; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
 well-formed GraphQL response (because it cannot trust the source) we must use
-`200` status code to guarantee that the response comes from the server.
+`200` status code to guarantee that the response has not been generated by or
+modified by an intermediary.
 
 If the GraphQL response contains a non-null {data} entry and no {errors} entry
 then the server MUST use the `200` status code.
 
-If the GraphQL response does not contain a {data} entry or the {data} entry is
-{null}, then the server MAY use a `4xx` or `5xx` status code.
+The server SHOULD NOT use a `4xx` or `5xx` status code.
 
-Note: This is for compatibility with legacy GraphQL servers, it is not
-recommended.
+Note: For compatibility with legacy servers, this specification allows the use
+of `4xx` or `5xx` status code for failed requests using the `application/json`
+media type, but it is strongly discouraged. To use `4xx` and `5xx` status codes,
+please use the `application/graphql+json` media type.
 
 ### application/graphql+json
 
@@ -441,49 +493,71 @@ If the GraphQL response does not contain the {data} entry then it must contain
 the {errors} entry as indicated in the GraphQL specification, and the server
 MUST reply with a `4xx` or `5xx` status code as appropriate.
 
-If the GraphQL request is invalid (is malformed, or does not pass validation)
-then the server SHOULD reply with `400` status code.
+If the GraphQL request is invalid (e.g. it is malformed, or does not pass
+validation) then the server SHOULD reply with `400` status code.
 
 If the client is not permitted to make the GraphQL request then the server
 SHOULD reply with `403`, `401` or similar appropriate status code.
 
 #### Examples
 
-The following examples provide guidance on how to deal with specific error
-cases:
+The following examples provide guidance on how to deal with specific error cases
+when using the `application/graphql+json` media type:
 
 ##### Unparseable or invalid request body
 
 For example: `NONSENSE`, `{"qeury": "{__typena`
 
-Completely prevents execution of the GraphQL operation and SHOULD result in
-status code `400` (Bad Request).
+Is not a well-formed GraphQL request and SHOULD result in status code `400` (Bad
+Request).
 
-##### Document validation
+##### Document validation failure
 
 Includes validation steps that run before execution of the GraphQL operation:
 
-- [GraphQL specification validation](https://spec.graphql.org/October2021/#sec-Validation)
-- custom validation, for example: depth limit, complexity limit
+- [GraphQL specification validation](http://spec.graphql.org/draft/#sec-Validation)
+- custom validation rules, for example: depth limit, complexity limit
 
 The server SHOULD deny execution with a status code of `400` (Bad Request).
 
-Note: In certain circumstances, for example persisted queries that were
+Note: In certain circumstances, for example persisted operations that were
 previously known to be valid, the server MAY attempt execution regardless of
 validation errors.
 
-##### Runtime validation
+##### Operation cannot be determined
 
-Validation steps performed by resolvers during execution of the GraphQL
-operation.
+If [GetOperation()](<https://spec.graphql.org/draft/#GetOperation()>) raises an
+error, the server SHOULD NOT execute the request and SHOULD return a status code
+of `400` (Bad Request).
 
-The server SHOULD respond with a status code of `200` (Okay) to ensure clients
-receive a predictable result, no matter which fields they selected.
+##### Variable coercion failure
 
-##### Client is not allowed to access the schema
+If
+[CoerceVariableValues()](<https://spec.graphql.org/draft/#CoerceVariableValues()>)
+raises an error, the server SHOULD NOT execute the request and SHOULD return a
+status code of `400` (Bad Request).
 
-In case the client is not permitted to access the schema at all, the server
-SHOULD respond with the appropriate `4xx` status code.
+##### Field errors encountered during execution
+
+If no
+[GraphQL request errors](https://spec.graphql.org/draft/#sec-Errors.Request-errors)
+occur then even if
+[GraphQL field errors](https://spec.graphql.org/draft/#sec-Errors.Field-errors)
+are raised during
+[GraphQL's ExecuteQuery()](<https://spec.graphql.org/draft/#ExecuteQuery()>) or
+[GraphQL's ExecuteMutation()](<https://spec.graphql.org/draft/#ExecuteMutation()>)
+the server SHOULD respond with a status code of `200` (Okay).
+
+<!--
+When we add support for subscriptions,
+[GraphQL's MapSourceToResponseEvent()](<https://spec.graphql.org/draft/#MapSourceToResponseEvent()>)
+should be added to the above.
+-->
+
+Note: The GraphQL specification
+[differentiates field errors from request errors](https://spec.graphql.org/draft/#sec-Handling-Field-Errors)
+and refers to the situation whereby field errors occur as a partial response; it
+still indicates successful execution.
 
 ## Processing the response
 
