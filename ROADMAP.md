@@ -2,20 +2,24 @@
 
 ## Mission
 
-_Provide a specification that allows GraphQL clients and servers with different implementations and technology stacks to interact freely over HTTP if both client and server are compliant._
+_Provide a specification that allows GraphQL clients and servers with different
+implementations and technology stacks to interact freely over HTTP if both
+client and server are compliant._
 
 ## Guiding principles
 
 - Development is based on use cases
 - Strive for backwards-compatible progress
-  - Servers supporting later versions of this spec should support clients using earlier versions of this spec.
+  - Servers supporting later versions of this spec should support clients using
+    earlier versions of this spec.
 
 ## Version 1.0
 
-After significant meetings, the Working Group has come to consensus that a first version of this spec should
-introduce some key changes over the prior existing uses of GraphQL over HTTP.
-This first version _might_ also codify existing prior common usages of GraphQL over HTTP.
-In layout and structure version 1.0 should lay a foundation for future development and standardization.
+After significant meetings, the Working Group has come to consensus that a first
+version of this spec should introduce some key changes over the prior existing
+uses of GraphQL over HTTP. This first version _might_ also codify existing prior
+common usages of GraphQL over HTTP. In layout and structure version 1.0 should
+lay a foundation for future development and standardization.
 
 ### Scope
 
@@ -28,7 +32,8 @@ In layout and structure version 1.0 should lay a foundation for future developme
 ### Actions
 
 - Move to the GraphQL Foundation
-- Set of running examples of ~5 of the most popular servers/clients with a standard, minimal GraphQL schema
+- Set of running examples of ~5 of the most popular servers/clients with a
+  standard, minimal GraphQL schema
 - Test suite to automate testing of GraphQL servers compliance with the spec
   - Can be applied to examples of popular server or public GraphQL APIs
 - Results of popular libraries and APIs compliance with current spec
@@ -43,42 +48,52 @@ Future versions of the spec may include these concepts:
 
 - Caching
 - Batching
-- Versioning mechanism for servers/clients to communicate what versions they support
-- Modularity - A way to communicate what features (and possibly versions) of the HTTP spec are supported by a server
+- Versioning mechanism for servers/clients to communicate what versions they
+  support
+- Modularity - A way to communicate what features (and possibly versions) of the
+  HTTP spec are supported by a server
 - Persisted queries
 - Multipart requests (file uploads)
 - Submit MIME type application/graphql+json to IANA
-- New HTTP SEARCH method and how it could be used https://tools.ietf.org/html/draft-snell-search-method-01
+- New HTTP SEARCH method and how it could be used
+  https://tools.ietf.org/html/draft-snell-search-method-01
 
 ## Stages
 
-The process of writing this specification may proceed according this rough outline of stages.
-We are currently in the *Preliminary Stage*.
+The process of writing this specification may proceed according this rough
+outline of stages. We are currently in the _Preliminary Stage_.
 
 ### Stage 0: Preliminary
 
-In the *Preliminary Stage*, things may change rapidly and no one should count on any particular
-detail remaining the same.
+In the _Preliminary Stage_, things may change rapidly and no one should count on
+any particular detail remaining the same.
 
-- If a PR has no requests for changes for 2 weeks then it should be merged by one of the maintainers
-- If anyone has an objection later, they just open a PR to make the change and it goes through the same process
+- If a PR has no requests for changes for 2 weeks then it should be merged by
+  one of the maintainers
+- If anyone has an objection later, they just open a PR to make the change and
+  it goes through the same process
 - Optional: When there is lots of consensus but not 100% full consensus then:
-   - We might merge the consensus-view and debate modifying it in parallel
-   - Anyone can extract the non-controversial part and make a separate PR
+  - We might merge the consensus-view and debate modifying it in parallel
+  - Anyone can extract the non-controversial part and make a separate PR
 
-When the spec seems stable enough, the working group would promote it to *Proposal Stage*.
+When the spec seems stable enough, the working group would promote it to
+_Proposal Stage_.
 
 ### Stage 1: Proposal
 
-In the *Proposal Stage*, things can still change but it is reasonable to start implementations.
+In the _Proposal Stage_, things can still change but it is reasonable to start
+implementations.
 
-- Before release of the spec, in "Draft" stage, we have to review the spec and review all open PRs
+- Before release of the spec, in "Draft" stage, we have to review the spec and
+  review all open PRs
 - Every merge to master would need strong consensus
 - Only changes that address concerns
 - Implementers could start trying things
 
-After the spec and open PRs are reviewed and there is strong consensus, the working group would promote it to *Draft Stage*.
+After the spec and open PRs are reviewed and there is strong consensus, the
+working group would promote it to _Draft Stage_.
 
 ### Stage 2: Draft
 
-This corresponds to the general [GraphQL Draft Stage](https://github.com/graphql/graphql-spec/blob/master/CONTRIBUTING.md#stage-2-draft)
+This corresponds to the general
+[GraphQL Draft Stage](https://github.com/graphql/graphql-spec/blob/master/CONTRIBUTING.md#stage-2-draft)
