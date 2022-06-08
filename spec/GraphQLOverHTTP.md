@@ -95,7 +95,7 @@ agnostic, this GraphQL over HTTP specification aims to map GraphQL's semantics
 to their HTTP equivalents, enabling us to combine the full advantages of GraphQL
 with the rich feature set of HTTP.
 
-GraphQL queries and mutations naturally follow the request/response message
+GraphQL queries and mutations naturally mirror the request/response message
 model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
 and a GraphQL response in an HTTP response.
 
