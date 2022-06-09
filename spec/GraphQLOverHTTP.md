@@ -189,14 +189,46 @@ information, then the encoding MUST be `utf-8` (e.g.
 `Content-Type: application/graphql+json; charset=utf-8`). If encoding
 information is not included then `utf-8` should be assumed.
 
-Prior to this specification, the media type `application/json` was in wide use
-for both the HTTP request body type and the HTTP response payload type.
+A server MUST support requests encoded with the `application/json` media type
+(as indicated by the `Content-Type` header).
+
+A server MUST support requests which accept the `application/json` media type
+(as indicated by the `Accept` header).
+
+A server SHOULD support requests encoded with the `application/graphql+json`
+media type (as indicated by the `Content-Type` header).
+
+A server SHOULD support requests which accept the `application/graphql+json`
+media type (as indicated by the `Accept` header).
+
+A server MAY support requests encoded with and/or accepting other media types.
+
+If the client does not supply a `Content-Type` header, the server SHOULD treat
+the request as if it had `Content-Type: application/json`.
+
+If the client does not supply an `Accept` header, the server SHOULD treat the
+request as if it had `Accept: application/json`.
+
+Note: These defaults are in place to maintain compatibility with legacy clients.
+
+Note: Prior to this specification, the media type `application/json` was in wide
+use for both the HTTP request body type and the HTTP response payload type.
 Unfortunately this causes a number of issues, not least that it means clients
 cannot trust responses from the server that do not use an HTTP 2xx status code
 (since these replies may come from non-compliant HTTP servers or proxies
 somewhere in the request chain). For this reason, this specification introduces
 the `application/graphql+json` media type; however, to give existing servers
 time to move over, it is not required to be supported until 1st January 2025.
+
+### Legacy watershed
+
+From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
+encoded with the `application/graphql+json` media type (as indicated by the
+`Content-Type` header).
+
+From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
+which accept the `application/graphql+json` media type (as indicated by the
+`Accept` header).
 
 # Request
 
@@ -379,40 +411,6 @@ the request.
 
 A server must comply with
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
-
-## Interpreting the request
-
-A server MUST support requests encoded with the `application/json` media type
-(as indicated by the `Content-Type` header).
-
-A server MUST support requests which accept the `application/json` media type
-(as indicated by the `Accept` header).
-
-A server SHOULD support requests encoded with the `application/graphql+json`
-media type (as indicated by the `Content-Type` header).
-
-A server SHOULD support requests which accept the `application/graphql+json`
-media type (as indicated by the `Accept` header).
-
-A server MAY support requests encoded with and/or accepting other media types.
-
-If the client does not supply a `Content-Type` header, the server SHOULD treat
-the request as if it had `Content-Type: application/json`.
-
-If the client does not supply an `Accept` header, the server SHOULD treat the
-request as if it had `Accept: application/json`.
-
-Note: These defaults are in place to maintain compatibility with legacy clients.
-
-### Legacy watershed
-
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-encoded with the `application/graphql+json` media type (as indicated by the
-`Content-Type` header).
-
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-which accept the `application/graphql+json` media type (as indicated by the
-`Accept` header).
 
 ## Body
 
