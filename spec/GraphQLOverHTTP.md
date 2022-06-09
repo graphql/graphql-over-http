@@ -266,19 +266,6 @@ all.
 
 Note: {variables} and {extensions}, if set, must have a map as their value.
 
-### JSON Encoding
-
-When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with
-the properties specified by the GraphQL-over-HTTP request:
-
-- {query} - the string representation the Source Text of the Document as
-  specified in
-  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
-- {operationName} - an optional string
-- {variables} - an optional object (map), the keys of which are the variable
-  names and the values of which are the variable values
-- {extensions} - an optional object (map)
-
 ## Accept
 
 A client SHOULD indicate the media types that it supports in responses using the
@@ -356,6 +343,19 @@ A client SHOULD indicate the media type of a request body using the
 
 Note: If the client does not include a `Content-Type` header then
 `application/json` will be assumed.
+
+### JSON Encoding
+
+When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with
+the properties specified by the GraphQL-over-HTTP request:
+
+- {query} - the string representation the Source Text of the Document as
+  specified in
+  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
+- {operationName} - an optional string
+- {variables} - an optional object (map), the keys of which are the variable
+  names and the values of which are the variable values
+- {extensions} - an optional object (map)
 
 ### Legacy watershed
 
