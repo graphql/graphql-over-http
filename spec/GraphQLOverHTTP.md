@@ -126,8 +126,8 @@ A server MUST enable GraphQL requests to one or more GraphQL schemas.
 
 Each GraphQL schema a server provides MUST be served via one or more URLs.
 
-A server MUST NOT require the client to use different URLs for
-different GraphQL query and mutation requests to the same GraphQL schema.
+A server MUST NOT require the client to use different URLs for different GraphQL
+query and mutation requests to the same GraphQL schema.
 
 The GraphQL schema available via a single URL MAY be different for different
 clients. For example, alpha testers or authenticated users may have access to a
@@ -297,13 +297,13 @@ still leveraging modern features if available in the server.
 
 ## GET
 
-For HTTP GET requests, the GraphQL request parameters MUST be provided in the query
-component of the request URL in the `application/x-www-form-urlencoded` format
-as specified by
+For HTTP GET requests, the GraphQL request parameters MUST be provided in the
+query component of the request URL in the `application/x-www-form-urlencoded`
+format as specified by
 [WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
-The `query` parameter MUST be the string representation of the Source Text of the
-Document as specified in
+The `query` parameter MUST be the string representation of the Source Text of
+the Document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
 The `variables` parameter, if used, MUST be represented as a URL-encoded JSON
