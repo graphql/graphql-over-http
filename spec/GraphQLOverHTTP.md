@@ -415,7 +415,7 @@ A server must comply with
 ## Body
 
 The body of the server's response MUST follow the requirements for a
-[GraphQL response in the GraphQL specification](https://graphql.github.io/graphql-spec/draft/#sec-Response),
+[GraphQL response](https://graphql.github.io/graphql-spec/draft/#sec-Response),
 encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
@@ -445,9 +445,9 @@ The server MAY, at its discretion, apply additional validation rules.
 
 ## Execution
 
-Execution of a GraphQL-over-HTTP request follows the
-[ExecuteRequest()](<https://spec.graphql.org/draft/#ExecuteRequest()>) algorithm
-specified in the GraphQL specification.
+Execution of a GraphQL-over-HTTP request follows
+[GraphQL's ExecuteRequest()](<https://spec.graphql.org/draft/#ExecuteRequest()>)
+algorithm.
 
 ## Status Codes
 
