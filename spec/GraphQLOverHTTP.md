@@ -138,9 +138,8 @@ reason, for example to require authentication or payment; when doing so they
 SHOULD use the relevant `4xx` or `5xx` status code. This decision SHOULD NOT be
 based on the contents of a well formed GraphQL request.
 
-Note: The GraphQL server should not parse the GraphQL request, determine which
-fields were requested, and then choose whether or not to forbid the request
-based on this information; these decisions should be made by the resolvers in
+Note: The GraphQL server should not make authorization decisions based on any
+part of the GraphQL request; these decisions should be made by the resolvers in
 the GraphQL schema, allowing for a partial response to be generated.
 
 Server URLs which enable GraphQL requests MAY also be used for other purposes,
