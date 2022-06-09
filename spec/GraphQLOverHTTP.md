@@ -471,9 +471,9 @@ error} or {GraphQL field error} raised.
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
 others) could originate from intermediary servers; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
-well-formed GraphQL response (because it cannot trust the source) we must use
-`200` status code to guarantee that the response has not been generated or
-modified by an intermediary.
+well-formed GraphQL response (because it cannot trust the source) the server
+must use `200` status code to guarantee to the client that the response has not
+been generated or modified by an intermediary.
 
 If the GraphQL response contains a non-null {data} entry then the server MUST
 use the `200` status code.
