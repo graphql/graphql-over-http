@@ -122,17 +122,12 @@ Specification compliant HTTP client unless the context indicates otherwise.
 
 # URL
 
-A server MUST enable GraphQL requests to one of more GraphQL schemas.
+A server MUST enable GraphQL requests to one or more GraphQL schemas.
 
 Each GraphQL schema a server provides MUST be served via one or more URLs.
 
-A client MUST be able to send all their GraphQL query and mutation requests for
-a single GraphQL schema made available by a server to a single URL endpoint on
-that server. A server MUST NOT require the client to use different URLs for
+A server MUST NOT require the client to use different URLs for
 different GraphQL query and mutation requests to the same GraphQL schema.
-
-Note: This means that a client must be able to issue all GraphQL query and
-mutation operations it needs via a single endpoint.
 
 The GraphQL schema available via a single URL MAY be different for different
 clients. For example, alpha testers or authenticated users may have access to a
@@ -271,12 +266,12 @@ still leveraging modern features if available in the server.
 
 ## GET
 
-For HTTP GET requests, the query parameters MUST be provided in the query
+For HTTP GET requests, the GraphQL request parameters MUST be provided in the query
 component of the request URL in the `application/x-www-form-urlencoded` format
 as specified by
 [WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
-The `query` parameter MUST be the string representation the Source Text of the
+The `query` parameter MUST be the string representation of the Source Text of the
 Document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
@@ -430,8 +425,8 @@ A server MUST indicate the media type of the response with a `Content-Type`
 header.
 
 If an `Accept` header is provided, the server MUST respect the given `Accept`
-header and attempt to encode the response in the highest priority supported
-media type listed.
+header and attempt to encode the response in the highest priority media type
+listed that is supported by the server.
 
 In alignment with the
 [HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2)
