@@ -14,9 +14,14 @@ You can find our community in the #graphql-over-http channel on the
 
 **Introduction**
 
-This specification details how services that wish to publish and consume GraphQL
-APIs over HTTP should do so in order to maximize interoperability between
-different client libraries, tools and server implementations.
+This specification details how libraries that wish to publish and consume
+GraphQL services over HTTP should do so in order to maximize interoperability
+between client libraries, tools, and server implementations. This specification
+does not override or replace the
+[GraphQL specification](https://spec.graphql.org/), it extends it to cover the
+topic of serving GraphQL services over HTTP. If ever there is a conflict between
+the GraphQL specification and this specification, the GraphQL specification
+should be used.
 
 The [GraphQL specification](https://spec.graphql.org/) deliberately does not
 specify the transport layer, however HTTP is the most common choice when serving
@@ -99,6 +104,9 @@ GraphQL queries and mutations naturally mirror the request/response message
 model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
 and a GraphQL response in an HTTP response.
 
+:: In this document, the term {GraphQL service} refers to an
+[application service that has the capabilities defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Overview).
+
 :: In this document, the term {GraphQL schema} refers to a
 [schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
 
@@ -117,8 +125,15 @@ and a GraphQL response in an HTTP response.
 :: In this document, the term {server} refers to a GraphQL over HTTP
 Specification compliant HTTP server unless the context indicates otherwise.
 
+The role of a {server} is to provide a {client} access to one or more GraphQL
+services over HTTP. A {server} is not a {GraphQL service}, it is a GraphQL
+service host.
+
 :: In this document, the term {client} refers to a GraphQL over HTTP
 Specification compliant HTTP client unless the context indicates otherwise.
+
+The role of a {client} is to issue HTTP requests to a {server} in order to
+interact with a {GraphQL service}.
 
 # URL
 
