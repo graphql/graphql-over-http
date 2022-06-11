@@ -3,9 +3,9 @@
   "private": true,
   "license": "OWFa-1.0",
   "scripts": {
-    "test:spellcheck": "cspell '**/*.md'",
-    "format": "prettier --write '**/*.{md,yml,yaml,json}'",
-    "format:check": "prettier --check '**/*.{md,yml,yaml,json}'"
+    "test:spellcheck": "cspell \"**/*.md\"",
+    "format": "prettier --write \"**/*.{md,yml,yaml,json}\"",
+    "format:check": "prettier --check \"**/*.{md,yml,yaml,json}\""
   },
   "devDependencies": {
     "cspell": "5.9.1",
