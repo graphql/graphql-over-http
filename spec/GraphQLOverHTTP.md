@@ -19,9 +19,9 @@ GraphQL services over HTTP should do so in order to maximize interoperability
 between client libraries, tools, and server implementations. This specification
 does not override or replace the
 [GraphQL specification](https://spec.graphql.org/), it extends it to cover the
-topic of serving GraphQL services over HTTP. If ever there is a conflict between
-the GraphQL specification and this specification, the GraphQL specification
-should be used.
+topic of serving GraphQL services over HTTP. If any statement or algorithm in
+this specification appears to conflict with the GraphQL specification, the
+behavior detailed in the GraphQL specification should be used.
 
 The [GraphQL specification](https://spec.graphql.org/) deliberately does not
 specify the transport layer, however HTTP is the most common choice when serving
