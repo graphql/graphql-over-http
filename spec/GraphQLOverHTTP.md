@@ -14,9 +14,8 @@ You can find our community in the #graphql-over-http channel on the
 
 **Introduction**
 
-This specification details how libraries that wish to publish and consume
-GraphQL services over HTTP should do so in order to maximize interoperability
-between client libraries, tools, and server implementations. This specification
+This specification details how GraphQL should be served and consumed over HTTP
+in order to maximize interoperability between clients, servers and tools. This specification
 does not override or replace the
 [GraphQL specification](https://spec.graphql.org/), it extends it to cover the
 topic of serving GraphQL services over HTTP. If any statement or algorithm in
