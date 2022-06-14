@@ -59,3 +59,15 @@ typings/
 
 # Visual Studio project specific, machine local files
 .vs/
+
+# Standard ignores from wg-template
+*.swp
+*~
+.*.haste_cache.*
+.DS_Store
+npm-debug.log
+/build
+/public
+/gh-pages
+yarn.lock
+package-lock.json

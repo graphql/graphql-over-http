@@ -1,0 +1,4 @@
+# PRs to Working Group documents should be minimal effort - no need to force formatting compliance
+/working-group/
+# To maintain the expressiveness of the original poster, we do not auto-format RFCs
+/rfcs/
