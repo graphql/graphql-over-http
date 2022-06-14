@@ -360,7 +360,7 @@ header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with
 the properties specified by the GraphQL-over-HTTP request:
 
-- {query} - the string representation the Source Text of the Document as
+- {query} - the string representation of the Source Text of the Document as
   specified in
   [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 - {operationName} - an optional string
