@@ -215,10 +215,10 @@ media type (as indicated by the `Content-Type` header).
 A server SHOULD support requests which accept the `application/graphql+json`
 media type (as indicated by the `Accept` header).
 
-A server MAY support requests encoded with and/or accepting other media types.
+If the client does not supply a `Content-Type` header, the server SHOULD reject
+the request using the appropriate `4xx` status code.
 
-If the client does not supply a `Content-Type` header, the server SHOULD treat
-the request as if it had `Content-Type: application/json`.
+A server MAY support requests encoded with and/or accepting other media types.
 
 If the client does not supply an `Accept` header, the server SHOULD treat the
 request as if it had `Accept: application/json`.
@@ -351,12 +351,8 @@ operation. A GraphQL POST request MUST have a body which contains values of the
 request parameters encoded in one of the officially recognized GraphQL media
 types, or another media type supported by the server.
 
-A client SHOULD indicate the media type of a request body using the
-`Content-Type` header as specified in
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
-
-Note: If the client does not include a `Content-Type` header then
-`application/json` will be assumed.
+A client MUST indicate the media type of a request body using the `Content-Type`
+header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 ### JSON Encoding
 
