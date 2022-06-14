@@ -201,7 +201,7 @@ For details of the shapes of these JSON payloads, please see
 If the media type in a `Content-Type` or `Accept` header includes encoding
 information, then the encoding MUST be `utf-8` (e.g.
 `Content-Type: application/graphql+json; charset=utf-8`). If encoding
-information is not included then `utf-8` should be assumed.
+information is not included then `utf-8` MUST be assumed.
 
 A server MUST support requests encoded with the `application/json` media type
 (as indicated by the `Content-Type` header).
