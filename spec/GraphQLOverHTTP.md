@@ -260,10 +260,11 @@ A {GraphQL-over-HTTP request} is formed of the following parameters:
 - {extensions} - (_Optional_): This entry is reserved for implementors to extend
   the protocol however they see fit.
 
-Note: When comparing against
-[request in the GraphQL specification](https://spec.graphql.org/draft/#request)
-you should note the schema and "initial value" are not included in the
-GraphQL-over-HTTP request, they are handled by the server based on the URL used.
+Note: When comparing {GraphQL-over-HTTP request} against the term
+["request"](https://spec.graphql.org/draft/#request) in the GraphQL
+specification you should note the {GraphQL schema} and "initial value" are not
+included in the GraphQL-over-HTTP {request}, they are handled by the {server}
+based on the URL used.
 
 Note: Be aware that `query` is a misleading parameter name as its value is a
 string describing one or more operations, each of which may be a query, mutation
