@@ -380,7 +380,7 @@ not know the media types the server supports then it SHOULD use
 
 If we wanted to execute the following GraphQL query:
 
-```graphql example
+```raw graphql example
 query ($id: ID!) {
   user(id: $id) {
     name
@@ -408,7 +408,7 @@ And the body:
 
 ```json example
 {
-  "query": "query ($id: ID!) { user(id:$id) { name } }",
+  "query": "query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}",
   "variables": { "id": "QVBJcy5ndXJ1" }
 }
 ```
