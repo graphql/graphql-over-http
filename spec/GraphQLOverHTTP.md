@@ -325,10 +325,8 @@ query($id: ID!){user(id:$id){name}}
 
 With the following query variables:
 
-```json example
-{
-  "id": "QVBJcy5ndXJ1"
-}
+```raw json example
+{"id":"QVBJcy5ndXJ1"}
 ```
 
 This request could be sent via an HTTP GET as follows:
@@ -413,7 +411,9 @@ And the body:
 ```json example
 {
   "query": "query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}",
-  "variables": { "id": "QVBJcy5ndXJ1" }
+  "variables": {
+    "id": "QVBJcy5ndXJ1"
+  }
 }
 ```
 
