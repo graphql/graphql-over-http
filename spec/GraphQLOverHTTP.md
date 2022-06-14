@@ -289,9 +289,11 @@ A client SHOULD indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
-A client SHOULD include `application/graphql+json` in the `Accept` header.
+A client SHOULD include the media type `application/graphql+json` in the
+`Accept` header.
 
-A client MUST include `application/json` in the `Accept` header.
+If the client supplies an `Accept` header, the header MUST include the
+`application/json` media type.
 
 It is RECOMMENDED that a client set the `Accept` header to
 `application/graphql+json; charset=utf-8, application/json; charset=utf-8`.
