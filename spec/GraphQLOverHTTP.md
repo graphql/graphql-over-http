@@ -38,7 +38,7 @@ This specification aims to codify and expand on this work.
 
 Copyright © 2022-present, GraphQL contributors
 
-THESE MATERIALS ARE PROVIDED “AS IS.” The parties expressly disclaim any
+THESE MATERIALS ARE PROVIDED “AS IS”. The parties expressly disclaim any
 warranties (express, implied, or otherwise), including implied warranties of
 merchantability, non-infringement, fitness for a particular purpose, or title,
 related to the materials. The entire risk as to implementing or otherwise using
