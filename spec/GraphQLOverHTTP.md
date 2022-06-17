@@ -190,12 +190,18 @@ throughout this specification.
 ## Media Types
 
 The following are the officially recognized GraphQL media types to designate
-using the JSON encoding for GraphQL requests and responses over HTTP.
+using the JSON encoding for GraphQL requests:
 
-| Name                       | Description                                   |
-| -------------------------- | --------------------------------------------- |
-| `application/graphql+json` | The preferred type; better HTTP compatibility |
-| `application/json`         | To support legacy clients                     |
+| Name               | Description                             |
+| ------------------ | --------------------------------------- |
+| `application/json` | Standard type for GraphQL JSON requests |
+
+And for GraphQL responses:
+
+| Name                       | Description                                                        |
+| -------------------------- | ------------------------------------------------------------------ |
+| `application/graphql+json` | The preferred type for server responses; better HTTP compatibility |
+| `application/json`         | An alternative type for responses (to support legacy clients)      |
 
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
@@ -204,47 +210,6 @@ If the media type in a `Content-Type` or `Accept` header includes encoding
 information, then the encoding MUST be `utf-8` (e.g.
 `Content-Type: application/graphql+json; charset=utf-8`). If encoding
 information is not included then `utf-8` MUST be assumed.
-
-A server MUST support requests encoded with the `application/json` media type
-(as indicated by the `Content-Type` header).
-
-A server MUST support requests which accept the `application/json` media type
-(as indicated by the `Accept` header).
-
-A server SHOULD support requests encoded with the `application/graphql+json`
-media type (as indicated by the `Content-Type` header).
-
-A server SHOULD support requests which accept the `application/graphql+json`
-media type (as indicated by the `Accept` header).
-
-If the client does not supply a `Content-Type` header, the server SHOULD reject
-the request using the appropriate `4xx` status code.
-
-A server MAY support requests encoded with and/or accepting other media types.
-
-If the client does not supply an `Accept` header, the server SHOULD treat the
-request as if it had `Accept: application/json`.
-
-Note: These defaults are in place to maintain compatibility with legacy clients.
-
-Note: Prior to this specification, the media type `application/json` was in wide
-use for both the HTTP request body type and the HTTP response payload type.
-Unfortunately this causes a number of issues, not least that it means clients
-cannot trust responses from the server that do not use an HTTP 2xx status code
-(since these replies may come from non-compliant HTTP servers or proxies
-somewhere in the request chain). For this reason, this specification introduces
-the `application/graphql+json` media type; however, to give existing servers
-time to move over, it is not required to be supported until 1st January 2025.
-
-### Legacy watershed
-
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-encoded with the `application/graphql+json` media type (as indicated by the
-`Content-Type` header).
-
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
-which accept the `application/graphql+json` media type (as indicated by the
-`Accept` header).
 
 # Request
 
@@ -289,11 +254,14 @@ A client SHOULD indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
-A client SHOULD include the media type `application/graphql+json` in the
-`Accept` header.
+If the client supplies an `Accept` header, a client SHOULD include the media
+type `application/graphql+json` in the `Accept` header.
 
-If the client supplies an `Accept` header, the header MUST include the
-`application/json` media type.
+### Legacy Watershed
+
+Before `2025-01-01T00:00:00Z`, if the client supplies an `Accept` header, the
+header SHOULD include the `application/json` media type. After this watershed,
+this is no longer necessary.
 
 It is RECOMMENDED that a client set the `Accept` header to
 `application/graphql+json; charset=utf-8, application/json; charset=utf-8`.
@@ -357,6 +325,18 @@ types, or another media type supported by the server.
 A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
+A server MUST support POST requests encoded with the `application/json` media
+type (as indicated by the `Content-Type` header).
+
+If the client does not supply a `Content-Type` header with a POST request, the
+server SHOULD reject the request using the appropriate `4xx` status code.
+
+A server MAY support POST requests encoded with and/or accepting other media
+types.
+
+If a client does not know the media types the server supports then it SHOULD
+encode the request body in JSON (i.e. with `Content-Type: application/json`).
+
 ### JSON Encoding
 
 When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with
@@ -369,14 +349,6 @@ the properties specified by the GraphQL-over-HTTP request:
 - {variables} - an optional object (map), the keys of which are the variable
   names and the values of which are the variable values
 - {extensions} - an optional object (map)
-
-### Legacy watershed
-
-Before 1st January 2025 (`2025-01-01T00:00:00Z`), if a client does not know the
-media types the server supports then it SHOULD use
-`Content-Type: application/json` in requests. After this date, if a client does
-not know the media types the server supports then it SHOULD use
-`Content-Type: application/graphql+json` in requests.
 
 ### Example
 
@@ -402,7 +374,7 @@ This request could be sent via an HTTP POST to the relevant URL using the JSON
 encoding with the headers:
 
 ```headers example
-Content-Type: application/graphql+json
+Content-Type: application/json
 Accept: application/graphql+json
 ```
 
@@ -449,6 +421,35 @@ in the `Accept` HTTP header, the server MUST either:
    `application/json`, specifying this in the `Content-Type` header; OR
 2. Respond with a `406 Not Acceptable` status code and stop processing the
    request.
+
+A server MUST support requests which accept the `application/json` media type
+(as indicated by the `Accept` header).
+
+A server SHOULD support requests which accept the `application/graphql+json`
+media type (as indicated by the `Accept` header).
+
+Note: Prior to this specification, the media type `application/json` was in wide
+use for the HTTP response payload type. Unfortunately this means clients cannot
+trust responses from the server that do not use an HTTP 2xx status code (since
+these replies may come from non-compliant HTTP servers or proxies somewhere in
+the request chain). For this reason, this specification introduces the
+`application/graphql+json` media type on responses; however, to give existing
+servers time to move over, it is not required to be supported until 1st
+January 2025.
+
+### Legacy watershed
+
+From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
+which accept the `application/graphql+json` media type (as indicated by the
+`Accept` header).
+
+Before 1st January 2025 (`2025-01-01T00:00:00Z`), if the client does not supply
+an `Accept` header, the server SHOULD treat the request as if it had
+`Accept: application/json`. From 1st January 2025 (`2025-01-01T00:00:00Z`), if
+the client does not supply an `Accept` header, the server SHOULD treat the
+request as if it had `Accept: application/graphql+json`.
+
+Note: This default is in place to maintain compatibility with legacy clients.
 
 ## Validation
 
@@ -500,9 +501,9 @@ execution - see "partial response" in the GraphQL specification.
 The server SHOULD NOT use a `4xx` or `5xx` status code.
 
 Note: For compatibility with legacy servers, this specification allows the use
-of `4xx` or `5xx` status code for failed requests using the `application/json`
-media type, but it is strongly discouraged. To use `4xx` and `5xx` status codes,
-please use the `application/graphql+json` media type.
+of `4xx` or `5xx` status code for failed requests where the responses uses the
+`application/json` media type, but it is strongly discouraged. To use `4xx` and
+`5xx` status codes, please use the `application/graphql+json` media type.
 
 ### application/graphql+json
 
@@ -532,9 +533,12 @@ Note: Using `4xx` and `5xx` status codes in this situation is not recommended -
 since no {GraphQL request error} has occurred it is seen as a "partial
 response".
 
-If the GraphQL response does not contain the {data} entry then it must contain
-the {errors} entry as indicated in the GraphQL specification, and the server
-MUST reply with a `4xx` or `5xx` status code as appropriate.
+If the GraphQL response does not contain the {data} entry then the server MUST
+reply with a `4xx` or `5xx` status code as appropriate.
+
+Note: The GraphQL specification indicates that the only situation in which the
+GraphQL response does not include the {data} entry is one in which the {errors}
+entry is populated.
 
 If the GraphQL request is invalid (e.g. it is malformed, or does not pass
 validation) then the server SHOULD reply with `400` status code.
@@ -545,7 +549,8 @@ SHOULD reply with `403`, `401` or similar appropriate status code.
 #### Examples
 
 The following examples provide guidance on how to deal with specific error cases
-when using the `application/graphql+json` media type:
+when using the `application/graphql+json` media type to encode the response
+body:
 
 ##### Invalid request body or parsing failure
 
