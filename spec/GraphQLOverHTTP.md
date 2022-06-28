@@ -254,7 +254,7 @@ A client SHOULD indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
-If the client supplies an `Accept` header, a client SHOULD include the media
+If the client supplies an `Accept` header, the client SHOULD include the media
 type `application/graphql+json` in the `Accept` header.
 
 ### Legacy Watershed
@@ -501,7 +501,7 @@ execution - see "partial response" in the GraphQL specification.
 The server SHOULD NOT use a `4xx` or `5xx` status code.
 
 Note: For compatibility with legacy servers, this specification allows the use
-of `4xx` or `5xx` status code for failed requests where the responses uses the
+of `4xx` or `5xx` status codes for failed requests where the response uses the
 `application/json` media type, but it is strongly discouraged. To use `4xx` and
 `5xx` status codes, please use the `application/graphql+json` media type.
 
