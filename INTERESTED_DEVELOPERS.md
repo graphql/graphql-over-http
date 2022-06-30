@@ -11,11 +11,11 @@ involved with the following steps:
    GraphQL-over-HTTP working group. Given our world-wide span over many
    timezones, we are doing an experiment of attempting to advance the spec with
    fewer meetings and more asynchronous communication. During this experiment,
-   please reach out over slack and github.
+   please reach out over Discord and GitHub.
 3. Add yourself to `List of Developers` below.
 4. Find our working group on the
-   [GraphQL Foundation slack community](https://slack.graphql.org) in the
-   [graphql-over-http channel](https://graphql.slack.com/archives/CRTKLUZRT).
+   [GraphQL Foundation Discord community](https://discord.graphql.org) in the
+   #graphql-over-http channel.
 
 ## List of Developers
 
