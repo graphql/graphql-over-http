@@ -103,24 +103,6 @@ GraphQL queries and mutations naturally mirror the request/response message
 model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
 and a GraphQL response in an HTTP response.
 
-:: In this document, the term _GraphQL service_ refers to an
-[application service that has the capabilities defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Overview).
-
-:: In this document, the term _GraphQL schema_ refers to a
-[schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
-
-:: In this document, the term _GraphQL request_ refers to a
-[request as defined by the GraphQL Specification](https://spec.graphql.org/draft/#request).
-
-:: In this document, the term _GraphQL response_ refers to a
-[response as defined by the GraphQL Specification](https://spec.graphql.org/draft/#sec-Response).
-
-:: In this document, the term _GraphQL request error_ refers to a
-[request error as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Errors.Request-errors).
-
-:: In this document, the term _GraphQL field error_ refers to a
-[field error as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Errors.Field-errors)
-
 :: In this document, the term _server_ refers to a GraphQL over HTTP
 Specification compliant HTTP server unless the context indicates otherwise.
 
