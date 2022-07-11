@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<!-- Built with spec-md https://spec-md.com -->
+<html>
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>GraphQL Over HTTP</title>
+<style>/** * prism.js default theme for JavaScript, CSS and HTML * Based on dabblet (http://dabblet.com) * @author Lea Verou */ code[class*="language-"], pre[class*="language-"] { 	color: black; 	background: none; 	text-shadow: 0 1px white; 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; 	font-size: 1em; 	text-align: left; 	white-space: pre; 	word-spacing: normal; 	word-break: normal; 	word-wrap: normal; 	line-height: 1.5; 	-moz-tab-size: 4; 	-o-tab-size: 4; 	tab-size: 4; 	-webkit-hyphens: none; 	-moz-hyphens: none; 	-ms-hyphens: none; 	hyphens: none; } pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection, code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection { 	text-shadow: none; 	background: #b3d4fc; } pre[class*="language-"]::selection, pre[class*="language-"] ::selection, code[class*="language-"]::selection, code[class*="language-"] ::selection { 	text-shadow: none; 	background: #b3d4fc; } @media print { 	code[class*="language-"], 	pre[class*="language-"] { 		text-shadow: none; 	} } /* Code blocks */ pre[class*="language-"] { 	padding: 1em; 	margin: .5em 0; 	overflow: auto; } :not(pre) > code[class*="language-"], pre[class*="language-"] { 	background: #f5f2f0; } /* Inline code */ :not(pre) > code[class*="language-"] { 	padding: .1em; 	border-radius: .3em; 	white-space: normal; } .token.comment, .token.prolog, .token.doctype, .token.cdata { 	color: slategray; } .token.punctuation { 	color: #999; } .token.namespace { 	opacity: .7; } .token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { 	color: #905; } .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { 	color: #690; } .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { 	color: #9a6e3a; 	/* This background color was intended by the author of this theme. */ 	background: hsla(0, 0%, 100%, .5); } .token.atrule, .token.attr-value, .token.keyword { 	color: #07a; } .token.function, .token.class-name { 	color: #DD4A68; } .token.regex, .token.important, .token.variable { 	color: #e90; } .token.important, .token.bold { 	font-weight: bold; } .token.italic { 	font-style: italic; } .token.entity { 	cursor: help; }</style>
+<style>:root{color:#333;font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-size:15px;line-height:1.5;--mono-font-size: 13px;--indent: 1rem;--list-indent: 1.5rem;--dfn-indent: 0rem}@media (min-width: 720px){:root{font-size:17px;--mono-font-size: 15px;--indent: 2rem;--list-indent: 2rem;--dfn-indent: 2rem}}body{margin:3rem 0 3rem}article{margin:0 1rem}@media (min-width: 720px){body{margin:6rem auto 3rem;max-width:800px;padding-left:75px;padding-right:clamp(0px,calc((100vw - 800px) * .25),75px)}}.source-link{display:none}@media screen and (min-width: 720px){.source-link{display:block;position:absolute;width:18px;fill:#ccc;opacity:.3}.source-link:hover{opacity:1}}.outdated-selection-link,.selection-link{position:absolute;display:block;color:#fff;--selection-background-color: #cacee0;background:var(--selection-background-color);border-radius:4px;font-size:36px;height:23px;line-height:48px;text-align:center;text-decoration:none;width:25px;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.outdated-selection-link:hover,.selection-link:hover{text-decoration:none}.outdated-selection-link:before,.selection-link:before{border:5px solid transparent;content:"";height:0;margin-top:-5px;margin-right:-5px;position:absolute;right:1px;top:50%;width:0}@media (max-width: 719px){.outdated-selection-link:before,.selection-link:before{border-bottom-color:var(--selection-background-color);border-top:0;right:50%;top:1px}}@media (min-width: 720px){.outdated-selection-link:before,.selection-link:before{border-left-color:var(--selection-background-color);border-right:0;right:1px;top:50%}}.selection-link:hover{--selection-background-color: #3b5998}.outdated-selection-link{--selection-background-color: #f0babe;font-size:21px;font-weight:800;line-height:27px}.outdated-selection-link:hover:after{content:"This selection content has changed since this link was created.";font:9pt/11pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;position:absolute;display:block;white-space:nowrap;padding:2px 5px 1px;top:-20px;background:black;color:#fff}a{color:#3b5998;text-decoration:none}a:hover{text-decoration:underline}img{max-width:100%}dl{margin:1rem 0 1rem var(--dfn-indent)}dd{margin:.25em 0 .5em var(--indent)}dd+dd{margin-top:1rem}dfn,.spec-ref{font-style:italic}dfn>a,.spec-ref>a{color:inherit}h1,h2,h3,h4,h5,h6{font-weight:bold;margin:3em 0 1em;position:relative}@media (min-width: 720px){header>h1{margin:6em 0 3em}}h1{font-size:1.5em;margin-top:5em}h2,h3{font-size:1.25em}h4,h5,h6{font-size:1em}section{padding-top:1rem;margin-top:-1rem}section.subsec>h6{margin-top:2em}section.subsec>h6>a{color:#333}section .spec-secid{margin-right:1ex}@media (min-width: 720px){section .spec-secid{position:absolute;right:100%;text-align:right;white-space:nowrap}}footer{font-size:75%;opacity:.5;text-align:center;margin-top:12rem}.spec-toc{margin:1rem 0 3rem}.spec-toc .title{content:"Contents";display:block;font-weight:bold;margin:5em 0 1em}.spec-toc .spec-secid{margin-right:1ex}.spec-toc ol{list-style:none;padding-left:0;margin-top:0;margin-bottom:0}.spec-toc ol ol{list-style:none;padding-left:2ex;margin-bottom:.25em}.spec-toc li{position:relative;padding:5px 0 0 30px;margin:-5px 0 0 -30px}.spec-toc a{color:#333}.spec-toc a:hover{text-decoration:none}.spec-toc a .spec-secid{color:#3b5998}.spec-toc a:hover .spec-secid{text-decoration:underline}.spec-toc .toggle{display:none}.spec-toc .toggle+label{cursor:pointer;left:6px;opacity:1;padding:5px 6px 5px 7px;position:absolute;top:6px;transform:rotate(0deg);transition:all .18s ease-in-out}.spec-toc .toggle+label:after{border-color:transparent transparent transparent #bbc;border-style:solid;border-width:6px 0 6px 7px;content:" ";display:block;height:0;width:0}@media (pointer: fine){.spec-toc .toggle+label{left:10px;padding:3px 5px 3px 6px;top:8px}}.spec-toc .toggle:checked+label{transform:rotate(90deg)}@media (hover: hover){.spec-toc li:not(:hover)>.toggle:checked+label{opacity:0}}.spec-toc .toggle:not(:checked)~ol{max-height:0;overflow:hidden;margin:0}.spec-sidebar-toggle{display:none}.spec-sidebar-toggle+label>.spec-sidebar-button{position:fixed;right:0;top:0;padding:10px 15px;font-size:30px;color:#000000b3;z-index:2;cursor:pointer;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.spec-sidebar-toggle:checked+label:after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}.spec-sidebar{display:none;position:fixed;right:0;top:0;width:min(320px,calc(100vw - 48px));font-size:14px;line-height:1.75;overflow-y:scroll;height:100%;padding:0 0 5rem 30px;box-sizing:border-box;background:#f0f0f0;box-shadow:inset 1px 0 rgba(0,0,0,.05),-4px 0 8px -2px rgba(0,0,0,.04);overscroll-behavior:contain}.spec-sidebar{user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.spec-sidebar-toggle:checked~.spec-sidebar{display:block}.spec-sidebar .viewing>a:after{color:#8b9;content:"\2022";margin-left:1ex}@media (min-width: 1220px){.spec-sidebar-toggle+label{display:none}.spec-sidebar{display:block;box-shadow:inset 1px 0 rgba(0,0,0,.05),inset 4px 0 8px -2px rgba(0,0,0,.08)!important}body{padding-right:345px}}.spec-note{background:#FEFEF3;border-left:solid 4px #F4E925;margin:1rem -1rem;min-width:70vw;padding:8px 1rem 12px calc(1rem - 4px);width:-moz-fit-content;width:-webkit-fit-content;width:fit-content}@media (min-width: 720px){.spec-note{min-width:416px}}.spec-note>a:first-child{color:#6c6613;display:block;font:italic 11pt/18pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;opacity:.6;user-select:none}.spec-todo{color:#666;margin:1em 0 1em 5em;min-height:1em}.spec-todo::before{content:"todo";display:block;float:left;margin-left:-5em;text-transform:uppercase}.spec-index ol{list-style-type:none;margin:0 0 0 var(--indent);padding:0;column-width:210px;column-gap:var(--indent)}.spec-index ol li{width:min-content;white-space:nowrap}pre,code{font-family:Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;font-size:var(--mono-font-size);font-weight:inherit}code{background:rgba(0,0,0,.03);margin:-2px -1px;padding:3px 3px;white-space:pre-wrap}pre>code{background:none;font-weight:inherit;margin:0;padding:0;white-space:pre}pre{background:#FAFAFA;border-left:solid 4px #E9E9E9;margin:1rem -1rem;min-width:70vw;padding:12px 1rem 12px calc(1rem - 4px);width:-moz-fit-content;width:-webkit-fit-content;width:fit-content;max-width:calc(100vw - 2rem);overflow-y:scroll}@media (min-width: 720px){pre{min-width:40ch}}.spec-example{background:#FAFAFF;border-left:solid 4px #BBBBFF;padding-top:8px}.spec-counter-example{background:#FFFAFA;border-left:solid 4px #FFBBBB;padding-top:8px}.spec-example>a,.spec-counter-example>a{display:block;font:italic 11pt/18pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;opacity:.6;user-select:none}.spec-counter-example>a{color:#98593b}table{border-collapse:collapse}th{background-color:#f9f9f9}td,th{border:1px solid #D0D0D0;padding:.4em;vertical-align:baseline}ol,ul{padding-left:var(--list-indent)}li>ol,li>ul{margin-top:.25em;margin-bottom:.5em}li+li{margin-top:.25em}li.task{list-style-type:none;position:relative}li.task>input:first-child{margin-left:0;position:absolute;transform:translateX(calc(-100% - 1ch))}ins{background-color:#00c81e14;text-decoration:none}del{background-color:#c8000014}.spec-added,.spec-removed{border-left:4px solid;margin-left:-18px;padding-left:14px}.spec-added{border-color:#396}.spec-removed{border-color:#933;text-decoration:line-through}.spec-keyword{font-weight:bold}.spec-string{font-family:Consolas,Monaco,monospace;font-size:85%;white-space:pre}var{font-style:italic}*[data-name]{transition:.15s background ease-out;border-radius:2px;padding:0 3px;margin:0 -3px}.spec-semantic,.spec-algo{margin:1rem 0 1rem var(--dfn-indent)}.spec-semantic>.spec-nt::after,.spec-algo>.spec-call:first-child::after{content:":";font-style:normal;font-weight:bold;margin-left:1ex}.spec-semantic ol,.spec-semantic ol ol ol ol,.spec-algo ol,.spec-algo ol ol ol ol{list-style-type:decimal}.spec-semantic ol ol,.spec-semantic ol ol ol ol ol,.spec-algo ol ol,.spec-algo ol ol ol ol ol{list-style-type:lower-alpha}.spec-semantic ol ol ol,.spec-semantic ol ol ol ol ol ol,.spec-algo ol ol ol,.spec-algo ol ol ol ol ol ol{list-style-type:lower-roman}.spec-call>a{color:inherit}.spec-production{margin:1rem 0 1rem var(--dfn-indent)}.spec-production>.spec-nt::after{content:":";font-style:normal;font-weight:bold;margin:0 1ex}.spec-semantic.d2>.spec-nt::after,.spec-production.d2>.spec-nt::after{content:"::"}.spec-semantic.d3>.spec-nt::after,.spec-production.d3>.spec-nt::after{content:":::"}.spec-production>.spec-rhs{line-height:1.1;margin:.25em 0 .5em calc(2 * var(--indent));text-indent:calc(-1 * var(--indent))}.spec-semantic>.spec-rhs{display:inline-block;text-indent:calc(-1 * var(--indent));margin-left:calc(1ex + var(--indent))}.spec-rhs>*{text-indent:0}.spec-oneof{display:inline}.spec-oneof::before{content:"one of";font-style:normal;font-weight:bold}.spec-oneof-grid{max-width:calc(100vw - 2rem);overflow:scroll;margin:-1ex -1rem;padding:1ex 1rem}.spec-oneof-grid>table{margin-left:var(--indent)}.spec-oneof .spec-rhs{border:none;margin:0;padding:0 0 0 1rem;vertical-align:baseline;white-space:pre}.spec-oneof .spec-rhs:first-child{padding:0}.spec-rhs .spec-constrained:not(:first-child),.spec-rhs .spec-quantified:not(:first-child),.spec-rhs .spec-nt:not(:first-child),.spec-rhs .spec-t:not(:first-child),.spec-rhs .spec-rx:not(:first-child),.spec-rhs .spec-prose:not(:first-child),.spec-rhs .spec-empty:not(:first-child),.spec-rhs .spec-lookahead:not(:first-child){margin-left:1ex;display:inline-block}.spec-condition{font-size:85%}.spec-condition::before{content:"[if "}.spec-condition.not::before{content:"[if not "}.spec-condition::after{content:"]"}.spec-empty,.spec-prose{color:#666}.spec-nt{font-style:italic}.spec-nt>a{color:inherit}.spec-quantifiers,.spec-params{font-size:65%;font-style:normal;vertical-align:sub}.spec-quantifier.list{color:#3348d3}.spec-quantifier.optional{color:#83238e}.spec-params,.spec-condition{color:#1c7758}.spec-params::before{content:"["}.spec-params::after{content:"]"}.spec-quantifier:not(:last-child)::after,.spec-param:not(:last-child)::after{color:#666;content:", "}.spec-param.conditional::before{content:"?"}.spec-param.negated::before{content:"!"}.spec-t,.spec-rx{color:#333;font-family:monospace;font-weight:bold}.spec-butnot::before{color:#666;content:"but not";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-weight:normal;margin-right:1ex}.spec-butnot>*:not(:first-child)::before{color:#666;content:"or";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-weight:normal;margin-right:1ex}.spec-rhs .spec-oneof::before,.spec-rhs .spec-butnot::before{margin-left:1ex}.spec-lookahead>*{margin:0!important}.spec-lookahead>*:not(:first-child)::before{color:#666;content:", ";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-style:normal;font-weight:normal}.spec-lookahead::before{color:#666;content:"[lookahead = ";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-style:normal;font-weight:normal}.spec-lookahead.not::before{content:"[lookahead \2260  "}.spec-lookahead.set::before{content:"[lookahead \2208  {";margin-right:0}.spec-lookahead.set.not::before{content:"[lookahead \2209  {"}.spec-lookahead.ntset::before{content:"[lookahead \2208  ";margin-right:0}.spec-lookahead.ntset.not::before{content:"[lookahead \2209  "}.spec-lookahead::after{color:#666;content:"]"}.spec-lookahead.set::after{content:"}]"}.token.atrule,.token.attr-value,.token.keyword,.token.property,.token.selector,.token.attr-name,.token.builtin,.token.entity,.token.url,.token.inserted{color:#1b1994b0;background:none}.token.tag,.token.boolean,.token.number,.token.string,.token.char,.token.constant,.token.symbol,.token.regex,.token.important,.token.variable,.token.function,.token.class-name,.token.deleted{color:#a20764bd}.token.comment,.token.prolog,.token.doctype,.token.cdata,.token.description{color:inherit;opacity:.3}.token.punctuation{color:inherit;opacity:.5}.token.operator,.token.namespace{color:inherit;opacity:.7}</style>
+<script>(function(){var r,a=[];document.addEventListener("readystatechange",function(){document.readyState==="interactive"&&u()});function u(){var n=document.querySelector('label[for="spec-sidebar-toggle"]');n.addEventListener("scroll",o),n.addEventListener("touchmove",o);function o(d){d.preventDefault()}for(var t=document.getElementsByTagName("section"),e=0;e<t.length;e++)t[e].getAttribute("secid")&&a.push(t[e]);var i=window.scrollY,c=!1;window.addEventListener("scroll",function(d){i=window.scrollY,c||(c=!0,window.requestAnimationFrame(function(){s(i),c=!1}))})}function s(n){for(var o=n+document.documentElement.clientHeight/4,t,e=a.length-1;e>=0;e--)if(a[e].offsetTop<o){t=a[e];break}var i=t&&t.getAttribute("secid");i!==r&&(r&&l(r,!1),i&&l(i,!0),r=i)}function l(n,o){document.getElementById("_sidebar_"+n).className=o?"viewing":"";for(var t=n.split(".");t.length;){var e=document.getElementById("_toggle_"+t.join("."));e&&(e.checked=o),t.pop()}}s(window.scrollY);})();</script>
+<script>(function(){var n=document.getElementsByTagName("style")[0].sheet,e;function u(){e&&(n.deleteRule(e),e=void 0)}function d(t){u(),e=n.insertRule('*[data-name="'+t+'"] { background: rgba(230,215,0,0.12); }',n.cssRules.length)}document.documentElement.addEventListener("mouseover",function(t){var a=t.target.attributes["data-name"];a&&d(a.value)});document.documentElement.addEventListener("mouseout",u);})();</script>
+<script>(function(){var R="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",o,p,r,g;document.addEventListener("selectionchange",E);window.addEventListener("resize",C);window.addEventListener("hashchange",x);window.addEventListener("load",x);function S(n){y(new URL(n.target.href))}function x(){y(window.location)}function y(n){var e=n.hash.match(/^#sel-([A-Za-z0-9-_]+)$/);if(!!e){g=e[1],r=k(g);var t=r.getBoundingClientRect(),d=Math.max(20,Math.floor((window.innerHeight-t.height)*.4));window.scrollTo(0,window.scrollY+t.y-d);var c=document.getSelection();c.empty(),c.addRange(r),C()}}function E(n){var e=document.getSelection();if(e.isCollapsed)o&&(o.parentNode.removeChild(o),o=null);else{var t=e.getRangeAt(0);(!r||t.compareBoundaryPoints(Range.START_TO_START,r)!==0||t.compareBoundaryPoints(Range.END_TO_END,r)!==0)&&(r=t,g=B(r),C())}}function C(){if(!!r){p||(p=document.getElementsByTagName("article")[0]),o||(o=document.createElement("a"),document.body.appendChild(o)),o.href="#sel-"+g,o.onclick=S,o.className=r.isOutdated?"outdated-selection-link":"selection-link",o.innerText=r.isOutdated?"!":"\u201F";var n=window.innerWidth<720,e=r.getBoundingClientRect();if(n)o.style.left=Math.floor(e.x+e.width/2+window.scrollX-13)+"px",o.style.top=Math.floor(e.bottom+window.scrollY+10)+"px";else{var t=p.getBoundingClientRect().x;o.style.left=Math.floor(t+window.scrollX-37)+"px",o.style.top=Math.floor(e.y+window.scrollY-3)+"px"}}}function B(n){var e="",t=N(n.startContainer),d=N(n.endContainer),c=M(t,d);return l(c),l(t.slice(c.length).concat(n.startOffset)),l(d.slice(c.length).concat(n.endOffset)),i(L(n.toString())),e;function i(a){do e+=R[a&31|(a>31?32:0)],a>>=5;while(a>0)}function l(a){i(a.length);for(var h=0;h<a.length;h++)i(a[h])}}function k(n){for(var e=new Array(64),t=0;t<64;t++)e[R.charCodeAt(t)]=t;var d=0,c=m(),i=m(),l=m(),a=w(),h=i.pop(),P=O(c.concat(i)),T=l.pop(),A=O(c.concat(l)),u=document.createRange();return u.setStart(P,h),u.setEnd(A,T),u.isOutdated=a!==void 0&&a!==L(u.toString()),u;function w(){for(var s=0,v=0;d<n.length;){var f=e[n.charCodeAt(d++)];if(s|=(f&31)<<v,v+=5,f<32)return s}}function m(){var s=w();if(s!=null){for(var v=new Array(s),f=0;f<s;f++)v[f]=w();return v}}}function N(n){for(var e=[];n!=document.body;){var t=n.parentNode;e.push(Array.prototype.indexOf.call(t.childNodes,n)),n=t}return e.reverse()}function O(n){for(var e=document.body,t=0;t<n.length&&e;t++)e=e.childNodes[n[t]];return e}function M(n,e){for(var t=0;t<n.length&&t<e.length&&n[t]===e[t];)t++;return n.slice(0,t)}function L(n){for(var e=2166136261,t=0;t<n.length;++t)e^=n.charCodeAt(t),e+=(e<<1)+(e<<4)+(e<<7)+(e<<8)+(e<<24);return(e>>15^e)&32767}})();</script>
+<script>(function(){var a,i,t;document.addEventListener("pointerover",c);document.addEventListener("pointerleave",u);window.addEventListener("resize",d);var s={OL:1,UL:1};function c(r){var e=r.target;if(e.nodeType===Node.ELEMENT_NODE){for(;e&&!e.getAttribute("data-source");){if(s[e.nodeName])return;e=e.parentElement}e&&e!==a&&(a=e,d())}}function d(){if(!!a){i||(i=document.getElementsByTagName("article")[0]),t||(t=document.createElement("a"),t.className="source-link",t.target="_blank",t.innerHTML='<svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>',document.body.appendChild(t)),t.href=i.getAttribute("data-source-base")+a.getAttribute("data-source");var r=v(a),e=document.createRange();r.nodeType===Node.TEXT_NODE?e.setStart(r,0):e.selectNode(r);var n=e.getBoundingClientRect();e.detach();var o=n.y+n.height/2-9,l=i.getBoundingClientRect().x-95;t.style.left=Math.floor(window.scrollX+l)+"px",t.style.top=Math.floor(window.scrollY+o)+"px"}}function v(r){e:for(;r;){for(var e=r.childNodes,n=0;e&&n<e.length;n++){var o=e[n];if(o.nodeType===Node.ELEMENT_NODE||o.nodeType===Node.TEXT_NODE&&!/^\s*$/.test(o.data)){r=o;continue e}}return r}}function u(){t&&(t.parentNode.removeChild(t),t=null)}})();</script>
+</head>
+<body><article data-source-base="https://github.com/graphql/graphql-over-http/blame/main/">
+<header>
+<h1>GraphQL Over HTTP</h1>
+<section id="intro">
+<div id="note-fb4ec" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L3-L9">
+<a href="#note-fb4ec">Note</a>
+<strong>Stage 0: Preliminary</strong> This spec is under active development, and not ready for implementations yet. For more information, please see the <a href="https://github.com/graphql/graphql-over-http/blob/master/ROADMAP.md">Roadmap</a> or <a href="https://github.com/graphql/graphql-over-http/blob/master/INTERESTED_DEVELOPERS.md">how to get involved</a>. You can find our community in the #graphql-over-http channel on the <a href="https://discord.graphql.org">GraphQL Foundation Discord</a>.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L11">---</p>
+</section>
+<nav class="spec-toc">
+<div class="title">Contents</div>
+<ol>
+<li><a href="#sec-GraphQL-over-HTTP"><span class="spec-secid">1</span>GraphQL over HTTP</a></li>
+<li><a href="#sec-Overview"><span class="spec-secid">2</span>Overview</a></li>
+<li><a href="#sec-URL"><span class="spec-secid">3</span>URL</a></li>
+<li><a href="#sec-Serialization-Format"><span class="spec-secid">4</span>Serialization Format</a><ol>
+<li><a href="#sec-Media-Types"><span class="spec-secid">4.1</span>Media Types</a></li>
+</ol>
+</li>
+<li><a href="#sec-Request"><span class="spec-secid">5</span>Request</a><ol>
+<li><a href="#sec-Request-Parameters"><span class="spec-secid">5.1</span>Request Parameters</a></li>
+<li><a href="#sec-Accept"><span class="spec-secid">5.2</span>Accept</a><ol>
+<li><a href="#sec-Legacy-Watershed"><span class="spec-secid">5.2.1</span>Legacy Watershed</a></li>
+</ol>
+</li>
+<li><a href="#sec-GET"><span class="spec-secid">5.3</span>GET</a><ol>
+<li><a href="#sec-GET.Example"><span class="spec-secid">5.3.1</span>Example</a></li>
+</ol>
+</li>
+<li><a href="#sec-POST"><span class="spec-secid">5.4</span>POST</a><ol>
+<li><a href="#sec-JSON-Encoding"><span class="spec-secid">5.4.1</span>JSON Encoding</a></li>
+<li><a href="#sec-POST.Example"><span class="spec-secid">5.4.2</span>Example</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#sec-Response"><span class="spec-secid">6</span>Response</a><ol>
+<li><a href="#sec-Body"><span class="spec-secid">6.1</span>Body</a><ol>
+<li><a href="#sec-Legacy-watershed"><span class="spec-secid">6.1.1</span>Legacy watershed</a></li>
+</ol>
+</li>
+<li><a href="#sec-Validation"><span class="spec-secid">6.2</span>Validation</a></li>
+<li><a href="#sec-Execution"><span class="spec-secid">6.3</span>Execution</a></li>
+<li><a href="#sec-Status-Codes"><span class="spec-secid">6.4</span>Status Codes</a><ol>
+<li><a href="#sec-application-json"><span class="spec-secid">6.4.1</span>application/json</a></li>
+<li><a href="#sec-application-graphql-json"><span class="spec-secid">6.4.2</span>application/graphql+json</a><ol>
+<li><a href="#sec-Examples"><span class="spec-secid">6.4.2.1</span>Examples</a><ol>
+<li><a href="#sec-Invalid-request-body-or-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>Invalid request body or parsing failure</a></li>
+<li><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.2</span>Document validation failure</a></li>
+<li><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.3</span>Operation cannot be determined</a></li>
+<li><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.4</span>Variable coercion failure</a></li>
+<li><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.5</span>Field errors encountered during execution</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#sec-Processing-the-response"><span class="spec-secid">6.5</span>Processing the response</a></li>
+</ol>
+</li>
+<li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</nav>
+</header>
+<section id="sec-GraphQL-over-HTTP" secid="1">
+<h1 data-source="spec/GraphQLOverHTTP.md#L13"><span class="spec-secid" title="link to this section"><a href="#sec-GraphQL-over-HTTP">1</a></span>GraphQL over HTTP</h1>
+<section id="sec-GraphQL-over-HTTP.Introduction" class="subsec">
+<h6 data-source="spec/GraphQLOverHTTP.md#L15"><a href="#sec-GraphQL-over-HTTP.Introduction" title="link to this subsection">Introduction</a></h6>
+<p data-source="spec/GraphQLOverHTTP.md#L17-L23">This specification details how GraphQL should be served and consumed over HTTP in order to maximize interoperability between clients, servers and tools. This specification does not override or replace the <a href="https://spec.graphql.org/">GraphQL specification</a>, it extends it to cover the topic of serving GraphQL services over HTTP. If any statement or algorithm in this specification appears to conflict with the GraphQL specification, the behavior detailed in the GraphQL specification should be used.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L25-L27">The <a href="https://spec.graphql.org/">GraphQL specification</a> deliberately does not specify the transport layer, however HTTP is the most common choice when serving GraphQL to remote clients due to its ubiquity.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L29-L35">Previous to this specification, the article <a href="https://graphql.org/learn/serving-over-http/">Serving over HTTP</a> (<a href="https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http/">WayBack Machine entry, 1st June 2022</a>) on the graphql.org website served as guidance, and leading implementations on both client and server have mostly upheld those best practices and thus established a de-facto standard that is commonly used throughout the ecosystem. This specification aims to codify and expand on this work.</p>
+</section>
+<section id="sec-GraphQL-over-HTTP.Copyright-notice" class="subsec">
+<h6 data-source="spec/GraphQLOverHTTP.md#L37"><a href="#sec-GraphQL-over-HTTP.Copyright-notice" title="link to this subsection">Copyright notice</a></h6>
+<p data-source="spec/GraphQLOverHTTP.md#L39">Copyright © 2022-present, GraphQL contributors</p>
+<p data-source="spec/GraphQLOverHTTP.md#L41-L51">THESE MATERIALS ARE PROVIDED &ldquo;AS IS&rdquo;. The parties expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials. The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE PARTIES BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</section>
+<section id="sec-GraphQL-over-HTTP.Conformance" class="subsec">
+<h6 data-source="spec/GraphQLOverHTTP.md#L53"><a href="#sec-GraphQL-over-HTTP.Conformance" title="link to this subsection">Conformance</a></h6>
+<p data-source="spec/GraphQLOverHTTP.md#L55-L57">A conforming implementation of GraphQL over HTTP must fulfill all normative requirements. Conformance requirements are described in this document via both descriptive assertions and key words with clearly defined meanings.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L59-L64">The key words &ldquo;MUST&rdquo;, &ldquo;MUST NOT&rdquo;, &ldquo;REQUIRED&rdquo;, &ldquo;SHALL&rdquo;, &ldquo;SHALL NOT&rdquo;, &ldquo;SHOULD&rdquo;, &ldquo;SHOULD NOT&rdquo;, &ldquo;RECOMMENDED&rdquo;, &ldquo;MAY&rdquo;, and &ldquo;OPTIONAL&rdquo; in the normative portions of this document are to be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">IETF RFC 2119</a>. These key words may appear in lowercase and still retain their meaning unless explicitly declared as non-normative.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L66-L68">A conforming implementation of GraphQL over HTTP may provide additional functionality, but must not where explicitly disallowed or would otherwise result in non-conformance.</p>
+</section>
+<section id="sec-GraphQL-over-HTTP.Non-Normative-Portions" class="subsec">
+<h6 data-source="spec/GraphQLOverHTTP.md#L70"><a href="#sec-GraphQL-over-HTTP.Non-Normative-Portions" title="link to this subsection">Non-Normative Portions</a></h6>
+<p data-source="spec/GraphQLOverHTTP.md#L72-L73">All contents of this document are normative except portions explicitly declared as non-normative.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L75-L78">Examples in this document are non-normative, and are presented to aid understanding of introduced concepts and the behavior of normative portions of the specification. Examples are either introduced explicitly in prose (e.g. &ldquo;for example&rdquo;) or are set apart in example or counter-example blocks, like this:</p>
+<pre id="example-fed99" class="spec-example" data-source="spec/GraphQLOverHTTP.md#L80-L82"><a href="#example-fed99">Example № 1</a><code>This is an example of a non-normative example.
+</code></pre>
+<pre id="example-881bd" class="spec-counter-example" data-source="spec/GraphQLOverHTTP.md#L84-L86"><a href="#example-881bd">Counter Example № 2</a><code>This is an example of a non-normative counter-example.
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L88-L91">Notes in this document are non-normative, and are presented to clarify intent, draw attention to potential edge-cases and pit-falls, and answer common questions that arise during implementation. Notes are either introduced explicitly in prose (e.g. &ldquo;Note: &ldquo;) or are set apart in a note block, like this:</p>
+<div id="note-c0129" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L93">
+<a href="#note-c0129">Note</a>
+This is an example of a non-normative note.</div>
+</section>
+</section>
+<section id="sec-Overview" secid="2">
+<h1 data-source="spec/GraphQLOverHTTP.md#L95"><span class="spec-secid" title="link to this section"><a href="#sec-Overview">2</a></span>Overview</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L97-L100">Though <a href="https://spec.graphql.org">the GraphQL specification</a> is transport agnostic, this GraphQL over HTTP specification aims to map GraphQL&rsquo;s semantics to their HTTP equivalents, enabling us to combine the full advantages of GraphQL with the rich feature set of HTTP.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L102-L104">GraphQL queries and mutations naturally mirror the request/response message model used in HTTP, allowing us to provide a GraphQL request in an HTTP request and a GraphQL response in an HTTP response.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L106-L107">In this document, the term <dfn id="server"><a href="#server" data-name="server">server</a></dfn> refers to a GraphQL over HTTP Specification compliant HTTP server unless the context indicates otherwise.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L109-L111">The role of a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> is to provide a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> access to one or more GraphQL services over HTTP. A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> is not a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Overview" data-name="graphql-service" target="_blank">GraphQL service</a></span>, it is a GraphQL service host.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L113-L114">In this document, the term <dfn id="client"><a href="#client" data-name="client">client</a></dfn> refers to a GraphQL over HTTP Specification compliant HTTP client unless the context indicates otherwise.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L116-L117">The role of a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> is to issue HTTP requests to a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> in order to interact with a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Overview" data-name="graphql-service" target="_blank">GraphQL service</a></span>.</p>
+</section>
+<section id="sec-URL" secid="3">
+<h1 data-source="spec/GraphQLOverHTTP.md#L119"><span class="spec-secid" title="link to this section"><a href="#sec-URL">3</a></span>URL</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L121">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST enable GraphQL requests to one or more GraphQL schemas.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L123">Each GraphQL schema a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> provides MUST be served via one or more URLs.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L125-L126">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST NOT require the <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to use different URLs for different GraphQL query and mutation requests to the same GraphQL schema.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L128-L130">The GraphQL schema available via a single URL MAY be different for different clients. For example, alpha testers or authenticated users may have access to a schema with additional fields.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L132-L135">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MAY forbid individual requests by a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to any endpoint for any reason, for example to require authentication or payment; when doing so it SHOULD use the relevant <code>4xx</code> or <code>5xx</code> status code. This decision SHOULD NOT be based on the contents of a well formed GraphQL request.</p>
+<div id="note-6e398" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L137-L141">
+<a href="#note-6e398">Note</a>
+The <span class="spec-ref"><a href="#server" data-name="server">server</a></span> should not make authorization decisions based on any part of the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#request" data-name="graphql-request" target="_blank">GraphQL request</a></span>; these decisions should be made by the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Schema" data-name="graphql-schema" target="_blank">GraphQL schema</a></span> during <a href="https://spec.graphql.org/draft/#ExecuteRequest()">GraphQL&rsquo;s ExecuteRequest()</a>, allowing for a partial response to be generated.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L143-L145">Server URLs which enable GraphQL requests MAY also be used for other purposes, as long as they don&rsquo;t conflict with the server&rsquo;s responsibility to handle GraphQL requests.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L147-L148">It is RECOMMENDED to end the path component of the URL with <code>/graphql</code>, for example:</p>
+<pre id="example-910fc" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L150-L152"><a href="#example-910fc">Example № 3</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
+</code></pre>
+<pre id="example-a57f1" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L154-L156"><a href="#example-a57f1">Example № 4</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">product.example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
+</code></pre>
+<pre id="example-699ca" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L158-L160"><a href="#example-699ca">Example № 5</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>product<span class="token path-separator">/</span>graphql</span>
+</code></pre>
+</section>
+<section id="sec-Serialization-Format" secid="4">
+<h1 data-source="spec/GraphQLOverHTTP.md#L162"><span class="spec-secid" title="link to this section"><a href="#sec-Serialization-Format">4</a></span>Serialization Format</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L164-L167">The GraphQL specification allows for many <a href="https://spec.graphql.org/draft/#sec-Serialization-Format">serialization formats to be implemented</a>. Servers and clients MUST support JSON and MAY support other, additional serialization formats.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L169-L170">For consistency and ease of notation, examples of the response are given in JSON throughout this specification.</p>
+<section id="sec-Media-Types" secid="4.1">
+<h2 data-source="spec/GraphQLOverHTTP.md#L172"><span class="spec-secid" title="link to this section"><a href="#sec-Media-Types">4.1</a></span>Media Types</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L174-L175">The following are the officially recognized GraphQL media types to designate using the JSON encoding for GraphQL requests:</p>
+<table>
+<thead>
+<tr data-source="spec/GraphQLOverHTTP.md#L177">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr data-source="spec/GraphQLOverHTTP.md#L179">
+<td><code>application/json</code></td>
+<td>Standard type for GraphQL JSON requests</td>
+</tr>
+</tbody>
+</table>
+<p data-source="spec/GraphQLOverHTTP.md#L181">And for GraphQL responses:</p>
+<table>
+<thead>
+<tr data-source="spec/GraphQLOverHTTP.md#L183">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr data-source="spec/GraphQLOverHTTP.md#L185">
+<td><code>application/graphql+json</code></td>
+<td>The preferred type for server responses; better HTTP compatibility</td>
+</tr>
+<tr data-source="spec/GraphQLOverHTTP.md#L186">
+<td><code>application/json</code></td>
+<td>An alternative type for responses (to support legacy clients)</td>
+</tr>
+</tbody>
+</table>
+<p data-source="spec/GraphQLOverHTTP.md#L188-L189">For details of the shapes of these JSON payloads, please see <a href="#sec-Request">Request</a> and <a href="#sec-Response">Response</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L191-L194">If the media type in a <code>Content-Type</code> or <code>Accept</code> header includes encoding information, then the encoding MUST be <code>utf-8</code> (e.g. <code>Content-Type: application/graphql+json; charset=utf-8</code>). If encoding information is not included then <code>utf-8</code> MUST be assumed.</p>
+</section>
+</section>
+<section id="sec-Request" secid="5">
+<h1 data-source="spec/GraphQLOverHTTP.md#L196"><span class="spec-secid" title="link to this section"><a href="#sec-Request">5</a></span>Request</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L198-L199">A server MUST accept POST requests, and MAY accept other HTTP methods, such as GET.</p>
+<section id="sec-Request-Parameters" secid="5.1">
+<h2 data-source="spec/GraphQLOverHTTP.md#L201"><span class="spec-secid" title="link to this section"><a href="#sec-Request-Parameters">5.1</a></span>Request Parameters</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L203">A <em>GraphQL-over-HTTP request</em> is formed of the following parameters:</p>
+<ul>
+<li data-source="spec/GraphQLOverHTTP.md#L205"><var data-name="query">query</var> - A Document containing GraphQL Operations and Fragments to execute.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L206-L207"><var data-name="operationName">operationName</var> - (<em>Optional</em>): The name of the Operation in the Document to execute.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L208"><var data-name="variables">variables</var> - (<em>Optional</em>): Values for any Variables defined by the Operation.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L209-L210"><var data-name="extensions">extensions</var> - (<em>Optional</em>): This entry is reserved for implementors to extend the protocol however they see fit.</li>
+</ul>
+<div id="note-589e1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L212-L216">
+<a href="#note-589e1">Note</a>
+When comparing <em>GraphQL-over-HTTP request</em> against the term <a href="https://spec.graphql.org/draft/#request">&ldquo;request&rdquo;</a> in the GraphQL specification you should note the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Schema" data-name="graphql-schema" target="_blank">GraphQL schema</a></span> and &ldquo;initial value&rdquo; are not included in the GraphQL-over-HTTP <em>request</em>, they are handled by the <span class="spec-ref"><a href="#server" data-name="server">server</a></span> based on the URL used.</div>
+<div id="note-6c47c" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L218-L221">
+<a href="#note-6c47c">Note</a>
+Be aware that <code>query</code> is a misleading parameter name as its value is a string describing one or more operations, each of which may be a query, mutation or subscription. A better name would have been <code>document</code>, but the term <code>query</code> is well established.</div>
+<div id="note-43b86" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L223-L225">
+<a href="#note-43b86">Note</a>
+Depending on the serialization format used, values of the aforementioned parameters can be encoded differently but their names and semantics must stay the same.</div>
+<div id="note-6cc35" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L227-L229">
+<a href="#note-6cc35">Note</a>
+Specifying <code>null</code> in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.</div>
+<div id="note-85ad2" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L231">
+<a href="#note-85ad2">Note</a>
+<var data-name="variables">variables</var> and <var data-name="extensions">extensions</var>, if set, must have a map as their value.</div>
+</section>
+<section id="sec-Accept" secid="5.2">
+<h2 data-source="spec/GraphQLOverHTTP.md#L233"><span class="spec-secid" title="link to this section"><a href="#sec-Accept">5.2</a></span>Accept</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L235-L237">A client SHOULD indicate the media types that it supports in responses using the <code>Accept</code> HTTP header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L239-L240">If the client supplies an <code>Accept</code> header, the client SHOULD include the media type <code>application/graphql+json</code> in the <code>Accept</code> header.</p>
+<section id="sec-Legacy-Watershed" secid="5.2.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L242"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-Watershed">5.2.1</a></span>Legacy Watershed</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L244-L246">Before <code>2025-01-01T00:00:00Z</code>, if the client supplies an <code>Accept</code> header, the header SHOULD include the <code>application/json</code> media type. After this watershed, this is no longer necessary.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L248-L249">It is RECOMMENDED that a client set the <code>Accept</code> header to <code>application/graphql+json; charset=utf-8, application/json; charset=utf-8</code>.</p>
+<div id="note-507e9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L251-L252">
+<a href="#note-507e9">Note</a>
+This recommended header enables compatibility with legacy servers whilst still leveraging modern features if available in the server.</div>
+</section>
+</section>
+<section id="sec-GET" secid="5.3">
+<h2 data-source="spec/GraphQLOverHTTP.md#L254"><span class="spec-secid" title="link to this section"><a href="#sec-GET">5.3</a></span>GET</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L256-L259">For HTTP GET requests, the GraphQL request parameters MUST be provided in the query component of the request URL in the <code>application/x-www-form-urlencoded</code> format as specified by <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG&rsquo;s URLSearchParams class</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L261-L263">The <code>query</code> parameter MUST be the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L265-L266">The <code>variables</code> parameter, if used, MUST be represented as a URL-encoded JSON string.</p>
+<section id="sec-GET.Example" secid="5.3.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L268"><span class="spec-secid" title="link to this section"><a href="#sec-GET.Example">5.3.1</a></span>Example</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L270">If we wanted to execute the following GraphQL query:</p>
+<pre id="example-25ae9" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L272-L274"><a href="#example-25ae9">Example № 6</a><code><span class="token keyword">query</span><span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span><span class="token variable">$id</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property">name</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L276">With the following query variables:</p>
+<pre id="example-ece49" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L278-L280"><a href="#example-ece49">Example № 7</a><code><span class="token punctuation">{</span><span class="token property">"id"</span><span class="token operator">:</span><span class="token string">"QVBJcy5ndXJ1"</span><span class="token punctuation">}</span>
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L282">This request could be sent via an HTTP GET as follows:</p>
+<pre id="example-3981e" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L284-L286"><a href="#example-3981e">Example № 8</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span><span class="token query"><span class="token query-delimiter">?</span><span class="token pair"><span class="token key">query</span>=<span class="token value">query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D</span></span><span class="token pair-delimiter">&amp;</span><span class="token pair"><span class="token key">variables</span>=<span class="token value">%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D</span></span></span>
+</code></pre>
+<div id="note-1d902" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L288-L292">
+<a href="#note-1d902">Note</a>
+<var data-name="query">query</var> and <var data-name="operationName">operationName</var> parameters are encoded as raw strings in the query component. Therefore if the query string contained <code>operationName=null</code> then it should be interpreted as the <var data-name="operationName">operationName</var> being the string <code>"null"</code>. If a literal <code>null</code> is desired, the parameter (e.g. <var data-name="operationName">operationName</var>) should be omitted.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L294-L298">GET requests MUST NOT be used for executing mutation operations. If the values of <var data-name="query">query</var> and <var data-name="operationName">operationName</var> indicate that a mutation operation is to be executed, the server MUST respond with error status code <code>405</code> (Method Not Allowed) and halt execution. This restriction is necessary to conform with the long-established semantics of safe methods within HTTP.</p>
+</section>
+</section>
+<section id="sec-POST" secid="5.4">
+<h2 data-source="spec/GraphQLOverHTTP.md#L300"><span class="spec-secid" title="link to this section"><a href="#sec-POST">5.4</a></span>POST</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L302-L305">A GraphQL POST request instructs the server to perform a query or mutation operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded in one of the officially recognized GraphQL media types, or another media type supported by the server.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L307-L308">A client MUST indicate the media type of a request body using the <code>Content-Type</code> header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L310-L311">A server MUST support POST requests encoded with the <code>application/json</code> media type (as indicated by the <code>Content-Type</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L313-L314">If the client does not supply a <code>Content-Type</code> header with a POST request, the server SHOULD reject the request using the appropriate <code>4xx</code> status code.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L316-L317">A server MAY support POST requests encoded with and/or accepting other media types.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L319-L320">If a client does not know the media types the server supports then it SHOULD encode the request body in JSON (i.e. with <code>Content-Type: application/json</code>).</p>
+<section id="sec-JSON-Encoding" secid="5.4.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L322"><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Encoding">5.4.1</a></span>JSON Encoding</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L324-L325">When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with the properties specified by the GraphQL-over-HTTP request:</p>
+<ul>
+<li data-source="spec/GraphQLOverHTTP.md#L327-L329"><var data-name="query">query</var> - the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L330"><var data-name="operationName">operationName</var> - an optional string</li>
+<li data-source="spec/GraphQLOverHTTP.md#L331-L332"><var data-name="variables">variables</var> - an optional object (map), the keys of which are the variable names and the values of which are the variable values</li>
+<li data-source="spec/GraphQLOverHTTP.md#L333"><var data-name="extensions">extensions</var> - an optional object (map)</li>
+</ul>
+</section>
+<section id="sec-POST.Example" secid="5.4.2">
+<h3 data-source="spec/GraphQLOverHTTP.md#L335"><span class="spec-secid" title="link to this section"><a href="#sec-POST.Example">5.4.2</a></span>Example</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L337">If we wanted to execute the following GraphQL query:</p>
+<pre id="example-0b016" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L339-L345"><a href="#example-0b016">Example № 9</a><code><span class="token keyword">query</span> <span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$id</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">name</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L347">With the following query variables:</p>
+<pre id="example-1dbeb" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L349-L353"><a href="#example-1dbeb">Example № 10</a><code><span class="token punctuation">{</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"QVBJcy5ndXJ1"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L355-L356">This request could be sent via an HTTP POST to the relevant URL using the JSON encoding with the headers:</p>
+<pre id="example-ccfab" class="spec-example" data-language="headers" data-source="spec/GraphQLOverHTTP.md#L358-L361"><a href="#example-ccfab">Example № 11</a><code>Content-Type: application/json
+Accept: application/graphql+json
+</code></pre>
+<p data-source="spec/GraphQLOverHTTP.md#L363">And the body:</p>
+<pre id="example-2db31" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L365-L372"><a href="#example-2db31">Example № 12</a><code><span class="token punctuation">{</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token string">"query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}"</span><span class="token punctuation">,</span>
+  <span class="token property">"variables"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"QVBJcy5ndXJ1"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+</section>
+</section>
+<section id="sec-Response" secid="6">
+<h1 data-source="spec/GraphQLOverHTTP.md#L374"><span class="spec-secid" title="link to this section"><a href="#sec-Response">6</a></span>Response</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L376-L379">When a server receives a GraphQL request, it must return a well‐formed response. The server&rsquo;s response describes the result of validating and executing the requested operation if successful, and describes any errors encountered during the request.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L381-L382">A server must comply with <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<section id="sec-Body" secid="6.1">
+<h2 data-source="spec/GraphQLOverHTTP.md#L384"><span class="spec-secid" title="link to this section"><a href="#sec-Body">6.1</a></span>Body</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L386-L388">The body of the server&rsquo;s response MUST follow the requirements for a <a href="https://graphql.github.io/graphql-spec/draft/#sec-Response">GraphQL response</a>, encoded directly in the chosen media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L390-L391">A server MUST indicate the media type of the response with a <code>Content-Type</code> header.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L393-L395">If an <code>Accept</code> header is provided, the server MUST respect the given <code>Accept</code> header and attempt to encode the response in the highest priority media type listed that is supported by the server.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L397-L400">In alignment with the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP 1.1 Accept</a> specification, when a client does not include at least one supported media type in the <code>Accept</code> HTTP header, the server MUST either:</p>
+<ol>
+<li data-source="spec/GraphQLOverHTTP.md#L402-L403">Disregard the <code>Accept</code> header and respond with the default media type of <code>application/json</code>, specifying this in the <code>Content-Type</code> header; OR</li>
+<li data-source="spec/GraphQLOverHTTP.md#L404-L405">Respond with a <code>406 Not Acceptable</code> status code and stop processing the request.</li>
+</ol>
+<p data-source="spec/GraphQLOverHTTP.md#L407-L408">A server MUST support requests which accept the <code>application/json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L410-L411">A server SHOULD support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<div id="note-74882" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L413-L420">
+<a href="#note-74882">Note</a>
+Prior to this specification, the media type <code>application/json</code> was in wide use for the HTTP response payload type. Unfortunately this means clients cannot trust responses from the server that do not use an HTTP 2xx status code (since these replies may come from non-compliant HTTP servers or proxies somewhere in the request chain). For this reason, this specification introduces the <code>application/graphql+json</code> media type on responses; however, to give existing servers time to move over, it is not required to be supported until 1st January 2025.</div>
+<section id="sec-Legacy-watershed" secid="6.1.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L422"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-watershed">6.1.1</a></span>Legacy watershed</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L424-L426">From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), a server MUST support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L428-L432">Before 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/json</code>. From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/graphql+json</code>.</p>
+<div id="note-39865" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L434">
+<a href="#note-39865">Note</a>
+This default is in place to maintain compatibility with legacy clients.</div>
+</section>
+</section>
+<section id="sec-Validation" secid="6.2">
+<h2 data-source="spec/GraphQLOverHTTP.md#L436"><span class="spec-secid" title="link to this section"><a href="#sec-Validation">6.2</a></span>Validation</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L438-L440">Validation of a well-formed GraphQL-over-HTTP request SHOULD apply all the <a href="https://spec.graphql.org/draft/#sec-Validation">validation rules</a> specified by the GraphQL specification.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L442">The server MAY, at its discretion, apply additional validation rules.</p>
+</section>
+<section id="sec-Execution" secid="6.3">
+<h2 data-source="spec/GraphQLOverHTTP.md#L444"><span class="spec-secid" title="link to this section"><a href="#sec-Execution">6.3</a></span>Execution</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L446-L448">Execution of a GraphQL-over-HTTP request follows <a href="https://spec.graphql.org/draft/#ExecuteRequest()">GraphQL&rsquo;s ExecuteRequest()</a> algorithm.</p>
+</section>
+<section id="sec-Status-Codes" secid="6.4">
+<h2 data-source="spec/GraphQLOverHTTP.md#L450"><span class="spec-secid" title="link to this section"><a href="#sec-Status-Codes">6.4</a></span>Status Codes</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L452-L454">In case of errors that completely prevent the generation of a well-formed GraphQL response, the server SHOULD respond with the appropriate status code depending on the concrete error condition.</p>
+<div id="note-996ca" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L456">
+<a href="#note-996ca">Note</a>
+Typically this will be the <code>400</code> (Bad Request) status code.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L458-L459">Otherwise, the status codes depends on the media type with which the GraphQL response will be served:</p>
+<section id="sec-application-json" secid="6.4.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L461"><span class="spec-secid" title="link to this section"><a href="#sec-application-json">6.4.1</a></span>application/json</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L463-L464">This section only applies when the response body is to use the <code>application/json</code> media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L466-L467">The server SHOULD use the <code>200</code> status code, independent of any <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> or <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> raised.</p>
+<div id="note-a7d14" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L469-L474">
+<a href="#note-a7d14">Note</a>
+A status code in the <code>4xx</code> or <code>5xx</code> ranges or status code <code>203</code> (and maybe others) could originate from intermediary servers; since the client cannot determine if an <code>application/json</code> response with arbitrary status code is a well-formed GraphQL response (because it cannot trust the source) the server must use <code>200</code> status code to guarantee to the client that the response has not been generated or modified by an intermediary.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L476-L477">If the GraphQL response contains a non-null <var data-name="data">data</var> entry then the server MUST use the <code>200</code> status code.</p>
+<div id="note-5c044" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L479-L481">
+<a href="#note-5c044">Note</a>
+This indicates that no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> was raised, though one or more <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> may have been raised this is still a successful execution &ndash; see &ldquo;partial response&rdquo; in the GraphQL specification.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L483">The server SHOULD NOT use a <code>4xx</code> or <code>5xx</code> status code.</p>
+<div id="note-5f9d9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L485-L488">
+<a href="#note-5f9d9">Note</a>
+For compatibility with legacy servers, this specification allows the use of <code>4xx</code> or <code>5xx</code> status codes for failed requests where the response uses the <code>application/json</code> media type, but it is strongly discouraged. To use <code>4xx</code> and <code>5xx</code> status codes, please use the <code>application/graphql+json</code> media type.</div>
+</section>
+<section id="sec-application-graphql-json" secid="6.4.2">
+<h3 data-source="spec/GraphQLOverHTTP.md#L490"><span class="spec-secid" title="link to this section"><a href="#sec-application-graphql-json">6.4.2</a></span>application/graphql+json</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L492-L493">This section only applies when the response body is to use the <code>application/graphql+json</code> media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L495-L497">If the GraphQL response contains the <var data-name="data">data</var> entry and it is not <span class="spec-keyword">null</span>, then the server MUST reply with a <code>2xx</code> status code and SHOULD reply with <code>200</code> status code.</p>
+<div id="note-83b1c" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L499-L508">
+<a href="#note-83b1c">Note</a>
+The result of executing a GraphQL operation may contain partial data as well as encountered errors. Errors that happen during execution of the GraphQL operation typically become part of the result, as long as the server is still able to produce a well-formed response. There&rsquo;s currently not an approved HTTP status code to use for a &ldquo;partial response,&rdquo; contenders include WebDAV&rsquo;s status code &ldquo;207 Multi-Status&rdquo; and using a custom code such as &ldquo;247 Partial Success.&rdquo; <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1">IETF RFC2616 Section 6.1.1</a> states &ldquo;codes are fully defined in section 10&rdquo; implying that though more codes are expected to be supported over time, valid codes must be present in this document.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L510-L512">If the GraphQL response contains the <var data-name="data">data</var> entry and it is <span class="spec-keyword">null</span>, then the server SHOULD reply with a <code>2xx</code> status code and it is RECOMMENDED it replies with <code>200</code> status code.</p>
+<div id="note-f503e" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L514-L516">
+<a href="#note-f503e">Note</a>
+Using <code>4xx</code> and <code>5xx</code> status codes in this situation is not recommended &ndash; since no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> has occurred it is seen as a &ldquo;partial response&rdquo;.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L518-L519">If the GraphQL response does not contain the <var data-name="data">data</var> entry then the server MUST reply with a <code>4xx</code> or <code>5xx</code> status code as appropriate.</p>
+<div id="note-dddec" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L521-L523">
+<a href="#note-dddec">Note</a>
+The GraphQL specification indicates that the only situation in which the GraphQL response does not include the <var data-name="data">data</var> entry is one in which the <var data-name="errors">errors</var> entry is populated.</div>
+<p data-source="spec/GraphQLOverHTTP.md#L525-L526">If the GraphQL request is invalid (e.g. it is malformed, or does not pass validation) then the server SHOULD reply with <code>400</code> status code.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L528-L529">If the client is not permitted to issue the GraphQL request then the server SHOULD reply with <code>403</code>, <code>401</code> or similar appropriate status code.</p>
+<section id="sec-Examples" secid="6.4.2.1">
+<h4 data-source="spec/GraphQLOverHTTP.md#L531"><span class="spec-secid" title="link to this section"><a href="#sec-Examples">6.4.2.1</a></span>Examples</h4>
+<p data-source="spec/GraphQLOverHTTP.md#L533-L535">The following examples provide guidance on how to deal with specific error cases when using the <code>application/graphql+json</code> media type to encode the response body:</p>
+<section id="sec-Invalid-request-body-or-parsing-failure" secid="6.4.2.1.1">
+<h5 data-source="spec/GraphQLOverHTTP.md#L537"><span class="spec-secid" title="link to this section"><a href="#sec-Invalid-request-body-or-parsing-failure">6.4.2.1.1</a></span>Invalid request body or parsing failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L539">For example: <code>NONSENSE</code>, <code>{"qeury": "{__typena</code></p>
+<p data-source="spec/GraphQLOverHTTP.md#L541-L542">Requests that do not constitute a well-formed GraphQL request should result in status code <code>400</code> (Bad Request).</p>
+</section>
+<section id="sec-Document-validation-failure" secid="6.4.2.1.2">
+<h5 data-source="spec/GraphQLOverHTTP.md#L544"><span class="spec-secid" title="link to this section"><a href="#sec-Document-validation-failure">6.4.2.1.2</a></span>Document validation failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L546-L547">Requests that fail to pass validation SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
+<div id="note-ffc42" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L549-L551">
+<a href="#note-ffc42">Note</a>
+In certain circumstances, for example persisted operations that were previously known to be valid, the server MAY attempt execution regardless of validation errors.</div>
+<div id="note-88c06" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L553-L556">
+<a href="#note-88c06">Note</a>
+Validation rules include those specified in <a href="http://spec.graphql.org/draft/#sec-Validation">the Validation section of the GraphQL specification</a>, and any custom validation rules the server is using (for example: depth limit, complexity limit).</div>
+</section>
+<section id="sec-Operation-cannot-be-determined" secid="6.4.2.1.3">
+<h5 data-source="spec/GraphQLOverHTTP.md#L558"><span class="spec-secid" title="link to this section"><a href="#sec-Operation-cannot-be-determined">6.4.2.1.3</a></span>Operation cannot be determined</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L560-L562">If <a href="https://spec.graphql.org/draft/#GetOperation()">GetOperation()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+</section>
+<section id="sec-Variable-coercion-failure" secid="6.4.2.1.4">
+<h5 data-source="spec/GraphQLOverHTTP.md#L564"><span class="spec-secid" title="link to this section"><a href="#sec-Variable-coercion-failure">6.4.2.1.4</a></span>Variable coercion failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L566-L569">If <a href="https://spec.graphql.org/draft/#CoerceVariableValues()">CoerceVariableValues()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+</section>
+<section id="sec-Field-errors-encountered-during-execution" secid="6.4.2.1.5">
+<h5 data-source="spec/GraphQLOverHTTP.md#L571"><span class="spec-secid" title="link to this section"><a href="#sec-Field-errors-encountered-during-execution">6.4.2.1.5</a></span>Field errors encountered during execution</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L573-L577">If the operation is executed and no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> is raised then the server SHOULD respond with a status code of <code>200</code> (Okay). This is the case even if a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> is raised during <a href="https://spec.graphql.org/draft/#ExecuteQuery()">GraphQL&rsquo;s ExecuteQuery()</a> or <a href="https://spec.graphql.org/draft/#ExecuteMutation()">GraphQL&rsquo;s ExecuteMutation()</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L579-L583">&lt;!&mdash; When we add support for subscriptions, <a href="https://spec.graphql.org/draft/#MapSourceToResponseEvent()">GraphQL&rsquo;s MapSourceToResponseEvent()</a> should be added to the above. &rarr;</p>
+<div id="note-0fbe1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L585-L588">
+<a href="#note-0fbe1">Note</a>
+The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-Field-Errors">differentiates field errors from request errors</a> and refers to the situation wherein a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> occurs as a partial response; it still indicates successful execution.</div>
+</section>
+</section>
+</section>
+</section>
+<section id="sec-Processing-the-response" secid="6.5">
+<h2 data-source="spec/GraphQLOverHTTP.md#L590"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L592-L597">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed GraphQL response since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
+</section>
+</section>
+<section id="index" secid="index" class="spec-index">
+<h1>
+<span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1>
+<ol>
+<li><a href="#client">client</a></li>
+<li><a href="#server">server</a></li>
+</ol>
+</section>
+</article>
+<footer>
+Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
+<input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
+<div class="spec-sidebar" aria-hidden>
+<div class="spec-toc">
+<div class="title"><a href="#">GraphQL Over HTTP</a></div>
+<ol><li id="_sidebar_1"><a href="#sec-GraphQL-over-HTTP"><span class="spec-secid">1</span>GraphQL over HTTP</a></li>
+<li id="_sidebar_2"><a href="#sec-Overview"><span class="spec-secid">2</span>Overview</a></li>
+<li id="_sidebar_3"><a href="#sec-URL"><span class="spec-secid">3</span>URL</a></li>
+<li id="_sidebar_4"><a href="#sec-Serialization-Format"><span class="spec-secid">4</span>Serialization Format</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_4" /><label for="_toggle_4"></label>
+<ol>
+<li id="_sidebar_4.1"><a href="#sec-Media-Types"><span class="spec-secid">4.1</span>Media Types</a></li>
+</ol>
+</li>
+<li id="_sidebar_5"><a href="#sec-Request"><span class="spec-secid">5</span>Request</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5" /><label for="_toggle_5"></label>
+<ol>
+<li id="_sidebar_5.1"><a href="#sec-Request-Parameters"><span class="spec-secid">5.1</span>Request Parameters</a></li>
+<li id="_sidebar_5.2"><a href="#sec-Accept"><span class="spec-secid">5.2</span>Accept</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.2" /><label for="_toggle_5.2"></label>
+<ol>
+<li id="_sidebar_5.2.1"><a href="#sec-Legacy-Watershed"><span class="spec-secid">5.2.1</span>Legacy Watershed</a></li>
+</ol>
+</li>
+<li id="_sidebar_5.3"><a href="#sec-GET"><span class="spec-secid">5.3</span>GET</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.3" /><label for="_toggle_5.3"></label>
+<ol>
+<li id="_sidebar_5.3.1"><a href="#sec-GET.Example"><span class="spec-secid">5.3.1</span>Example</a></li>
+</ol>
+</li>
+<li id="_sidebar_5.4"><a href="#sec-POST"><span class="spec-secid">5.4</span>POST</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.4" /><label for="_toggle_5.4"></label>
+<ol>
+<li id="_sidebar_5.4.1"><a href="#sec-JSON-Encoding"><span class="spec-secid">5.4.1</span>JSON Encoding</a></li>
+<li id="_sidebar_5.4.2"><a href="#sec-POST.Example"><span class="spec-secid">5.4.2</span>Example</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_6"><a href="#sec-Response"><span class="spec-secid">6</span>Response</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6" /><label for="_toggle_6"></label>
+<ol>
+<li id="_sidebar_6.1"><a href="#sec-Body"><span class="spec-secid">6.1</span>Body</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6.1" /><label for="_toggle_6.1"></label>
+<ol>
+<li id="_sidebar_6.1.1"><a href="#sec-Legacy-watershed"><span class="spec-secid">6.1.1</span>Legacy watershed</a></li>
+</ol>
+</li>
+<li id="_sidebar_6.2"><a href="#sec-Validation"><span class="spec-secid">6.2</span>Validation</a></li>
+<li id="_sidebar_6.3"><a href="#sec-Execution"><span class="spec-secid">6.3</span>Execution</a></li>
+<li id="_sidebar_6.4"><a href="#sec-Status-Codes"><span class="spec-secid">6.4</span>Status Codes</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6.4" /><label for="_toggle_6.4"></label>
+<ol>
+<li id="_sidebar_6.4.1"><a href="#sec-application-json"><span class="spec-secid">6.4.1</span>application/json</a></li>
+<li id="_sidebar_6.4.2"><a href="#sec-application-graphql-json"><span class="spec-secid">6.4.2</span>application/graphql+json</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6.4.2" /><label for="_toggle_6.4.2"></label>
+<ol>
+<li id="_sidebar_6.4.2.1"><a href="#sec-Examples"><span class="spec-secid">6.4.2.1</span>Examples</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6.4.2.1" /><label for="_toggle_6.4.2.1"></label>
+<ol>
+<li id="_sidebar_6.4.2.1.1"><a href="#sec-Invalid-request-body-or-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>Invalid request body or parsing failure</a></li>
+<li id="_sidebar_6.4.2.1.2"><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.2</span>Document validation failure</a></li>
+<li id="_sidebar_6.4.2.1.3"><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.3</span>Operation cannot be determined</a></li>
+<li id="_sidebar_6.4.2.1.4"><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.4</span>Variable coercion failure</a></li>
+<li id="_sidebar_6.4.2.1.5"><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.5</span>Field errors encountered during execution</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_6.5"><a href="#sec-Processing-the-response"><span class="spec-secid">6.5</span>Processing the response</a></li>
+</ol>
+</li>
+<li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</div>
+</div>
+</body>
+</html>
