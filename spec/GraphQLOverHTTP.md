@@ -103,36 +103,36 @@ GraphQL queries and mutations naturally mirror the request/response message
 model used in HTTP, allowing us to provide a GraphQL request in an HTTP request
 and a GraphQL response in an HTTP response.
 
-:: In this document, the term {GraphQL service} refers to an
+:: In this document, the term _GraphQL service_ refers to an
 [application service that has the capabilities defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Overview).
 
-:: In this document, the term {GraphQL schema} refers to a
+:: In this document, the term _GraphQL schema_ refers to a
 [schema as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Schema).
 
-:: In this document, the term {GraphQL request} refers to a
+:: In this document, the term _GraphQL request_ refers to a
 [request as defined by the GraphQL Specification](https://spec.graphql.org/draft/#request).
 
-:: In this document, the term {GraphQL response} refers to a
+:: In this document, the term _GraphQL response_ refers to a
 [response as defined by the GraphQL Specification](https://spec.graphql.org/draft/#sec-Response).
 
-:: In this document, the term {GraphQL request error} refers to a
+:: In this document, the term _GraphQL request error_ refers to a
 [request error as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Errors.Request-errors).
 
-:: In this document, the term {GraphQL field error} refers to a
+:: In this document, the term _GraphQL field error_ refers to a
 [field error as defined by the GraphQL specification](https://spec.graphql.org/draft/#sec-Errors.Field-errors)
 
-:: In this document, the term {server} refers to a GraphQL over HTTP
+:: In this document, the term _server_ refers to a GraphQL over HTTP
 Specification compliant HTTP server unless the context indicates otherwise.
 
-The role of a {server} is to provide a {client} access to one or more GraphQL
-services over HTTP. A {server} is not a {GraphQL service}, it is a GraphQL
+The role of a _server_ is to provide a _client_ access to one or more GraphQL
+services over HTTP. A _server_ is not a _GraphQL service_, it is a GraphQL
 service host.
 
-:: In this document, the term {client} refers to a GraphQL over HTTP
+:: In this document, the term _client_ refers to a GraphQL over HTTP
 Specification compliant HTTP client unless the context indicates otherwise.
 
-The role of a {client} is to issue HTTP requests to a {server} in order to
-interact with a {GraphQL service}.
+The role of a _client_ is to issue HTTP requests to a _server_ in order to
+interact with a _GraphQL service_.
 
 # URL
 
@@ -152,8 +152,8 @@ reason, for example to require authentication or payment; when doing so they
 SHOULD use the relevant `4xx` or `5xx` status code. This decision SHOULD NOT be
 based on the contents of a well formed GraphQL request.
 
-Note: The {server} should not make authorization decisions based on any part of
-the {GraphQL request}; these decisions should be made by the {GraphQL schema}
+Note: The _server_ should not make authorization decisions based on any part of
+the _GraphQL request_; these decisions should be made by the _GraphQL schema_
 during
 [GraphQL's ExecuteRequest()](<https://spec.graphql.org/draft/#ExecuteRequest()>),
 allowing for a partial response to be generated.
@@ -218,7 +218,7 @@ GET.
 
 ## Request Parameters
 
-A {GraphQL-over-HTTP request} is formed of the following parameters:
+A _GraphQL-over-HTTP request_ is formed of the following parameters:
 
 - {query} - A Document containing GraphQL Operations and Fragments to execute.
 - {operationName} - (_Optional_): The name of the Operation in the Document to
@@ -227,10 +227,10 @@ A {GraphQL-over-HTTP request} is formed of the following parameters:
 - {extensions} - (_Optional_): This entry is reserved for implementors to extend
   the protocol however they see fit.
 
-Note: When comparing {GraphQL-over-HTTP request} against the term
+Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
-specification you should note the {GraphQL schema} and "initial value" are not
-included in the GraphQL-over-HTTP {request}, they are handled by the {server}
+specification you should note the _GraphQL schema_ and "initial value" are not
+included in the GraphQL-over-HTTP _request_, they are handled by the _server_
 based on the URL used.
 
 Note: Be aware that `query` is a misleading parameter name as its value is a
@@ -481,8 +481,8 @@ response will be served:
 This section only applies when the response body is to use the
 `application/json` media type.
 
-The server SHOULD use the `200` status code, independent of any {GraphQL request
-error} or {GraphQL field error} raised.
+The server SHOULD use the `200` status code, independent of any _GraphQL request
+error_ or _GraphQL field error_ raised.
 
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
 others) could originate from intermediary servers; since the client cannot
@@ -494,8 +494,8 @@ been generated or modified by an intermediary.
 If the GraphQL response contains a non-null {data} entry then the server MUST
 use the `200` status code.
 
-Note: This indicates that no {GraphQL request error} was raised, though one or
-more {GraphQL field error} may have been raised this is still a successful
+Note: This indicates that no _GraphQL request error_ was raised, though one or
+more _GraphQL field error_ may have been raised this is still a successful
 execution - see "partial response" in the GraphQL specification.
 
 The server SHOULD NOT use a `4xx` or `5xx` status code.
@@ -530,7 +530,7 @@ server SHOULD reply with a `2xx` status code and it is RECOMMENDED it replies
 with `200` status code.
 
 Note: Using `4xx` and `5xx` status codes in this situation is not recommended -
-since no {GraphQL request error} has occurred it is seen as a "partial
+since no _GraphQL request error_ has occurred it is seen as a "partial
 response".
 
 If the GraphQL response does not contain the {data} entry then the server MUST
@@ -576,21 +576,21 @@ complexity limit).
 ##### Operation cannot be determined
 
 If [GetOperation()](<https://spec.graphql.org/draft/#GetOperation()>) raises a
-{GraphQL request error}, the server SHOULD NOT execute the request and SHOULD
+_GraphQL request error_, the server SHOULD NOT execute the request and SHOULD
 return a status code of `400` (Bad Request).
 
 ##### Variable coercion failure
 
 If
 [CoerceVariableValues()](<https://spec.graphql.org/draft/#CoerceVariableValues()>)
-raises a {GraphQL request error}, the server SHOULD NOT execute the request and
+raises a _GraphQL request error_, the server SHOULD NOT execute the request and
 SHOULD return a status code of `400` (Bad Request).
 
 ##### Field errors encountered during execution
 
-If the operation is executed and no {GraphQL request error} is raised then the
+If the operation is executed and no _GraphQL request error_ is raised then the
 server SHOULD respond with a status code of `200` (Okay). This is the case even
-if a {GraphQL field error} is raised during
+if a _GraphQL field error_ is raised during
 [GraphQL's ExecuteQuery()](<https://spec.graphql.org/draft/#ExecuteQuery()>) or
 [GraphQL's ExecuteMutation()](<https://spec.graphql.org/draft/#ExecuteMutation()>).
 
@@ -602,7 +602,7 @@ should be added to the above.
 
 Note: The GraphQL specification
 [differentiates field errors from request errors](https://spec.graphql.org/draft/#sec-Handling-Field-Errors)
-and refers to the situation wherein a {GraphQL field error} occurs as a partial
+and refers to the situation wherein a _GraphQL field error_ occurs as a partial
 response; it still indicates successful execution.
 
 ## Processing the response
