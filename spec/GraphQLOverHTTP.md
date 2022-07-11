@@ -212,7 +212,7 @@ A _GraphQL-over-HTTP request_ is formed of the following parameters:
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
-included in the GraphQL-over-HTTP _request_, they are handled by the _server_
+included in the GraphQL-over-HTTP _request_; they are handled by the _server_
 based on the URL used.
 
 Note: Be aware that `query` is a misleading parameter name as its value is a
