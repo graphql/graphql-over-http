@@ -216,9 +216,9 @@ included in the GraphQL-over-HTTP _request_, they are handled by the _server_
 based on the URL used.
 
 Note: Be aware that `query` is a misleading parameter name as its value is a
-string describing one or more operations, each of which may be a query, mutation
-or subscription. A better name would have been `document`, but the term `query`
-is well established.
+string describing one or more operations, each of which may be a query or
+mutation. A better name would have been `document`, but the term `query` is well
+established.
 
 Note: Depending on the serialization format used, values of the aforementioned
 parameters can be encoded differently but their names and semantics must stay
@@ -228,7 +228,8 @@ Note: Specifying `null` in JSON (or equivalent values in other formats) as
 values for optional request parameters is equivalent to not specifying them at
 all.
 
-Note: {variables} and {extensions}, if set, must have a map as their value.
+Note: Each of the {variables} and {extensions} parameters, if set, must have a
+map as their value.
 
 ## Accept
 
@@ -262,8 +263,10 @@ The `query` parameter MUST be the string representation of the Source Text of
 the Document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The `variables` parameter, if used, MUST be represented as a URL-encoded JSON
-string.
+The `operationName`, if present, must be a string.
+
+Each of the `variables` and `extensions` parameters, if used, MUST be
+represented as a URL-encoded JSON string.
 
 ### Example
 
@@ -373,10 +376,10 @@ And the body:
 
 # Response
 
-When a server receives a GraphQL request, it must return a well‐formed response.
-The server's response describes the result of validating and executing the
-requested operation if successful, and describes any errors encountered during
-the request.
+When a server receives a {GraphQL-over-HTTP request}, it must return a
+well‐formed response. The server's response describes the result of validating
+and executing the requested operation if successful, and describes any errors
+encountered during the request.
 
 A server must comply with
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
@@ -534,9 +537,9 @@ The following examples provide guidance on how to deal with specific error cases
 when using the `application/graphql+json` media type to encode the response
 body:
 
-##### Invalid request body or parsing failure
+##### Invalid parameters or parsing failure
 
-For example: `NONSENSE`, `{"qeury": "{__typena`
+For example a POST response body of `NONSENSE` or `{"qeury": "{__typena`.
 
 Requests that do not constitute a well-formed GraphQL request should result in
 status code `400` (Bad Request).
