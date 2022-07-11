@@ -118,19 +118,19 @@ interact with a _GraphQL service_.
 
 # URL
 
-A server MUST enable GraphQL requests to one or more GraphQL schemas.
+A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
 
-Each GraphQL schema a server provides MUST be served via one or more URLs.
+Each GraphQL schema a _server_ provides MUST be served via one or more URLs.
 
-A server MUST NOT require the client to use different URLs for different GraphQL
-query and mutation requests to the same GraphQL schema.
+A _server_ MUST NOT require the _client_ to use different URLs for different
+GraphQL query and mutation requests to the same GraphQL schema.
 
 The GraphQL schema available via a single URL MAY be different for different
 clients. For example, alpha testers or authenticated users may have access to a
 schema with additional fields.
 
-Servers MAY forbid individual requests by a client to any endpoint for any
-reason, for example to require authentication or payment; when doing so they
+A _server_ MAY forbid individual requests by a _client_ to any endpoint for any
+reason, for example to require authentication or payment; when doing so it
 SHOULD use the relevant `4xx` or `5xx` status code. This decision SHOULD NOT be
 based on the contents of a well formed GraphQL request.
 
