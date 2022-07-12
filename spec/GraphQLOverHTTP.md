@@ -539,7 +539,7 @@ body:
 
 ##### JSON parsing failure
 
-For example a POST response body of `NONSENSE` or `{"query":` (note: invalid
+For example a POST request body of `NONSENSE` or `{"query":` (note: invalid
 JSON).
 
 Requests that the server cannot interpret should result in status code `400`
@@ -547,7 +547,7 @@ Requests that the server cannot interpret should result in status code `400`
 
 ##### Invalid parameters
 
-For example a POST response body of `{"qeury": "{__typename}"}` (note: typo) or
+For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 `{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}` (note: invalid
 shape for `variables`).
 
