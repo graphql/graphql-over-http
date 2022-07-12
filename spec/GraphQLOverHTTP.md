@@ -265,6 +265,16 @@ the Document as specified in
 The `variables` parameter, if used, MUST be represented as a URL-encoded JSON
 string.
 
+The `operationName` parameter, if supplied and not the empty string, represents
+the name of the operation to be executed within the `query`.
+
+Setting the value of the `operationName` parameter to the empty string is
+equivalent to omitting the `operationName` parameter.
+
+Note: By the above, `operationName=null` represents an operation with the name
+`"null"` (such as `query null { __typename }`). If a literal `null` is desired,
+either omit {operationName} or set it to the empty string.
+
 ### Example
 
 If we wanted to execute the following GraphQL query:
@@ -284,12 +294,6 @@ This request could be sent via an HTTP GET as follows:
 ```url example
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
-
-Note: {query} and {operationName} parameters are encoded as raw strings in the
-query component. Therefore if the query string contained `operationName=null`
-then it MUST be interpreted as the {operationName} being the string `"null"`. If
-a literal `null` is desired, the parameter (e.g. {operationName}) MUST be either
-omitted or the empty string.
 
 GET requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
