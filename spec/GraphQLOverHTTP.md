@@ -166,8 +166,7 @@ The GraphQL specification allows for many
 Servers and clients MUST support JSON and MAY support other, additional
 serialization formats.
 
-Note: If you allow other media types, particularly on requests, please ensure
-that you are aware of the security consequences of doing so.
+Note: Allowing other media types, particularly on requests, can be insecure.
 
 For consistency and ease of notation, examples of the response are given in JSON
 throughout this specification.
