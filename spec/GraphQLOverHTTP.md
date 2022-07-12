@@ -240,7 +240,7 @@ A client SHOULD indicate the media types that it supports in responses using the
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 Note: If a client does not supply the `Accept` header then the server may
-respond with an error, or with any content type it chooses. To ensure you client
+respond with an error, or with any content type it chooses. To ensure your client
 gets something useful, it should indicate the media types it supports.
 
 If the client supplies an `Accept` header, the client SHOULD include the media
@@ -324,8 +324,7 @@ type (as indicated by the `Content-Type` header).
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
 
-Note: This is left as a "should" to allow your server to choose a different
-behavior should it wish to.
+Note: Rejecting such requests encourages clients to supply a `Content-Type` header with every POST request.  A server has the option to assume any media type they wish when none is supplied, with the understanding that parsing the request may fail.
 
 A server MAY support POST requests encoded with and/or accepting other media
 types.
@@ -473,7 +472,7 @@ depending on the concrete error condition.
 Note: Typically this will be the `400` (Bad Request) status code.
 
 Note: This rule is "should" to maintain compatibility with legacy servers which
-may return 200 status codes even when this type of error occurs.
+can return 200 status codes even when this type of error occurs.
 
 Otherwise, the status codes depends on the media type with which the GraphQL
 response will be served:
