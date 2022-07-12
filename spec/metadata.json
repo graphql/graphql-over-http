@@ -6,7 +6,9 @@
       "graphql-request": "#request",
       "graphql-response": "#sec-Response",
       "graphql-request-error": "#sec-Errors.Request-errors",
-      "graphql-field-error": "#sec-Errors.Field-errors"
+      "graphql-field-error": "#sec-Errors.Field-errors",
+      "graphql-document": "#sec-Document",
+      "graphql-validation": "#sec-Validation"
     }
   }
 }
