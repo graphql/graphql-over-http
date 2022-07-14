@@ -116,174 +116,177 @@ This is an example of a non-normative note.</div>
 <p data-source="spec/GraphQLOverHTTP.md#L109-L111">The role of a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> is to provide a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> access to one or more GraphQL services over HTTP. A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> is not a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Overview" data-name="graphql-service" target="_blank">GraphQL service</a></span>, it is a GraphQL service host.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L113-L114">In this document, the term <dfn id="client"><a href="#client" data-name="client">client</a></dfn> refers to a GraphQL over HTTP Specification compliant HTTP client unless the context indicates otherwise.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L116-L117">The role of a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> is to issue HTTP requests to a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> in order to interact with a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Overview" data-name="graphql-service" target="_blank">GraphQL service</a></span>.</p>
+<div id="note-25025" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L119-L120">
+<a href="#note-25025">Note</a>
+GraphQL Subscriptions are beyond the scope of this specification at this time.</div>
 </section>
 <section id="sec-URL" secid="3">
-<h1 data-source="spec/GraphQLOverHTTP.md#L119"><span class="spec-secid" title="link to this section"><a href="#sec-URL">3</a></span>URL</h1>
-<p data-source="spec/GraphQLOverHTTP.md#L121">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST enable GraphQL requests to one or more GraphQL schemas.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L123">Each GraphQL schema a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> provides MUST be served via one or more URLs.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L125-L126">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST NOT require the <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to use different URLs for different GraphQL query and mutation requests to the same GraphQL schema.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L128-L130">The GraphQL schema available via a single URL MAY be different for different clients. For example, alpha testers or authenticated users may have access to a schema with additional fields.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L132-L135">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MAY forbid individual requests by a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to any endpoint for any reason, for example to require authentication or payment; when doing so it SHOULD use the relevant <code>4xx</code> or <code>5xx</code> status code. This decision SHOULD NOT be based on the contents of a well formed GraphQL request.</p>
-<div id="note-6e398" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L137-L141">
+<h1 data-source="spec/GraphQLOverHTTP.md#L122"><span class="spec-secid" title="link to this section"><a href="#sec-URL">3</a></span>URL</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L124">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST enable GraphQL requests to one or more GraphQL schemas.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L126">Each GraphQL schema a <span class="spec-ref"><a href="#server" data-name="server">server</a></span> provides MUST be served via one or more URLs.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L128-L129">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MUST NOT require the <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to use different URLs for different GraphQL query and mutation requests to the same GraphQL schema.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L131-L133">The GraphQL schema available via a single URL MAY be different for different clients. For example, alpha testers or authenticated users may have access to a schema with additional fields.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L135-L138">A <span class="spec-ref"><a href="#server" data-name="server">server</a></span> MAY forbid individual requests by a <span class="spec-ref"><a href="#client" data-name="client">client</a></span> to any endpoint for any reason, for example to require authentication or payment; when doing so it SHOULD use the relevant <code>4xx</code> or <code>5xx</code> status code. This decision SHOULD NOT be based on the contents of a well formed GraphQL request.</p>
+<div id="note-6e398" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L140-L144">
 <a href="#note-6e398">Note</a>
 The <span class="spec-ref"><a href="#server" data-name="server">server</a></span> should not make authorization decisions based on any part of the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#request" data-name="graphql-request" target="_blank">GraphQL request</a></span>; these decisions should be made by the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Schema" data-name="graphql-schema" target="_blank">GraphQL schema</a></span> during <a href="https://spec.graphql.org/draft/#ExecuteRequest()">GraphQL&rsquo;s ExecuteRequest()</a>, allowing for a partial response to be generated.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L143-L145">Server URLs which enable GraphQL requests MAY also be used for other purposes, as long as they don&rsquo;t conflict with the server&rsquo;s responsibility to handle GraphQL requests.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L147-L148">It is RECOMMENDED to end the path component of the URL with <code>/graphql</code>, for example:</p>
-<pre id="example-910fc" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L150-L152"><a href="#example-910fc">Example № 3</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
+<p data-source="spec/GraphQLOverHTTP.md#L146-L148">Server URLs which enable GraphQL requests MAY also be used for other purposes, as long as they don&rsquo;t conflict with the server&rsquo;s responsibility to handle GraphQL requests.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L150-L151">It is RECOMMENDED to end the path component of the URL with <code>/graphql</code>, for example:</p>
+<pre id="example-910fc" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L153-L155"><a href="#example-910fc">Example № 3</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
 </code></pre>
-<pre id="example-a57f1" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L154-L156"><a href="#example-a57f1">Example № 4</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">product.example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
+<pre id="example-a57f1" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L157-L159"><a href="#example-a57f1">Example № 4</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">product.example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span>
 </code></pre>
-<pre id="example-699ca" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L158-L160"><a href="#example-699ca">Example № 5</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>product<span class="token path-separator">/</span>graphql</span>
+<pre id="example-699ca" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L161-L163"><a href="#example-699ca">Example № 5</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>product<span class="token path-separator">/</span>graphql</span>
 </code></pre>
 </section>
 <section id="sec-Serialization-Format" secid="4">
-<h1 data-source="spec/GraphQLOverHTTP.md#L162"><span class="spec-secid" title="link to this section"><a href="#sec-Serialization-Format">4</a></span>Serialization Format</h1>
-<p data-source="spec/GraphQLOverHTTP.md#L164-L167">The GraphQL specification allows for many <a href="https://spec.graphql.org/draft/#sec-Serialization-Format">serialization formats to be implemented</a>. Servers and clients MUST support JSON and MAY support other, additional serialization formats.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L169-L170">For consistency and ease of notation, examples of the response are given in JSON throughout this specification.</p>
+<h1 data-source="spec/GraphQLOverHTTP.md#L165"><span class="spec-secid" title="link to this section"><a href="#sec-Serialization-Format">4</a></span>Serialization Format</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L167-L170">The GraphQL specification allows for many <a href="https://spec.graphql.org/draft/#sec-Serialization-Format">serialization formats to be implemented</a>. Servers and clients MUST support JSON and MAY support other, additional serialization formats.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L172-L173">For consistency and ease of notation, examples of the response are given in JSON throughout this specification.</p>
 <section id="sec-Media-Types" secid="4.1">
-<h2 data-source="spec/GraphQLOverHTTP.md#L172"><span class="spec-secid" title="link to this section"><a href="#sec-Media-Types">4.1</a></span>Media Types</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L174-L175">The following are the officially recognized GraphQL media types to designate using the JSON encoding for GraphQL requests:</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L175"><span class="spec-secid" title="link to this section"><a href="#sec-Media-Types">4.1</a></span>Media Types</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L177-L178">The following are the officially recognized GraphQL media types to designate using the JSON encoding for GraphQL requests:</p>
 <table>
 <thead>
-<tr data-source="spec/GraphQLOverHTTP.md#L177">
+<tr data-source="spec/GraphQLOverHTTP.md#L180">
 <th>Name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr data-source="spec/GraphQLOverHTTP.md#L179">
+<tr data-source="spec/GraphQLOverHTTP.md#L182">
 <td><code>application/json</code></td>
 <td>Standard type for GraphQL JSON requests</td>
 </tr>
 </tbody>
 </table>
-<p data-source="spec/GraphQLOverHTTP.md#L181">And for GraphQL responses:</p>
+<p data-source="spec/GraphQLOverHTTP.md#L184">And for GraphQL responses:</p>
 <table>
 <thead>
-<tr data-source="spec/GraphQLOverHTTP.md#L183">
+<tr data-source="spec/GraphQLOverHTTP.md#L186">
 <th>Name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr data-source="spec/GraphQLOverHTTP.md#L185">
+<tr data-source="spec/GraphQLOverHTTP.md#L188">
 <td><code>application/graphql+json</code></td>
 <td>The preferred type for server responses; better HTTP compatibility</td>
 </tr>
-<tr data-source="spec/GraphQLOverHTTP.md#L186">
+<tr data-source="spec/GraphQLOverHTTP.md#L189">
 <td><code>application/json</code></td>
 <td>An alternative type for responses (to support legacy clients)</td>
 </tr>
 </tbody>
 </table>
-<p data-source="spec/GraphQLOverHTTP.md#L188-L189">For details of the shapes of these JSON payloads, please see <a href="#sec-Request">Request</a> and <a href="#sec-Response">Response</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L191-L194">If the media type in a <code>Content-Type</code> or <code>Accept</code> header includes encoding information, then the encoding MUST be <code>utf-8</code> (e.g. <code>Content-Type: application/graphql+json; charset=utf-8</code>). If encoding information is not included then <code>utf-8</code> MUST be assumed.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L191-L192">For details of the shapes of these JSON payloads, please see <a href="#sec-Request">Request</a> and <a href="#sec-Response">Response</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L194-L197">If the media type in a <code>Content-Type</code> or <code>Accept</code> header includes encoding information, then the encoding MUST be <code>utf-8</code> (e.g. <code>Content-Type: application/graphql+json; charset=utf-8</code>). If encoding information is not included then <code>utf-8</code> MUST be assumed.</p>
 </section>
 </section>
 <section id="sec-Request" secid="5">
-<h1 data-source="spec/GraphQLOverHTTP.md#L196"><span class="spec-secid" title="link to this section"><a href="#sec-Request">5</a></span>Request</h1>
-<p data-source="spec/GraphQLOverHTTP.md#L198-L199">A server MUST accept POST requests, and MAY accept other HTTP methods, such as GET.</p>
+<h1 data-source="spec/GraphQLOverHTTP.md#L199"><span class="spec-secid" title="link to this section"><a href="#sec-Request">5</a></span>Request</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L201-L202">A server MUST accept POST requests, and MAY accept other HTTP methods, such as GET.</p>
 <section id="sec-Request-Parameters" secid="5.1">
-<h2 data-source="spec/GraphQLOverHTTP.md#L201"><span class="spec-secid" title="link to this section"><a href="#sec-Request-Parameters">5.1</a></span>Request Parameters</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L203">A <em>GraphQL-over-HTTP request</em> is formed of the following parameters:</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L204"><span class="spec-secid" title="link to this section"><a href="#sec-Request-Parameters">5.1</a></span>Request Parameters</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L206">A <em>GraphQL-over-HTTP request</em> is formed of the following parameters:</p>
 <ul>
-<li data-source="spec/GraphQLOverHTTP.md#L205"><var data-name="query">query</var> - A Document containing GraphQL Operations and Fragments to execute.</li>
-<li data-source="spec/GraphQLOverHTTP.md#L206-L207"><var data-name="operationName">operationName</var> - (<em>Optional</em>): The name of the Operation in the Document to execute.</li>
-<li data-source="spec/GraphQLOverHTTP.md#L208"><var data-name="variables">variables</var> - (<em>Optional</em>): Values for any Variables defined by the Operation.</li>
-<li data-source="spec/GraphQLOverHTTP.md#L209-L210"><var data-name="extensions">extensions</var> - (<em>Optional</em>): This entry is reserved for implementors to extend the protocol however they see fit.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L208"><var data-name="query">query</var> - A Document containing GraphQL Operations and Fragments to execute.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L209-L210"><var data-name="operationName">operationName</var> - (<em>Optional</em>): The name of the Operation in the Document to execute.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L211"><var data-name="variables">variables</var> - (<em>Optional</em>): Values for any Variables defined by the Operation.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L212-L213"><var data-name="extensions">extensions</var> - (<em>Optional</em>): This entry is reserved for implementors to extend the protocol however they see fit.</li>
 </ul>
-<div id="note-36c4d" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L212-L216">
+<div id="note-36c4d" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L215-L219">
 <a href="#note-36c4d">Note</a>
 When comparing <em>GraphQL-over-HTTP request</em> against the term <a href="https://spec.graphql.org/draft/#request">&ldquo;request&rdquo;</a> in the GraphQL specification you should note the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Schema" data-name="graphql-schema" target="_blank">GraphQL schema</a></span> and &ldquo;initial value&rdquo; are not included in the GraphQL-over-HTTP <em>request</em>; they are handled by the <span class="spec-ref"><a href="#server" data-name="server">server</a></span> based on the URL used.</div>
-<div id="note-00557" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L218-L221">
+<div id="note-00557" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L221-L224">
 <a href="#note-00557">Note</a>
 Be aware that <code>query</code> is a misleading parameter name as its value is a string describing one or more operations, each of which may be a query or mutation. A better name would have been <code>document</code>, but the term <code>query</code> is well established.</div>
-<div id="note-43b86" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L223-L225">
+<div id="note-43b86" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L226-L228">
 <a href="#note-43b86">Note</a>
 Depending on the serialization format used, values of the aforementioned parameters can be encoded differently but their names and semantics must stay the same.</div>
-<div id="note-6cc35" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L227-L229">
+<div id="note-6cc35" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L230-L232">
 <a href="#note-6cc35">Note</a>
 Specifying <code>null</code> in JSON (or equivalent values in other formats) as values for optional request parameters is equivalent to not specifying them at all.</div>
-<div id="note-144b6" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L231-L232">
+<div id="note-144b6" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L234-L235">
 <a href="#note-144b6">Note</a>
 Each of the <var data-name="variables">variables</var> and <var data-name="extensions">extensions</var> parameters, if set, must have a map as their value.</div>
 </section>
 <section id="sec-Accept" secid="5.2">
-<h2 data-source="spec/GraphQLOverHTTP.md#L234"><span class="spec-secid" title="link to this section"><a href="#sec-Accept">5.2</a></span>Accept</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L236-L238">A client SHOULD indicate the media types that it supports in responses using the <code>Accept</code> HTTP header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L240-L241">If the client supplies an <code>Accept</code> header, the client SHOULD include the media type <code>application/graphql+json</code> in the <code>Accept</code> header.</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L237"><span class="spec-secid" title="link to this section"><a href="#sec-Accept">5.2</a></span>Accept</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L239-L241">A client SHOULD indicate the media types that it supports in responses using the <code>Accept</code> HTTP header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L243-L244">If the client supplies an <code>Accept</code> header, the client SHOULD include the media type <code>application/graphql+json</code> in the <code>Accept</code> header.</p>
 <section id="sec-Legacy-Watershed" secid="5.2.1">
-<h3 data-source="spec/GraphQLOverHTTP.md#L243"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-Watershed">5.2.1</a></span>Legacy Watershed</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L245-L247">Before <code>2025-01-01T00:00:00Z</code>, if the client supplies an <code>Accept</code> header, the header SHOULD include the <code>application/json</code> media type. After this watershed, this is no longer necessary.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L249-L250">It is RECOMMENDED that a client set the <code>Accept</code> header to <code>application/graphql+json; charset=utf-8, application/json; charset=utf-8</code>.</p>
-<div id="note-507e9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L252-L253">
+<h3 data-source="spec/GraphQLOverHTTP.md#L246"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-Watershed">5.2.1</a></span>Legacy Watershed</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L248-L250">Before <code>2025-01-01T00:00:00Z</code>, if the client supplies an <code>Accept</code> header, the header SHOULD include the <code>application/json</code> media type. After this watershed, this is no longer necessary.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L252-L253">It is RECOMMENDED that a client set the <code>Accept</code> header to <code>application/graphql+json; charset=utf-8, application/json; charset=utf-8</code>.</p>
+<div id="note-507e9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L255-L256">
 <a href="#note-507e9">Note</a>
 This recommended header enables compatibility with legacy servers whilst still leveraging modern features if available in the server.</div>
 </section>
 </section>
 <section id="sec-GET" secid="5.3">
-<h2 data-source="spec/GraphQLOverHTTP.md#L255"><span class="spec-secid" title="link to this section"><a href="#sec-GET">5.3</a></span>GET</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L257-L260">For HTTP GET requests, the GraphQL request parameters MUST be provided in the query component of the request URL in the <code>application/x-www-form-urlencoded</code> format as specified by <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG&rsquo;s URLSearchParams class</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L262-L264">The <code>query</code> parameter MUST be the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L266">The <code>operationName</code>, if present, must be a string.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L268-L269">Each of the <code>variables</code> and <code>extensions</code> parameters, if used, MUST be represented as a URL-encoded JSON string.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L271-L272">The <code>operationName</code> parameter, if supplied and not the empty string, represents the name of the operation to be executed within the <code>query</code>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L274-L275">Setting the value of the <code>operationName</code> parameter to the empty string is equivalent to omitting the <code>operationName</code> parameter.</p>
-<div id="note-3bc94" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L277-L279">
+<h2 data-source="spec/GraphQLOverHTTP.md#L258"><span class="spec-secid" title="link to this section"><a href="#sec-GET">5.3</a></span>GET</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L260-L263">For HTTP GET requests, the GraphQL request parameters MUST be provided in the query component of the request URL in the <code>application/x-www-form-urlencoded</code> format as specified by <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG&rsquo;s URLSearchParams class</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L265-L267">The <code>query</code> parameter MUST be the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L269">The <code>operationName</code>, if present, must be a string.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L271-L272">Each of the <code>variables</code> and <code>extensions</code> parameters, if used, MUST be represented as a URL-encoded JSON string.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L274-L275">The <code>operationName</code> parameter, if supplied and not the empty string, represents the name of the operation to be executed within the <code>query</code>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L277-L278">Setting the value of the <code>operationName</code> parameter to the empty string is equivalent to omitting the <code>operationName</code> parameter.</p>
+<div id="note-3bc94" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L280-L282">
 <a href="#note-3bc94">Note</a>
 By the above, <code>operationName=null</code> represents an operation with the name <code>"null"</code> (such as <code>query null { __typename }</code>). If a literal <code>null</code> is desired, either omit <var data-name="operationName">operationName</var> or set it to the empty string.</div>
 <section id="sec-GET.Example" secid="5.3.1">
-<h3 data-source="spec/GraphQLOverHTTP.md#L281"><span class="spec-secid" title="link to this section"><a href="#sec-GET.Example">5.3.1</a></span>Example</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L283">If we wanted to execute the following GraphQL query:</p>
-<pre id="example-25ae9" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L285-L287"><a href="#example-25ae9">Example № 6</a><code><span class="token keyword">query</span><span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span><span class="token variable">$id</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property">name</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<h3 data-source="spec/GraphQLOverHTTP.md#L284"><span class="spec-secid" title="link to this section"><a href="#sec-GET.Example">5.3.1</a></span>Example</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L286">If we wanted to execute the following GraphQL query:</p>
+<pre id="example-25ae9" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L288-L290"><a href="#example-25ae9">Example № 6</a><code><span class="token keyword">query</span><span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span><span class="token variable">$id</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token property">name</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L289">With the following query variables:</p>
-<pre id="example-ece49" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L291-L293"><a href="#example-ece49">Example № 7</a><code><span class="token punctuation">{</span><span class="token property">"id"</span><span class="token operator">:</span><span class="token string">"QVBJcy5ndXJ1"</span><span class="token punctuation">}</span>
+<p data-source="spec/GraphQLOverHTTP.md#L292">With the following query variables:</p>
+<pre id="example-ece49" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L294-L296"><a href="#example-ece49">Example № 7</a><code><span class="token punctuation">{</span><span class="token property">"id"</span><span class="token operator">:</span><span class="token string">"QVBJcy5ndXJ1"</span><span class="token punctuation">}</span>
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L295">This request could be sent via an HTTP GET as follows:</p>
-<pre id="example-3981e" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L297-L299"><a href="#example-3981e">Example № 8</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span><span class="token query"><span class="token query-delimiter">?</span><span class="token pair"><span class="token key">query</span>=<span class="token value">query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D</span></span><span class="token pair-delimiter">&amp;</span><span class="token pair"><span class="token key">variables</span>=<span class="token value">%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D</span></span></span>
+<p data-source="spec/GraphQLOverHTTP.md#L298">This request could be sent via an HTTP GET as follows:</p>
+<pre id="example-3981e" class="spec-example" data-language="url" data-source="spec/GraphQLOverHTTP.md#L300-L302"><a href="#example-3981e">Example № 8</a><code><span class="token scheme">http<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">example.com</span></span><span class="token path"><span class="token path-separator">/</span>graphql</span><span class="token query"><span class="token query-delimiter">?</span><span class="token pair"><span class="token key">query</span>=<span class="token value">query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D</span></span><span class="token pair-delimiter">&amp;</span><span class="token pair"><span class="token key">variables</span>=<span class="token value">%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D</span></span></span>
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L301-L305">GET requests MUST NOT be used for executing mutation operations. If the values of <var data-name="query">query</var> and <var data-name="operationName">operationName</var> indicate that a mutation operation is to be executed, the server MUST respond with error status code <code>405</code> (Method Not Allowed) and halt execution. This restriction is necessary to conform with the long-established semantics of safe methods within HTTP.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L304-L308">GET requests MUST NOT be used for executing mutation operations. If the values of <var data-name="query">query</var> and <var data-name="operationName">operationName</var> indicate that a mutation operation is to be executed, the server MUST respond with error status code <code>405</code> (Method Not Allowed) and halt execution. This restriction is necessary to conform with the long-established semantics of safe methods within HTTP.</p>
 </section>
 </section>
 <section id="sec-POST" secid="5.4">
-<h2 data-source="spec/GraphQLOverHTTP.md#L307"><span class="spec-secid" title="link to this section"><a href="#sec-POST">5.4</a></span>POST</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L309-L312">A GraphQL POST request instructs the server to perform a query or mutation operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded in one of the officially recognized GraphQL media types, or another media type supported by the server.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L314-L315">A client MUST indicate the media type of a request body using the <code>Content-Type</code> header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L317-L318">A server MUST support POST requests encoded with the <code>application/json</code> media type (as indicated by the <code>Content-Type</code> header).</p>
-<p data-source="spec/GraphQLOverHTTP.md#L320-L321">If the client does not supply a <code>Content-Type</code> header with a POST request, the server SHOULD reject the request using the appropriate <code>4xx</code> status code.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L323-L324">A server MAY support POST requests encoded with and/or accepting other media types.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L326-L327">If a client does not know the media types the server supports then it SHOULD encode the request body in JSON (i.e. with <code>Content-Type: application/json</code>).</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L310"><span class="spec-secid" title="link to this section"><a href="#sec-POST">5.4</a></span>POST</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L312-L315">A GraphQL POST request instructs the server to perform a query or mutation operation. A GraphQL POST request MUST have a body which contains values of the request parameters encoded in one of the officially recognized GraphQL media types, or another media type supported by the server.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L317-L318">A client MUST indicate the media type of a request body using the <code>Content-Type</code> header as specified in <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L320-L321">A server MUST support POST requests encoded with the <code>application/json</code> media type (as indicated by the <code>Content-Type</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L323-L324">If the client does not supply a <code>Content-Type</code> header with a POST request, the server SHOULD reject the request using the appropriate <code>4xx</code> status code.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L326-L327">A server MAY support POST requests encoded with and/or accepting other media types.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L329-L330">If a client does not know the media types the server supports then it SHOULD encode the request body in JSON (i.e. with <code>Content-Type: application/json</code>).</p>
 <section id="sec-JSON-Encoding" secid="5.4.1">
-<h3 data-source="spec/GraphQLOverHTTP.md#L329"><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Encoding">5.4.1</a></span>JSON Encoding</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L331-L332">When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with the properties specified by the GraphQL-over-HTTP request:</p>
+<h3 data-source="spec/GraphQLOverHTTP.md#L332"><span class="spec-secid" title="link to this section"><a href="#sec-JSON-Encoding">5.4.1</a></span>JSON Encoding</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L334-L335">When encoded in JSON, a GraphQL-over-HTTP request is a JSON object (map), with the properties specified by the GraphQL-over-HTTP request:</p>
 <ul>
-<li data-source="spec/GraphQLOverHTTP.md#L334-L336"><var data-name="query">query</var> - the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</li>
-<li data-source="spec/GraphQLOverHTTP.md#L337"><var data-name="operationName">operationName</var> - an optional string</li>
-<li data-source="spec/GraphQLOverHTTP.md#L338-L339"><var data-name="variables">variables</var> - an optional object (map), the keys of which are the variable names and the values of which are the variable values</li>
-<li data-source="spec/GraphQLOverHTTP.md#L340"><var data-name="extensions">extensions</var> - an optional object (map)</li>
+<li data-source="spec/GraphQLOverHTTP.md#L337-L339"><var data-name="query">query</var> - the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L340"><var data-name="operationName">operationName</var> - an optional string</li>
+<li data-source="spec/GraphQLOverHTTP.md#L341-L342"><var data-name="variables">variables</var> - an optional object (map), the keys of which are the variable names and the values of which are the variable values</li>
+<li data-source="spec/GraphQLOverHTTP.md#L343"><var data-name="extensions">extensions</var> - an optional object (map)</li>
 </ul>
 </section>
 <section id="sec-POST.Example" secid="5.4.2">
-<h3 data-source="spec/GraphQLOverHTTP.md#L342"><span class="spec-secid" title="link to this section"><a href="#sec-POST.Example">5.4.2</a></span>Example</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L344">If we wanted to execute the following GraphQL query:</p>
-<pre id="example-0b016" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L346-L352"><a href="#example-0b016">Example № 9</a><code><span class="token keyword">query</span> <span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h3 data-source="spec/GraphQLOverHTTP.md#L345"><span class="spec-secid" title="link to this section"><a href="#sec-POST.Example">5.4.2</a></span>Example</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L347">If we wanted to execute the following GraphQL query:</p>
+<pre id="example-0b016" class="spec-example" data-language="graphql" data-source="spec/GraphQLOverHTTP.md#L349-L355"><a href="#example-0b016">Example № 9</a><code><span class="token keyword">query</span> <span class="token punctuation">(</span><span class="token variable">$id</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token property-query">user</span><span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$id</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token property">name</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L354">With the following query variables:</p>
-<pre id="example-1dbeb" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L356-L360"><a href="#example-1dbeb">Example № 10</a><code><span class="token punctuation">{</span>
+<p data-source="spec/GraphQLOverHTTP.md#L357">With the following query variables:</p>
+<pre id="example-1dbeb" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L359-L363"><a href="#example-1dbeb">Example № 10</a><code><span class="token punctuation">{</span>
   <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"QVBJcy5ndXJ1"</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L362-L363">This request could be sent via an HTTP POST to the relevant URL using the JSON encoding with the headers:</p>
-<pre id="example-ccfab" class="spec-example" data-language="headers" data-source="spec/GraphQLOverHTTP.md#L365-L368"><a href="#example-ccfab">Example № 11</a><code>Content-Type: application/json
+<p data-source="spec/GraphQLOverHTTP.md#L365-L366">This request could be sent via an HTTP POST to the relevant URL using the JSON encoding with the headers:</p>
+<pre id="example-ccfab" class="spec-example" data-language="headers" data-source="spec/GraphQLOverHTTP.md#L368-L371"><a href="#example-ccfab">Example № 11</a><code>Content-Type: application/json
 Accept: application/graphql+json
 </code></pre>
-<p data-source="spec/GraphQLOverHTTP.md#L370">And the body:</p>
-<pre id="example-2db31" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L372-L379"><a href="#example-2db31">Example № 12</a><code><span class="token punctuation">{</span>
+<p data-source="spec/GraphQLOverHTTP.md#L373">And the body:</p>
+<pre id="example-2db31" class="spec-example" data-language="json" data-source="spec/GraphQLOverHTTP.md#L375-L382"><a href="#example-2db31">Example № 12</a><code><span class="token punctuation">{</span>
   <span class="token property">"query"</span><span class="token operator">:</span> <span class="token string">"query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}"</span><span class="token punctuation">,</span>
   <span class="token property">"variables"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"QVBJcy5ndXJ1"</span>
@@ -294,113 +297,113 @@ Accept: application/graphql+json
 </section>
 </section>
 <section id="sec-Response" secid="6">
-<h1 data-source="spec/GraphQLOverHTTP.md#L381"><span class="spec-secid" title="link to this section"><a href="#sec-Response">6</a></span>Response</h1>
-<p data-source="spec/GraphQLOverHTTP.md#L383-L386">When a server receives a <em>GraphQL-over-HTTP request</em>, it must return a well‐formed response. The server&rsquo;s response describes the result of validating and executing the requested operation if successful, and describes any errors encountered during the request.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L388-L389">A server must comply with <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
+<h1 data-source="spec/GraphQLOverHTTP.md#L384"><span class="spec-secid" title="link to this section"><a href="#sec-Response">6</a></span>Response</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L386-L389">When a server receives a <em>GraphQL-over-HTTP request</em>, it must return a well‐formed response. The server&rsquo;s response describes the result of validating and executing the requested operation if successful, and describes any errors encountered during the request.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L391-L392">A server must comply with <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
 <section id="sec-Body" secid="6.1">
-<h2 data-source="spec/GraphQLOverHTTP.md#L391"><span class="spec-secid" title="link to this section"><a href="#sec-Body">6.1</a></span>Body</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L393-L395">The body of the server&rsquo;s response MUST follow the requirements for a <a href="https://graphql.github.io/graphql-spec/draft/#sec-Response">GraphQL response</a>, encoded directly in the chosen media type.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L397-L398">A server MUST indicate the media type of the response with a <code>Content-Type</code> header.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L400-L402">If an <code>Accept</code> header is provided, the server MUST respect the given <code>Accept</code> header and attempt to encode the response in the highest priority media type listed that is supported by the server.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L404-L407">In alignment with the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP 1.1 Accept</a> specification, when a client does not include at least one supported media type in the <code>Accept</code> HTTP header, the server MUST either:</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L394"><span class="spec-secid" title="link to this section"><a href="#sec-Body">6.1</a></span>Body</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L396-L398">The body of the server&rsquo;s response MUST follow the requirements for a <a href="https://graphql.github.io/graphql-spec/draft/#sec-Response">GraphQL response</a>, encoded directly in the chosen media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L400-L401">A server MUST indicate the media type of the response with a <code>Content-Type</code> header.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L403-L405">If an <code>Accept</code> header is provided, the server MUST respect the given <code>Accept</code> header and attempt to encode the response in the highest priority media type listed that is supported by the server.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L407-L410">In alignment with the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP 1.1 Accept</a> specification, when a client does not include at least one supported media type in the <code>Accept</code> HTTP header, the server MUST either:</p>
 <ol>
-<li data-source="spec/GraphQLOverHTTP.md#L409-L410">Disregard the <code>Accept</code> header and respond with the default media type of <code>application/json</code>, specifying this in the <code>Content-Type</code> header; OR</li>
-<li data-source="spec/GraphQLOverHTTP.md#L411-L412">Respond with a <code>406 Not Acceptable</code> status code and stop processing the request.</li>
+<li data-source="spec/GraphQLOverHTTP.md#L412-L413">Disregard the <code>Accept</code> header and respond with the default media type of <code>application/json</code>, specifying this in the <code>Content-Type</code> header; OR</li>
+<li data-source="spec/GraphQLOverHTTP.md#L414-L415">Respond with a <code>406 Not Acceptable</code> status code and stop processing the request.</li>
 </ol>
-<p data-source="spec/GraphQLOverHTTP.md#L414-L415">A server MUST support requests which accept the <code>application/json</code> media type (as indicated by the <code>Accept</code> header).</p>
-<p data-source="spec/GraphQLOverHTTP.md#L417-L418">A server SHOULD support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
-<div id="note-74882" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L420-L427">
+<p data-source="spec/GraphQLOverHTTP.md#L417-L418">A server MUST support requests which accept the <code>application/json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L420-L421">A server SHOULD support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<div id="note-74882" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L423-L430">
 <a href="#note-74882">Note</a>
 Prior to this specification, the media type <code>application/json</code> was in wide use for the HTTP response payload type. Unfortunately this means clients cannot trust responses from the server that do not use an HTTP 2xx status code (since these replies may come from non-compliant HTTP servers or proxies somewhere in the request chain). For this reason, this specification introduces the <code>application/graphql+json</code> media type on responses; however, to give existing servers time to move over, it is not required to be supported until 1st January 2025.</div>
 <section id="sec-Legacy-watershed" secid="6.1.1">
-<h3 data-source="spec/GraphQLOverHTTP.md#L429"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-watershed">6.1.1</a></span>Legacy watershed</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L431-L433">From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), a server MUST support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
-<p data-source="spec/GraphQLOverHTTP.md#L435-L439">Before 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/json</code>. From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/graphql+json</code>.</p>
-<div id="note-39865" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L441">
+<h3 data-source="spec/GraphQLOverHTTP.md#L432"><span class="spec-secid" title="link to this section"><a href="#sec-Legacy-watershed">6.1.1</a></span>Legacy watershed</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L434-L436">From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), a server MUST support requests which accept the <code>application/graphql+json</code> media type (as indicated by the <code>Accept</code> header).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L438-L442">Before 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/json</code>. From 1st January 2025 (<code>2025-01-01T00:00:00Z</code>), if the client does not supply an <code>Accept</code> header, the server SHOULD treat the request as if it had <code>Accept: application/graphql+json</code>.</p>
+<div id="note-39865" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L444">
 <a href="#note-39865">Note</a>
 This default is in place to maintain compatibility with legacy clients.</div>
 </section>
 </section>
 <section id="sec-Validation" secid="6.2">
-<h2 data-source="spec/GraphQLOverHTTP.md#L443"><span class="spec-secid" title="link to this section"><a href="#sec-Validation">6.2</a></span>Validation</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L445-L447">Validation of a well-formed GraphQL-over-HTTP request SHOULD apply all the <a href="https://spec.graphql.org/draft/#sec-Validation">validation rules</a> specified by the GraphQL specification.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L449">The server MAY, at its discretion, apply additional validation rules.</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L446"><span class="spec-secid" title="link to this section"><a href="#sec-Validation">6.2</a></span>Validation</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L448-L450">Validation of a well-formed GraphQL-over-HTTP request SHOULD apply all the <a href="https://spec.graphql.org/draft/#sec-Validation">validation rules</a> specified by the GraphQL specification.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L452">The server MAY, at its discretion, apply additional validation rules.</p>
 </section>
 <section id="sec-Execution" secid="6.3">
-<h2 data-source="spec/GraphQLOverHTTP.md#L451"><span class="spec-secid" title="link to this section"><a href="#sec-Execution">6.3</a></span>Execution</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L453-L455">Execution of a GraphQL-over-HTTP request follows <a href="https://spec.graphql.org/draft/#ExecuteRequest()">GraphQL&rsquo;s ExecuteRequest()</a> algorithm.</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L454"><span class="spec-secid" title="link to this section"><a href="#sec-Execution">6.3</a></span>Execution</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L456-L458">Execution of a GraphQL-over-HTTP request follows <a href="https://spec.graphql.org/draft/#ExecuteRequest()">GraphQL&rsquo;s ExecuteRequest()</a> algorithm.</p>
 </section>
 <section id="sec-Status-Codes" secid="6.4">
-<h2 data-source="spec/GraphQLOverHTTP.md#L457"><span class="spec-secid" title="link to this section"><a href="#sec-Status-Codes">6.4</a></span>Status Codes</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L459-L461">In case of errors that completely prevent the generation of a well-formed GraphQL response, the server SHOULD respond with the appropriate status code depending on the concrete error condition.</p>
-<div id="note-996ca" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L463">
+<h2 data-source="spec/GraphQLOverHTTP.md#L460"><span class="spec-secid" title="link to this section"><a href="#sec-Status-Codes">6.4</a></span>Status Codes</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L462-L464">In case of errors that completely prevent the generation of a well-formed GraphQL response, the server SHOULD respond with the appropriate status code depending on the concrete error condition.</p>
+<div id="note-996ca" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L466">
 <a href="#note-996ca">Note</a>
 Typically this will be the <code>400</code> (Bad Request) status code.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L465-L466">Otherwise, the status codes depends on the media type with which the GraphQL response will be served:</p>
+<p data-source="spec/GraphQLOverHTTP.md#L468-L469">Otherwise, the status codes depends on the media type with which the GraphQL response will be served:</p>
 <section id="sec-application-json" secid="6.4.1">
-<h3 data-source="spec/GraphQLOverHTTP.md#L468"><span class="spec-secid" title="link to this section"><a href="#sec-application-json">6.4.1</a></span>application/json</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L470-L471">This section only applies when the response body is to use the <code>application/json</code> media type.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L473-L474">The server SHOULD use the <code>200</code> status code, independent of any <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> or <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> raised.</p>
-<div id="note-a7d14" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L476-L481">
+<h3 data-source="spec/GraphQLOverHTTP.md#L471"><span class="spec-secid" title="link to this section"><a href="#sec-application-json">6.4.1</a></span>application/json</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L473-L474">This section only applies when the response body is to use the <code>application/json</code> media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L476-L477">The server SHOULD use the <code>200</code> status code, independent of any <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> or <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> raised.</p>
+<div id="note-a7d14" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L479-L484">
 <a href="#note-a7d14">Note</a>
 A status code in the <code>4xx</code> or <code>5xx</code> ranges or status code <code>203</code> (and maybe others) could originate from intermediary servers; since the client cannot determine if an <code>application/json</code> response with arbitrary status code is a well-formed GraphQL response (because it cannot trust the source) the server must use <code>200</code> status code to guarantee to the client that the response has not been generated or modified by an intermediary.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L483-L484">If the GraphQL response contains a non-null <var data-name="data">data</var> entry then the server MUST use the <code>200</code> status code.</p>
-<div id="note-5c044" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L486-L488">
+<p data-source="spec/GraphQLOverHTTP.md#L486-L487">If the GraphQL response contains a non-null <var data-name="data">data</var> entry then the server MUST use the <code>200</code> status code.</p>
+<div id="note-5c044" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L489-L491">
 <a href="#note-5c044">Note</a>
 This indicates that no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> was raised, though one or more <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> may have been raised this is still a successful execution &ndash; see &ldquo;partial response&rdquo; in the GraphQL specification.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L490">The server SHOULD NOT use a <code>4xx</code> or <code>5xx</code> status code.</p>
-<div id="note-5f9d9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L492-L495">
+<p data-source="spec/GraphQLOverHTTP.md#L493">The server SHOULD NOT use a <code>4xx</code> or <code>5xx</code> status code.</p>
+<div id="note-5f9d9" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L495-L498">
 <a href="#note-5f9d9">Note</a>
 For compatibility with legacy servers, this specification allows the use of <code>4xx</code> or <code>5xx</code> status codes for failed requests where the response uses the <code>application/json</code> media type, but it is strongly discouraged. To use <code>4xx</code> and <code>5xx</code> status codes, please use the <code>application/graphql+json</code> media type.</div>
 </section>
 <section id="sec-application-graphql-json" secid="6.4.2">
-<h3 data-source="spec/GraphQLOverHTTP.md#L497"><span class="spec-secid" title="link to this section"><a href="#sec-application-graphql-json">6.4.2</a></span>application/graphql+json</h3>
-<p data-source="spec/GraphQLOverHTTP.md#L499-L500">This section only applies when the response body is to use the <code>application/graphql+json</code> media type.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L502-L504">If the GraphQL response contains the <var data-name="data">data</var> entry and it is not <span class="spec-keyword">null</span>, then the server MUST reply with a <code>2xx</code> status code and SHOULD reply with <code>200</code> status code.</p>
-<div id="note-83b1c" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L506-L515">
+<h3 data-source="spec/GraphQLOverHTTP.md#L500"><span class="spec-secid" title="link to this section"><a href="#sec-application-graphql-json">6.4.2</a></span>application/graphql+json</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L502-L503">This section only applies when the response body is to use the <code>application/graphql+json</code> media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L505-L507">If the GraphQL response contains the <var data-name="data">data</var> entry and it is not <span class="spec-keyword">null</span>, then the server MUST reply with a <code>2xx</code> status code and SHOULD reply with <code>200</code> status code.</p>
+<div id="note-83b1c" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L509-L518">
 <a href="#note-83b1c">Note</a>
 The result of executing a GraphQL operation may contain partial data as well as encountered errors. Errors that happen during execution of the GraphQL operation typically become part of the result, as long as the server is still able to produce a well-formed response. There&rsquo;s currently not an approved HTTP status code to use for a &ldquo;partial response,&rdquo; contenders include WebDAV&rsquo;s status code &ldquo;207 Multi-Status&rdquo; and using a custom code such as &ldquo;247 Partial Success.&rdquo; <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1">IETF RFC2616 Section 6.1.1</a> states &ldquo;codes are fully defined in section 10&rdquo; implying that though more codes are expected to be supported over time, valid codes must be present in this document.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L517-L519">If the GraphQL response contains the <var data-name="data">data</var> entry and it is <span class="spec-keyword">null</span>, then the server SHOULD reply with a <code>2xx</code> status code and it is RECOMMENDED it replies with <code>200</code> status code.</p>
-<div id="note-f503e" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L521-L523">
+<p data-source="spec/GraphQLOverHTTP.md#L520-L522">If the GraphQL response contains the <var data-name="data">data</var> entry and it is <span class="spec-keyword">null</span>, then the server SHOULD reply with a <code>2xx</code> status code and it is RECOMMENDED it replies with <code>200</code> status code.</p>
+<div id="note-f503e" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L524-L526">
 <a href="#note-f503e">Note</a>
 Using <code>4xx</code> and <code>5xx</code> status codes in this situation is not recommended &ndash; since no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> has occurred it is seen as a &ldquo;partial response&rdquo;.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L525-L526">If the GraphQL response does not contain the <var data-name="data">data</var> entry then the server MUST reply with a <code>4xx</code> or <code>5xx</code> status code as appropriate.</p>
-<div id="note-dddec" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L528-L530">
+<p data-source="spec/GraphQLOverHTTP.md#L528-L529">If the GraphQL response does not contain the <var data-name="data">data</var> entry then the server MUST reply with a <code>4xx</code> or <code>5xx</code> status code as appropriate.</p>
+<div id="note-dddec" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L531-L533">
 <a href="#note-dddec">Note</a>
 The GraphQL specification indicates that the only situation in which the GraphQL response does not include the <var data-name="data">data</var> entry is one in which the <var data-name="errors">errors</var> entry is populated.</div>
-<p data-source="spec/GraphQLOverHTTP.md#L532-L533">If the GraphQL request is invalid (e.g. it is malformed, or does not pass validation) then the server SHOULD reply with <code>400</code> status code.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L535-L536">If the client is not permitted to issue the GraphQL request then the server SHOULD reply with <code>403</code>, <code>401</code> or similar appropriate status code.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L535-L536">If the GraphQL request is invalid (e.g. it is malformed, or does not pass validation) then the server SHOULD reply with <code>400</code> status code.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L538-L539">If the client is not permitted to issue the GraphQL request then the server SHOULD reply with <code>403</code>, <code>401</code> or similar appropriate status code.</p>
 <section id="sec-Examples" secid="6.4.2.1">
-<h4 data-source="spec/GraphQLOverHTTP.md#L538"><span class="spec-secid" title="link to this section"><a href="#sec-Examples">6.4.2.1</a></span>Examples</h4>
-<p data-source="spec/GraphQLOverHTTP.md#L540-L542">The following examples provide guidance on how to deal with specific error cases when using the <code>application/graphql+json</code> media type to encode the response body:</p>
+<h4 data-source="spec/GraphQLOverHTTP.md#L541"><span class="spec-secid" title="link to this section"><a href="#sec-Examples">6.4.2.1</a></span>Examples</h4>
+<p data-source="spec/GraphQLOverHTTP.md#L543-L545">The following examples provide guidance on how to deal with specific error cases when using the <code>application/graphql+json</code> media type to encode the response body:</p>
 <section id="sec-Invalid-parameters-or-parsing-failure" secid="6.4.2.1.1">
-<h5 data-source="spec/GraphQLOverHTTP.md#L544"><span class="spec-secid" title="link to this section"><a href="#sec-Invalid-parameters-or-parsing-failure">6.4.2.1.1</a></span>Invalid parameters or parsing failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L546">For example a POST response body of <code>NONSENSE</code> or <code>{"qeury": "{__typena</code>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L548-L549">Requests that do not constitute a well-formed GraphQL request should result in status code <code>400</code> (Bad Request).</p>
+<h5 data-source="spec/GraphQLOverHTTP.md#L547"><span class="spec-secid" title="link to this section"><a href="#sec-Invalid-parameters-or-parsing-failure">6.4.2.1.1</a></span>Invalid parameters or parsing failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L549">For example a POST response body of <code>NONSENSE</code> or <code>{"qeury": "{__typena</code>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L551-L552">Requests that do not constitute a well-formed GraphQL request should result in status code <code>400</code> (Bad Request).</p>
 </section>
 <section id="sec-Document-validation-failure" secid="6.4.2.1.2">
-<h5 data-source="spec/GraphQLOverHTTP.md#L551"><span class="spec-secid" title="link to this section"><a href="#sec-Document-validation-failure">6.4.2.1.2</a></span>Document validation failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L553-L554">Requests that fail to pass validation SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
-<div id="note-ffc42" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L556-L558">
+<h5 data-source="spec/GraphQLOverHTTP.md#L554"><span class="spec-secid" title="link to this section"><a href="#sec-Document-validation-failure">6.4.2.1.2</a></span>Document validation failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L556-L557">Requests that fail to pass validation SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
+<div id="note-ffc42" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L559-L561">
 <a href="#note-ffc42">Note</a>
 In certain circumstances, for example persisted operations that were previously known to be valid, the server MAY attempt execution regardless of validation errors.</div>
-<div id="note-88c06" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L560-L563">
+<div id="note-88c06" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L563-L566">
 <a href="#note-88c06">Note</a>
 Validation rules include those specified in <a href="http://spec.graphql.org/draft/#sec-Validation">the Validation section of the GraphQL specification</a>, and any custom validation rules the server is using (for example: depth limit, complexity limit).</div>
 </section>
 <section id="sec-Operation-cannot-be-determined" secid="6.4.2.1.3">
-<h5 data-source="spec/GraphQLOverHTTP.md#L565"><span class="spec-secid" title="link to this section"><a href="#sec-Operation-cannot-be-determined">6.4.2.1.3</a></span>Operation cannot be determined</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L567-L569">If <a href="https://spec.graphql.org/draft/#GetOperation()">GetOperation()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+<h5 data-source="spec/GraphQLOverHTTP.md#L568"><span class="spec-secid" title="link to this section"><a href="#sec-Operation-cannot-be-determined">6.4.2.1.3</a></span>Operation cannot be determined</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L570-L572">If <a href="https://spec.graphql.org/draft/#GetOperation()">GetOperation()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
 </section>
 <section id="sec-Variable-coercion-failure" secid="6.4.2.1.4">
-<h5 data-source="spec/GraphQLOverHTTP.md#L571"><span class="spec-secid" title="link to this section"><a href="#sec-Variable-coercion-failure">6.4.2.1.4</a></span>Variable coercion failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L573-L576">If <a href="https://spec.graphql.org/draft/#CoerceVariableValues()">CoerceVariableValues()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+<h5 data-source="spec/GraphQLOverHTTP.md#L574"><span class="spec-secid" title="link to this section"><a href="#sec-Variable-coercion-failure">6.4.2.1.4</a></span>Variable coercion failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L576-L579">If <a href="https://spec.graphql.org/draft/#CoerceVariableValues()">CoerceVariableValues()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
 </section>
 <section id="sec-Field-errors-encountered-during-execution" secid="6.4.2.1.5">
-<h5 data-source="spec/GraphQLOverHTTP.md#L578"><span class="spec-secid" title="link to this section"><a href="#sec-Field-errors-encountered-during-execution">6.4.2.1.5</a></span>Field errors encountered during execution</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L580-L584">If the operation is executed and no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> is raised then the server SHOULD respond with a status code of <code>200</code> (Okay). This is the case even if a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> is raised during <a href="https://spec.graphql.org/draft/#ExecuteQuery()">GraphQL&rsquo;s ExecuteQuery()</a> or <a href="https://spec.graphql.org/draft/#ExecuteMutation()">GraphQL&rsquo;s ExecuteMutation()</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L586-L590">&lt;!&mdash; When we add support for subscriptions, <a href="https://spec.graphql.org/draft/#MapSourceToResponseEvent()">GraphQL&rsquo;s MapSourceToResponseEvent()</a> should be added to the above. &rarr;</p>
-<div id="note-0fbe1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L592-L595">
+<h5 data-source="spec/GraphQLOverHTTP.md#L581"><span class="spec-secid" title="link to this section"><a href="#sec-Field-errors-encountered-during-execution">6.4.2.1.5</a></span>Field errors encountered during execution</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L583-L587">If the operation is executed and no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> is raised then the server SHOULD respond with a status code of <code>200</code> (Okay). This is the case even if a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> is raised during <a href="https://spec.graphql.org/draft/#ExecuteQuery()">GraphQL&rsquo;s ExecuteQuery()</a> or <a href="https://spec.graphql.org/draft/#ExecuteMutation()">GraphQL&rsquo;s ExecuteMutation()</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L589-L593">&lt;!&mdash; When we add support for subscriptions, <a href="https://spec.graphql.org/draft/#MapSourceToResponseEvent()">GraphQL&rsquo;s MapSourceToResponseEvent()</a> should be added to the above. &rarr;</p>
+<div id="note-0fbe1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L595-L598">
 <a href="#note-0fbe1">Note</a>
 The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-Field-Errors">differentiates field errors from request errors</a> and refers to the situation wherein a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> occurs as a partial response; it still indicates successful execution.</div>
 </section>
@@ -408,8 +411,8 @@ The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-
 </section>
 </section>
 <section id="sec-Processing-the-response" secid="6.5">
-<h2 data-source="spec/GraphQLOverHTTP.md#L597"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L599-L604">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed GraphQL response since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L600"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L602-L607">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed GraphQL response since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
 </section>
 </section>
 <section id="index" secid="index" class="spec-index">
