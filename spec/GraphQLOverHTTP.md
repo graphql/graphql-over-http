@@ -116,6 +116,9 @@ Specification compliant HTTP client unless the context indicates otherwise.
 The role of a _client_ is to issue HTTP requests to a _server_ in order to
 interact with a _GraphQL service_.
 
+Note: GraphQL Subscriptions are beyond the scope of this specification at this
+time.
+
 # URL
 
 A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
