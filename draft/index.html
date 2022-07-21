@@ -57,11 +57,13 @@
 <li><a href="#sec-application-json"><span class="spec-secid">6.4.1</span>application/json</a></li>
 <li><a href="#sec-application-graphql-json"><span class="spec-secid">6.4.2</span>application/graphql+json</a><ol>
 <li><a href="#sec-Examples"><span class="spec-secid">6.4.2.1</span>Examples</a><ol>
-<li><a href="#sec-Invalid-parameters-or-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>Invalid parameters or parsing failure</a></li>
-<li><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.2</span>Document validation failure</a></li>
-<li><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.3</span>Operation cannot be determined</a></li>
-<li><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.4</span>Variable coercion failure</a></li>
-<li><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.5</span>Field errors encountered during execution</a></li>
+<li><a href="#sec-JSON-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>JSON parsing failure</a></li>
+<li><a href="#sec-Invalid-parameters"><span class="spec-secid">6.4.2.1.2</span>Invalid parameters</a></li>
+<li><a href="#sec-Document-parsing-failure"><span class="spec-secid">6.4.2.1.3</span>Document parsing failure</a></li>
+<li><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.4</span>Document validation failure</a></li>
+<li><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.5</span>Operation cannot be determined</a></li>
+<li><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.6</span>Variable coercion failure</a></li>
+<li><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.7</span>Field errors encountered during execution</a></li>
 </ol>
 </li>
 </ol>
@@ -376,34 +378,44 @@ The GraphQL specification indicates that the only situation in which the GraphQL
 <section id="sec-Examples" secid="6.4.2.1">
 <h4 data-source="spec/GraphQLOverHTTP.md#L541"><span class="spec-secid" title="link to this section"><a href="#sec-Examples">6.4.2.1</a></span>Examples</h4>
 <p data-source="spec/GraphQLOverHTTP.md#L543-L545">The following examples provide guidance on how to deal with specific error cases when using the <code>application/graphql+json</code> media type to encode the response body:</p>
-<section id="sec-Invalid-parameters-or-parsing-failure" secid="6.4.2.1.1">
-<h5 data-source="spec/GraphQLOverHTTP.md#L547"><span class="spec-secid" title="link to this section"><a href="#sec-Invalid-parameters-or-parsing-failure">6.4.2.1.1</a></span>Invalid parameters or parsing failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L549">For example a POST response body of <code>NONSENSE</code> or <code>{"qeury": "{__typena</code>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L551-L552">Requests that do not constitute a well-formed GraphQL request should result in status code <code>400</code> (Bad Request).</p>
+<section id="sec-JSON-parsing-failure" secid="6.4.2.1.1">
+<h5 data-source="spec/GraphQLOverHTTP.md#L547"><span class="spec-secid" title="link to this section"><a href="#sec-JSON-parsing-failure">6.4.2.1.1</a></span>JSON parsing failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L549-L550">For example a POST request body of <code>NONSENSE</code> or <code>{"query":</code> (note: invalid JSON).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L552-L553">Requests that the server cannot interpret should result in status code <code>400</code> (Bad Request).</p>
 </section>
-<section id="sec-Document-validation-failure" secid="6.4.2.1.2">
-<h5 data-source="spec/GraphQLOverHTTP.md#L554"><span class="spec-secid" title="link to this section"><a href="#sec-Document-validation-failure">6.4.2.1.2</a></span>Document validation failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L556-L557">Requests that fail to pass validation SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
-<div id="note-ffc42" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L559-L561">
+<section id="sec-Invalid-parameters" secid="6.4.2.1.2">
+<h5 data-source="spec/GraphQLOverHTTP.md#L555"><span class="spec-secid" title="link to this section"><a href="#sec-Invalid-parameters">6.4.2.1.2</a></span>Invalid parameters</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L557-L559">For example a POST request body of <code>{"qeury": "{__typename}"}</code> (note: typo) or <code>{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}</code> (note: invalid shape for <code>variables</code>).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L561-L562">Requests that do not constitute a well-formed <em>GraphQL-over-HTTP request</em> should result in status code <code>400</code> (Bad Request).</p>
+</section>
+<section id="sec-Document-parsing-failure" secid="6.4.2.1.3">
+<h5 data-source="spec/GraphQLOverHTTP.md#L564"><span class="spec-secid" title="link to this section"><a href="#sec-Document-parsing-failure">6.4.2.1.3</a></span>Document parsing failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L566">For example a POST response body of <code>{"query": "{"}</code>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L568-L569">Requests where the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Document" data-name="graphql-document" target="_blank">GraphQL document</a></span> cannot be parsed should result in status code <code>400</code> (Bad Request).</p>
+</section>
+<section id="sec-Document-validation-failure" secid="6.4.2.1.4">
+<h5 data-source="spec/GraphQLOverHTTP.md#L571"><span class="spec-secid" title="link to this section"><a href="#sec-Document-validation-failure">6.4.2.1.4</a></span>Document validation failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L573-L574">Requests that fail to pass <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Validation" data-name="graphql-validation" target="_blank">GraphQL validation</a></span> SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
+<div id="note-ffc42" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L576-L578">
 <a href="#note-ffc42">Note</a>
 In certain circumstances, for example persisted operations that were previously known to be valid, the server MAY attempt execution regardless of validation errors.</div>
-<div id="note-88c06" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L563-L566">
+<div id="note-88c06" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L580-L583">
 <a href="#note-88c06">Note</a>
 Validation rules include those specified in <a href="http://spec.graphql.org/draft/#sec-Validation">the Validation section of the GraphQL specification</a>, and any custom validation rules the server is using (for example: depth limit, complexity limit).</div>
 </section>
-<section id="sec-Operation-cannot-be-determined" secid="6.4.2.1.3">
-<h5 data-source="spec/GraphQLOverHTTP.md#L568"><span class="spec-secid" title="link to this section"><a href="#sec-Operation-cannot-be-determined">6.4.2.1.3</a></span>Operation cannot be determined</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L570-L572">If <a href="https://spec.graphql.org/draft/#GetOperation()">GetOperation()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+<section id="sec-Operation-cannot-be-determined" secid="6.4.2.1.5">
+<h5 data-source="spec/GraphQLOverHTTP.md#L585"><span class="spec-secid" title="link to this section"><a href="#sec-Operation-cannot-be-determined">6.4.2.1.5</a></span>Operation cannot be determined</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L587-L589">If <a href="https://spec.graphql.org/draft/#GetOperation()">GetOperation()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
 </section>
-<section id="sec-Variable-coercion-failure" secid="6.4.2.1.4">
-<h5 data-source="spec/GraphQLOverHTTP.md#L574"><span class="spec-secid" title="link to this section"><a href="#sec-Variable-coercion-failure">6.4.2.1.4</a></span>Variable coercion failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L576-L579">If <a href="https://spec.graphql.org/draft/#CoerceVariableValues()">CoerceVariableValues()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
+<section id="sec-Variable-coercion-failure" secid="6.4.2.1.6">
+<h5 data-source="spec/GraphQLOverHTTP.md#L591"><span class="spec-secid" title="link to this section"><a href="#sec-Variable-coercion-failure">6.4.2.1.6</a></span>Variable coercion failure</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L593-L596">If <a href="https://spec.graphql.org/draft/#CoerceVariableValues()">CoerceVariableValues()</a> raises a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>400</code> (Bad Request).</p>
 </section>
-<section id="sec-Field-errors-encountered-during-execution" secid="6.4.2.1.5">
-<h5 data-source="spec/GraphQLOverHTTP.md#L581"><span class="spec-secid" title="link to this section"><a href="#sec-Field-errors-encountered-during-execution">6.4.2.1.5</a></span>Field errors encountered during execution</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L583-L587">If the operation is executed and no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> is raised then the server SHOULD respond with a status code of <code>200</code> (Okay). This is the case even if a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> is raised during <a href="https://spec.graphql.org/draft/#ExecuteQuery()">GraphQL&rsquo;s ExecuteQuery()</a> or <a href="https://spec.graphql.org/draft/#ExecuteMutation()">GraphQL&rsquo;s ExecuteMutation()</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L589-L593">&lt;!&mdash; When we add support for subscriptions, <a href="https://spec.graphql.org/draft/#MapSourceToResponseEvent()">GraphQL&rsquo;s MapSourceToResponseEvent()</a> should be added to the above. &rarr;</p>
-<div id="note-0fbe1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L595-L598">
+<section id="sec-Field-errors-encountered-during-execution" secid="6.4.2.1.7">
+<h5 data-source="spec/GraphQLOverHTTP.md#L598"><span class="spec-secid" title="link to this section"><a href="#sec-Field-errors-encountered-during-execution">6.4.2.1.7</a></span>Field errors encountered during execution</h5>
+<p data-source="spec/GraphQLOverHTTP.md#L600-L604">If the operation is executed and no <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Request-errors" data-name="graphql-request-error" target="_blank">GraphQL request error</a></span> is raised then the server SHOULD respond with a status code of <code>200</code> (Okay). This is the case even if a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> is raised during <a href="https://spec.graphql.org/draft/#ExecuteQuery()">GraphQL&rsquo;s ExecuteQuery()</a> or <a href="https://spec.graphql.org/draft/#ExecuteMutation()">GraphQL&rsquo;s ExecuteMutation()</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L606-L610">&lt;!&mdash; When we add support for subscriptions, <a href="https://spec.graphql.org/draft/#MapSourceToResponseEvent()">GraphQL&rsquo;s MapSourceToResponseEvent()</a> should be added to the above. &rarr;</p>
+<div id="note-0fbe1" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L612-L615">
 <a href="#note-0fbe1">Note</a>
 The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-Field-Errors">differentiates field errors from request errors</a> and refers to the situation wherein a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Errors.Field-errors" data-name="graphql-field-error" target="_blank">GraphQL field error</a></span> occurs as a partial response; it still indicates successful execution.</div>
 </section>
@@ -411,8 +423,8 @@ The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-
 </section>
 </section>
 <section id="sec-Processing-the-response" secid="6.5">
-<h2 data-source="spec/GraphQLOverHTTP.md#L600"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L602-L607">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed GraphQL response since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L617"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L619-L624">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed GraphQL response since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
 </section>
 </section>
 <section id="index" secid="index" class="spec-index">
@@ -485,11 +497,13 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_6.4.2.1"><a href="#sec-Examples"><span class="spec-secid">6.4.2.1</span>Examples</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_6.4.2.1" /><label for="_toggle_6.4.2.1"></label>
 <ol>
-<li id="_sidebar_6.4.2.1.1"><a href="#sec-Invalid-parameters-or-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>Invalid parameters or parsing failure</a></li>
-<li id="_sidebar_6.4.2.1.2"><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.2</span>Document validation failure</a></li>
-<li id="_sidebar_6.4.2.1.3"><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.3</span>Operation cannot be determined</a></li>
-<li id="_sidebar_6.4.2.1.4"><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.4</span>Variable coercion failure</a></li>
-<li id="_sidebar_6.4.2.1.5"><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.5</span>Field errors encountered during execution</a></li>
+<li id="_sidebar_6.4.2.1.1"><a href="#sec-JSON-parsing-failure"><span class="spec-secid">6.4.2.1.1</span>JSON parsing failure</a></li>
+<li id="_sidebar_6.4.2.1.2"><a href="#sec-Invalid-parameters"><span class="spec-secid">6.4.2.1.2</span>Invalid parameters</a></li>
+<li id="_sidebar_6.4.2.1.3"><a href="#sec-Document-parsing-failure"><span class="spec-secid">6.4.2.1.3</span>Document parsing failure</a></li>
+<li id="_sidebar_6.4.2.1.4"><a href="#sec-Document-validation-failure"><span class="spec-secid">6.4.2.1.4</span>Document validation failure</a></li>
+<li id="_sidebar_6.4.2.1.5"><a href="#sec-Operation-cannot-be-determined"><span class="spec-secid">6.4.2.1.5</span>Operation cannot be determined</a></li>
+<li id="_sidebar_6.4.2.1.6"><a href="#sec-Variable-coercion-failure"><span class="spec-secid">6.4.2.1.6</span>Variable coercion failure</a></li>
+<li id="_sidebar_6.4.2.1.7"><a href="#sec-Field-errors-encountered-during-execution"><span class="spec-secid">6.4.2.1.7</span>Field errors encountered during execution</a></li>
 </ol>
 </li>
 </ol>
