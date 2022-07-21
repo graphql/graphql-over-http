@@ -544,17 +544,34 @@ The following examples provide guidance on how to deal with specific error cases
 when using the `application/graphql+json` media type to encode the response
 body:
 
-##### Invalid parameters or parsing failure
+##### JSON parsing failure
 
-For example a POST response body of `NONSENSE` or `{"qeury": "{__typena`.
+For example a POST request body of `NONSENSE` or `{"query":` (note: invalid
+JSON).
 
-Requests that do not constitute a well-formed GraphQL request should result in
-status code `400` (Bad Request).
+Requests that the server cannot interpret should result in status code `400`
+(Bad Request).
+
+##### Invalid parameters
+
+For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
+`{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}` (note: invalid
+shape for `variables`).
+
+Requests that do not constitute a well-formed _GraphQL-over-HTTP request_ should
+result in status code `400` (Bad Request).
+
+##### Document parsing failure
+
+For example a POST response body of `{"query": "{"}`.
+
+Requests where the _GraphQL document_ cannot be parsed should result in status
+code `400` (Bad Request).
 
 ##### Document validation failure
 
-Requests that fail to pass validation SHOULD be denied execution with a status
-code of `400` (Bad Request).
+Requests that fail to pass _GraphQL validation_ SHOULD be denied execution with
+a status code of `400` (Bad Request).
 
 Note: In certain circumstances, for example persisted operations that were
 previously known to be valid, the server MAY attempt execution regardless of
