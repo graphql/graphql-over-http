@@ -169,6 +169,8 @@ The GraphQL specification allows for many
 Servers and clients MUST support JSON and MAY support other, additional
 serialization formats.
 
+Note: Allowing other media types, particularly on requests, can be insecure.
+
 For consistency and ease of notation, examples of the response are given in JSON
 throughout this specification.
 
@@ -240,8 +242,16 @@ A client SHOULD indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
+Note: If a client does not supply the `Accept` header then the server may
+respond with an error, or with any content type it chooses. To ensure your
+client gets something useful, it should indicate the media types it supports.
+
 If the client supplies an `Accept` header, the client SHOULD include the media
 type `application/graphql+json` in the `Accept` header.
+
+Note: From 1st Jan 2025, every _server_ and _client_ must support
+`application/graphql+json`, so including this in the Accept header should give
+your client compatibility with any _server_.
 
 ### Legacy Watershed
 
@@ -323,11 +333,19 @@ type (as indicated by the `Content-Type` header).
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
 
+Note: Rejecting such requests encourages clients to supply a `Content-Type`
+header with every POST request. A server has the option to assume any media type
+they wish when none is supplied, with the understanding that parsing the request
+may fail.
+
 A server MAY support POST requests encoded with and/or accepting other media
 types.
 
 If a client does not know the media types the server supports then it SHOULD
 encode the request body in JSON (i.e. with `Content-Type: application/json`).
+
+Note: Request encoding with media type `application/json` is supported by every
+compliant _server_.
 
 ### JSON Encoding
 
@@ -464,6 +482,9 @@ GraphQL response, the server SHOULD respond with the appropriate status code
 depending on the concrete error condition.
 
 Note: Typically this will be the `400` (Bad Request) status code.
+
+Note: This rule is "should" to maintain compatibility with legacy servers which
+can return 200 status codes even when this type of error occurs.
 
 Otherwise, the status codes depends on the media type with which the GraphQL
 response will be served:
