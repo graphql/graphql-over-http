@@ -68,7 +68,7 @@ Future versions of the spec may include these concepts:
 ## Stages
 
 The process of writing this specification may proceed according this rough
-outline of stages. We are currently in the _Preliminary Stage_.
+outline of stages. We are currently in the _Proposal Stage_.
 
 ### Stage 0: Preliminary
 
