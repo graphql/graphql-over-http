@@ -17,18 +17,18 @@ You can find our community in the #graphql-over-http channel on the
 This specification details how GraphQL should be served and consumed over HTTP
 in order to maximize interoperability between clients, servers and tools. This
 specification does not override or replace the
-[GraphQL specification](https://spec.graphql.org/), it extends it to cover the
+[GraphQL specification](https://spec.graphql.org), it extends it to cover the
 topic of serving GraphQL services over HTTP. If any statement or algorithm in
 this specification appears to conflict with the GraphQL specification, the
 behavior detailed in the GraphQL specification should be used.
 
-The [GraphQL specification](https://spec.graphql.org/) deliberately does not
+The [GraphQL specification](https://spec.graphql.org) deliberately does not
 specify the transport layer, however HTTP is the most common choice when serving
 GraphQL to remote clients due to its ubiquity.
 
 Previous to this specification, the article
-[Serving over HTTP](https://graphql.org/learn/serving-over-http/)
-([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http/))
+[Serving over HTTP](https://graphql.org/learn/serving-over-http)
+([WayBack Machine entry, 1st June 2022](https://web.archive.org/web/20220601155421/https://graphql.org/learn/serving-over-http))
 on the graphql.org website served as guidance, and leading implementations on
 both client and server have mostly upheld those best practices and thus
 established a de-facto standard that is commonly used throughout the ecosystem.

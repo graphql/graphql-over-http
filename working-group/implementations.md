@@ -75,7 +75,7 @@ This broadly includes GraphQL servers, clients, middleware, SDK level libraries 
 | [nanographql](https://github.com/yoshuawuyts/nanographql)                     | JavaScript | 360   |
 | [GQL](https://github.com/graphql-python/gql)                                  | Python     | 310   |
 | [graphql](https://github.com/shurcooL/graphql)                                | Go         | 304   |
-| [re-graph](https://github.com/oliyh/re-graph/)                                | Clojure    | 269   |
+| [re-graph](https://github.com/oliyh/re-graph)                                | Clojure    | 269   |
 | [GraphQL.Client](https://github.com/graphql-dotnet/graphql-client)            | C#         | 259   |
 | [Grafoo](https://github.com/grafoojs/grafoo)                                  | TypeScript | 251   |
 | [nodes](https://github.com/americanexpress/nodes)                             | Java       | 215   |
