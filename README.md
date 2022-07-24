@@ -1,7 +1,7 @@
-> **Stage 0: Preliminary**
+> **Stage 1: Proposal**
 >
-> This spec is in a preliminary stage of active development, and can change a
-> lot before reaching `Draft` stage. For more information, please see the
+> This spec is in the proposal stage of active development, and can change
+> before reaching `Draft` stage. For more information, please see the
 > [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
 >
 > You can find our community in the
