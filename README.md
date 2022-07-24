@@ -16,11 +16,11 @@
 
 HTTP is the most common choice as the client-server protocol when using GraphQL
 because of its ubiquity. However the
-[GraphQL specification](https://graphql.github.io/graphql-spec/) deliberately
+[GraphQL specification](https://graphql.github.io/graphql-spec) deliberately
 does not specify the transport layer.
 
 The closest thing to an official specification is the article
-[Serving over HTTP](https://graphql.org/learn/serving-over-http/). Leading
+[Serving over HTTP](https://graphql.org/learn/serving-over-http). Leading
 implementations on both client and server have mostly upheld those best
 practices and thus established a de-facto standard that is commonly used
 throughout the ecosystem.
@@ -44,8 +44,8 @@ This repository is managed by EasyCLA. Project participants must sign the free
 ([GraphQL Specification Membership agreement](https://preview-spec-membership.graphql.org)
 before making a contribution. You only need to do this one time, and it can be
 signed by
-[individual contributors](https://individual-spec-membership.graphql.org/) or
-their [employers](https://corporate-spec-membership.graphql.org/).
+[individual contributors](https://individual-spec-membership.graphql.org) or
+their [employers](https://corporate-spec-membership.graphql.org).
 
 To initiate the signature process please open a PR against this repo. The
 EasyCLA bot will block the merge if we still need a membership agreement from
