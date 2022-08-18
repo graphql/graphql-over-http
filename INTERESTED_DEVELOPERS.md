@@ -50,6 +50,13 @@ yourself by username.
 - @ghmcadams
   - Company/Project/Repo: https://github.com/ghmcadams
   - Reason: Interested in a common HTTP spec
+- @glennblock
+  - Company/Project/Report: https://github.com/microsoft
+  - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
+    standards like HTTP SEARCH
+- @hemanth
+  - Company/Project/Repo: PayPal https://github.com/hemanth
+  - Reason: Interested in a common HTTP spec and common subscriptions spec.
 - @jaydenseric
   - Company/Project/Repo:
     https://github.com/jaydenseric/graphql-multipart-request-spec
@@ -78,13 +85,6 @@ yourself by username.
 - @touchstone117
   - Company/Project/Repo: https://github.com/amplience, https://github.com/touchstone117
   - Reason: Interested in a common HTTP spec
-- @glennblock
-  - Company/Project/Report: https://github.com/microsoft
-  - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
-    standards like HTTP SEARCH
-- @hemanth
-  - Company/Project/Repo: PayPal https://github.com/hemanth
-  - Reason: Interested in a common HTTP spec and common subscriptions spec.
 
 ### CC Helper
 
