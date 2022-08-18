@@ -75,6 +75,9 @@ yourself by username.
 - @sungam3r
   - Company/Project/Repo: https://github.com/graphql-dotnet/server
   - Reason: Interested in client/server spec
+- @touchstone117
+  - Company/Project/Repo: https://github.com/amplience, https://github.com/touchstone117
+  - Reason: Interested in a common HTTP spec
 - @glennblock
   - Company/Project/Report: https://github.com/microsoft
   - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
@@ -85,4 +88,4 @@ yourself by username.
 
 ### CC Helper
 
-`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @enisdenjo`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @touchstone117 @enisdenjo`
