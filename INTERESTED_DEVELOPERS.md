@@ -83,7 +83,8 @@ yourself by username.
   - Company/Project/Repo: https://github.com/graphql-dotnet/server
   - Reason: Interested in client/server spec
 - @touchstone117
-  - Company/Project/Repo: https://github.com/amplience, https://github.com/touchstone117
+  - Company/Project/Repo: https://github.com/amplience,
+    https://github.com/touchstone117
   - Reason: Interested in a common HTTP spec
 
 ### CC Helper
