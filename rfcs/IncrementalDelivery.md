@@ -17,6 +17,7 @@ The HTTP response for an incrementally delivered response should conform to the 
 An example response body will look like:
 
 ```
+
 ---
 Content-Type: application/json; charset=utf-8
 
@@ -28,11 +29,10 @@ Content-Type: application/json; charset=utf-8
 -----
 ```
 * The boundary used is `-` and is passed to the client in the http response's `Content-Type` header. Note that headers can appear in both the HTTP response itself and as part of the response body. The `Content-Type` header must be sent in the HTTP response.
-* An initial boundary is sent marking the end of the preamble area.
+* Before each part of the multi-part response, a boundary (`CRLF`, `---`, `CRLF`) is sent.
 * Each part of the multipart response must contain a `Content-Type` header. Similar to the GraphQL specification this specification does not require a specific serialization format. For consistency and ease of notation, examples of the response are given in JSON throughout the spec.
-* After all headers, an additional `CRLF` is sent.
-* The payload is sent, followed by a `CRLF`.
-* After each payload, a boundary is sent. For the final payload, the terminating boundary of `-----` followed by a `CRLF` is sent. For all other payloads a boundary of `---` followed by a `CRFL` is sent.
+* After all headers for each part, an additional `CRLF` is sent, followed by the payload for the part.
+* After the final payload, the terminating boundary of `CRLF` followed by `-----` followed by `CRLF` is sent.
 
 ## Server Implementations
 * `express-graphql`: [pull request](https://github.com/graphql/express-graphql/pull/583)
