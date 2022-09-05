@@ -20,7 +20,7 @@ mutations over HTTP whilst encouraging some improved practices. The majority of
 GraphQL servers should find that they are already compatible with Version 1.0 of
 the GraphQL-over-HTTP specification, although they should still put work in to
 address the `SHOULD` behaviours that they may be missing, most notably around
-the use of the `application/graphql+json` Content-Type.
+the use of the `application/graphql-response+json` Content-Type.
 
 Subscriptions, websockets and server-sent events are out of scope for version
 1.0.
