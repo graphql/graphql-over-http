@@ -191,7 +191,7 @@ And for GraphQL responses:
 | `application/json`                  | An alternative type for responses (to support legacy clients)      |
 
 For details of the shapes of these JSON payloads, please see
-[Request](#sec-Request) and [Response](#sec-Response).
+[Request](#request) and [Response](#response).
 
 If the media type in a `Content-Type` or `Accept` header includes encoding
 information, then the encoding MUST be `utf-8` (e.g.
