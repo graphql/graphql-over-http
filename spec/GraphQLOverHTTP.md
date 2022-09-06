@@ -412,8 +412,7 @@ A server must comply with
 ## Body
 
 The body of the server's response MUST follow the requirements for a
-[GraphQL response](https://graphql.github.io/graphql-spec/draft/#sec-Response),
-encoded directly in the chosen media type.
+[GraphQL response](#sec-Response), encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
 header.
