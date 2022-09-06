@@ -408,7 +408,7 @@ The GraphQL specification indicates that the only situation in which the GraphQL
 </section>
 <section id="sec-Document-parsing-failure" secid="6.4.2.1.3">
 <h5 data-source="spec/GraphQLOverHTTP.md#L586"><span class="spec-secid" title="link to this section"><a href="#sec-Document-parsing-failure">6.4.2.1.3</a></span>Document parsing failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L588">For example a POST response body of <code>{"query": "{"}</code>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L588">For example a POST request body of <code>{"query": "{"}</code>.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L590-L591">Requests where the <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Document" data-name="graphql-document" target="_blank">GraphQL document</a></span> cannot be parsed should result in status code <code>400</code> (Bad Request).</p>
 </section>
 <section id="sec-Document-validation-failure" secid="6.4.2.1.4">
