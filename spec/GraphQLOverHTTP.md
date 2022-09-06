@@ -272,7 +272,7 @@ query component of the request URL in the `application/x-www-form-urlencoded`
 format as specified by
 [WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
-The `query` parameter MUST be the string representation of the Source Text of
+The `query` parameter MUST be the URL-encoded string representation of the Source Text of
 the Document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
