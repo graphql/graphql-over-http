@@ -443,9 +443,9 @@ In alignment with the
 specification, when a client does not include at least one supported media type
 in the `Accept` HTTP header, the server MUST either:
 
-1. Disregard the `Accept` header and respond with the default media type of
-   `application/json`, specifying this in the `Content-Type` header; OR
-2. Respond with a `406 Not Acceptable` status code and stop processing the
+1. Disregard the `Accept` header and respond with the server's choice of media
+   type, indicating this in the `Content-Type` header; OR
+3. Respond with a `406 Not Acceptable` status code and stop processing the
    request.
 
 A server MUST support any _GraphQL-over-HTTP request_ which accepts the
