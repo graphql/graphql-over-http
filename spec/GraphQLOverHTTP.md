@@ -585,7 +585,7 @@ result in status code `400` (Bad Request).
 
 ##### Document parsing failure
 
-For example a POST response body of `{"query": "{"}`.
+For example a POST request body of `{"query": "{"}`.
 
 Requests where the _GraphQL document_ cannot be parsed should result in status
 code `400` (Bad Request).
