@@ -401,8 +401,8 @@ And the body:
 
 # Response
 
-When a server receives a _GraphQL-over-HTTP request_, it must return a
-well‐formed response. The server's response describes the result of validating
+When a server receives a well-formed _GraphQL-over-HTTP request_, it must return a
+well‐formed [GraphQL response](#sec-Response). The server's response describes the result of validating
 and executing the requested operation if successful, and describes any errors
 encountered during the request.
 
