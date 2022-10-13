@@ -183,7 +183,7 @@ using the JSON encoding for GraphQL requests:
 | ------------------ | --------------------------------------- |
 | `application/json` | Standard type for GraphQL JSON requests |
 
-And for _GraphQL responses_:
+And for a _GraphQL response_:
 
 | Name                                | Description                                                        |
 | ----------------------------------- | ------------------------------------------------------------------ |
@@ -531,7 +531,7 @@ status code.
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
 operation typically become part of the result, as long as the server is still
-able to produce a well-formed response. There's currently not an approved HTTP
+able to produce a well-formed _GraphQL response_. There's currently not an approved HTTP
 status code to use for a "partial response," contenders include WebDAV's status
 code "207 Multi-Status" and using a custom code such as "247 Partial Success."
 [IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
