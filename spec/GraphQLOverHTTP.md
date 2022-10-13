@@ -401,10 +401,10 @@ And the body:
 
 # Response
 
-When a server receives a well-formed _GraphQL-over-HTTP request_, it must return a
-well‐formed _GraphQL response_. The server's response describes the result of validating
-and executing the requested operation if successful, and describes any errors
-encountered during the request.
+When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
+a well‐formed _GraphQL response_. The server's response describes the result of
+validating and executing the requested operation if successful, and describes
+any errors encountered during the request.
 
 A server must comply with
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
@@ -524,9 +524,9 @@ type.
 This section only applies when the response body is to use the
 `application/graphql-response+json` media type.
 
-If the _GraphQL response_ contains the {data} entry and it is not {null}, then the
-server MUST reply with a `2xx` status code and SHOULD reply with `200` status
-code.
+If the _GraphQL response_ contains the {data} entry and it is not {null}, then
+the server MUST reply with a `2xx` status code and SHOULD reply with `200`
+status code.
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
@@ -551,8 +551,8 @@ If the _GraphQL response_ does not contain the {data} entry then the server MUST
 reply with a `4xx` or `5xx` status code as appropriate.
 
 Note: The GraphQL specification indicates that the only situation in which the
-_GraphQL response_ does not include the {data} entry is one in which the {errors}
-entry is populated.
+_GraphQL response_ does not include the {data} entry is one in which the
+{errors} entry is populated.
 
 If the GraphQL request is invalid (e.g. it is malformed, or does not pass
 validation) then the server SHOULD reply with `400` status code.
