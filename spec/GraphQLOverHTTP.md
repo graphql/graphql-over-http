@@ -531,9 +531,10 @@ status code.
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
 operation typically become part of the result, as long as the server is still
-able to produce a well-formed _GraphQL response_. There's currently not an approved HTTP
-status code to use for a "partial response," contenders include WebDAV's status
-code "207 Multi-Status" and using a custom code such as "247 Partial Success."
+able to produce a well-formed _GraphQL response_. There's currently not an
+approved HTTP status code to use for a "partial response," contenders include
+WebDAV's status code "207 Multi-Status" and using a custom code such as "247
+Partial Success."
 [IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
 states "codes are fully defined in section 10" implying that though more codes
 are expected to be supported over time, valid codes must be present in this
