@@ -183,7 +183,7 @@ using the JSON encoding for GraphQL requests:
 | ------------------ | --------------------------------------- |
 | `application/json` | Standard type for GraphQL JSON requests |
 
-And for GraphQL responses:
+And for _GraphQL responses_:
 
 | Name                                | Description                                                        |
 | ----------------------------------- | ------------------------------------------------------------------ |
@@ -402,7 +402,7 @@ And the body:
 # Response
 
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return a
-well‐formed [GraphQL response](#sec-Response). The server's response describes the result of validating
+well‐formed _GraphQL response_. The server's response describes the result of validating
 and executing the requested operation if successful, and describes any errors
 encountered during the request.
 
@@ -478,7 +478,7 @@ algorithm.
 ## Status Codes
 
 In case of errors that completely prevent the generation of a well-formed
-GraphQL response, the server SHOULD respond with the appropriate status code
+_GraphQL response_, the server SHOULD respond with the appropriate status code
 depending on the concrete error condition.
 
 Note: Typically this will be the `400` (Bad Request) status code.
@@ -500,11 +500,11 @@ error_ or _GraphQL field error_ raised.
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
 others) could originate from intermediary servers; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
-well-formed GraphQL response (because it cannot trust the source) the server
+well-formed _GraphQL response_ (because it cannot trust the source) the server
 must use `200` status code to guarantee to the client that the response has not
 been generated or modified by an intermediary.
 
-If the GraphQL response contains a non-null {data} entry then the server MUST
+If the _GraphQL response_ contains a non-null {data} entry then the server MUST
 use the `200` status code.
 
 Note: This indicates that no _GraphQL request error_ was raised, though one or
@@ -524,7 +524,7 @@ type.
 This section only applies when the response body is to use the
 `application/graphql-response+json` media type.
 
-If the GraphQL response contains the {data} entry and it is not {null}, then the
+If the _GraphQL response_ contains the {data} entry and it is not {null}, then the
 server MUST reply with a `2xx` status code and SHOULD reply with `200` status
 code.
 
@@ -539,7 +539,7 @@ states "codes are fully defined in section 10" implying that though more codes
 are expected to be supported over time, valid codes must be present in this
 document.
 
-If the GraphQL response contains the {data} entry and it is {null}, then the
+If the _GraphQL response_ contains the {data} entry and it is {null}, then the
 server SHOULD reply with a `2xx` status code and it is RECOMMENDED it replies
 with `200` status code.
 
@@ -547,11 +547,11 @@ Note: Using `4xx` and `5xx` status codes in this situation is not recommended -
 since no _GraphQL request error_ has occurred it is seen as a "partial
 response".
 
-If the GraphQL response does not contain the {data} entry then the server MUST
+If the _GraphQL response_ does not contain the {data} entry then the server MUST
 reply with a `4xx` or `5xx` status code as appropriate.
 
 Note: The GraphQL specification indicates that the only situation in which the
-GraphQL response does not include the {data} entry is one in which the {errors}
+_GraphQL response_ does not include the {data} entry is one in which the {errors}
 entry is populated.
 
 If the GraphQL request is invalid (e.g. it is malformed, or does not pass
@@ -640,6 +640,6 @@ response; it still indicates successful execution.
 
 If the response uses a non-`200` status code and the media type of the response
 payload is `application/json` then the client MUST NOT rely on the body to be a
-well-formed GraphQL response since the source of the response may not be the
+well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
