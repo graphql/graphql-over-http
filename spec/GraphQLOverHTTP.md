@@ -328,7 +328,7 @@ A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media
-type (as indicated by the `Content-Type` header).  For JSON media types, a server
+type (as indicated by the `Content-Type` header). For JSON media types, a server
 MUST support the `utf-8` encoding, and MUST assume the encoding is `utf-8`
 if the encoding is not specified in the `Content-Type` header.
 
