@@ -193,10 +193,10 @@ And for a _GraphQL response_:
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
 
-If the media type in a `Content-Type` or `Accept` header includes encoding
-information, then the encoding MUST be `utf-8` (e.g.
-`Content-Type: application/graphql-response+json; charset=utf-8`). If encoding
-information is not included then `utf-8` MUST be assumed.
+If the media type in a `Content-Type` or `Accept` header does not
+include encoding information, then `utf-8` MUST be assumed (e.g.
+`Content-Type: application/graphql-response+json; charset=utf-8`).
+UTF-8 encoding MUST be supported for JSON requests and results.
 
 # Request
 
@@ -249,7 +249,7 @@ client gets something useful, it should indicate the media types it supports.
 If the client supplies an `Accept` header, the client SHOULD include the media
 type `application/graphql-response+json` in the `Accept` header.
 
-Note: From 1st Jan 2025, every _server_ and _client_ must support
+Note: From 1st Jan 2025, every _server_ and _client_ MUST support
 `application/graphql-response+json`, so including this in the Accept header
 should give your client compatibility with any _server_.
 
@@ -328,7 +328,9 @@ A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media
-type (as indicated by the `Content-Type` header).
+type (as indicated by the `Content-Type` header).  For JSON media types, a server
+MUST support the `utf-8` encoding, and MUST assume the encoding is `utf-8`
+if the encoding is not specified in the `Content-Type` header.
 
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
@@ -339,7 +341,7 @@ they wish when none is supplied, with the understanding that parsing the request
 may fail.
 
 A server MAY support POST requests encoded with and/or accepting other media
-types.
+types or encodings.
 
 If a client does not know the media types the server supports then it SHOULD
 encode the request body in JSON (i.e. with `Content-Type: application/json`).
@@ -415,7 +417,7 @@ The body of the server's response MUST follow the requirements for a
 [GraphQL response](#sec-Response), encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
-header.
+header, and SHOULD indicate the encoding (e.g. `application/graphql+response/json; charset=utf-8`).
 
 If an `Accept` header is provided, the server MUST respect the given `Accept`
 header and attempt to encode the response in the highest priority media type
@@ -437,6 +439,9 @@ A server MUST support requests which accept the `application/json` media type
 A server SHOULD support requests which accept the
 `application/graphql-response+json` media type (as indicated by the `Accept`
 header).
+
+A server MUST support the `utf-8` encoding for requests which accept a JSON media type,
+such as the `application/json` or `application/graphql-response+json` media types.
 
 Note: Prior to this specification, the media type `application/json` was in wide
 use for the HTTP response payload type. Unfortunately this means clients cannot
