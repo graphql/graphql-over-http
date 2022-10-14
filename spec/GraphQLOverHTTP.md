@@ -417,7 +417,7 @@ The body of the server's response MUST follow the requirements for a
 [GraphQL response](#sec-Response), encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
-header, and SHOULD indicate the encoding (e.g. `application/graphql+response/json; charset=utf-8`).
+header, and SHOULD indicate the encoding (e.g. `application/graphql-response+json; charset=utf-8`).
 
 If an `Accept` header is provided, the server MUST respect the given `Accept`
 header and attempt to encode the response in the highest priority media type
