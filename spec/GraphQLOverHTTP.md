@@ -194,9 +194,10 @@ For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
 
 If the media type in a `Content-Type` or `Accept` header does not
-include encoding information, then `utf-8` MUST be assumed (e.g.
-for header `Content-Type: application/graphql-response+json`, UTF-8 encoding would be assumed).
-UTF-8 encoding MUST be supported for JSON requests and results.
+include encoding information and matches one of the officially
+recognized media types, then `utf-8` MUST be assumed (e.g.
+for header `Content-Type: application/graphql-response+json`,
+UTF-8 encoding would be assumed).
 
 # Request
 
@@ -328,9 +329,9 @@ A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media
-type (as indicated by the `Content-Type` header). For JSON media types, a server
-MUST support the `utf-8` encoding, and MUST assume the encoding is `utf-8`
-if the encoding is not specified in the `Content-Type` header.
+type (as indicated by the `Content-Type` header), and for the `application/json`
+media type, MUST assume the encoding is `utf-8` if the encoding is not
+otherwise specified in the `Content-Type` header.
 
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
@@ -440,9 +441,6 @@ A server SHOULD support requests which accept the
 `application/graphql-response+json` media type (as indicated by the `Accept`
 header).
 
-A server MUST support the `utf-8` encoding for requests which accept a JSON media type,
-such as the `application/json` or `application/graphql-response+json` media types.
-
 Note: Prior to this specification, the media type `application/json` was in wide
 use for the HTTP response payload type. Unfortunately this means clients cannot
 trust responses from the server that do not use an HTTP 2xx status code (since
@@ -456,7 +454,8 @@ January 2025.
 
 From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
 which accept the `application/graphql-response+json` media type (as indicated by
-the `Accept` header).
+the `Accept` header), and for the `application/graphql-response+json` media type,
+MUST support the UTF-8 content type.
 
 Before 1st January 2025 (`2025-01-01T00:00:00Z`), if the client does not supply
 an `Accept` header, the server SHOULD treat the request as if it had
