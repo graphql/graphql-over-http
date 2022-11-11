@@ -82,6 +82,9 @@ yourself by username.
 - @hemanth
   - Company/Project/Repo: PayPal https://github.com/hemanth
   - Reason: Interested in a common HTTP spec and common subscriptions spec.
+- @fredrick
+  - Company/Project/Repo: https://github.com/atlassian
+  - Reason: Interested in a common HTTP spec and common subscriptions spec.
 
 ### CC Helper
 
