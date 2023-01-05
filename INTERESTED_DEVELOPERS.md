@@ -47,9 +47,19 @@ yourself by username.
   - Company/Project/Repo: https://github.com/graphql/libgraphqlparser,
     https://github.com/IBM/openapi-to-graphql
   - Reason: Interested in client/server in JavaScript/C++
+- @fredrick
+  - Company/Project/Repo: https://github.com/atlassian
+  - Reason: Interested in a common HTTP spec and common subscriptions spec.
 - @ghmcadams
   - Company/Project/Repo: https://github.com/ghmcadams
   - Reason: Interested in a common HTTP spec
+- @glennblock
+  - Company/Project/Report: https://github.com/microsoft
+  - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
+    standards like HTTP SEARCH
+- @hemanth
+  - Company/Project/Repo: PayPal https://github.com/hemanth
+  - Reason: Interested in a common HTTP spec and common subscriptions spec.
 - @jaydenseric
   - Company/Project/Repo:
     https://github.com/jaydenseric/graphql-multipart-request-spec
@@ -75,17 +85,11 @@ yourself by username.
 - @sungam3r
   - Company/Project/Repo: https://github.com/graphql-dotnet/server
   - Reason: Interested in client/server spec
-- @glennblock
-  - Company/Project/Report: https://github.com/microsoft
-  - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
-    standards like HTTP SEARCH
-- @hemanth
-  - Company/Project/Repo: PayPal https://github.com/hemanth
-  - Reason: Interested in a common HTTP spec and common subscriptions spec.
-- @fredrick
-  - Company/Project/Repo: https://github.com/atlassian
-  - Reason: Interested in a common HTTP spec and common subscriptions spec.
+- @touchstone117
+  - Company/Project/Repo: https://github.com/amplience,
+    https://github.com/touchstone117
+  - Reason: Interested in a common HTTP spec
 
 ### CC Helper
 
-`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @enisdenjo`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @touchstone117 @enisdenjo`
