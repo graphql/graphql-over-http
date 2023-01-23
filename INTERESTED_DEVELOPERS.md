@@ -66,9 +66,6 @@ yourself by username.
 - @mmatsa
   - Company/Project/Repo: https://github.com/graphql/libgraphqlparser
   - Reason: Interested in client/server in C++
-- @shane32
-  - Company/Project/Repo: https://github.com/graphql-dotnet/server
-  - Reason: Interested in a common HTTP spec and common subscriptions spec
 - @sjparsons
   - Company/Project/Repo: PayPal & Braintree https://github.com/sjparsons
   - Reason: Interested in common spec
@@ -88,4 +85,4 @@ yourself by username.
 
 ### CC Helper
 
-`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @shane32 @sjparsons @spawnia @sungam3r @enisdenjo`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @sjparsons @spawnia @sungam3r @enisdenjo`
