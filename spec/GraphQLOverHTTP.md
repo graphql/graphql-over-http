@@ -329,9 +329,10 @@ A client MUST indicate the media type of a request body using the `Content-Type`
 header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media
-type (as indicated by the `Content-Type` header), and for the `application/json`
-media type, MUST assume the encoding is `utf-8` if the encoding is not
-otherwise specified in the `Content-Type` header.
+type (as indicated by the `Content-Type` header) encoded with UTF-8.
+
+For POST requests using an officially recognized GraphQL `Content-Type`
+without indicating an encoding, the server MUST assume the encoding is `utf-8`.
 
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
