@@ -455,8 +455,7 @@ January 2025.
 
 From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support requests
 which accept the `application/graphql-response+json` media type (as indicated by
-the `Accept` header), and for the `application/graphql-response+json` media type,
-MUST support the UTF-8 encoding.
+the `Accept` header) using the UTF-8 encoding.
 
 Before 1st January 2025 (`2025-01-01T00:00:00Z`), if the client does not supply
 an `Accept` header, the server SHOULD treat the request as if it had
