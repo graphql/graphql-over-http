@@ -250,7 +250,7 @@ client gets something useful, it should indicate the media types it supports.
 If the client supplies an `Accept` header, the client SHOULD include the media
 type `application/graphql-response+json` in the `Accept` header.
 
-Note: From 1st Jan 2025, every _server_ and _client_ MUST support
+Note: From 1st Jan 2025, every _server_ and _client_ must support
 `application/graphql-response+json`, so including this in the Accept header
 should give your client compatibility with any _server_.
 
