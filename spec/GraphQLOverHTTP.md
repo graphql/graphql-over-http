@@ -195,7 +195,7 @@ For details of the shapes of these JSON payloads, please see
 
 If the media type in a `Content-Type` or `Accept` header does not
 include encoding information and matches one of the officially
-recognized media types, then `utf-8` MUST be assumed (e.g.
+recognized GraphQL media types, then `utf-8` MUST be assumed (e.g.
 for header `Content-Type: application/graphql-response+json`,
 UTF-8 encoding would be assumed).
 
