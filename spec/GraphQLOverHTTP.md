@@ -20,7 +20,8 @@ specification does not override or replace the
 [GraphQL specification](https://spec.graphql.org), it extends it to cover the
 topic of serving GraphQL services over HTTP. If any statement or algorithm in
 this specification appears to conflict with the GraphQL specification, the
-behavior detailed in the GraphQL specification should be used.
+behavior detailed in the GraphQL specification should be used (and an issue
+raised).
 
 The [GraphQL specification](https://spec.graphql.org) deliberately does not
 specify the transport layer, however HTTP is the most common choice when serving
