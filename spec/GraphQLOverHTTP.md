@@ -193,11 +193,11 @@ And for a _GraphQL response_:
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
 
-If the media type in a `Content-Type` or `Accept` header does not
-include encoding information and matches one of the officially
-recognized GraphQL media types, then `utf-8` MUST be assumed (e.g.
-for header `Content-Type: application/graphql-response+json`,
-UTF-8 encoding would be assumed).
+If the media type in a `Content-Type` or `Accept` header does not include
+encoding information and matches one of the officially recognized GraphQL media
+types, then `utf-8` MUST be assumed (e.g. for header
+`Content-Type: application/graphql-response+json`, UTF-8 encoding would be
+assumed).
 
 # Request
 
@@ -331,8 +331,8 @@ header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 A server MUST support POST requests encoded with the `application/json` media
 type (as indicated by the `Content-Type` header) encoded with UTF-8.
 
-For POST requests using an officially recognized GraphQL `Content-Type`
-without indicating an encoding, the server MUST assume the encoding is `utf-8`.
+For POST requests using an officially recognized GraphQL `Content-Type` without
+indicating an encoding, the server MUST assume the encoding is `utf-8`.
 
 If the client does not supply a `Content-Type` header with a POST request, the
 server SHOULD reject the request using the appropriate `4xx` status code.
@@ -419,7 +419,8 @@ The body of the server's response MUST follow the requirements for a
 [GraphQL response](#sec-Response), encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
-header, and SHOULD indicate the encoding (e.g. `application/graphql-response+json; charset=utf-8`).
+header, and SHOULD indicate the encoding (e.g.
+`application/graphql-response+json; charset=utf-8`).
 
 If an `Accept` header is provided, the server MUST respect the given `Accept`
 header and attempt to encode the response in the highest priority media type
