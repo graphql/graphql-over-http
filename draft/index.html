@@ -236,9 +236,9 @@ This recommended header enables compatibility with legacy servers whilst still l
 </section>
 <section id="sec-GET" secid="5.3">
 <h2 data-source="spec/GraphQLOverHTTP.md#L268"><span class="spec-secid" title="link to this section"><a href="#sec-GET">5.3</a></span>GET</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L270-L273">For HTTP GET requests, the GraphQL request parameters MUST be provided in the query component of the request URL in the <code>application/x-www-form-urlencoded</code> format as specified by <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG&rsquo;s URLSearchParams class</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L270-L273">For HTTP GET requests, the GraphQL request parameters MUST be provided in the query component of the request URL, encoded in the <code>application/x-www-form-urlencoded</code> format as specified by the <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG URLSearchParams class</a>.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L275-L277">The <code>query</code> parameter MUST be the string representation of the Source Text of the Document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L279">The <code>operationName</code>, if present, must be a string.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L279">The <code>operationName</code> parameter, if present, must be a string.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L281-L282">Each of the <code>variables</code> and <code>extensions</code> parameters, if used, MUST be represented as a URL-encoded JSON string.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L284-L285">The <code>operationName</code> parameter, if supplied and not the empty string, represents the name of the operation to be executed within the <code>query</code>.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L287-L288">Setting the value of the <code>operationName</code> parameter to the empty string is equivalent to omitting the <code>operationName</code> parameter.</p>
