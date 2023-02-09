@@ -268,15 +268,15 @@ still leveraging modern features if available in the server.
 ## GET
 
 For HTTP GET requests, the GraphQL request parameters MUST be provided in the
-query component of the request URL in the `application/x-www-form-urlencoded`
-format as specified by
-[WhatWG's URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+query component of the request URL, encoded in the
+`application/x-www-form-urlencoded` format as specified by the
+[WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
 The `query` parameter MUST be the string representation of the Source Text of
 the Document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The `operationName`, if present, must be a string.
+The `operationName` parameter, if present, must be a string.
 
 Each of the `variables` and `extensions` parameters, if used, MUST be
 represented as a URL-encoded JSON string.
