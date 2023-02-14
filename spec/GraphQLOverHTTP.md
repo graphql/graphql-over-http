@@ -280,7 +280,7 @@ provided in the query component of the request URL, encoded in the
 [WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
 The {query} parameter MUST be the URL-encoded string representation of the
-Source Text of the Document as specified in
+source text of the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
 The {operationName} parameter, if present, must be a URL-encoded string.
@@ -532,7 +532,7 @@ Note: This indicates that no _GraphQL request error_ was raised, though one or
 more _GraphQL field error_ may have been raised this is still a successful
 execution - see "partial response" in the GraphQL specification.
 
-The server SHOULD NOT use a `4xx` or `5xx` status code a response to a
+The server SHOULD NOT use a `4xx` or `5xx` status code for a response to a
 well-formed _GraphQL-over-HTTP request_.
 
 Note: For compatibility with legacy servers, this specification allows the use
