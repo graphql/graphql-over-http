@@ -208,7 +208,7 @@ GET.
 :: A _GraphQL-over-HTTP request_ is an HTTP request that encodes the following
 parameters in one of the manners described in this specification:
 
-- {query} - (\_Required\_, string): The string representation of the Source Text
+- {query} - (_Required_, string): The string representation of the Source Text
   of a GraphQL Document as specified in
   [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 - {operationName} - (_Optional_, string): The name of the Operation in the
