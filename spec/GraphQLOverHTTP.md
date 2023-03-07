@@ -279,18 +279,21 @@ provided in the query component of the request URL, encoded in the
 `application/x-www-form-urlencoded` format as specified by the
 [WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
-The {query} parameter MUST be the URL-encoded string representation of the
-source text of the document as specified in
+The {query} parameter MUST be the string representation of the source text of
+the document as specified in
 [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
 
-The {operationName} parameter, if present, must be a URL-encoded string.
+The {operationName} parameter, if present, must be a string.
 
 Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
-a URL-encoded JSON string.
+a JSON string.
 
 The {operationName} parameter, if supplied and not the empty string, represents
-the name of the operation to be executed within the {query} as a URL-encoded
-string.
+the name of the operation to be executed within the {query} as a string.
+
+Note: In the final URL all of these parameters will appear in the query
+component of the request URL as URL-encoded values due to the WhatWG
+URLSearchParams encoding specified above.
 
 Setting the value of the {operationName} parameter to the empty string is
 equivalent to omitting the {operationName} parameter.
