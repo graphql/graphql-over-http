@@ -64,6 +64,9 @@ yourself by username.
   - Company/Project/Repo:
     https://github.com/jaydenseric/graphql-multipart-request-spec
   - Reason: Interested in multipart request spec
+- @JoviDeCroock
+  - Company/Project/Repo: Stellate https://github.com/urql-graphql/urql
+  - Reason: Interested in a common HTTP/subscriptions spec
 - @maraisr
   - Company/Project/Repo: https://github.com/maraisr/meros
   - Reason: Interested in common incremental delivery spec
@@ -95,4 +98,4 @@ yourself by username.
 
 ### CC Helper
 
-`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @shane32 @sjparsons @spawnia @sungam3r @touchstone117 @enisdenjo`
+`@abernix @balshor @benjie @deinok @erikwittern @jaydenseric @michaelstaib @mike-marcacci @mmatsa @shane32 @sjparsons @spawnia @sungam3r @touchstone117 @enisdenjo @JoviDeCroock`
