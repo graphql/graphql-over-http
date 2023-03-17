@@ -38,13 +38,13 @@ A POST method with `query`, `operationName` and `variables` SHOULD be successful
 
 A 200 HTTP response to a request without a specified content-type MUST include a body and MUST indicate the encoding with the `content-type` HTTP header.
 * Send a GraphQL query in an HTTP request without an `Accept` header. May be a GET or POST, based on which is supported by this server.
-  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql+json`
+  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql-response+json`
   * **ERROR** Assert that the HTTP response body is valid JSON containing at least a non-null `data` or a non-null `error` top-level attribute.
     * This header MAY include encoding information (e.g. `Content-type: application/graphql-json; charset=utf-8`)
 
 Servers MUST respect the content type requested in the `Accept` HTTP header in the request.
-* Send a GraphQL query in an HTTP request with HTTP Header `Accept: application/graphql+json`.
-  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql+json`
+* Send a GraphQL query in an HTTP request with HTTP Header `Accept: application/graphql-response+json`.
+  * **ERROR** Assert that the HTTP response includes an HTTP Header `Content-type: application/graphql-response+json`
   * **ERROR** Assert that the HTTP response body is valid JSON
 * Send a GraphQL query in an HTTP request with HTTP Header `Accept: unknown/content-type`, and invalid and unsupported content-type
   * **ERROR** Assert that either:
@@ -52,7 +52,7 @@ Servers MUST respect the content type requested in the `Accept` HTTP header in t
     * The HTTP response includes an HTTP Header `Content-type: application/graphql+json` and the HTTP response body is valid JSON
 
 A syntax error in the query MUST result in either a 200 and a body with an  `error` attribute OR a 400 response
-* Send a GraphQL query with a valid structured request, but an invalid GraphQL query document. Include an `Accept: application/graphql-json` to ensure we receive JSON-encoded body.
+* Send a GraphQL query with a valid structured request, but an invalid GraphQL query document. Include an `Accept: application/graphql-response+json` to ensure we receive JSON-encoded body.
   * **ERROR** Assert that either
     * The server responds with a 200 HTTP response and a JSON document containing a non-null `errors` top level attribute; OR
     * The server responds with a 400 HTTP response
