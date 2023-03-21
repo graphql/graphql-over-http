@@ -571,7 +571,7 @@ when using the `application/json` media type to encode the response body:
 For example a POST request body of `NONSENSE` or `{"query":` (note: invalid
 JSON).
 
-Requests that the server cannot interpret should result in status code `400`
+Requests that the server cannot interpret SHOULD result in status code `400`
 (Bad Request).
 
 ##### Invalid parameters
@@ -580,14 +580,14 @@ For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 `{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}` (note: invalid
 shape for `variables`).
 
-A requests that does not constitute a well-formed _GraphQL-over-HTTP request_
-should result in status code `400` (Bad Request).
+A request that does not constitute a well-formed _GraphQL-over-HTTP request_
+SHOULD result in status code `400` (Bad Request).
 
 ##### Document parsing failure
 
 For example a POST request body of `{"query": "{"}`.
 
-Requests where the _GraphQL document_ cannot be parsed should result in status
+Requests where the _GraphQL document_ cannot be parsed SHOULD result in status
 code `200` (Okay).
 
 ##### Document validation failure
@@ -685,7 +685,7 @@ For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 shape for `variables`).
 
 A request that does not constitute a well-formed _GraphQL-over-HTTP request_
-should result in status code `400` (Bad Request).
+SHOULD result in status code `400` (Bad Request).
 
 ##### Document parsing failure
 
