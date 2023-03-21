@@ -1,3 +1,5 @@
+🚨 **WARNING** 🚨 This proposed test suite is out of date and does not reflect the current status of the spec. For a more up to date test suite, please see [graphql-http audits](https://github.com/graphql/graphql-http#audits) or the testing tool at [graphql-http.com](https://graphql-http.com/). This document only exists for historical reasons.
+
 # Automated Test Suite
 
 > These are the descriptions of the tests that we intend to build. This document is a scaffold until we have the tests implemented. At that point, the code itself will become the documentation and this document will be removed.
