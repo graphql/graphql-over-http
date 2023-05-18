@@ -8,13 +8,13 @@ An Incremental result is a GraphQL result that is split up into multiple payload
 
 ### HTTP/1.1
 
-An incrementally delivered response should contain the `transfer-encoding: chunked` response header when using HTTP/1.1. Chunked transfer encoding allows the body of the response to be delivered as a series of chunks, allowing clients to read each chunk of the response as it is sent without waiting for the entire response.
+An incrementally delivered response should contain the `Transfer-Encoding: chunked` response header when using HTTP/1.1. Chunked transfer encoding allows the body of the response to be delivered as a series of chunks, allowing clients to read each chunk of the response as it is sent without waiting for the entire response.
 
 ### HTTP/2
 
-Because of improved data streaming mechanisms, HTTP/2 prohibits the use of the `transfer-encoding` header. It is very likely that compliant servers will treat requests containing the header as malformed ([see section 8.2.2. Connection-Specific Header Fields in HTTP/2 spec](https://datatracker.ietf.org/doc/html/rfc9113#section-8.1)).
+Because of improved data streaming mechanisms, HTTP/2 prohibits the use of the `Transfer-Encoding` header. It is very likely that compliant servers will treat requests containing the header as malformed ([see section 8.2.2. Connection-Specific Header Fields in HTTP/2 spec](https://datatracker.ietf.org/doc/html/rfc9113#section-8.1)).
 
-Having said this, HTTP/2 enabled servers must not set the `transfer-encoding` header during response.
+Having said this, HTTP/2 enabled servers must not set the `Transfer-Encoding` header during response.
 
 ## `content-type: multipart/mixed`
 
