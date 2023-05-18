@@ -14,7 +14,7 @@ An incrementally delivered response should contain the `Transfer-Encoding: chunk
 
 Because of improved data streaming mechanisms, HTTP/2 prohibits the use of the `Transfer-Encoding` header. It is very likely that compliant servers will treat requests containing the header as malformed ([see section 8.2.2. Connection-Specific Header Fields in HTTP/2 spec](https://datatracker.ietf.org/doc/html/rfc9113#section-8.1)).
 
-Having said this, HTTP/2 enabled servers must not set the `Transfer-Encoding` header during response.
+Compliant servers MUST follow the HTTP/2 specification and not set the `Transfer-Encoding` header.
 
 ## `content-type: multipart/mixed`
 
