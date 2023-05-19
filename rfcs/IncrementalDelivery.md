@@ -6,11 +6,17 @@ This RFC proposes adding a specification of how "Incremental" GraphQL results sh
 
 An Incremental result is a GraphQL result that is split up into multiple payloads, allowing clients quicker access to parts of the results. Currently this is supported by the proposed `@defer` and `@stream` directives ([RFC](https://github.com/graphql/graphql-spec/blob/master/rfcs/DeferStream.md)).
 
-## `transfer-encoding: chunked`
+### HTTP/1.1
 
-The HTTP response for an incrementally delivered response should contain the `transfer-encoding: chunked` response header. Chunked transfer encoding allows the body of the response to be delivered as a series of chunks, allowing clients to read each chunk of the response as it is sent without waiting for the entire response.
+An incrementally delivered response should contain the `Transfer-Encoding: chunked` response header when using HTTP/1.1. Chunked transfer encoding allows the body of the response to be delivered as a series of chunks, allowing clients to read each chunk of the response as it is sent without waiting for the entire response.
 
-## `content-type: multipart/mixed`
+### HTTP/2
+
+Because of improved data streaming mechanisms, HTTP/2 prohibits the use of the `Transfer-Encoding` header. It is very likely that compliant servers will treat requests containing the header as malformed ([see section 8.2.2. Connection-Specific Header Fields in HTTP/2 spec](https://datatracker.ietf.org/doc/html/rfc9113#section-8.1)).
+
+Compliant servers must follow the HTTP/2 specification and not set the `Transfer-Encoding` header.
+
+## `Content-Type: multipart/mixed`
 
 The HTTP response for an incrementally delivered response should conform to the [specification of multipart content defined by the W3 in rfc1341](https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html). The HTTP response must contain the `Content-Type` response header with a specified boundary, for example `Content-Type: multipart/mixed; boundary="-"`. A simple boundary of `-` can be used as there is no possiblity of conflict with JSON data. However, any arbitrary boundary may be used.
 
