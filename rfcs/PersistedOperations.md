@@ -51,6 +51,8 @@ responds with a status-code 200 and a GraphQLError containing a message of `Pers
 operations, when persisted operations are unsupported the server can change the error message to `PersistedOperationNotSupported`.
 
 The client is made aware of the server not knowing the document we are dealing with by means of this error, the client can now send
-a new request containing both `documentId` and `query` in the parameters to make the server aware of the correlation.
+a new request containing both `documentId` and `query` in the parameters to make the server aware of the correlation. The server can
+verify that the `documentId` and `query` are correctly being associated by performing the stringify and hash steps, this to avoid
+malicious actors inserting faux associations.
 
 The server can now save the association between the `documentId` and `query` for future requests.
