@@ -12,15 +12,15 @@ With Persisted Operations we have a few goals:
 
 ## Flow
 
-### Producing the hash
+### Producing the document-id
 
-To produce a deterministic hash we need a standardised way of stringifying to a minimal relevantdocument.
-In doing so we also avoid producing different hashes for documents that contain a possible extra redundant character.
+To produce a deterministic `documentId` we need a standardised way of stringifying to a minimal relevantdocument.
+In doing so we also avoid producing different ids for documents that contain a possible extra redundant character.
 
 We need to produce a minimal GraphQL Document according to the spec, [stripping all ignored tokens](https://spec.graphql.org/October2021/#sec-Language.Source-Text.Ignored-Tokens).
-The only non-excessive ignored token is a single space character (U+0020) that must be inserted between two ignored tokens.
+The only non-excessive ignored token is a single space character (U+0020) that must be inserted between two non-punctuator tokens.
 
-After stringifying we can produce a SHA-256 hash of the stringified document which we can save somewhere and inform our GraphQL server execution with.
+After stringifying we can produce a SHA-256 hash of the stringified document which we can save somewhere and use as an identifier for our GraphQL server.
 
 ### Sending
 
@@ -28,7 +28,7 @@ When sending the persisted operation we will potentially be violating the curren
 is a _required_ property. The proposal here is to add an additional _optional_ property `documentId` which has to be present
 when `query` isn't. We disallow neither `documentId` and `query` being absent when performing a GraphQL Request.
 
-The `documentId` would be the hashed representation of the GraphQL document.
+The `documentId` would be the hashed representation of the stringified GraphQL document.
 
 We can send all the operation kinds as a persisted operation, however we should make the distinction between `query` and `mutation`.
 By definition `query` contains cacheable data so we can send this either as a `GET` or a `POST` so we follow the spec, however a
@@ -38,7 +38,8 @@ By definition `query` contains cacheable data so we can send this either as a `G
 
 When a server receives a request containing only `documentId` it is assumed that the server can perform this lookup, when the lookup
 fails the server responds with a status-code 400 or 404 and denies the request. When the persisted operation can be found the server
-can assume that it's dealing with a valid GraphQL document and execute it as it normally would.
+can assume that it's dealing with a valid GraphQL document, however the schema could have changed so the server _should_ still validate
+before executing.
 
 ## Automatic persisted operations
 
