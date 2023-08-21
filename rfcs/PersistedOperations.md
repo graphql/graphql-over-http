@@ -14,7 +14,7 @@ With Persisted Operations we have a few goals:
 
 ### Producing the document-id
 
-To produce a deterministic `documentId` we need a standardised way of stringifying to a minimal relevantdocument.
+To produce a deterministic `documentId` we need a standardised way of stringifying to a minimal relevant document.
 In doing so we also avoid producing different ids for documents that contain a possible extra redundant character.
 
 We need to produce a minimal GraphQL Document according to the spec, [stripping all ignored tokens](https://spec.graphql.org/October2021/#sec-Language.Source-Text.Ignored-Tokens).
