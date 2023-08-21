@@ -26,7 +26,7 @@ After stringifying we can produce a SHA-256 hash of the stringified document whi
 
 When sending the persisted operation we will potentially be violating the current Request parameters where we say that `query`
 is a _required_ property. The proposal here is to add an additional _optional_ property `documentId` which has to be present
-when `query` isn't. We disallow neither `documentId` and `query` being absent when performing a GraphQL Request.
+when `query` isn't. We disallow both `documentId` and `query` being absent when performing a GraphQL Request.
 
 The `documentId` would be the hashed representation of the stringified GraphQL document.
 
