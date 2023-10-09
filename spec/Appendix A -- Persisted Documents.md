@@ -160,6 +160,12 @@ Note: A common alternative pattern is to use a dedicated URL for each _persisted
 operation_ (e.g.
 `https://example.com/graphql/sha256:71f7dc5758652baac68e4a10c50be732b741c892ade2883a99358f52b555286b`).
 
+GET requests MUST NOT be used for executing mutation operations. If a mutation
+operation is indicated by the value of {operationName} and the GraphQL Document
+identified by {documentId}, the server MUST respond with error status code `405`
+(Method Not Allowed) and halt execution. This restriction is necessary to
+conform with the long-established semantics of safe methods within HTTP.
+
 #### Canonical Parameters
 
 Parameters SHOULD be provided in the order given in the list above, any optional
