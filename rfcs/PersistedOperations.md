@@ -31,7 +31,8 @@ By definition `query` contains cacheable data so we can send this either as a `G
 
 When sending GraphQL variables along with a `query` operation over the `GET` HTTP method, the URL size limit (typically 2048
 characters) should be considered if the URL's query string is to be employed to encode these GraphQL variables. If this is an
-issue, one should consider utilizing a `POST` request's `body` or an HTTP header to encode these variables.
+issue, one should consider utilizing a `POST` request's `body` or an HTTP header to encode these variables. When using a HTTP header
+to encode the variables the server has to add this request-header to the `Vary` header to ensure the correct cache-key is achieved.
 
 ### Executing
 
