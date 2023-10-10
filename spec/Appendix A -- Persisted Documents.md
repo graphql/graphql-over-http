@@ -97,28 +97,34 @@ MD5 hash of the GraphQL document, as traditionally used by Relay.
 
 ## Persisting a Document
 
-A client utilizing persisted documents MUST generate a _document identifier_ for
-each GraphQL Document it wishes to issue to the server, and SHOULD ensure that
-the server can retrieve this GraphQL Document given the document identifier.
+A client that wishes to utilize persisted documents for a request must generate
+a _document identifier_ for the associated GraphQL Document and should ensure
+the server can retrieve this GraphQL Document from the document identifier. The
+method through which the client and server achieve this is implementation
+specific.
 
-Note: The method through which the client and server achieve this is
-implementation specific. Typically persisted documents are stored into some kind
-of trusted shared key-value store at client build time (either directly, or
-indirectly via an authenticated request to the server) such that the server may
-retrieve them given the identifier at request time. It is generally good
-practice for the client to issue both the GraphQL Document and the document
-identifier to the server; the server should then regenerate the document
-identifier from the GraphQL Document independently, and check that the
-identifiers match before storing the Document. An alternative approach has the
-client issue the GraphQL Document to the server, and the server returns an
-arbitrary _custom document identifier_ that the client should incorporate into
-its bundle.
+Note: When used as an operation allowlist, persisted documents are typically
+stored into some kind of trusted shared key-value store at client build time
+(either directly, or indirectly via an authenticated request to the server) such
+that the server may retrieve them given the identifier at request time. This
+must be done in a secure manner (preventing untrusted third parties from adding
+their own persisted document) such that the server will be able to retrieve the
+identified document within a _persisted document request_ and know that it is
+trusted.
 
-When using persisted documents as an operation allowlist, the client MUST
-persist the documents it uses ahead of time in a secure manner (preventing
-untrusted third parties from adding their own persisted document) such that the
-server will be able to retrieve the identified document within a _persisted
-document request_ and know that it is trusted.
+Note: When used solely as a bandwidth optimization, an error-based mechanism
+might be used wherein the client assumes that the document has already been
+persisted, but if the request fails due to unknown _document identifier_ the
+client issues a follow-up request containing the full GraphQL Document to be
+persisted.
+
+Note: When persisting a document it is generally good practice for the client to
+issue both the GraphQL Document and the document identifier to the server; the
+server would then regenerate the document identifier from the GraphQL Document
+independently, and check that the identifiers match before storing the Document.
+An alternative but equally valid approach has the client issue the GraphQL
+Document to the server, and the server returns an arbitrary _custom document
+identifier_ that the client would incorporate into its bundle.
 
 ## Persisted Document Request
 
