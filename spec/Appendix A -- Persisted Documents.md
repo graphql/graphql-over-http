@@ -50,7 +50,8 @@ The payload of a _SHA256 hex document identifier_ must be produced via the
 lower-case hexadecimal encoding of the SHA256 hash (as specified in
 [RFC4634](https://datatracker.ietf.org/doc/html/rfc4634)) of the Source Text of
 the GraphQL Document (as specified in
-[the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language)).
+[the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language))
+encoded using the UTF-8 character set.
 
 A service which accepts a _persisted document request_ SHOULD support the
 _SHA256 hex document identifier_ for compatibility.
