@@ -443,10 +443,15 @@ In alignment with the
 specification, when a client does not include at least one supported media type
 in the `Accept` HTTP header, the server MUST either:
 
-1. Disregard the `Accept` header and respond with the default media type of
-   `application/json`, specifying this in the `Content-Type` header; OR
-2. Respond with a `406 Not Acceptable` status code and stop processing the
-   request.
+1. Respond with a `406 Not Acceptable` status code and stop processing the
+   request (RECOMMENDED); OR
+2. Disregard the `Accept` header and respond with the server's choice of media
+   type (NOT RECOMMENDED).
+
+Note: It is unlikely that a client can process a response that does not match
+one of the media types it has requested, hence `406 Not Acceptable` being the
+recommended response. However, the server authors may know better about the
+specific clients consuming their endpoint, thus both approaches are permitted.
 
 A server MUST support any _GraphQL-over-HTTP request_ which accepts the
 `application/json` media type (as indicated by the `Accept` header).
