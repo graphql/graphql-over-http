@@ -1,12 +1,9 @@
 ## GraphQL Over HTTP
 
-Note: **Stage 1: Proposal** This spec is under active development, and not ready
-for implementations yet. For more information, please see the
-[Roadmap](https://github.com/graphql/graphql-over-http/blob/master/ROADMAP.md)
-or
-[how to get involved](https://github.com/graphql/graphql-over-http/blob/master/INTERESTED_DEVELOPERS.md).
-You can find our community in the #graphql-over-http channel on the
-[GraphQL Foundation Discord](https://discord.graphql.org).
+Note: **Stage 2: Draft** &mdash; this spec is not yet official, but is now a
+fully formed solution. Drafts may continue to evolve and change, occasionally
+dramatically, and are not guaranteed to be accepted. Therefore, it is unwise to
+rely on a draft in a production GraphQL Service.
 
 ---
 
