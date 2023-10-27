@@ -376,6 +376,11 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   names and the values of which are the variable values
 - {extensions} - an optional object (map)
 
+All other property names are reserved for future expansion; if implementors need
+to add additional information to a request they MUST do so via other means, the
+RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
+object.
+
 ### Example
 
 If we wanted to execute the following GraphQL query:
