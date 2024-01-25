@@ -1,8 +1,8 @@
-> **Stage 1: Proposal**
+> **Stage 2: Draft**
 >
-> This spec is in the proposal stage of active development, and can change
-> before reaching `Draft` stage. For more information, please see the
-> [Roadmap](ROADMAP.md) or [how to get involved](INTERESTED_DEVELOPERS.md).
+> This spec is in the draft stage of development, and can change before reaching
+> `Accepted` stage. For more information, please see the [Roadmap](ROADMAP.md)
+> or [how to get involved](INTERESTED_DEVELOPERS.md).
 >
 > You can find our community in the
 > [graphql-over-http channel](https://discord.com/channels/625400653321076807/863141924126588958)
