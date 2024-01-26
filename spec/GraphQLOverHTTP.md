@@ -376,7 +376,8 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
 All other property names are reserved for future expansion; if implementors need
 to add additional information to a request they MUST do so via other means, the
 RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
-object.
+object. Servers receiving a request with additional properties MUST ignore the
+additional properties when processing the request.
 
 ### Example
 
