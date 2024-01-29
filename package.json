@@ -15,7 +15,8 @@
     "cspell": "6.31.1",
     "nodemon": "^2.0.20",
     "prettier": "^2.3.0",
-    "spec-md": "^3.1.0"
+    "spec-md": "^3.1.0",
+    "wgutils": "^0.1.6"
   },
   "prettier": {
     "proseWrap": "always",
