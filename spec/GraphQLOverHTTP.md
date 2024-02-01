@@ -615,6 +615,8 @@ If
 raises a _GraphQL request error_, the server SHOULD NOT execute the request and
 SHOULD return a status code of `200` (Okay).
 
+For example a POST request body of `{"query": "{query getItem($id: String!) { item(id: $id) { id }}"}`, "variables": {"id": null}` would fail to satisfy the query document's expectation that `id` is non-nullable, and would fail at the variable coercion stage.
+
 ##### Field errors encountered during execution
 
 If the operation is executed and no _GraphQL request error_ is raised then the
