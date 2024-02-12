@@ -619,7 +619,7 @@ For example the well-formed GraphQL-over-HTTP request:
 
 ```json
 {
-  "query": "query getItem($id: String!) { item(id: $id) { id } }",
+  "query": "query getItemName($id: ID!) { item(id: $id) { id name } }",
   "variables": { "id": null }
 }
 ```
