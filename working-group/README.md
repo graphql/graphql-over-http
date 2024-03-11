@@ -11,5 +11,5 @@ See [Agendas](agendas) for upcoming scheduled meetings and notes from previous m
 To create the agenda files for a given month YYYY/MM, run the following command:
 
 ```
-yarn && yarn gen-agenda YYYY MM
+npm install && npm run gen-agenda YYYY MM
 ```
