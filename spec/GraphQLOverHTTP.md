@@ -615,6 +615,18 @@ If
 raises a _GraphQL request error_, the server SHOULD NOT execute the request and
 SHOULD return a status code of `200` (Okay).
 
+For example the well-formed GraphQL-over-HTTP request:
+
+```json
+{
+  "query": "query getItemName($id: ID!) { item(id: $id) { id name } }",
+  "variables": { "id": null }
+}
+```
+
+would fail variable coercion as the value for `id` would fail to satisfy the
+query document's expectation that `id` is non-null.
+
 ##### Field errors encountered during execution
 
 If the operation is executed and no _GraphQL request error_ is raised then the
