@@ -1,5 +1,8 @@
 # Persisted Operations
 
+NOTE: this document is kept for historic purposes; Persisted Operations have been specified
+[As an appendix](../spec/Appendix A -- Persisted Documents.md).
+
 This RFC is intended to add Persisted Operations to the spec. A persisted operation contains
 a _hash_ of the `operation` that we are sending to the server, the server can translate this to the proper
 `operation` and execute it.
