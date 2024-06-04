@@ -103,8 +103,8 @@ the server can retrieve this GraphQL Document from the document identifier. The
 method through which the client and server achieve this is implementation
 specific.
 
-Note: When used as an operation allowlist, persisted documents are typically
-stored into some kind of trusted shared key-value store at client build time
+Note: When used as an operation allow-list, persisted documents are typically
+stored into a trusted shared key-value store at client build time
 (either directly, or indirectly via an authenticated request to the server) such
 that the server may retrieve them given the identifier at request time. This
 must be done in a secure manner (preventing untrusted third parties from adding
