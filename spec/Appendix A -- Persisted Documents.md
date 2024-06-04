@@ -97,34 +97,36 @@ MD5 hash of the GraphQL document, as traditionally used by Relay.
 
 ## Persisting a Document
 
-A client that wishes to utilize persisted documents for a request must generate
-a _document identifier_ for the associated GraphQL Document and should ensure
-the server can retrieve this GraphQL Document from the document identifier. The
+To utilize persisted documents for a request, the client must possess a unique
+_document identifier_ for the associated GraphQL Document, and the server must
+be able to retrieve this GraphQL Document using the document identifier. The
 method through which the client and server achieve this is implementation
 specific.
 
 Note: When used as an operation allow-list, persisted documents are typically
-stored into a trusted shared key-value store at client build time
-(either directly, or indirectly via an authenticated request to the server) such
-that the server may retrieve them given the identifier at request time. This
-must be done in a secure manner (preventing untrusted third parties from adding
-their own persisted document) such that the server will be able to retrieve the
+stored into a trusted shared key-value store at client build time (either
+directly, or indirectly via an authenticated request to the server) such that
+the server may retrieve them given the identifier at request time. This must be
+done in a secure manner (preventing untrusted third parties from adding their
+own persisted document) such that the server will be able to retrieve the
 identified document within a _persisted document request_ and know that it is
 trusted.
 
-Note: When used solely as a bandwidth optimization, an error-based mechanism
+Note: When used solely as a bandwidth optimization, as in the technique known
+colloquially as "automatic persisted queries (APQ)," an error-based mechanism
 might be used wherein the client assumes that the document has already been
 persisted, but if the request fails due to unknown _document identifier_ the
 client issues a follow-up request containing the full GraphQL Document to be
 persisted.
 
-Note: When persisting a document it is generally good practice for the client to
-issue both the GraphQL Document and the document identifier to the server; the
-server would then regenerate the document identifier from the GraphQL Document
-independently, and check that the identifiers match before storing the Document.
-An alternative but equally valid approach has the client issue the GraphQL
-Document to the server, and the server returns an arbitrary _custom document
-identifier_ that the client would incorporate into its bundle.
+Note: When persisting a document for which the identifier has been derived by
+the client, it is generally good practice for the client to issue both the
+GraphQL Document and the document identifier to the server; the server could
+then regenerate the document identifier from the GraphQL Document independently,
+and check that the identifiers match before storing the Document. If the
+identifier is not derived on the client then the client must coordinate
+retrieval of a document identifier from the server to be incorporated into the
+deployed client.
 
 ## Persisted Document Request
 
@@ -263,7 +265,7 @@ _persisted document request_, it must return a well‐formed _GraphQL response_.
 
 The server should retrieve the GraphQL Document identified by the {documentId}
 parameter. If the server fails to retrieve the document, it MUST respond with a
-well-formed _GraphQL response_ consisting of a single error. Otherwise, it
-should construct a _GraphQL-over-HTTP request_ using this document and the other
+well-formed _GraphQL response_ consisting of a single error. Otherwise, it will
+construct a _GraphQL-over-HTTP request_ using this document and the other
 parameters of the _persisted document request_, and then follow the details in
 the [Response section](#sec-Response).
