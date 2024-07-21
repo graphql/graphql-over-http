@@ -95,6 +95,35 @@ implementation specific.
 Note: A 32 character hexadecimal _custom document identifier_ is likely to be an
 MD5 hash of the GraphQL document, as traditionally used by Relay.
 
+### Document identifier syntax
+
+DocumentIdentifier ::
+
+- PrefixedDocumentIdentifier
+- CustomDocumentIdentifier
+
+PrefixedDocumentIdentifier ::
+
+- Sha256HexDocumentIdentifier
+- OtherPrefixedDocumentIdentifier
+
+Sha256HexDocumentIdentifier :: sha256 `:` Sha256Checksum
+
+Sha256Checksum :: 64 LowerCaseHexDigit
+
+LowerCaseHexDigit :: one of
+
+- `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
+- `a` `b` `c` `d` `e` `f`
+
+OtherPrefixedDocumentIdentifier :: x- IdentifierCharacter+ `:` IdentifierCharacter+
+
+CustomDocumentIdentifier :: SourceCharacter+
+
+IdentifierCharacter :: SourceCharacter but not `:`
+
+SourceCharacter :: "Any Unicode scalar value"
+
 ## Persisting a Document
 
 To utilize persisted documents for a request, the client must possess a unique
