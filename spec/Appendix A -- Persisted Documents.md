@@ -116,13 +116,13 @@ LowerCaseHexDigit :: one of
 - `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
 - `a` `b` `c` `d` `e` `f`
 
-OtherPrefixedDocumentIdentifier :: x- IdentifierCharacter+ `:` IdentifierCharacter+
+OtherPrefixedDocumentIdentifier :: `x-` IdentifierCharacter+ `:` IdentifierCharacter+
 
 CustomDocumentIdentifier :: SourceCharacter+
 
 IdentifierCharacter :: SourceCharacter but not `:`
 
-SourceCharacter :: "Any Unicode scalar value"
+SourceCharacter :: Any Unicode scalar value
 
 ## Persisting a Document
 
