@@ -109,7 +109,7 @@ PrefixedDocumentIdentifier ::
 
 Sha256HexDocumentIdentifier :: `sha256:` Sha256Checksum
 
-Sha256Checksum :: 64 LowerCaseHexDigit
+Sha256Checksum :: LowerCaseHexDigit+
 
 LowerCaseHexDigit :: one of
 
