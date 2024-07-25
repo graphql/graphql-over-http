@@ -106,6 +106,7 @@ We typically meet on the last Thursday of the month.
 | Jovi De Croock       | @jovidecroock | Independent        | Aalst, BE             |
 | Shane Krueger        | @shane32      | Independent        | Detroit, MI, USA      |
 
+
 ## Agenda
 
 1. Agree to Membership Agreement, Participation & Contribution Guidelines and Code of Conduct (1m, Host)
