@@ -104,7 +104,7 @@ We typically meet on the last Thursday of the month.
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
 | Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR             |
 | Jovi De Croock       | @jovidecroock | Independent        | Aalst, BE             |
-
+| Shane Krueger        | @shane32      | Independent        | Detroit, MI, USA      |
 
 ## Agenda
 
