@@ -97,6 +97,12 @@ MD5 hash of the GraphQL document, as traditionally used by Relay.
 
 ### Document identifier syntax
 
+A _document identifier_ must only contain colons (`:`) and characters that are
+defined as
+[`unreserved` in RFC3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.3)
+(alphanumeric characters (`A-Z`, `a-z`, `0-9`), dashes (`-`), periods (`.`),
+underscores (`_`), and tildes (`~`)).
+
 DocumentIdentifier ::
 
 - PrefixedDocumentIdentifier
@@ -104,20 +110,18 @@ DocumentIdentifier ::
 
 PrefixedDocumentIdentifier ::
 
-- Sha256HexDocumentIdentifier
-- OtherPrefixedDocumentIdentifier
+- Prefix `:` Payload
 
-Sha256HexDocumentIdentifier :: `sha256:` LowerCaseHexDigit+
+Prefix :: UnreservedCharacter+
 
-LowerCaseHexDigit :: one of
-
-- `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
-- `a` `b` `c` `d` `e` `f`
-
-OtherPrefixedDocumentIdentifier :: `x-` UnreservedCharacter+ `:`
-UnreservedCharacter+
+Payload :: PayloadCharacter+
 
 CustomDocumentIdentifier :: UnreservedCharacter+
+
+PayloadCharacter ::
+
+- UnreservedCharacter
+- `:`
 
 UnreservedCharacter ::
 
