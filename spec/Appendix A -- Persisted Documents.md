@@ -116,7 +116,7 @@ Prefix :: UnreservedCharacter+
 
 Payload :: PayloadCharacter+
 
-CustomDocumentIdentifier :: UnreservedCharacter+
+CustomDocumentIdentifier :: UnreservedCharacter+ [lookahead != `:`]
 
 PayloadCharacter ::
 
