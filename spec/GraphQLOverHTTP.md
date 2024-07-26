@@ -745,3 +745,35 @@ payload is `application/json` then the client MUST NOT rely on the body to be a
 well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
+
+# Additional Notes
+
+## Security
+
+In this specification, GET requests are not supported for mutations due to
+security concerns. GET requests expose variables to logging mechanisms and
+intermediaries due to the URL encoding of parameters, which can lead to
+sensitive data being inadvertently logged. Furthermore, GET requests are
+considered "basic requests" under CORS (Cross-Origin Resource Sharing),
+meaning they bypass preflight checks that add a layer of security.
+
+On the other hand, using `application/json` for request bodies mandates a CORS
+preflight request, adding a security layer by ensuring the client has explicit
+permission from the server before sending the actual request. This is
+particularly important in mitigating cross-site request forgery (CSRF) attacks.
+
+Additionally, supporting form data requests (`application/x-www-form-urlencoded`
+or `multipart/form-data`) could pose significant security risks. Form data requests
+may be vulnerable to CSRF and other attacks due to the lack of CORS preflight checks.
+As a result, the use of form data for GraphQL queries or mutations is discouraged.
+
+For more detailed security considerations, please refer to [RFC 7231](https://tools.ietf.org/html/rfc7231),
+[RFC 6454](https://tools.ietf.org/html/rfc6454), and other relevant RFCs.
+
+## Format Compatibility
+
+Supporting formats not described by this specification, such as XML or protobuf,
+may conflict with future versions of this specification, as ongoing development
+aims to standardize and ensure the security and interoperability of GraphQL over
+HTTP. For this reason, it is recommended to adhere to the officially recognized
+formats outlined here.
