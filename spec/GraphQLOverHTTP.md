@@ -779,10 +779,11 @@ For more detailed security considerations, please refer to
 [RFC 7231](https://tools.ietf.org/html/rfc7231),
 [RFC 6454](https://tools.ietf.org/html/rfc6454), and other relevant RFCs.
 
-## Format Compatibility
+## Request Format Compatibility
 
 Supporting formats not described by this specification, such as XML or Protobuf,
-may conflict with future versions of this specification, as ongoing development
-aims to standardize and ensure the security and interoperability of GraphQL over
-HTTP. For this reason, it is recommended to adhere to the officially recognized
-formats outlined here.
+may have potential conflicts with future versions of this specification as
+ongoing development aims to standardize and ensure the security and
+interoperability of GraphQL over HTTP. While it is recommended to primarily
+adhere to the officially recognized formats outlined here, experimentation with
+other encodings is encouraged to explore their potential benefits.
