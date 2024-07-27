@@ -734,12 +734,17 @@ Note: The GraphQL specification
 and refers to the situation wherein a _GraphQL field error_ occurs as a partial
 response; it still indicates successful execution.
 
+# Non-normative notes
+
 ## Processing a response
 
 In certain environments, the source of a response may be an intermediary server,
-such as an API gateway, proxy, or firewall. In the case of an error, they may return
-their own non-GraphQL `application/json` response with a non-`200` status code.
+such as an API gateway, proxy, or firewall. In the case of an error, they may
+return their own non-GraphQL `application/json` response with a non-`200` status
+code.
 
-For this reason, if the response uses a non-`200` status code and the media type
-of the response body is `application/json` then the client MUST NOT rely on the
-body to be a well-formed _GraphQL response_.
+For this reason, a client application can rely on the response being a
+well-formed _GraphQL response_ if any of the following cases is true:
+
+- the response media type is `graphql-response+json`
+- the response media type is `application/json` and the status code is `200`
