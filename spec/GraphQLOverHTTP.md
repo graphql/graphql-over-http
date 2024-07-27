@@ -746,5 +746,5 @@ code.
 For this reason, a client application can rely on the response being a
 well-formed _GraphQL response_ if any of the following cases is true:
 
-- the response media type is `graphql-response+json`
+- the response media type is `application/graphql-response+json`
 - the response media type is `application/json` and the status code is `200`
