@@ -512,15 +512,7 @@ execution regardless of validation errors.
 ## Status Codes
 
 The status codes depends on the media type with which the GraphQL response will
-be served.
-
-Note: when using the `application/graphql-response+json` media type, the status
-code is primarily aimed for intermediary servers that do not understand GraphQL.
-In these cases, clients can rely on the response being a well-formed _GraphQL
-response_ regardless of the status code. When using the `application/json` media
-type on the other hand, clients may use a `2xx` status code as an indication
-that the body contains a well-formed _GraphQL response_. See
-[processing a response](#sec-Processing-a-response) for more details.
+be served:
 
 ### application/json
 
@@ -564,6 +556,11 @@ of `2xx` or `5xx` status codes when responding to invalid requests using the
 
 Note: URLs that enable GraphQL requests may enable other types of requests - see
 the [URL](#url) section.
+
+Note: When the response media type is `application/json`, clients may use a
+`2xx` status code as an indication that the body contains a well-formed _GraphQL
+response_. See [processing a response](#sec-Processing-a-response) for more
+details.
 
 #### Examples
 
@@ -667,6 +664,12 @@ pass validation, then the server SHOULD reply with `400` status code.
 
 If the client is not permitted to issue the GraphQL request then the server
 SHOULD reply with `403`, `401` or similar appropriate status code.
+
+Note: When the response media type is `application/graphql-response+json`,
+clients can rely on the response being a well-formed _GraphQL response_
+regardless of the status code. The intermediary servers that do not understand
+GraphQL may use the status code to get some information about the shape of the
+_GraphQL response_.
 
 #### Examples
 
