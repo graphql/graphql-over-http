@@ -557,10 +557,9 @@ of `2xx` or `5xx` status codes when responding to invalid requests using the
 Note: URLs that enable GraphQL requests may enable other types of requests - see
 the [URL](#url) section.
 
-Note: When the response media type is `application/json`, clients may use a
-`2xx` status code as an indication that the body contains a well-formed _GraphQL
-response_. See [processing a response](#sec-Processing-a-response) for more
-details.
+Note: When the response media type is `application/json` and the status code is 4xx,
+clients cannot count on the response being a well-formed _GraphQL response_.
+See [processing a response](#sec-Processing-a-response) for more details.
 
 #### Examples
 
