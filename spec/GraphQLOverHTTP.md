@@ -784,5 +784,5 @@ For more detailed security considerations, please refer to
 Supporting formats not described by this specification, such as XML or Protobuf,
 may have potential conflicts with future versions of this specification as
 ongoing development aims to standardize and ensure the security and
-interoperability of GraphQL over HTTP.  For this reason, it is recommended to adhere to the officially recognized
-formats outlined here.
+interoperability of GraphQL over HTTP. For this reason, it is recommended to
+adhere to the officially recognized formats outlined here.
