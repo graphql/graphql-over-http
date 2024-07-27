@@ -754,7 +754,7 @@ In this specification, GET requests are not supported for mutations due to
 security concerns. GET requests expose variables to logging mechanisms and
 intermediaries due to the URL encoding of parameters, which can lead to
 sensitive data being inadvertently logged. Furthermore, GET requests are
-considered "basic requests" under CORS (Cross-Origin Resource Sharing), meaning
+considered "simple requests" under CORS (Cross-Origin Resource Sharing), meaning
 they bypass preflight checks that add a layer of security.
 
 On the other hand, using `application/json` for request bodies mandates a CORS
