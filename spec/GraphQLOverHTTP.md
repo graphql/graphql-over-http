@@ -511,19 +511,16 @@ execution regardless of validation errors.
 
 ## Status Codes
 
-In case of errors that completely prevent the generation of a well-formed
-_GraphQL response_, the server SHOULD respond with the appropriate status code
-depending on the concrete error condition, and MUST NOT respond with a `2xx`
-status code when using the `application/graphql-response+json` media type.
+The status codes depends on the media type with which the GraphQL response will
+be served.
 
-Note: Typically the appropriate status code will be `400` (Bad Request).
-
-Note: This rule is "should" to maintain compatibility with legacy servers which
-can return 200 status codes even when this type of error occurs, but only when
-not using the `application/graphql-response+json` media type.
-
-Otherwise, the status codes depends on the media type with which the GraphQL
-response will be served:
+Note: when using the `application/graphql-response+json` media type, the status
+code is primarily aimed for intermediary servers that do not understand GraphQL.
+In these cases, clients can rely on the response being a well-formed _GraphQL
+response_ regardless of the status code. When using the `application/json` media
+type on the other hand, clients may use a `2xx` status code as an indication
+that the body contains a well-formed _GraphQL response_. See
+[processing a response](#sec-Processing-a-response) for more details.
 
 ### application/json
 
@@ -738,10 +735,15 @@ Note: The GraphQL specification
 and refers to the situation wherein a _GraphQL field error_ occurs as a partial
 response; it still indicates successful execution.
 
-## Processing the response
+## Processing a response
 
-If the response uses a non-`200` status code and the media type of the response
-payload is `application/json` then the client MUST NOT rely on the body to be a
-well-formed _GraphQL response_ since the source of the response may not be the
-server but instead some intermediary such as API gateways, proxies, firewalls,
-etc.
+In a typical environment, the source of a response may be some intermediary
+server such as an API gateway, a proxy, a firewall, etc.
+
+Those intermediary servers may not understand GraphQL: in the case of an error,
+they may return their own non-GraphQL `application/json` response with a
+non-`2xx` status code.
+
+For this reason, if the response uses a non-`2xx` status code and the media type
+of the response body is `application/json` then the client MUST NOT rely on the
+body to be a well-formed _GraphQL response_.
