@@ -737,8 +737,8 @@ response; it still indicates successful execution.
 
 ## Processing a response
 
-In a typical environment, the source of a response may be some intermediary
-server such as an API gateway, a proxy, a firewall, etc.
+The source of a response may be an intermediary server, such as an API gateway, proxy, or
+firewall, in certain environments.
 
 Those intermediary servers may not understand GraphQL: in the case of an error,
 they may return their own non-GraphQL `application/json` response with a
