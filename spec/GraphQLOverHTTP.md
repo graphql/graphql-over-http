@@ -557,9 +557,10 @@ of `2xx` or `5xx` status codes when responding to invalid requests using the
 Note: URLs that enable GraphQL requests may enable other types of requests - see
 the [URL](#url) section.
 
-Note: When the response media type is `application/json` and the status code is 4xx,
-clients cannot count on the response being a well-formed _GraphQL response_.
-See [processing a response](#sec-Processing-a-response) for more details.
+Note: When a response media type is `application/json` and the status code is
+not `200`, clients cannot count on the response being a well-formed _GraphQL
+response_ because it might originate from an intermediary server. See
+[processing a response](#sec-Processing-a-response) for more details.
 
 #### Examples
 
@@ -744,8 +745,8 @@ proxy, or firewall, in certain environments.
 
 Those intermediary servers may not understand GraphQL: in the case of an error,
 they may return their own non-GraphQL `application/json` response with a
-non-`2xx` status code.
+non-`200` status code.
 
-For this reason, if the response uses a non-`2xx` status code and the media type
+For this reason, if the response uses a non-`200` status code and the media type
 of the response body is `application/json` then the client MUST NOT rely on the
 body to be a well-formed _GraphQL response_.
