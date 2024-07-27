@@ -736,12 +736,9 @@ response; it still indicates successful execution.
 
 ## Processing a response
 
-The source of a response may be an intermediary server, such as an API gateway,
-proxy, or firewall, in certain environments.
-
-Those intermediary servers may not understand GraphQL: in the case of an error,
-they may return their own non-GraphQL `application/json` response with a
-non-`200` status code.
+In certain environments, the source of a response may be an intermediary server,
+such as an API gateway, proxy, or firewall. In the case of an error, they may return
+their own non-GraphQL `application/json` response with a non-`200` status code.
 
 For this reason, if the response uses a non-`200` status code and the media type
 of the response body is `application/json` then the client MUST NOT rely on the
