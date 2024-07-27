@@ -746,7 +746,7 @@ well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
 
-# Additional Notes
+# Non-Normative Notes
 
 ## Security
 
