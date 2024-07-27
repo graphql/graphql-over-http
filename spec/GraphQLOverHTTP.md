@@ -511,7 +511,7 @@ execution regardless of validation errors.
 
 ## Status Codes
 
-The status codes depends on the media type with which the GraphQL response will
+The status codes depend on the media type with which the GraphQL response will
 be served:
 
 ### application/json
