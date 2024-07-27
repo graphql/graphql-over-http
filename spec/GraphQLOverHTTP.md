@@ -779,7 +779,7 @@ For more detailed security considerations, please refer to
 [RFC 7231](https://tools.ietf.org/html/rfc7231),
 [RFC 6454](https://tools.ietf.org/html/rfc6454), and other relevant RFCs.
 
-## Request Format Compatibility
+## Request format compatibility
 
 Supporting formats not described by this specification, such as XML or Protobuf,
 may have potential conflicts with future versions of this specification as
