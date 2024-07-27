@@ -762,11 +762,18 @@ preflight request, adding a security layer by ensuring the client has explicit
 permission from the server before sending the actual request. This is
 particularly important in mitigating cross-site request forgery (CSRF) attacks.
 
-Additionally, supporting form data requests (`application/x-www-form-urlencoded`
-or `multipart/form-data`) could pose significant security risks. Form data
-requests may be vulnerable to CSRF and other attacks due to the lack of CORS
-preflight checks. As a result, the use of form data for GraphQL queries or
-mutations is discouraged.
+It's important to note that "simple requests" like those using
+`application/x-www-form-urlencoded` or `multipart/form-data` do not have the
+same CORS behavior, and thus do not undergo the same preflight checks.
+Implementers should be aware of the security implications of using these types
+of requests. While they can be secured with the right headers enforced by the
+server, it is crucial to understand and properly account for the security risks
+involved.
+
+To mitigate these risks, it is recommended that servers require a custom header
+to ensure requests are not "simple." For instance, a `GraphQL-Require-Preflight`
+header can be used to indicate that a preflight check has occurred, providing an
+additional layer of security.
 
 For more detailed security considerations, please refer to
 [RFC 7231](https://tools.ietf.org/html/rfc7231),
