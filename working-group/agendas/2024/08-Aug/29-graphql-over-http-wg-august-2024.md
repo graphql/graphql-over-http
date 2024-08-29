@@ -102,6 +102,7 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
+| Shane Krueger        | @shane32      | Independent Dev    | Detroit, MI, USA      |
 
 
 ## Agenda
