@@ -137,3 +137,23 @@ And the body:
   ]
 }
 ```
+
+### Response
+
+When a server receives a well-formed _variable batching request_, it MUST return a well‐formed stream of _GraphQL responses_. Each response in the stream corresponds to the result of validating and executing the requested operation with one set of variables. The server's response stream describes the outcome of each operation, including any errors encountered during the execution of the request.
+
+A server must comply with [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+Each response in the stream follows the standard GraphQL response format, with the addition of a required `variableIndex` field at the top level of each response. The `variableIndex` indicates the index of the variables map from the original request, allowing the client to associate each response with the correct set of variables.
+
+**Note:** The server MAY respond with results in any order. The `variableIndex` field ensures that clients can correctly match each response to its corresponding set of variables, regardless of the order in which the responses are returned.
+
+#### Response Structure
+
+Each line in the JSON Lines (JSONL) response MUST include the following fields:
+
+- **`variableIndex`** (Required, integer): The index of the corresponding variables map from the original request's `variables` array. This allows clients to match each response with the correct set of variables.
+- **`data`** (Optional, map): The data resulting from the execution of the GraphQL operation with the corresponding set of variables.
+- **`errors`** (Optional, array): An array of errors, if any were encountered during the execution of the operation.
+- **`extensions`** (Optional, map): A map that MAY include additional information about the request and execution, as needed by implementors.
+- 
