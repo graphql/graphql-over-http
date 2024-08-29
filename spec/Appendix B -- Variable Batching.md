@@ -156,4 +156,15 @@ Each line in the JSON Lines (JSONL) response MUST include the following fields:
 - **`data`** (Optional, map): The data resulting from the execution of the GraphQL operation with the corresponding set of variables.
 - **`errors`** (Optional, array): An array of errors, if any were encountered during the execution of the operation.
 - **`extensions`** (Optional, map): A map that MAY include additional information about the request and execution, as needed by implementors.
-- 
+
+## Body
+
+A server MUST indicate the media type of the response with a `Content-Type` header, and SHOULD indicate the encoding (e.g. `application/graphql-response+jsonl; charset=utf-8`).
+
+TODO benjie: Should we repeat this or should we take this as a given?
+
+If an `Accept` header is provided, the server MUST respect the given `Accept`
+header and attempt to encode the response in the highest priority media type
+listed that is supported by the server.
+
+
