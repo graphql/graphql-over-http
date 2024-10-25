@@ -338,7 +338,7 @@ Accept: application/graphql-response+json
 <p data-source="spec/GraphQLOverHTTP.md#L427-L428">A server must comply with <a href="https://datatracker.ietf.org/doc/html/rfc7231">RFC7231</a>.</p>
 <section id="sec-Body" secid="6.1">
 <h2 data-source="spec/GraphQLOverHTTP.md#L430"><span class="spec-secid" title="link to this section"><a href="#sec-Body">6.1</a></span>Body</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L432-L433">The body of the server&rsquo;s response MUST follow the requirements for a <a href="#sec-Response">GraphQL response</a>, encoded directly in the chosen media type.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L432-L433">The body of the server&rsquo;s response MUST follow the requirements for a <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Response" data-name="graphql-response" target="_blank">GraphQL response</a></span>, encoded directly in the chosen media type.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L435-L437">A server MUST indicate the media type of the response with a <code>Content-Type</code> header, and SHOULD indicate the encoding (e.g. <code>application/graphql-response+json; charset=utf-8</code>).</p>
 <p data-source="spec/GraphQLOverHTTP.md#L439-L441">If an <code>Accept</code> header is provided, the server MUST respect the given <code>Accept</code> header and attempt to encode the response in the highest priority media type listed that is supported by the server.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L443-L446">In alignment with the <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP 1.1 Accept</a> specification, when a client does not include at least one supported media type in the <code>Accept</code> HTTP header, the server MUST either:</p>
