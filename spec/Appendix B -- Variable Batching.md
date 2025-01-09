@@ -39,7 +39,7 @@ A server MAY accept a **variable batching request** via `POST`.
 
 #### Request Parameters
 
-A _variable batching request_ follows the same structure as a standard GraphQL request, with the key difference being in the `variables` parameter. All other parameters are consistent with the standard GraphQL-over-HTTP protocol:
+A _variable batching request_ follows the same structure as a standard GraphQL request with the exception of the `variables` parameter which now accepts an array:
 
 - {query} - (_Required_, string): The string representation of the Source Text
   of a GraphQL Document as specified in
