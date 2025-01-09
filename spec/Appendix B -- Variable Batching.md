@@ -18,15 +18,16 @@ query($ids: [ID!]!) {
 However, this approach doesn’t work when variables are used within nested selections.
 
 ```graphql
-query($ids: [ID!]! $first: Int!) {
-    productsByIds(ids: $ids) {
-        id
-        name
-        reviews(first: $first) {
-            id
-            body
-        }
+query ($vendorId: ID!, $productId: ID!) {
+  vendor(id: $vendorId) {
+    id
+    name
+    stock(productId: $productId) {
+      count
+      nextDeliveryDue
+      product { id name }
     }
+  }
 }
 ```
 
