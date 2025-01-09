@@ -62,7 +62,6 @@ If the client does not supply an `Accept` header, the server MAY respond with a 
 
 A **variable batching request** instructs the server to perform a query or mutation operation multiple times, once for each set of variables provided. The request MUST have a body that contains the values of the _variable batching request_ parameters encoded in the `application/graphql+jsonl` media type, or another media type supported by the server.
 
-A client MUST indicate the media type of a request body using the `Content-Type` header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support POST requests encoded with the `application/json` media type (as outlined in the GraphQL-over-HTTP specification).
 
