@@ -53,8 +53,6 @@ A _variable batching request_ follows the same structure as a standard GraphQL r
 
 ### Accept
 
-A client SHOULD indicate the media types that it supports in responses using the `Accept` HTTP header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
-
 For **variable batching requests**, the client SHOULD include the media type `application/graphql+jsonl` in the `Accept` header to indicate that it expects a batched response in JSON Lines format.
 
 If the client supplies an Accept header, the client SHOULD include the media type `application/graphql+jsonl` in the Accept header.
