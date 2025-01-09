@@ -144,7 +144,7 @@ A server must comply with [RFC7231](https://datatracker.ietf.org/doc/html/rfc723
 
 Each response in the stream follows the standard GraphQL response format, with the addition of a required `variableIndex` field at the top level of each response. The `variableIndex` indicates the index of the variables map from the original request, allowing the client to associate each response with the correct set of variables.
 
-**Note:** The server MAY respond with results in any order. The `variableIndex` field ensures that clients can correctly match each response to its corresponding set of variables, regardless of the order in which the responses are returned.
+The server MAY respond with results in any order. The `variableIndex` field ensures that clients can correctly match each response to its corresponding set of variables, regardless of the order in which the responses are returned.
 
 #### Response Structure
 
