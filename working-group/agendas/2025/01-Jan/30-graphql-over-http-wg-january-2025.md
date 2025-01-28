@@ -120,3 +120,5 @@ We typically meet on the last Thursday of the month.
    - [All open action items (by last update)](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Action+item+%3Aclapper%3A%22+sort%3Aupdated-desc)
 1. Watershed (10m, Martin)
    - https://github.com/graphql/graphql-over-http/pull/322
+1. Spec status (10m, Martin)
+   - What are we missing for a release?
