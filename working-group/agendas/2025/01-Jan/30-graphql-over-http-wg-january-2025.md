@@ -102,6 +102,7 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
+| Martin Bonnin | @martinbonnin       | Apollo           | Paris, FR   |
 | Shane Krueger        | @shane32      | GraphQL.NET        | Detroit, MI, USA      |
 
 
@@ -118,3 +119,7 @@ We typically meet on the last Thursday of the month.
 1. Review previous meeting's action items (5m, Host)
    - [Ready for review](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc)
    - [All open action items (by last update)](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Action+item+%3Aclapper%3A%22+sort%3Aupdated-desc)
+1. Watershed (10m, Martin)
+   - https://github.com/graphql/graphql-over-http/pull/322
+1. Spec status (10m, Martin)
+   - What are we missing for a release?
