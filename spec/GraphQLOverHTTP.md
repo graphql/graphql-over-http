@@ -458,7 +458,7 @@ specific clients consuming their endpoint, thus both approaches are permitted.
 A server MUST support any _GraphQL-over-HTTP request_ which accepts the
 `application/json` media type (as indicated by the `Accept` header).
 
-A server SHOULD support any _GraphQL-over-HTTP request_ which accepts the
+A server MUST support any _GraphQL-over-HTTP request_ which accepts the
 `application/graphql-response+json` media type (as indicated by the `Accept`
 header).
 
