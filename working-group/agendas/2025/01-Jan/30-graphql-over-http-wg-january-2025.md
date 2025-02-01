@@ -102,6 +102,7 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
+| Denis Badurina       | @enisdenjo    | The Guild          | Sarajevo, BA          |
 | Martin Bonnin | @martinbonnin       | Apollo           | Paris, FR   |
 | Shane Krueger        | @shane32      | GraphQL.NET        | Detroit, MI, USA      |
 
