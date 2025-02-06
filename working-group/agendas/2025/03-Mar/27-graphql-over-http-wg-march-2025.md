@@ -81,7 +81,7 @@ This is an open meeting in which anyone in the GraphQL community may attend.
 
 We typically meet on the last Thursday of the month.
 
-- **Date & Time**: [March 27, 2025, 5:30 – 6:30 PM UTC](https://www.timeanddate.com/worldclock/converter.html?iso=20250327T173000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
+- **Date & Time**: [March 27, 2025, 6:00 – 7:00 PM UTC](https://www.timeanddate.com/worldclock/converter.html?iso=20250327T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
   - View the [calendar][], or subscribe ([Google Calendar][], [ical file][]).
   - _Please Note:_ The date or time may change. Please check this agenda the
     week of the meeting to confirm. While we try to keep all calendars accurate,
@@ -114,6 +114,4 @@ We typically meet on the last Thursday of the month.
 1. Introduction of attendees (5m, Host)
 1. Determine volunteers for note taking (1m, Host)
 1. Review agenda (2m, Host)
-1. Review previous meeting's action items (5m, Host)
-   - [Ready for review](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc)
-   - [All open action items (by last update)](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Action+item+%3Aclapper%3A%22+sort%3Aupdated-desc)
+1. Check for [ready for review agenda items](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc) (5m, Host)

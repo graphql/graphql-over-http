@@ -14,7 +14,7 @@ const config = {
   // For "last" set nth to -1
   nth: -1,
   weekday: "Th", // M, Tu, W, Th, F, Sa, Su
-  time: "17:30-18:30", // 24-hour clock, range
+  time: "18:00-19:00", // 24-hour clock, range
   attendeesTemplate: `\
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
