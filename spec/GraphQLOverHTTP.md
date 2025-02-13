@@ -244,23 +244,27 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 
 ## Accept
 
-A client SHOULD indicate the media types that it supports in responses using the
+A client MUST indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 Note: If a client does not supply the `Accept` header then the server may
-respond with an error, or with any content type it chooses. To ensure your
-client gets something useful, it should indicate the media types it supports.
+respond with an error, or with any content type it chooses (including serving a
+valid GraphQL response under a media type of its choosing). To ensure your
+client gets something useful, it needs to indicate the media types it supports.
 
-The client SHOULD include the media type `application/graphql-response+json` in
+The client MUST include the media type `application/graphql-response+json` in
 the `Accept` header.
 
 If the client knows that the server supports
 `application/graphql-response+json`, it is RECOMMENDED that the client set the
-`Accept` header to `application/graphql-response+json`. Otherwise, the client
-SHOULD include the media type `application/json` in the `Accept` header and to
-maximize compatibility it is RECOMMENDED that the client set the `Accept` header
-to `application/graphql-response+json, application/json;q=0.9`.
+`Accept` header to `application/graphql-response+json`. Otherwise, to maximize
+compatibility the client SHOULD include the media type `application/json` in the
+`Accept` header and it is RECOMMENDED that the client set the `Accept` header to
+`application/graphql-response+json, application/json;q=0.9`.
+
+Note: The `q=0.9` parameter tells content negotiation that `application/json`
+should only be used if `application/graphql-response+json` is not supported.
 
 The `application/graphql-response+json` media type adds improved support for
 HTTP status codes compared to the legacy `application/json` media type. When
