@@ -482,7 +482,7 @@ recommended when creating a new GraphQL service.
 
 Note: Servers may wish to enforce that clients use the
 `application/graphql-response+json` data type so that related HTTP tooling may
-utilise the HTTP status codes of responses without having to be GraphQL-aware.
+utilize the HTTP status codes of responses without having to be GraphQL-aware.
 
 ## Validation
 
