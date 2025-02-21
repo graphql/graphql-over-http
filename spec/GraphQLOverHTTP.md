@@ -600,7 +600,7 @@ code `200` (Okay).
 ##### Document validation failure
 
 If a request fails to pass _GraphQL validation_, the server SHOULD NOT execute
-the request and SHOULD return a status code of `400` (Bad Request).
+the request and SHOULD return a status code of `200` (Okay).
 
 ##### Operation cannot be determined
 
