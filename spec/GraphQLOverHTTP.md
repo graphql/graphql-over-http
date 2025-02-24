@@ -465,7 +465,7 @@ responses.
 Each newly created or updated GraphQL _server_ SHOULD support responses using
 the `application/graphql-response+json` media type.
 
-:: A _legacy server_ is a _server_ that only support responses using the
+:: A _legacy server_ is a _server_ that only supports responses using the
 `application/json` media type.
 
 Note: Prior to this specification, the media type `application/json` was in wide
