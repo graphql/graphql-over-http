@@ -21,8 +21,8 @@ behavior detailed in the GraphQL specification should be used (and an issue
 raised).
 
 The [GraphQL specification](https://spec.graphql.org) deliberately does not
-specify the transport layer; however, HTTP is the most common choice when serving
-GraphQL to remote clients due to its ubiquity.
+specify the transport layer; however, HTTP is the most common choice when
+serving GraphQL to remote clients due to its ubiquity.
 
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
