@@ -534,6 +534,9 @@ The server SHOULD use the `200` status code for every response to a well-formed
 _GraphQL-over-HTTP request_, independent of any _GraphQL request error_ or
 _GraphQL field error_ raised.
 
+If the response uses a non-`200` status code then the client MUST NOT rely on
+the body to be a well-formed _GraphQL response_.
+
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
 others) could originate from intermediary servers; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
