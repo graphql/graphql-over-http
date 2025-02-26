@@ -14,15 +14,15 @@ rely on a draft in a production GraphQL Service.
 This specification details how GraphQL should be served and consumed over HTTP
 in order to maximize interoperability between clients, servers and tools. This
 specification does not override or replace the
-[GraphQL specification](https://spec.graphql.org), it extends it to cover the
+[GraphQL specification](https://spec.graphql.org); it extends it to cover the
 topic of serving GraphQL services over HTTP. If any statement or algorithm in
 this specification appears to conflict with the GraphQL specification, the
 behavior detailed in the GraphQL specification should be used (and an issue
 raised).
 
 The [GraphQL specification](https://spec.graphql.org) deliberately does not
-specify the transport layer, however HTTP is the most common choice when serving
-GraphQL to remote clients due to its ubiquity.
+specify the transport layer; however, HTTP is the most common choice when
+serving GraphQL to remote clients due to its ubiquity.
 
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
@@ -105,7 +105,7 @@ and a GraphQL response in an HTTP response.
 Specification compliant HTTP server unless the context indicates otherwise.
 
 The role of a _server_ is to provide a _client_ access to one or more GraphQL
-services over HTTP. A _server_ is not a _GraphQL service_, it is a GraphQL
+services over HTTP. A _server_ is not a _GraphQL service_; it is a GraphQL
 service host.
 
 :: In this document, the term _client_ refers to a GraphQL over HTTP
@@ -373,8 +373,8 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   names and the values of which are the variable values
 - {extensions} - an optional object (map)
 
-All other property names are reserved for future expansion; if implementors need
-to add additional information to a request they MUST do so via other means, the
+All other property names are reserved for future expansion. If implementors need
+to add additional information to a request they MUST do so via other means; the
 RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
 object.
 
