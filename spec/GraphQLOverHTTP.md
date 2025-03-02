@@ -255,13 +255,13 @@ client gets something useful, it should indicate the media types it supports.
 If the client supplies an `Accept` header, the client SHOULD include the media
 type `application/graphql-response+json` in the `Accept` header.
 
-Note: From 1st Jan 2025, every _server_ and _client_ must support
+Note: From 1st Jan 2030, every _server_ and _client_ must support
 `application/graphql-response+json`, so including this in the Accept header
 should give your client compatibility with any _server_.
 
 ### Legacy Watershed
 
-Before `2025-01-01T00:00:00Z`, if the client supplies an `Accept` header, the
+Before `2030-01-01T00:00:00Z`, if the client supplies an `Accept` header, the
 header SHOULD include the `application/json` media type. After this watershed,
 this is no longer necessary.
 
@@ -469,19 +469,19 @@ these replies may come from non-compliant HTTP servers or proxies somewhere in
 the request chain). For this reason, this specification introduces the
 `application/graphql-response+json` media type on responses; however, to give
 existing servers time to move over, it is not required to be supported until 1st
-January 2025.
+January 2030.
 
 ### Legacy watershed
 
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support any
+From 1st January 2030 (`2030-01-01T00:00:00Z`), a server MUST support any
 _GraphQL-over-HTTP request_ which accepts the
 `application/graphql-response+json` media type (as indicated by the `Accept`
 header) using the UTF-8 encoding.
 
-Before 1st January 2025 (`2025-01-01T00:00:00Z`), if the client does not supply
+Before 1st January 2030 (`2030-01-01T00:00:00Z`), if the client does not supply
 an `Accept` header, the server SHOULD treat the _GraphQL-over-HTTP request_ as
-if it had `Accept: application/json`. From 1st January 2025
-(`2025-01-01T00:00:00Z`), if the client does not supply an `Accept` header, the
+if it had `Accept: application/json`. From 1st January 2030
+(`2030-01-01T00:00:00Z`), if the client does not supply an `Accept` header, the
 server SHOULD treat the _GraphQL-over-HTTP request_ as if it had
 `Accept: application/graphql-response+json`.
 
