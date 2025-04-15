@@ -103,6 +103,7 @@ We typically meet on the last Thursday of the month.
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
 | Martin Bonnin | @martinbonnin       | Apollo           | Paris   |
+| Shane Krueger | @shane32            | GraphQL.NET      | Detroit, USA   |
 
 
 ## Agenda
