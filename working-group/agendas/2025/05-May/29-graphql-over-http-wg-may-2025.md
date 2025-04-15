@@ -81,7 +81,7 @@ This is an open meeting in which anyone in the GraphQL community may attend.
 
 We typically meet on the last Thursday of the month.
 
-- **Date & Time**: [May 29, 2025, 6:00 – 7:00 PM UTC](https://www.timeanddate.com/worldclock/converter.html?iso=20250529T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
+- **Date & Time**: [May 29, 2025, 11:00 AM – 12:00 PM PDT](https://www.timeanddate.com/worldclock/converter.html?iso=20250529T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
   - View the [calendar][], or subscribe ([Google Calendar][], [ical file][]).
   - _Please Note:_ The date or time may change. Please check this agenda the
     week of the meeting to confirm. While we try to keep all calendars accurate,

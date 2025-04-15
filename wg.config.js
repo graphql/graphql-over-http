@@ -9,12 +9,12 @@ const config = {
   - _Password:_ httpwg`,
   liveNotesUrl:
     "https://docs.google.com/document/d/1hUi3kSdcINQLWD6s8DBZIwepnqy51dwPZShDn8c1GZU/edit?usp=sharing",
-  timezone: "UTC",
+  timezone: "US/Pacific",
   frequency: "monthly",
   // For "last" set nth to -1
   nth: -1,
   weekday: "Th", // M, Tu, W, Th, F, Sa, Su
-  time: "18:00-19:00", // 24-hour clock, range
+  time: "11:00-12:00", // 24-hour clock, range
   attendeesTemplate: `\
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
