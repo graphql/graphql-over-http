@@ -276,7 +276,7 @@ accepting both media types, the client SHOULD indicate it prefers
 For HTTP GET requests, the _GraphQL-over-HTTP request_ parameters MUST be
 provided in the query component of the request URL, encoded in the
 `application/x-www-form-urlencoded` format as specified by the
-[WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+[WHATWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
 The {query} parameter MUST be the string representation of the source text of
 the document as specified in
@@ -291,7 +291,7 @@ The {operationName} parameter, if supplied and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
-component of the request URL as URL-encoded values due to the WhatWG
+component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
 
 Setting the value of the {operationName} parameter to the empty string is
@@ -757,41 +757,79 @@ etc.
 
 # Non-normative notes
 
+This section of the specification is non-normative, even where the words and
+phrases specified in RFC2119 are used.
+
 ## Security
 
-In this specification, GET requests are not supported for mutations due to
-security concerns. GET requests expose variables to logging mechanisms and
-intermediaries due to the URL encoding of parameters, which can lead to
-sensitive data being inadvertently logged. Furthermore, GET requests are
-considered "simple requests" under CORS (Cross-Origin Resource Sharing), meaning
-they bypass preflight checks that add a layer of security.
+This specification focuses solely on the intersection of GraphQL and HTTP.
+General concerns of either technology, including security concerns, are out of
+scope, except where their interaction introduces additional considerations.
 
-On the other hand, using `application/json` for request bodies mandates a CORS
-preflight request, adding a security layer by ensuring the client has explicit
-permission from the server before sending the actual request. This is
-particularly important in mitigating cross-site request forgery (CSRF) attacks.
+### HTTP
 
-It's important to note that "simple requests" like those using
-`application/x-www-form-urlencoded` or `multipart/form-data` do not have the
-same CORS behavior, and thus do not undergo the same preflight checks.
-Implementers should be aware of the security implications of using these types
-of requests. While they can be secured with the right headers enforced by the
-server, it is crucial to understand and properly account for the security risks
-involved.
+Implementers are expected to have a solid understanding of the security
+implications of exposing a service over HTTP, and are responsible for
+implementing relevant mitigations and solutions. This specification will not
+repeat standard HTTP best practices such as not using `GET` for requests with
+side effects, safe logging of requests without revealing sensitive information,
+ensuring all connections are encrypted via HTTPS, placing limits on the length
+of incoming data, implementing rate limits, authorization and authentication
+security, request tracing, intrusion detection, and so on.
 
-To mitigate these risks, it is recommended that servers require a custom header
-to ensure requests are not "simple." For instance, a `GraphQL-Require-Preflight`
-header can be used to indicate that a preflight check has occurred, providing an
-additional layer of security.
+### GraphQL
+
+Implementers are further expected to have a solid understanding of the security
+implications of running a GraphQL service and are responsible for implementing
+relevant mitigations and solutions there. For example, they may: limit the size
+and token count of GraphQL documents; ensure document validity; limit the number
+of errors a response may return; limit information revealed via errors; enforce
+validation and execution timeouts and pagination limits; implement query depth
+and complexity limits; implement authentication and authorization; apply rate
+limits to critical logic; and so on.
+
+### Exercise caution
+
+Where this specification leaves flexibility for the implementer, the implementer
+should be very cautious when exercising this freedom. Implementers must make
+themselves aware of and account for the security implications of their choices;
+while many alternative choices can be secured, securing them is outside of the
+scope of this specification.
+
+For example, this specification allows alternative media types to be used to
+encode the request body; however, media types such as `multipart/form-data` or
+`application/x-www-form-urlencoded` may result in the request being treated by a
+browser as a "simple request", which does not require a "preflight", thereby
+opening the server up to Cross-Site Request Forgery (CSRF/XSRF) attacks. The
+recommended `application/json` media type requires a "preflight" check when
+issued cross-domain. See
+[CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) in the WHATWG
+Fetch spec for more details on this.
+
+Note: One approach used by the community to mitigate CSRF risks is to ensure a
+request is not "simple" by requiring a custom header—such as
+`GraphQL-Require-Preflight`—is included. The presence of a custom header forces
+browsers to enact a "preflight" check, thereby adding an additional layer of
+security. (This is not a standard header, and many alternative headers could
+serve the same purpose. This is presented merely as an example of a pattern seen
+in the community.)
+
+Further extending this example, using `multipart/form-data` may allow large
+values to be referenced multiple times in a GraphQL operation, potentially
+causing the GraphQL service to process a much larger GraphQL request than the
+HTTP request size would suggest.
+
+### Other resources
 
 For more detailed security considerations, please refer to
 [RFC 7231](https://tools.ietf.org/html/rfc7231),
-[RFC 6454](https://tools.ietf.org/html/rfc6454), and other relevant RFCs.
+[RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and other
+resources such as [OWASP](https://owasp.org).
 
-## Request format compatibility
+## Future compatibility
 
-Supporting formats not described by this specification, such as XML or Protobuf,
-may have potential conflicts with future versions of this specification as
-ongoing development aims to standardize and ensure the security and
-interoperability of GraphQL over HTTP. For this reason, it is recommended to
-adhere to the officially recognized formats outlined here.
+Supporting formats not described by this specification may have potential
+conflicts with future versions of this specification as ongoing development aims
+to standardize and ensure the security and interoperability of GraphQL over HTTP
+whilst accounting for its growing feature set. For this reason, it is
+recommended to adhere to the officially recognized formats outlined here.
