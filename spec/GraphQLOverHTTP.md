@@ -715,8 +715,8 @@ code `400` (Bad Request).
 
 ##### Document validation failure
 
-If a request fails to pass _GraphQL validation_, the server SHOULD NOT execute
-the request and SHOULD return a status code of `400` (Bad Request).
+If a request fails _GraphQL validation_, the server SHOULD return a status code
+of `400` (Bad Request) without proceeding to GraphQL execution.
 
 ##### Operation cannot be determined
 
