@@ -535,11 +535,11 @@ If the response uses a non-`200` status code then the client MUST NOT rely on
 the body to be a well-formed _GraphQL response_.
 
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
-others) could originate from an intermediary; since the client cannot
-determine if an `application/json` response with arbitrary status code is a
-well-formed _GraphQL response_ (because it cannot trust the source) the server
-must use `200` status code to guarantee to the client that the response has not
-been generated or modified by an intermediary. See
+others) could originate from an intermediary; since the client cannot determine
+if an `application/json` response with arbitrary status code is a well-formed
+_GraphQL response_ (because it cannot trust the source) the server must use
+`200` status code to guarantee to the client that the response has not been
+generated or modified by an intermediary. See
 [processing a response](#sec-Processing-a-response) for more details.
 
 If the _GraphQL response_ contains a non-null {data} entry then the server MUST
