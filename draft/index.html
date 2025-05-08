@@ -79,8 +79,14 @@
 </ol>
 </li>
 <li><a href="#sec-Non-normative-notes"><span class="spec-secid">7</span>Non-normative notes</a><ol>
-<li><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a></li>
-<li><a href="#sec-Request-format-compatibility"><span class="spec-secid">7.2</span>Request format compatibility</a></li>
+<li><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a><ol>
+<li><a href="#sec-HTTP"><span class="spec-secid">7.1.1</span>HTTP</a></li>
+<li><a href="#sec-GraphQL"><span class="spec-secid">7.1.2</span>GraphQL</a></li>
+<li><a href="#sec-Exercise-caution"><span class="spec-secid">7.1.3</span>Exercise caution</a></li>
+<li><a href="#sec-Other-resources"><span class="spec-secid">7.1.4</span>Other resources</a></li>
+</ol>
+</li>
+<li><a href="#sec-Future-compatibility"><span class="spec-secid">7.2</span>Future compatibility</a></li>
 </ol>
 </li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
@@ -244,14 +250,14 @@ The <code>q=0.9</code> parameter tells content negotiation that <code>applicatio
 </section>
 <section id="sec-GET" secid="5.3">
 <h2 data-source="spec/GraphQLOverHTTP.md#L274"><span class="spec-secid" title="link to this section"><a href="#sec-GET">5.3</a></span>GET</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L276-L279">For HTTP GET requests, the <span class="spec-ref"><a href="#graphql-over-http-request" data-name="graphql-over-http-request">GraphQL-over-HTTP request</a></span> parameters MUST be provided in the query component of the request URL, encoded in the <code>application/x-www-form-urlencoded</code> format as specified by the <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WhatWG URLSearchParams class</a>.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L276-L279">For HTTP GET requests, the <span class="spec-ref"><a href="#graphql-over-http-request" data-name="graphql-over-http-request">GraphQL-over-HTTP request</a></span> parameters MUST be provided in the query component of the request URL, encoded in the <code>application/x-www-form-urlencoded</code> format as specified by the <a href="https://url.spec.whatwg.org/#interface-urlsearchparams">WHATWG URLSearchParams class</a>.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L281-L283">The <var data-name="query">query</var> parameter MUST be the string representation of the source text of the document as specified in <a href="https://spec.graphql.org/draft/#sec-Language">the Language section of the GraphQL specification</a>.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L285">The <var data-name="operationName">operationName</var> parameter, if present, must be a string.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L287-L288">Each of the <var data-name="variables">variables</var> and <var data-name="extensions">extensions</var> parameters, if used, MUST be encoded as a JSON string.</p>
 <p data-source="spec/GraphQLOverHTTP.md#L290-L291">The <var data-name="operationName">operationName</var> parameter, if supplied and not the empty string, represents the name of the operation to be executed within the <var data-name="query">query</var> as a string.</p>
-<div id="note-8d47f" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L293-L295">
-<a href="#note-8d47f">Note</a>
-In the final URL all of these parameters will appear in the query component of the request URL as URL-encoded values due to the WhatWG URLSearchParams encoding specified above.</div>
+<div id="note-5558f" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L293-L295">
+<a href="#note-5558f">Note</a>
+In the final URL all of these parameters will appear in the query component of the request URL as URL-encoded values due to the WHATWG URLSearchParams encoding specified above.</div>
 <p data-source="spec/GraphQLOverHTTP.md#L297-L298">Setting the value of the <var data-name="operationName">operationName</var> parameter to the empty string is equivalent to omitting the <var data-name="operationName">operationName</var> parameter.</p>
 <div id="note-3bc94" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L300-L302">
 <a href="#note-3bc94">Note</a>
@@ -508,17 +514,35 @@ The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-
 </section>
 <section id="sec-Non-normative-notes" secid="7">
 <h1 data-source="spec/GraphQLOverHTTP.md#L758"><span class="spec-secid" title="link to this section"><a href="#sec-Non-normative-notes">7</a></span>Non-normative notes</h1>
+<p data-source="spec/GraphQLOverHTTP.md#L760-L761">This section of the specification is non-normative, even where the words and phrases specified in RFC2119 are used.</p>
 <section id="sec-Security" secid="7.1">
-<h2 data-source="spec/GraphQLOverHTTP.md#L760"><span class="spec-secid" title="link to this section"><a href="#sec-Security">7.1</a></span>Security</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L762-L767">In this specification, GET requests are not supported for mutations due to security concerns. GET requests expose variables to logging mechanisms and intermediaries due to the URL encoding of parameters, which can lead to sensitive data being inadvertently logged. Furthermore, GET requests are considered &ldquo;simple requests&rdquo; under CORS (Cross-Origin Resource Sharing), meaning they bypass preflight checks that add a layer of security.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L769-L772">On the other hand, using <code>application/json</code> for request bodies mandates a CORS preflight request, adding a security layer by ensuring the client has explicit permission from the server before sending the actual request. This is particularly important in mitigating cross-site request forgery (CSRF) attacks.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L774-L780">It&rsquo;s important to note that &ldquo;simple requests&rdquo; like those using <code>application/x-www-form-urlencoded</code> or <code>multipart/form-data</code> do not have the same CORS behavior, and thus do not undergo the same preflight checks. Implementers should be aware of the security implications of using these types of requests. While they can be secured with the right headers enforced by the server, it is crucial to understand and properly account for the security risks involved.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L782-L785">To mitigate these risks, it is recommended that servers require a custom header to ensure requests are not &ldquo;simple.&rdquo; For instance, a <code>GraphQL-Require-Preflight</code> header can be used to indicate that a preflight check has occurred, providing an additional layer of security.</p>
-<p data-source="spec/GraphQLOverHTTP.md#L787-L789">For more detailed security considerations, please refer to <a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>, <a href="https://tools.ietf.org/html/rfc6454">RFC 6454</a>, and other relevant RFCs.</p>
+<h2 data-source="spec/GraphQLOverHTTP.md#L763"><span class="spec-secid" title="link to this section"><a href="#sec-Security">7.1</a></span>Security</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L765-L767">This specification focuses solely on the intersection of GraphQL and HTTP. General concerns of either technology, including security concerns, are out of scope, except where their interaction introduces additional considerations.</p>
+<section id="sec-HTTP" secid="7.1.1">
+<h3 data-source="spec/GraphQLOverHTTP.md#L769"><span class="spec-secid" title="link to this section"><a href="#sec-HTTP">7.1.1</a></span>HTTP</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L771-L778">Implementers are expected to have a solid understanding of the security implications of exposing a service over HTTP, and are responsible for implementing relevant mitigations and solutions. This specification will not repeat standard HTTP best practices such as not using <code>GET</code> for requests with side effects, safe logging of requests without revealing sensitive information, ensuring all connections are encrypted via HTTPS, placing limits on the length of incoming data, implementing rate limits, authorization and authentication security, request tracing, intrusion detection, and so on.</p>
 </section>
-<section id="sec-Request-format-compatibility" secid="7.2">
-<h2 data-source="spec/GraphQLOverHTTP.md#L791"><span class="spec-secid" title="link to this section"><a href="#sec-Request-format-compatibility">7.2</a></span>Request format compatibility</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L793-L798">Supporting formats not described by this specification, such as XML or Protobuf, may have potential conflicts with future versions of this specification as ongoing development aims to standardize and ensure the security and interoperability of GraphQL over HTTP. For this reason, it is recommended to adhere to the officially recognized formats outlined here. </p>
+<section id="sec-GraphQL" secid="7.1.2">
+<h3 data-source="spec/GraphQLOverHTTP.md#L780"><span class="spec-secid" title="link to this section"><a href="#sec-GraphQL">7.1.2</a></span>GraphQL</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L782-L789">Implementers are further expected to have a solid understanding of the security implications of running a GraphQL service and are responsible for implementing relevant mitigations and solutions there. For example, they may: limit the size and token count of GraphQL documents; ensure document validity; limit the number of errors a response may return; limit information revealed via errors; enforce validation and execution timeouts and pagination limits; implement query depth and complexity limits; implement authentication and authorization; apply rate limits to critical logic; and so on.</p>
+</section>
+<section id="sec-Exercise-caution" secid="7.1.3">
+<h3 data-source="spec/GraphQLOverHTTP.md#L791"><span class="spec-secid" title="link to this section"><a href="#sec-Exercise-caution">7.1.3</a></span>Exercise caution</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L793-L797">Where this specification leaves flexibility for the implementer, the implementer should be very cautious when exercising this freedom. Implementers must make themselves aware of and account for the security implications of their choices; while many alternative choices can be secured, securing them is outside of the scope of this specification.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L799-L807">For example, this specification allows alternative media types to be used to encode the request body; however, media types such as <code>multipart/form-data</code> or <code>application/x-www-form-urlencoded</code> may result in the request being treated by a browser as a &ldquo;simple request&rdquo;, which does not require a &ldquo;preflight&rdquo;, thereby opening the server up to Cross-Site Request Forgery (CSRF/XSRF) attacks. The recommended <code>application/json</code> media type requires a &ldquo;preflight&rdquo; check when issued cross-domain. See <a href="https://fetch.spec.whatwg.org/#http-cors-protocol">CORS protocol</a> in the WHATWG Fetch spec for more details on this.</p>
+<div id="note-74ebc" class="spec-note" data-source="spec/GraphQLOverHTTP.md#L809-L815">
+<a href="#note-74ebc">Note</a>
+One approach used by the community to mitigate CSRF risks is to ensure a request is not &ldquo;simple&rdquo; by requiring a custom header&mdash;such as <code>GraphQL-Require-Preflight</code>&mdash;is included. The presence of a custom header forces browsers to enact a &ldquo;preflight&rdquo; check, thereby adding an additional layer of security. (This is not a standard header, and many alternative headers could serve the same purpose. This is presented merely as an example of a pattern seen in the community.)</div>
+<p data-source="spec/GraphQLOverHTTP.md#L817-L820">Further extending this example, using <code>multipart/form-data</code> may allow large values to be referenced multiple times in a GraphQL operation, potentially causing the GraphQL service to process a much larger GraphQL request than the HTTP request size would suggest.</p>
+</section>
+<section id="sec-Other-resources" secid="7.1.4">
+<h3 data-source="spec/GraphQLOverHTTP.md#L822"><span class="spec-secid" title="link to this section"><a href="#sec-Other-resources">7.1.4</a></span>Other resources</h3>
+<p data-source="spec/GraphQLOverHTTP.md#L824-L827">For more detailed security considerations, please refer to <a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>, <a href="https://tools.ietf.org/html/rfc6454">RFC 6454</a>, other relevant RFCs, and other resources such as <a href="https://owasp.org">OWASP</a>.</p>
+</section>
+</section>
+<section id="sec-Future-compatibility" secid="7.2">
+<h2 data-source="spec/GraphQLOverHTTP.md#L829"><span class="spec-secid" title="link to this section"><a href="#sec-Future-compatibility">7.2</a></span>Future compatibility</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L831-L836">Supporting formats not described by this specification may have potential conflicts with future versions of this specification as ongoing development aims to standardize and ensure the security and interoperability of GraphQL over HTTP whilst accounting for its growing feature set. For this reason, it is recommended to adhere to the officially recognized formats outlined here. </p>
 </section>
 </section>
 <section id="index" secid="index" class="spec-index">
@@ -618,8 +642,16 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <li id="_sidebar_7"><a href="#sec-Non-normative-notes"><span class="spec-secid">7</span>Non-normative notes</a>
 <input hidden class="toggle" type="checkbox" id="_toggle_7" /><label for="_toggle_7"></label>
 <ol>
-<li id="_sidebar_7.1"><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a></li>
-<li id="_sidebar_7.2"><a href="#sec-Request-format-compatibility"><span class="spec-secid">7.2</span>Request format compatibility</a></li>
+<li id="_sidebar_7.1"><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_7.1" /><label for="_toggle_7.1"></label>
+<ol>
+<li id="_sidebar_7.1.1"><a href="#sec-HTTP"><span class="spec-secid">7.1.1</span>HTTP</a></li>
+<li id="_sidebar_7.1.2"><a href="#sec-GraphQL"><span class="spec-secid">7.1.2</span>GraphQL</a></li>
+<li id="_sidebar_7.1.3"><a href="#sec-Exercise-caution"><span class="spec-secid">7.1.3</span>Exercise caution</a></li>
+<li id="_sidebar_7.1.4"><a href="#sec-Other-resources"><span class="spec-secid">7.1.4</span>Other resources</a></li>
+</ol>
+</li>
+<li id="_sidebar_7.2"><a href="#sec-Future-compatibility"><span class="spec-secid">7.2</span>Future compatibility</a></li>
 </ol>
 </li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
