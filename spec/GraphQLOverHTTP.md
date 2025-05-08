@@ -14,15 +14,15 @@ rely on a draft in a production GraphQL Service.
 This specification details how GraphQL should be served and consumed over HTTP
 in order to maximize interoperability between clients, servers and tools. This
 specification does not override or replace the
-[GraphQL specification](https://spec.graphql.org), it extends it to cover the
+[GraphQL specification](https://spec.graphql.org); it extends it to cover the
 topic of serving GraphQL services over HTTP. If any statement or algorithm in
 this specification appears to conflict with the GraphQL specification, the
 behavior detailed in the GraphQL specification should be used (and an issue
 raised).
 
 The [GraphQL specification](https://spec.graphql.org) deliberately does not
-specify the transport layer, however HTTP is the most common choice when serving
-GraphQL to remote clients due to its ubiquity.
+specify the transport layer; however, HTTP is the most common choice when
+serving GraphQL to remote clients due to its ubiquity.
 
 Previous to this specification, the article
 [Serving over HTTP](https://graphql.org/learn/serving-over-http)
@@ -105,7 +105,7 @@ and a GraphQL response in an HTTP response.
 Specification compliant HTTP server unless the context indicates otherwise.
 
 The role of a _server_ is to provide a _client_ access to one or more GraphQL
-services over HTTP. A _server_ is not a _GraphQL service_, it is a GraphQL
+services over HTTP. A _server_ is not a _GraphQL service_; it is a GraphQL
 service host.
 
 :: In this document, the term _client_ refers to a GraphQL over HTTP
@@ -244,39 +244,39 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 
 ## Accept
 
-A client SHOULD indicate the media types that it supports in responses using the
+A client MUST indicate the media types that it supports in responses using the
 `Accept` HTTP header as specified in
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 Note: If a client does not supply the `Accept` header then the server may
-respond with an error, or with any content type it chooses. To ensure your
-client gets something useful, it should indicate the media types it supports.
+respond with an error, or with any content type it chooses (including serving a
+valid GraphQL response under a media type of its choosing). To ensure your
+client gets something useful, it needs to indicate the media types it supports.
 
-If the client supplies an `Accept` header, the client SHOULD include the media
-type `application/graphql-response+json` in the `Accept` header.
+The client MUST include the media type `application/graphql-response+json` in
+the `Accept` header.
 
-Note: From 1st Jan 2025, every _server_ and _client_ must support
-`application/graphql-response+json`, so including this in the Accept header
-should give your client compatibility with any _server_.
+If the client knows that the server supports
+`application/graphql-response+json`, it is RECOMMENDED that the client set the
+`Accept` header to `application/graphql-response+json`. Otherwise, to maximize
+compatibility the client SHOULD include the media type `application/json` in the
+`Accept` header and it is RECOMMENDED that the client set the `Accept` header to
+`application/graphql-response+json, application/json;q=0.9`.
 
-### Legacy Watershed
+Note: The `q=0.9` parameter tells content negotiation that `application/json`
+should only be used if `application/graphql-response+json` is not supported.
 
-Before `2025-01-01T00:00:00Z`, if the client supplies an `Accept` header, the
-header SHOULD include the `application/json` media type. After this watershed,
-this is no longer necessary.
-
-It is RECOMMENDED that a client set the `Accept` header to
-`application/graphql-response+json; charset=utf-8, application/json; charset=utf-8`.
-
-Note: This recommended header enables compatibility with legacy servers whilst
-still leveraging modern features if available in the server.
+The `application/graphql-response+json` media type adds improved support for
+HTTP status codes compared to the legacy `application/json` media type. When
+accepting both media types, the client SHOULD indicate it prefers
+`application/graphql-response+json` over `application/json`.
 
 ## GET
 
 For HTTP GET requests, the _GraphQL-over-HTTP request_ parameters MUST be
 provided in the query component of the request URL, encoded in the
 `application/x-www-form-urlencoded` format as specified by the
-[WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+[WHATWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
 The {query} parameter MUST be the string representation of the source text of
 the document as specified in
@@ -291,7 +291,7 @@ The {operationName} parameter, if supplied and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
-component of the request URL as URL-encoded values due to the WhatWG
+component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
 
 Setting the value of the {operationName} parameter to the empty string is
@@ -373,8 +373,8 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   names and the values of which are the variable values
 - {extensions} - an optional object (map)
 
-All other property names are reserved for future expansion; if implementors need
-to add additional information to a request they MUST do so via other means, the
+All other property names are reserved for future expansion. If implementors need
+to add additional information to a request they MUST do so via other means; the
 RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
 object.
 
@@ -429,8 +429,8 @@ A server must comply with
 
 ## Body
 
-The body of the server's response MUST follow the requirements for a
-[GraphQL response](#sec-Response), encoded directly in the chosen media type.
+The body of the server's response MUST follow the requirements for a _GraphQL
+response_, encoded directly in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
 header, and SHOULD indicate the encoding (e.g.
@@ -455,37 +455,34 @@ one of the media types it has requested, hence `406 Not Acceptable` being the
 recommended response. However, the server authors may know better about the
 specific clients consuming their endpoint, thus both approaches are permitted.
 
-A server MUST support any _GraphQL-over-HTTP request_ which accepts the
-`application/json` media type (as indicated by the `Accept` header).
+A server MUST support responses using at least one of the official GraphQL
+response media types.
 
-A server SHOULD support any _GraphQL-over-HTTP request_ which accepts the
-`application/graphql-response+json` media type (as indicated by the `Accept`
-header).
+For maximal compatibility, a _server_ SHOULD support using both the
+`application/json` and the `application/graphql-response+json` media types for
+responses.
+
+Each newly created or updated GraphQL _server_ SHOULD support responses using
+the `application/graphql-response+json` media type.
+
+:: A _legacy server_ is a _server_ that does not support responses using the
+`application/graphql-response+json` media type.
 
 Note: Prior to this specification, the media type `application/json` was in wide
 use for the HTTP response payload type. Unfortunately this means clients cannot
 trust responses from the server that do not use an HTTP 2xx status code (since
 these replies may come from non-compliant HTTP servers or proxies somewhere in
 the request chain). For this reason, this specification introduces the
-`application/graphql-response+json` media type on responses; however, to give
-existing servers time to move over, it is not required to be supported until 1st
-January 2025.
+`application/graphql-response+json` media type on responses; however support for
+this new media type is optional to allow legacy servers time to transition.
 
-### Legacy watershed
+A server MAY choose to not support the `application/json` response media type,
+however doing so may limit compatibility with existing clients, so it is only
+recommended when creating a new GraphQL service.
 
-From 1st January 2025 (`2025-01-01T00:00:00Z`), a server MUST support any
-_GraphQL-over-HTTP request_ which accepts the
-`application/graphql-response+json` media type (as indicated by the `Accept`
-header) using the UTF-8 encoding.
-
-Before 1st January 2025 (`2025-01-01T00:00:00Z`), if the client does not supply
-an `Accept` header, the server SHOULD treat the _GraphQL-over-HTTP request_ as
-if it had `Accept: application/json`. From 1st January 2025
-(`2025-01-01T00:00:00Z`), if the client does not supply an `Accept` header, the
-server SHOULD treat the _GraphQL-over-HTTP request_ as if it had
-`Accept: application/graphql-response+json`.
-
-Note: This default is in place to maintain compatibility with legacy clients.
+Note: Servers may wish to enforce that clients use the
+`application/graphql-response+json` data type so that related HTTP tooling may
+utilize the HTTP status codes of responses without having to be GraphQL-aware.
 
 ## Validation
 
@@ -619,6 +616,18 @@ If
 raises a _GraphQL request error_, the server SHOULD NOT execute the request and
 SHOULD return a status code of `200` (Okay).
 
+For example the well-formed GraphQL-over-HTTP request:
+
+```json
+{
+  "query": "query getItemName($id: ID!) { item(id: $id) { id name } }",
+  "variables": { "id": null }
+}
+```
+
+would fail variable coercion as the value for `id` would fail to satisfy the
+query document's expectation that `id` is non-null.
+
 ##### Field errors encountered during execution
 
 If the operation is executed and no _GraphQL request error_ is raised then the
@@ -750,6 +759,9 @@ response; it still indicates successful execution.
 
 # Non-normative notes
 
+This section of the specification is non-normative, even where the words and
+phrases specified in RFC2119 are used.
+
 ## Processing a response
 
 In certain environments, the source of a response may be an intermediary server,
@@ -762,3 +774,77 @@ well-formed _GraphQL response_ if any of the following cases is true:
 
 - the response media type is `application/graphql-response+json`
 - the response media type is `application/json` and the status code is `200`
+
+## Security
+
+This specification focuses solely on the intersection of GraphQL and HTTP.
+General concerns of either technology, including security concerns, are out of
+scope, except where their interaction introduces additional considerations.
+
+### HTTP
+
+Implementers are expected to have a solid understanding of the security
+implications of exposing a service over HTTP, and are responsible for
+implementing relevant mitigations and solutions. This specification will not
+repeat standard HTTP best practices such as not using `GET` for requests with
+side effects, safe logging of requests without revealing sensitive information,
+ensuring all connections are encrypted via HTTPS, placing limits on the length
+of incoming data, implementing rate limits, authorization and authentication
+security, request tracing, intrusion detection, and so on.
+
+### GraphQL
+
+Implementers are further expected to have a solid understanding of the security
+implications of running a GraphQL service and are responsible for implementing
+relevant mitigations and solutions there. For example, they may: limit the size
+and token count of GraphQL documents; ensure document validity; limit the number
+of errors a response may return; limit information revealed via errors; enforce
+validation and execution timeouts and pagination limits; implement query depth
+and complexity limits; implement authentication and authorization; apply rate
+limits to critical logic; and so on.
+
+### Exercise caution
+
+Where this specification leaves flexibility for the implementer, the implementer
+should be very cautious when exercising this freedom. Implementers must make
+themselves aware of and account for the security implications of their choices;
+while many alternative choices can be secured, securing them is outside of the
+scope of this specification.
+
+For example, this specification allows alternative media types to be used to
+encode the request body; however, media types such as `multipart/form-data` or
+`application/x-www-form-urlencoded` may result in the request being treated by a
+browser as a "simple request", which does not require a "preflight", thereby
+opening the server up to Cross-Site Request Forgery (CSRF/XSRF) attacks. The
+recommended `application/json` media type requires a "preflight" check when
+issued cross-domain. See
+[CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) in the WHATWG
+Fetch spec for more details on this.
+
+Note: One approach used by the community to mitigate CSRF risks is to ensure a
+request is not "simple" by requiring a custom header—such as
+`GraphQL-Require-Preflight`—is included. The presence of a custom header forces
+browsers to enact a "preflight" check, thereby adding an additional layer of
+security. (This is not a standard header, and many alternative headers could
+serve the same purpose. This is presented merely as an example of a pattern seen
+in the community.)
+
+Further extending this example, using `multipart/form-data` may allow large
+values to be referenced multiple times in a GraphQL operation, potentially
+causing the GraphQL service to process a much larger GraphQL request than the
+HTTP request size would suggest.
+
+### Other resources
+
+For more detailed security considerations, please refer to
+[RFC 7231](https://tools.ietf.org/html/rfc7231),
+[RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and other
+resources such as [OWASP](https://owasp.org).
+
+## Future compatibility
+
+Supporting formats not described by this specification may have potential
+conflicts with future versions of this specification as ongoing development aims
+to standardize and ensure the security and interoperability of GraphQL over HTTP
+whilst accounting for its growing feature set. For this reason, it is
+recommended to adhere to the officially recognized formats outlined here.

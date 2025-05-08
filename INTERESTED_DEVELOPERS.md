@@ -54,7 +54,7 @@ yourself by username.
   - Company/Project/Repo: https://github.com/ghmcadams
   - Reason: Interested in a common HTTP spec
 - @glennblock
-  - Company/Project/Report: https://github.com/microsoft
+  - Company/Project/Repo: https://github.com/microsoft
   - Reason: Interested in a common HTTP spec, and in adoption of emerging HTTP
     standards like HTTP SEARCH
 - @hemanth
