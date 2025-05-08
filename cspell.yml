@@ -12,10 +12,13 @@ words:
   - parallelization
   - structs
   - subselection
+  - mitigations
   # Software
   - ical
   - WebDAV
   - Protobuf
+  - WHATWG
+  - OWASP
   # Deliberate typos
   - qeury
   - __typena
