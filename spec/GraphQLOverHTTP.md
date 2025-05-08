@@ -751,13 +751,13 @@ etc.
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
 
-This specification focuses solely on the intersection of GraphQL and HTTP.
-General concerns of either technology (including security concerns) are out of
-scope, except where their interaction introduces additional considerations.
-
 ## Security
 
-### No general HTTP concerns
+This specification focuses solely on the intersection of GraphQL and HTTP.
+General concerns of either technology, including security concerns, are out of
+scope, except where their interaction introduces additional considerations.
+
+### HTTP
 
 Implementers are expected to have a solid understanding of the security
 implications of exposing a service over HTTP, and are responsible for
@@ -768,7 +768,7 @@ ensuring all connections are encrypted via HTTPS, placing limits on the length
 of incoming data, implementing rate limits, authorization and authentication
 security, request tracing, intrusion detection, and so on.
 
-### No general GraphQL concerns
+### GraphQL
 
 Implementers are further expected to have a solid understanding of the security
 implications of running a GraphQL service and are responsible for implementing
@@ -779,7 +779,7 @@ validation and execution timeouts and pagination limits; implement query depth
 and complexity limits; implement authentication and authorization; apply rate
 limits to critical logic; and so on.
 
-### Exercise flexibility with caution
+### Exercise caution
 
 Where this specification leaves flexibility for the implementer, the implementer
 should be very cautious when exercising this freedom. Implementers must make
