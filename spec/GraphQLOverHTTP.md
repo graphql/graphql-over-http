@@ -811,11 +811,11 @@ alongside the `application/graphql-response+json` media type which makes the
 meaning explicit. We hope to one day move to `294` if someone can push it
 through the IETF review process.
 
-Note that this use of HTTP 203 does not strictly align with the intended
-semantics of this status code, but was a pragmatic choice to maximize
-compatibility whilst allowing servers to indicate partial success such that
-intermediaries that do not implement this specification may still track the
-not-fully-successful request (for example, for observability).
+Note: This use of HTTP 203 does not strictly align with the intended semantics
+of this status code, but was a pragmatic choice to maximize compatibility whilst
+allowing servers to indicate partial success such that intermediaries that do
+not implement this specification may still track the not-fully-successful
+request (for example, for observability).
 
 ## Security
 
