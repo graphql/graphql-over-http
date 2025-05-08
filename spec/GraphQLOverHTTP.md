@@ -306,7 +306,7 @@ either omit {operationName} or set it to the empty string.
 If we wanted to execute the following GraphQL query:
 
 ```raw graphql example
-query($id: ID!){user(id:$id){name}}
+query($id:ID!){user(id:$id){name}}
 ```
 
 With the following query variables:
@@ -318,7 +318,7 @@ With the following query variables:
 This request could be sent via an HTTP GET as follows:
 
 ```url example
-http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
+http://example.com/graphql?query=query(%24id%3AID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
 GET requests MUST NOT be used for executing mutation operations. If the values
@@ -754,3 +754,5 @@ payload is `application/json` then the client MUST NOT rely on the body to be a
 well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
+
+# [Appendix: Persisted Document](Appendix%20A%20--%20Persisted%20Documents.md)
