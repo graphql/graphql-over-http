@@ -378,6 +378,9 @@ to add additional information to a request they MUST do so via other means; the
 RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
 object.
 
+Servers receiving a request with additional properties MUST ignore properties
+they do not understand.
+
 ### Example
 
 If we wanted to execute the following GraphQL query:
