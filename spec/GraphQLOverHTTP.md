@@ -651,28 +651,38 @@ This section only applies when the response body is to use the
 `application/graphql-response+json` media type.
 
 If the _GraphQL response_ contains the {data} entry and it is not {null}, then
-the server MUST reply with a `2xx` status code and SHOULD reply with `200`
-status code.
+the server MUST reply with a `2xx` status code.
+
+If the _GraphQL response_ contains the {data} entry and does not contain the
+{errors} entry, then the server SHOULD reply with `200` status code.
+
+Note: There are no circumstances where the GraphQL specification allows for a
+response having {data} as {null} without {errors} being present.
+
+If the _GraphQL response_ contains both the {data} entry (even if it is {null})
+and the {errors} entry, then the server SHOULD reply with `203` status code.
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
 operation typically become part of the result, as long as the server is still
 able to produce a well-formed _GraphQL response_. There's currently not an
-approved HTTP status code to use for a "partial response," contenders include
-WebDAV's status code "207 Multi-Status" and using a custom code such as "247
-Partial Success."
+approved official HTTP status code to use for a "partial success," contenders
+include "206 Partial Content" (which requires the `Range` header), WebDAV's
+status code "207 Multi-Status", and using a custom code such as "294 Partial
+Success."
 [IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
 states "codes are fully defined in section 10" implying that though more codes
 are expected to be supported over time, valid codes must be present in this
-document.
-
-If the _GraphQL response_ contains the {data} entry and it is {null}, then the
-server SHOULD reply with a `2xx` status code and it is RECOMMENDED it replies
-with `200` status code.
-
-Note: Using `4xx` and `5xx` status codes in this situation is not recommended -
-since no _GraphQL request error_ has occurred it is seen as a "partial
-response".
+document. For compatibility reasons, using `203` seems to work the best with
+intermediate servers and clients. We hope to one day move to `294` if someone
+can push it through the IETF review process. Using `4xx` and `5xx` status codes
+in this situation is not appropriate - since no _GraphQL request error_ has
+occurred it is seen as a "partial response" or "partial success". Note that this
+use of HTTP 203 does not strictly align with the intended semantics of this
+status code, but was a pragmatic choice to maximize compatibility whilst
+allowing servers to indicate partial success such that intermediaries that do
+not implement this specification may still track the not-fully-successful
+request (for example, for anomaly detection).
 
 If the _GraphQL response_ does not contain the {data} entry then the server MUST
 reply with a `4xx` or `5xx` status code as appropriate.
@@ -692,6 +702,15 @@ clients can rely on the response being a well-formed _GraphQL response_
 regardless of the status code. Intermediary servers may use the status code to
 determine the status of the _GraphQL response_ without needing to process the
 response body.
+
+A client should process a GraphQL response that uses the
+`application/graphql-response+json` media type independent of which HTTP status
+code it uses, instead reading the response body to determine how to handle the
+request.
+
+Note: For the avoidance of doubt, GraphQL clients, once they have established
+that the response uses `application/graphql-response+json`, should completely
+ignore the HTTP status code.
 
 #### Examples
 
