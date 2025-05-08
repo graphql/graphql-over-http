@@ -214,8 +214,9 @@ parameters in one of the manners described in this specification:
   Document to execute.
 - {variables} - (_Optional_, map): Values for any Variables defined by the
   Operation.
-- {extensions} - (_Optional_, map): This entry is reserved for implementors to
-  extend the protocol however they see fit.
+- {extensions} - (_Optional_, map): This entry is reserved for implementers to
+  extend the protocol however they see fit, as specified in
+  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
@@ -371,11 +372,13 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
 - {operationName} - an optional string
 - {variables} - an optional object (map), the keys of which are the variable
   names and the values of which are the variable values
-- {extensions} - an optional object (map)
+- {extensions} - an optional object (map) reserved for implementers to extend
+  the protocol however they see fit, as specified in
+  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-All other property names are reserved for future expansion. If implementors need
+All other property names are reserved for future expansion. If implementers need
 to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementor-scoped entry to the {extensions}
+RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
 object.
 
 Servers receiving a request with additional properties MUST ignore properties
