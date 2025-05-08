@@ -535,7 +535,7 @@ If the response uses a non-`200` status code then the client MUST NOT rely on
 the body to be a well-formed _GraphQL response_.
 
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
-others) could originate from intermediary servers; since the client cannot
+others) could originate from an intermediary; since the client cannot
 determine if an `application/json` response with arbitrary status code is a
 well-formed _GraphQL response_ (because it cannot trust the source) the server
 must use `200` status code to guarantee to the client that the response has not
@@ -686,9 +686,9 @@ SHOULD reply with `403`, `401` or similar appropriate status code.
 
 Note: When the response media type is `application/graphql-response+json`,
 clients can rely on the response being a well-formed _GraphQL response_
-regardless of the status code. The intermediary servers that do not understand
-GraphQL may use the status code to get some information about the shape of the
-_GraphQL response_.
+regardless of the status code. Intermediary servers may use the status code to
+determine the status of the _GraphQL response_ without needing to process the
+response body.
 
 #### Examples
 
@@ -764,16 +764,20 @@ phrases specified in RFC2119 are used.
 
 ## Processing a response
 
-In certain environments, the source of a response may be an intermediary server,
-such as an API gateway, proxy, or firewall. In the case of an error, they may
-return their own non-GraphQL `application/json` response with a non-`200` status
-code.
+In some cases, the response received by a client may not originate from a
+GraphQL service, but instead from an intermediary—such as an API gateway, proxy,
+firewall or other middleware—that does not implement this specification. Such an
+intermediary might produce the response to indicate an error, returning a
+response with `4xx` or `5xx` status code and potentially using the standard
+`application/json` media type to encode the reason for the error. Such a
+response is unlikely to be a valid GraphQL response.
 
 For this reason, a client application can rely on the response being a
-well-formed _GraphQL response_ if any of the following cases is true:
+well-formed _GraphQL response_ only if at least one of the following conditions
+is met:
 
-- the response media type is `application/graphql-response+json`
-- the response media type is `application/json` and the status code is `200`
+- the response media type is `application/graphql-response+json`, or
+- the status code is `200`.
 
 ## Security
 
