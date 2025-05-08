@@ -799,21 +799,25 @@ scope of this specification.
 For example, this specification allows alternative media types to be used to
 encode the request body; however, media types such as `multipart/form-data` or
 `application/x-www-form-urlencoded` may result in the request being treated by a
-browser as a "simple request", thereby opening the server up to Cross-Site
-Request Forgery (CSRF/XSRF) attacks that would not be possible when using the
-recommended `application/json` media type which requires "preflight" checks.
+browser as a "simple request", which does not require a "preflight", thereby
+opening the server up to Cross-Site Request Forgery (CSRF/XSRF) attacks. The
+recommended `application/json` media type requires a "preflight" check when
+issued cross-domain. See
+[CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) in the WhatWG
+Fetch spec for more details on this.
+
+Note: One approach used by the community to mitigate CSRF risks is to ensure a
+request is not "simple" by requiring a custom header—such as
+`GraphQL-Require-Preflight`—is included. The presence of a custom header forces
+browsers to enact a "preflight" check, thereby adding an additional layer of
+security. (This is not a standard header, and many alternative headers could
+serve the same purpose. This is presented merely as an example of a pattern seen
+in the community.)
 
 Further extending this example, using `multipart/form-data` may allow large
 values to be referenced multiple times in a GraphQL operation, potentially
 causing the GraphQL service to process a much larger GraphQL request than the
 HTTP request size would suggest.
-
-Note: One approach used by the community to mitigate CSRF risks is to require a
-custom header to ensure requests are not "simple." For instance, the presence of
-a `GraphQL-Require-Preflight` header can be used to indicate that a preflight
-check has occurred, providing an additional layer of security. (This is not a
-standard header, and many alternative headers could serve the same purpose. This
-is presented merely as an example of a pattern seen in the community.)
 
 ### Other resources
 
