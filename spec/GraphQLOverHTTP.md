@@ -531,12 +531,16 @@ The server SHOULD use the `200` status code for every response to a well-formed
 _GraphQL-over-HTTP request_, independent of any _GraphQL request error_ or
 _GraphQL field error_ raised.
 
+If the response uses a non-`200` status code then the client MUST NOT rely on
+the body to be a well-formed _GraphQL response_.
+
 Note: A status code in the `4xx` or `5xx` ranges or status code `203` (and maybe
-others) could originate from intermediary servers; since the client cannot
-determine if an `application/json` response with arbitrary status code is a
-well-formed _GraphQL response_ (because it cannot trust the source) the server
-must use `200` status code to guarantee to the client that the response has not
-been generated or modified by an intermediary.
+others) could originate from an intermediary; since the client cannot determine
+if an `application/json` response with arbitrary status code is a well-formed
+_GraphQL response_ (because it cannot trust the source) the server must use
+`200` status code to guarantee to the client that the response has not been
+generated or modified by an intermediary. See
+[processing a response](#sec-Processing-a-response) for more details.
 
 If the _GraphQL response_ contains a non-null {data} entry then the server MUST
 use the `200` status code.
@@ -680,6 +684,12 @@ pass validation, then the server SHOULD reply with `400` status code.
 If the client is not permitted to issue the GraphQL request then the server
 SHOULD reply with `403`, `401` or similar appropriate status code.
 
+Note: When the response media type is `application/graphql-response+json`,
+clients can rely on the response being a well-formed _GraphQL response_
+regardless of the status code. Intermediary servers may use the status code to
+determine the status of the _GraphQL response_ without needing to process the
+response body.
+
 #### Examples
 
 The following examples provide guidance on how to deal with specific error cases
@@ -747,18 +757,27 @@ Note: The GraphQL specification
 and refers to the situation wherein a _GraphQL field error_ occurs as a partial
 response; it still indicates successful execution.
 
-## Processing the response
-
-If the response uses a non-`200` status code and the media type of the response
-payload is `application/json` then the client MUST NOT rely on the body to be a
-well-formed _GraphQL response_ since the source of the response may not be the
-server but instead some intermediary such as API gateways, proxies, firewalls,
-etc.
-
 # Non-normative notes
 
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
+
+## Processing a response
+
+In some cases, the response received by a client may not originate from a
+GraphQL service, but instead from an intermediary—such as an API gateway, proxy,
+firewall or other middleware—that does not implement this specification. Such an
+intermediary might produce the response to indicate an error, returning a
+response with `4xx` or `5xx` status code and potentially using the standard
+`application/json` media type to encode the reason for the error. Such a
+response is unlikely to be a valid GraphQL response.
+
+For this reason, a client application can rely on the response being a
+well-formed _GraphQL response_ only if at least one of the following conditions
+is met:
+
+- the response media type is `application/graphql-response+json`, or
+- the status code is `200`.
 
 ## Security
 
