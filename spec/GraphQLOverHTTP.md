@@ -276,7 +276,7 @@ accepting both media types, the client SHOULD indicate it prefers
 For HTTP GET requests, the _GraphQL-over-HTTP request_ parameters MUST be
 provided in the query component of the request URL, encoded in the
 `application/x-www-form-urlencoded` format as specified by the
-[WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+[WHATWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
 
 The {query} parameter MUST be the string representation of the source text of
 the document as specified in
@@ -291,7 +291,7 @@ The {operationName} parameter, if supplied and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
 
 Note: In the final URL all of these parameters will appear in the query
-component of the request URL as URL-encoded values due to the WhatWG
+component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
 
 Setting the value of the {operationName} parameter to the empty string is
@@ -803,7 +803,7 @@ browser as a "simple request", which does not require a "preflight", thereby
 opening the server up to Cross-Site Request Forgery (CSRF/XSRF) attacks. The
 recommended `application/json` media type requires a "preflight" check when
 issued cross-domain. See
-[CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) in the WhatWG
+[CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) in the WHATWG
 Fetch spec for more details on this.
 
 Note: One approach used by the community to mitigate CSRF risks is to ensure a
