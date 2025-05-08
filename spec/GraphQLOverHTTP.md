@@ -754,3 +754,44 @@ payload is `application/json` then the client MUST NOT rely on the body to be a
 well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
+
+# Non-normative notes
+
+## Security
+
+In this specification, GET requests are not supported for mutations due to
+security concerns. GET requests expose variables to logging mechanisms and
+intermediaries due to the URL encoding of parameters, which can lead to
+sensitive data being inadvertently logged. Furthermore, GET requests are
+considered "simple requests" under CORS (Cross-Origin Resource Sharing), meaning
+they bypass preflight checks that add a layer of security.
+
+On the other hand, using `application/json` for request bodies mandates a CORS
+preflight request, adding a security layer by ensuring the client has explicit
+permission from the server before sending the actual request. This is
+particularly important in mitigating cross-site request forgery (CSRF) attacks.
+
+It's important to note that "simple requests" like those using
+`application/x-www-form-urlencoded` or `multipart/form-data` do not have the
+same CORS behavior, and thus do not undergo the same preflight checks.
+Implementers should be aware of the security implications of using these types
+of requests. While they can be secured with the right headers enforced by the
+server, it is crucial to understand and properly account for the security risks
+involved.
+
+To mitigate these risks, it is recommended that servers require a custom header
+to ensure requests are not "simple." For instance, a `GraphQL-Require-Preflight`
+header can be used to indicate that a preflight check has occurred, providing an
+additional layer of security.
+
+For more detailed security considerations, please refer to
+[RFC 7231](https://tools.ietf.org/html/rfc7231),
+[RFC 6454](https://tools.ietf.org/html/rfc6454), and other relevant RFCs.
+
+## Request format compatibility
+
+Supporting formats not described by this specification, such as XML or Protobuf,
+may have potential conflicts with future versions of this specification as
+ongoing development aims to standardize and ensure the security and
+interoperability of GraphQL over HTTP. For this reason, it is recommended to
+adhere to the officially recognized formats outlined here.
