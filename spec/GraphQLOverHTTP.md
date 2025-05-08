@@ -757,10 +757,18 @@ etc.
 
 # Non-normative notes
 
+This section of the specification is non-normative, even where the words and
+phrases specified in RFC2119 are used.
+
+This specification focuses solely on the intersection of GraphQL and HTTP.
+General concerns of either technology (including security concerns) are out of
+scope, except where their interaction introduces additional considerations.
+
 ## Security
 
-Standard HTTP security concerns are outside of the scope of this specification;
-implementers are expected to have a solid understanding of the security
+### No general HTTP concerns
+
+Implementers are expected to have a solid understanding of the security
 implications of exposing a service over HTTP, and are responsible for
 implementing relevant mitigations and solutions. This specification will not
 repeat standard HTTP best practices such as not using `GET` for requests with
@@ -769,38 +777,45 @@ ensuring all connections are encrypted via HTTPS, placing limits on the length
 of incoming data, implementing rate limits, authorization and authentication
 security, request tracing, intrusion detection, and so on.
 
-This specification is concerned with the additional concerns of exposing a
-GraphQL schema over HTTP. Security concerns related to GraphQL validation and
-execution in general are outside of the scope of this specification;
-implementers are expected to have a solid understanding of the security
-implications of a GraphQL service and are responsible for implementing relevant
-mitigations and solutions (for example: limiting the size and token count of a
-GraphQL document, ensuring document validity, limiting the number of errors a
-response may return, limiting information revealed via errors, enforcing
-validation and execution timeouts and pagination limits, implementing query
-depth and complexity limits, implementing authentication and authorization,
-applying rate limits to critical logic, preventing injection attacks, and so
-on).
+### No general GraphQL concerns
+
+Implementers are further expected to have a solid understanding of the security
+implications of running a GraphQL service and are responsible for implementing
+relevant mitigations and solutions there. For example, they may: limit the size
+and token count of GraphQL documents; ensure document validity; limit the number
+of errors a response may return; limit information revealed via errors; enforce
+validation and execution timeouts and pagination limits; implement query depth
+and complexity limits; implement authentication and authorization; apply rate
+limits to critical logic; and so on.
+
+### Exercise flexibility with caution
 
 Where this specification leaves flexibility for the implementer, the implementer
-should be very cautious when exercising this freedom. For example, this
-specification allows alternative media types to be used to encode the request
-body, however a media type such as `multipart/form-data` or
+should be very cautious when exercising this freedom. Implementers must make
+themselves aware of and account for the security implications of their choices;
+while many alternative choices can be secured, securing them is outside of the
+scope of this specification.
+
+For example, this specification allows alternative media types to be used to
+encode the request body; however, media types such as `multipart/form-data` or
 `application/x-www-form-urlencoded` may result in the request being treated by a
-browser as a "simple request" thereby opening the server up to Cross-Site
+browser as a "simple request", thereby opening the server up to Cross-Site
 Request Forgery (CSRF/XSRF) attacks that would not be possible when using the
 recommended `application/json` media type which requires "preflight" checks.
-Further, using `multipart/form-data` may allow large values to be referenced
-multiple times, potentially causing the GraphQL service to process a much larger
-GraphQL request than the HTTP request size would imply. Implementers must make
-themselves aware of and account for the security implications of using these
-types of requests; while they can be secured, securing them is outside of the
-scope of this specification.
+
+Further extending this example, using `multipart/form-data` may allow large
+values to be referenced multiple times in a GraphQL operation, potentially
+causing the GraphQL service to process a much larger GraphQL request than the
+HTTP request size would suggest.
 
 Note: One approach used by the community to mitigate CSRF risks is to require a
 custom header to ensure requests are not "simple." For instance, the presence of
 a `GraphQL-Require-Preflight` header can be used to indicate that a preflight
-check has occurred, providing an additional layer of security.
+check has occurred, providing an additional layer of security. (This is not a
+standard header, and many alternative headers could serve the same purpose. This
+is presented merely as an example of a pattern seen in the community.)
+
+### Other resources
 
 For more detailed security considerations, please refer to
 [RFC 7231](https://tools.ietf.org/html/rfc7231),
