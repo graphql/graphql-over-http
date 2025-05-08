@@ -78,6 +78,11 @@
 <li><a href="#sec-Processing-the-response"><span class="spec-secid">6.5</span>Processing the response</a></li>
 </ol>
 </li>
+<li><a href="#sec-Non-normative-notes"><span class="spec-secid">7</span>Non-normative notes</a><ol>
+<li><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a></li>
+<li><a href="#sec-Request-format-compatibility"><span class="spec-secid">7.2</span>Request format compatibility</a></li>
+</ol>
+</li>
 <li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
 </ol>
 </nav>
@@ -498,7 +503,22 @@ The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Handling-
 </section>
 <section id="sec-Processing-the-response" secid="6.5">
 <h2 data-source="spec/GraphQLOverHTTP.md#L750"><span class="spec-secid" title="link to this section"><a href="#sec-Processing-the-response">6.5</a></span>Processing the response</h2>
-<p data-source="spec/GraphQLOverHTTP.md#L752-L757">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Response" data-name="graphql-response" target="_blank">GraphQL response</a></span> since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc. </p>
+<p data-source="spec/GraphQLOverHTTP.md#L752-L756">If the response uses a non-<code>200</code> status code and the media type of the response payload is <code>application/json</code> then the client MUST NOT rely on the body to be a well-formed <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Response" data-name="graphql-response" target="_blank">GraphQL response</a></span> since the source of the response may not be the server but instead some intermediary such as API gateways, proxies, firewalls, etc.</p>
+</section>
+</section>
+<section id="sec-Non-normative-notes" secid="7">
+<h1 data-source="spec/GraphQLOverHTTP.md#L758"><span class="spec-secid" title="link to this section"><a href="#sec-Non-normative-notes">7</a></span>Non-normative notes</h1>
+<section id="sec-Security" secid="7.1">
+<h2 data-source="spec/GraphQLOverHTTP.md#L760"><span class="spec-secid" title="link to this section"><a href="#sec-Security">7.1</a></span>Security</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L762-L767">In this specification, GET requests are not supported for mutations due to security concerns. GET requests expose variables to logging mechanisms and intermediaries due to the URL encoding of parameters, which can lead to sensitive data being inadvertently logged. Furthermore, GET requests are considered &ldquo;simple requests&rdquo; under CORS (Cross-Origin Resource Sharing), meaning they bypass preflight checks that add a layer of security.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L769-L772">On the other hand, using <code>application/json</code> for request bodies mandates a CORS preflight request, adding a security layer by ensuring the client has explicit permission from the server before sending the actual request. This is particularly important in mitigating cross-site request forgery (CSRF) attacks.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L774-L780">It&rsquo;s important to note that &ldquo;simple requests&rdquo; like those using <code>application/x-www-form-urlencoded</code> or <code>multipart/form-data</code> do not have the same CORS behavior, and thus do not undergo the same preflight checks. Implementers should be aware of the security implications of using these types of requests. While they can be secured with the right headers enforced by the server, it is crucial to understand and properly account for the security risks involved.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L782-L785">To mitigate these risks, it is recommended that servers require a custom header to ensure requests are not &ldquo;simple.&rdquo; For instance, a <code>GraphQL-Require-Preflight</code> header can be used to indicate that a preflight check has occurred, providing an additional layer of security.</p>
+<p data-source="spec/GraphQLOverHTTP.md#L787-L789">For more detailed security considerations, please refer to <a href="https://tools.ietf.org/html/rfc7231">RFC 7231</a>, <a href="https://tools.ietf.org/html/rfc6454">RFC 6454</a>, and other relevant RFCs.</p>
+</section>
+<section id="sec-Request-format-compatibility" secid="7.2">
+<h2 data-source="spec/GraphQLOverHTTP.md#L791"><span class="spec-secid" title="link to this section"><a href="#sec-Request-format-compatibility">7.2</a></span>Request format compatibility</h2>
+<p data-source="spec/GraphQLOverHTTP.md#L793-L798">Supporting formats not described by this specification, such as XML or Protobuf, may have potential conflicts with future versions of this specification as ongoing development aims to standardize and ensure the security and interoperability of GraphQL over HTTP. For this reason, it is recommended to adhere to the officially recognized formats outlined here. </p>
 </section>
 </section>
 <section id="index" secid="index" class="spec-index">
@@ -593,6 +613,13 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 </ol>
 </li>
 <li id="_sidebar_6.5"><a href="#sec-Processing-the-response"><span class="spec-secid">6.5</span>Processing the response</a></li>
+</ol>
+</li>
+<li id="_sidebar_7"><a href="#sec-Non-normative-notes"><span class="spec-secid">7</span>Non-normative notes</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_7" /><label for="_toggle_7"></label>
+<ol>
+<li id="_sidebar_7.1"><a href="#sec-Security"><span class="spec-secid">7.1</span>Security</a></li>
+<li id="_sidebar_7.2"><a href="#sec-Request-format-compatibility"><span class="spec-secid">7.2</span>Request format compatibility</a></li>
 </ol>
 </li>
 <li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
