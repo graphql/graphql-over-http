@@ -428,7 +428,7 @@ URLs that enable GraphQL requests may enable other types of requests &ndash; see
 </section>
 <section id="sec-application-json.Examples.Document-validation-failure" secid="6.4.1.1.4">
 <h5 data-source="spec/GraphQLOverHTTP.md#L601"><span class="spec-secid" title="link to this section"><a href="#sec-application-json.Examples.Document-validation-failure">6.4.1.1.4</a></span>Document validation failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L603-L604">Requests that fail to pass <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Validation" data-name="graphql-validation" target="_blank">GraphQL validation</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>200</code> (Okay).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L603-L604">If a request fails to pass <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Validation" data-name="graphql-validation" target="_blank">GraphQL validation</a></span>, the server SHOULD NOT execute the request and SHOULD return a status code of <code>200</code> (Okay).</p>
 </section>
 <section id="sec-application-json.Examples.Operation-cannot-be-determined" secid="6.4.1.1.5">
 <h5 data-source="spec/GraphQLOverHTTP.md#L606"><span class="spec-secid" title="link to this section"><a href="#sec-application-json.Examples.Operation-cannot-be-determined">6.4.1.1.5</a></span>Operation cannot be determined</h5>
@@ -491,7 +491,7 @@ When the response media type is <code>application/graphql-response+json</code>, 
 </section>
 <section id="sec-application-graphql-response-json.Examples.Document-validation-failure" secid="6.4.2.1.4">
 <h5 data-source="spec/GraphQLOverHTTP.md#L723"><span class="spec-secid" title="link to this section"><a href="#sec-application-graphql-response-json.Examples.Document-validation-failure">6.4.2.1.4</a></span>Document validation failure</h5>
-<p data-source="spec/GraphQLOverHTTP.md#L725-L726">Requests that fail to pass <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Validation" data-name="graphql-validation" target="_blank">GraphQL validation</a></span> SHOULD be denied execution with a status code of <code>400</code> (Bad Request).</p>
+<p data-source="spec/GraphQLOverHTTP.md#L725-L726">If a request fails <span class="spec-ref"><a href="https://spec.graphql.org/draft/#sec-Validation" data-name="graphql-validation" target="_blank">GraphQL validation</a></span>, the server SHOULD return a status code of <code>400</code> (Bad Request) without proceeding to GraphQL execution.</p>
 </section>
 <section id="sec-application-graphql-response-json.Examples.Operation-cannot-be-determined" secid="6.4.2.1.5">
 <h5 data-source="spec/GraphQLOverHTTP.md#L728"><span class="spec-secid" title="link to this section"><a href="#sec-application-graphql-response-json.Examples.Operation-cannot-be-determined">6.4.2.1.5</a></span>Operation cannot be determined</h5>
