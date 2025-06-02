@@ -672,13 +672,13 @@ Note: There are no circumstances where the GraphQL specification allows for a
 response having {data} as {null} without {errors} being present.
 
 If the _GraphQL response_ contains both the {data} entry (even if it is {null})
-and the {errors} entry, then the server SHOULD reply with `203` status code.
+and the {errors} entry, then the server SHOULD reply with `294` status code.
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
 operation typically become part of the result, as long as the server is still
 able to produce a well-formed _GraphQL response_. For details of why status code
-`203` is recommended, see [Partial success](#sec-Partial-success). Using `4xx`
+`294` is recommended, see [Partial success](#sec-Partial-success). Using `4xx`
 and `5xx` status codes in this situation is not appropriate - since no _GraphQL
 request error_ has occurred it is seen as a "partial response" or "partial
 success".
@@ -797,23 +797,18 @@ appropriate; since no _GraphQL request error_ has occurred it is seen as a
 "partial response" or "partial success".
 
 There's currently not an approved official HTTP status code to use for a
-"partial success," contenders include "206 Partial Content" (which requires the
-`Range` header), WebDAV's status code "207 Multi-Status", and using a custom
-code such as "294 Partial Success."
+"partial success". Contenders include "203 Non-Authorative information" (which
+indicates the response has been transformed), "206 Partial Content" (which
+requires the `Range` header), and WebDAV's status code "207 Multi-Status" (which
+"provides status for multiple _independent_ operations"). None of those quite
+fit GraphQL's needs, so we recommend using custom code "294 Partial Success".
+Since we are defining the code ourselves, rather than the IETF, we only
+recommend its usage alongside the `application/graphql-response+json` media type
+which makes the meaning explicit.
 
-[IETF RFC2616 Section 6.1.1](https://datatracker.ietf.org/doc/html/rfc2616#section-6.1.1)
-states "codes are fully defined in section 10" implying that though more codes
-are expected to be supported over time, valid codes must be present in this
-document. For compatibility reasons, using HTTP status `203` which has no
-additional requirements seems to work the best with intermediate servers and
-clients, but since it does not semantically line up we only recommend its usage
-alongside the `application/graphql-response+json` media type which makes the
-meaning explicit. We hope to one day move to `294` if someone can push it
-through the IETF review process.
-
-Note: This use of HTTP 203 does not strictly align with the intended semantics
-of this status code, but was a pragmatic choice to maximize compatibility whilst
-allowing servers to indicate partial success such that intermediaries that do
+Note: This status code is not to help clients, who should ignore the status code
+of a response when receiving the `application/graphql-response+json` media type,
+but allows servers to indicate partial success such that intermediaries that do
 not implement this specification may still track the not-fully-successful
 request (for example, for observability).
 
