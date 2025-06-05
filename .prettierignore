@@ -1,4 +1,5 @@
 # PRs to Working Group documents should be minimal effort - no need to force formatting compliance
+/working-group/*.md
 /working-group/agendas
 /working-group/notes/2022
 /working-group/notes/2023
