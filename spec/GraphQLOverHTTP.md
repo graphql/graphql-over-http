@@ -519,8 +519,6 @@ _GraphQL response_, the server SHOULD respond with the appropriate status code
 depending on the concrete error condition, and MUST NOT respond with a `2xx`
 status code when using the `application/graphql-response+json` media type.
 
-Note: Typically the appropriate status code will be `400` (Bad Request).
-
 Note: This rule is "should" to maintain compatibility with legacy servers which
 can return 200 status codes even when this type of error occurs, but only when
 not using the `application/graphql-response+json` media type.
@@ -678,17 +676,47 @@ since no _GraphQL request error_ has occurred it is seen as a "partial
 response".
 
 If the _GraphQL response_ does not contain the {data} entry then the server MUST
-reply with a `4xx` or `5xx` status code as appropriate.
+reply with a `4xx` or `5xx` status code as appropriate:
+
+- If the failure is due to an issue in the request itself, the appropriate `4xx`
+  status code should be used:
+  - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
+  - If the `Content-Type` of the request is not supported, status code `415` is
+    RECOMMENDED.
+  - If none of the media types in the `Accept` header are supported, status code
+    `406` is RECOMMENDED.
+  - If the client did not produce a request within the time that the server was
+    prepared to wait, status code `408` is RECOMMENDED.
+  - If the size of the URI was too large, status code `414` is RECOMMENDED (and
+    the client should consider using `POST` instead).
+  - If the size of the request headers (or any one header) was too large, status
+    code `431` is RECOMMENDED.
+  - If the size of the `POST` request body was too large, status code `413` is
+    RECOMMENDED.
+  - If the JSON body of the request could not be parsed, status code `400` is
+    RECOMMENDED.
+  - If the request is not a well-formed _GraphQL-over-HTTP request_, status code
+    `422` is RECOMMENDED.
+  - If the GraphQL document in the request cannot be parsed, status code `400`
+    is RECOMMENDED.
+  - If the request does not pass GraphQL validation, status code `422` is
+    RECOMMENDED.
+  - If the operation to execute cannot be unambiguously determined, status code
+    `422` is RECOMMENDED.
+  - If the variable values cannot be coerced to match the operation's variable
+    definitions, status code `422` is RECOMMENDED.
+  - If the client is not permitted to issue the GraphQL request then the server
+    SHOULD reply with `401`, `403` or similar appropriate status code.
+  - If the server is a short and stout ceramic vessel, status code `418` is
+    RECOMMENDED.
+- When the server is the reason for failure, the appropriate `5xx` status code
+  should be used; for example, if the server is not able to execute requests at
+  this time due to maintenance or load-shedding then status code `503` is
+  RECOMMENDED.
 
 Note: The GraphQL specification indicates that the only situation in which the
 _GraphQL response_ does not include the {data} entry is one in which the
 {errors} entry is populated.
-
-If the request is not a well-formed _GraphQL-over-HTTP request_, or it does not
-pass validation, then the server SHOULD reply with `400` status code.
-
-If the client is not permitted to issue the GraphQL request then the server
-SHOULD reply with `403`, `401` or similar appropriate status code.
 
 Note: When the response media type is `application/graphql-response+json`,
 clients can rely on the response being a well-formed _GraphQL response_
@@ -717,7 +745,7 @@ For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 shape for `variables`).
 
 A request that does not constitute a well-formed _GraphQL-over-HTTP request_
-SHOULD result in status code `400` (Bad Request).
+SHOULD result in status code `422` (Unprocessable Content).
 
 ##### Document parsing failure
 
@@ -729,20 +757,20 @@ code `400` (Bad Request).
 ##### Document validation failure
 
 If a request fails _GraphQL validation_, the server SHOULD return a status code
-of `400` (Bad Request) without proceeding to GraphQL execution.
+of `422` (Unprocessable Content) without proceeding to GraphQL execution.
 
 ##### Operation cannot be determined
 
 If [GetOperation()](<https://spec.graphql.org/draft/#GetOperation()>) raises a
 _GraphQL request error_, the server SHOULD NOT execute the request and SHOULD
-return a status code of `400` (Bad Request).
+return a status code of `422` (Unprocessable Content).
 
 ##### Variable coercion failure
 
 If
 [CoerceVariableValues()](<https://spec.graphql.org/draft/#CoerceVariableValues()>)
 raises a _GraphQL request error_, the server SHOULD NOT execute the request and
-SHOULD return a status code of `400` (Bad Request).
+SHOULD return a status code of `422` (Unprocessable Content).
 
 ##### Field errors encountered during execution
 
