@@ -1,23 +1,20 @@
-## B. Appendix: Variable Batching
+## B. Appendix: Batching
 
-This appendix defines an optional extension to the GraphQL-over-HTTP protocol that allows for the batching of multiple sets of variables in a single GraphQL request.
+This appendix defines optional batching extensions for GraphQL over HTTP. It
+covers both:
 
-:: **Variable batching** enables a client to execute the same GraphQL operation multiple times with different sets of variables, all within a single HTTP request. This can significantly reduce the number of HTTP requests required when performing multiple similar operations, thus improving network efficiency and reducing overhead.
+- **Variable batching**: one request object executes one operation multiple
+  times by using a list of variable maps.
+- **Request batching**: one HTTP request contains a list of request objects.
 
-Field batching, such as querying multiple products by ID in a single request, can work in some cases.
+Variable batching and request batching MAY be used independently or together.
 
-```graphql
-query($ids: [ID!]!) {
-    productsByIds(ids: $ids) {
-        id
-        name
-    }
-}
-```
+### Motivation
 
-However, this approach doesn’t work when variables are used within nested selections.
+Field-level batching can solve some cases, but it does not cover all shapes of
+variable-dependent queries. For example:
 
-```graphql
+```graphql example
 query ($vendorId: ID!, $productId: ID!) {
   vendor(id: $vendorId) {
     id
@@ -25,143 +22,138 @@ query ($vendorId: ID!, $productId: ID!) {
     stock(productId: $productId) {
       count
       nextDeliveryDue
-      product { id name }
+      product {
+        id
+        name
+      }
     }
   }
 }
 ```
 
-Variable batching allows a single request to include multiple sets of variables. This approach is particularly useful for GraphQL gateways to fetch multiple entities by their keys and bulk operations, reducing network overhead and improving performance by consolidating multiple operations into a single request.
+A list of variable maps allows this operation to execute multiple times in one
+HTTP request, each time with a different pair of variable values.
 
-### Variable Batching Request
+### Request Shapes
 
-A server MAY accept a **variable batching request** via `POST`.
+A batching request is sent as a POST request with a JSON-encoded body.
 
-#### Request Parameters
+This appendix extends the `{variables}` request parameter:
 
-A _variable batching request_ follows the same structure as a standard GraphQL request with the exception of the `variables` parameter which now accepts an array:
+- `{variables}` MAY be a map (as defined in the main specification).
+- `{variables}` MAY be a list of maps for variable batching.
+- If `{variables}` is a list, each item in the list MUST be a map.
 
-- {query} - (_Required_, string): The string representation of the Source Text
-  of a GraphQL Document as specified in
-  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
-- {operationName} - (_Optional_, string): The name of the Operation in the
-  Document to execute.
-- **{variables}** (Required, array of maps):
-  Instead of a single map, the `variables` parameter is an array of maps. Each map in the array represents a different set of variables to be used in executing the operation.
-- {extensions} - (_Optional_, map): This entry is reserved for implementors to
-  extend the protocol however they see fit.
+A batching request body MUST be one of the following:
+
+- A single _GraphQL-over-HTTP request_ object.
+- A list of _GraphQL-over-HTTP request_ objects.
+
+If a request object's `{variables}` value is a list, the server MUST execute
+that request once per variables entry.
+
+If the request body is a list, each entry in that list MUST be processed as an
+independent _GraphQL-over-HTTP request_.
 
 ### Accept
 
-For **variable batching requests**, the client SHOULD include the media type `application/graphql+jsonl` in the `Accept` header to indicate that it expects a batched response in JSON Lines format.
+For batching responses, a client SHOULD include `application/jsonl` in the
+`Accept` header.
 
+### Response
 
-If the client does not supply an `Accept` header, the server MAY respond with a default content type of `application/graphql+jsonl`, or it may use any other media type it supports. However, to ensure compatibility and clarity, it is RECOMMENDED that the client explicitly states its preferred media types using the `Accept` header.
+A server implementing this appendix MUST support `application/jsonl` responses
+for batching requests.
 
-### POST
+If `application/jsonl` is acceptable to the client, the server SHOULD respond
+using `application/jsonl`.
 
-A **variable batching request** instructs the server to perform a query or mutation operation multiple times, once for each set of variables provided. The request MUST have a body that contains the values of the _variable batching request_ parameters encoded in the `application/graphql+jsonl` media type, or another media type supported by the server.
+A batching response is a list of _GraphQL responses_. When encoded as
+`application/jsonl`, each list entry MUST be encoded as one JSON object per
+line.
 
+In addition to the standard fields of a _GraphQL response_, each batching
+response entry MUST include index fields as follows:
 
-A server MUST support POST requests encoded with the `application/json` media type (as outlined in the GraphQL-over-HTTP specification).
+- `requestIndex` (integer) is REQUIRED when the request body was a list of
+  request objects. The value MUST be the 0-based index of the request object in
+  that list.
+- `variableIndex` (integer) is REQUIRED when the corresponding request object's
+  `{variables}` value was a list. The value MUST be the 0-based index of that
+  variables map.
+- If both batching modes apply, both `requestIndex` and `variableIndex` are
+  REQUIRED.
 
-If the client does not supply a `Content-Type` header with a POST request, the server SHOULD reject the request using the appropriate `4xx` status code.
+The server MAY return response entries in any order. These index fields allow
+clients to correlate each entry with the corresponding request object and
+variables entry.
 
-### JSON Encoding
+#### Variable Batching Example
 
-When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
-(map), with the properties specified by the GraphQL-over-HTTP request:
+```headers example
+Content-Type: application/json
+Accept: application/jsonl
+```
 
-- {query} - the string representation of the Source Text of the Document as
-  specified in
-  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
-- {operationName} - an optional string
-- **{variables}** - An array of JSON objects (maps), where each map corresponds to a set of variables to be used in the query.
-  names and the values of which are the variable values
-- {extensions} - an optional object (map)
-
-#### Example
-
-If we wanted to execute the following GraphQL query:
-
-```raw graphql example
-query ($id: ID!) {
-  user(id: $id) {
-    name
-  }
+```json example
+{
+  "query": "query getFoo($a: Int!) { foo(a: $a) }",
+  "variables": [{ "a": 1 }, { "a": 2 }]
 }
 ```
 
-With the following query variable sets:
+```jsonl example
+{"variableIndex":1,"data":{"foo":2}}
+{"variableIndex":0,"data":{"foo":1}}
+```
+
+#### Request Batching Example
+
+```headers example
+Content-Type: application/json
+Accept: application/jsonl
+```
 
 ```json example
 [
   {
-      "id": "QVBJcy5ndXJ1"
+    "query": "query getFoo($a: Int!) { foo(a: $a) }",
+    "variables": { "a": 1 }
   },
   {
-      "id": "QVBJcy5ndXJ2"
-  },
-  {
-      "id": "QVBJcy5ndXJ3"
+    "query": "query getBar($b: Int!) { bar(b: $b) }",
+    "variables": { "b": 1 }
   }
 ]
 ```
 
-This request could be sent via an HTTP POST to the relevant URL using the JSON
-encoding with the headers:
+```jsonl example
+{"requestIndex":1,"data":{"bar":1}}
+{"requestIndex":0,"data":{"foo":1}}
+```
+
+#### Combined Request + Variable Batching Example
 
 ```headers example
 Content-Type: application/json
-Accept: application/graphql-response+jsonl
+Accept: application/jsonl
 ```
-
-And the body:
 
 ```json example
-{
-  "query": "query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}",
-  "variables": [
-    {
-      "id": "QVBJcy5ndXJ1"
-    },
-    {
-      "id": "QVBJcy5ndXJ2"
-    },
-    {
-      "id": "QVBJcy5ndXJ3"
-    }
-  ]
-}
+[
+  {
+    "query": "query getFoo($a: Int!) { foo(a: $a) }",
+    "variables": [{ "a": 1 }, { "a": 2 }]
+  },
+  {
+    "query": "query getBar($b: Int!) { bar(b: $b) }",
+    "variables": { "b": 1 }
+  }
+]
 ```
 
-### Response
-
-When a server receives a well-formed _variable batching request_, it MUST return a well‐formed stream of _GraphQL responses_. Each response in the stream corresponds to the result of validating and executing the requested operation with one set of variables. The server's response stream describes the outcome of each operation, including any errors encountered during the execution of the request.
-
-A server must comply with [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
-
-Each response in the stream follows the standard GraphQL response format, with the addition of a required `variableIndex` field at the top level of each response. The `variableIndex` indicates the index of the variables map from the original request, allowing the client to associate each response with the correct set of variables.
-
-The server MAY respond with results in any order. The `variableIndex` field ensures that clients can correctly match each response to its corresponding set of variables, regardless of the order in which the responses are returned.
-
-#### Response Structure
-
-Each line in the JSON Lines (JSONL) response MUST include the following fields:
-
-- **`variableIndex`** (Required, integer): The index of the corresponding variables map from the original request's `variables` array. This allows clients to match each response with the correct set of variables.
-- **`data`** (Optional, map): The data resulting from the execution of the GraphQL operation with the corresponding set of variables.
-- **`errors`** (Optional, array): An array of errors, if any were encountered during the execution of the operation.
-- **`extensions`** (Optional, map): A map that MAY include additional information about the request and execution, as needed by implementors.
-
-## Body
-
-A server MUST indicate the media type of the response with a `Content-Type` header, and SHOULD indicate the encoding (e.g. `application/graphql-response+jsonl; charset=utf-8`).
-
-TODO benjie: Should we repeat this or should we take this as a given?
-
-If an `Accept` header is provided, the server MUST respect the given `Accept`
-header and attempt to encode the response in the highest priority media type
-listed that is supported by the server.
-
-
+```jsonl example
+{"requestIndex":0,"variableIndex":1,"data":{"foo":2}}
+{"requestIndex":1,"data":{"bar":1}}
+{"requestIndex":0,"variableIndex":0,"data":{"foo":1}}
+```
