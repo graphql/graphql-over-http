@@ -9,6 +9,9 @@ covers both:
 
 Variable batching and request batching MAY be used independently or together.
 
+Note: GraphQL subscriptions are beyond the scope of this specification, so this
+appendix defines batching semantics for query and mutation operations only.
+
 ### Motivation
 
 Field-level batching can solve some cases, but it does not cover all shapes of
@@ -108,6 +111,9 @@ response entry MUST include index fields as follows:
 The server MAY return response entries in any order. These index fields allow
 clients to correlate each entry with the corresponding request object and
 variables entry.
+
+If a client needs to process results in request-list order or variables-list
+order, it MUST reorder entries using `requestIndex` and `variableIndex`.
 
 When using `application/jsonl`, the server MAY deliver each response entry as
 soon as it becomes available.
