@@ -55,6 +55,27 @@ that request once per variables entry.
 If the request body is a list, each entry in that list MUST be processed as an
 independent _GraphQL-over-HTTP request_.
 
+### Execution Semantics
+
+When a request object's `{variables}` value is a list, each variables map
+represents a distinct execution of that request object.
+
+The server MAY execute these executions in any order, including concurrently,
+and the client MUST NOT assume serial execution or any ordering based on
+variables list position.
+
+If the request body is a list of request objects, the server MAY process those
+request objects in any order, including concurrently, and the client MUST NOT
+assume ordering based on request list position.
+
+Within each individual execution, GraphQL execution semantics continue to apply
+unchanged.
+
+Note: Implementations often use batching mechanisms such as DataLoaders or batch
+resolvers. A server may improve efficiency by sharing such batching mechanisms
+across all executions produced from one batching request, rather than isolating
+each execution.
+
 ### Accept
 
 For batching responses, a client SHOULD include `application/jsonl` in the
@@ -87,6 +108,9 @@ response entry MUST include index fields as follows:
 The server MAY return response entries in any order. These index fields allow
 clients to correlate each entry with the corresponding request object and
 variables entry.
+
+When using `application/jsonl`, the server MAY deliver each response entry as
+soon as it becomes available.
 
 #### Variable Batching Example
 
