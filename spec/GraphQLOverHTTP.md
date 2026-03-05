@@ -432,6 +432,15 @@ A server must comply with
 The body of the server's response MUST follow the requirements for a
 [GraphQL response](#sec-Response), encoded directly in the chosen media type.
 
+A server MUST NOT include additional top-level entries in a _GraphQL response_
+unless those entries are explicitly defined by one of:
+
+1. The GraphQL specification.
+2. This specification, including its appendices.
+3. Another specification or appendix published under the `graphql.org` domain.
+
+Clients MUST ignore any top-level response entries they do not understand.
+
 A server MUST indicate the media type of the response with a `Content-Type`
 header, and SHOULD indicate the encoding (e.g.
 `application/graphql-response+json; charset=utf-8`).
