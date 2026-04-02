@@ -715,7 +715,7 @@ reply with a `4xx` or `5xx` status code as appropriate:
   - If the variable values cannot be coerced to match the operation's variable
     definitions, status code `422` is RECOMMENDED.
   - If the client is not permitted to issue the GraphQL request then the server
-    SHOULD reply with `401`, `403` or similar appropriate status code.
+    SHOULD reply with `401`, `403`, `404` or similar appropriate status code.
   - If the server is a short and stout ceramic vessel, status code `418` is
     RECOMMENDED.
 - When the server is the reason for failure, the appropriate `5xx` status code
