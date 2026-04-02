@@ -22,9 +22,9 @@ status code is `200`.
 This caused multiple observability issues because it was challenging to
 distinguish a well-formed _GraphQL response_ from an intermediary response.
 
-`application/graphql-response+json` allows to distinguish a well-formed
-_GraphQL response_ from another intermediary response and is the required media
-type moving forward.
+`application/graphql-response+json` allows to distinguish a well-formed _GraphQL
+response_ from another intermediary response and is the required media type
+moving forward.
 
 For compatibility reasons, clients and servers may support `application/json` as
 described in this section.
