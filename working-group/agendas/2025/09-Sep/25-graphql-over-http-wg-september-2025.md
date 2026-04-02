@@ -73,7 +73,7 @@ https://github.com/graphql/graphql-spec/blob/main/CONTRIBUTING.md#rfc-contributi
 | This is an open meeting: To attend, read [JoiningAMeeting.md][] then edit and PR this file. (Edit: ✎ above, or press "e") |
 | ---------------------------------------------------------------------------------------- |
 
-# GraphQL-over-HTTP WG — July 2025
+# GraphQL-over-HTTP WG — September 2025
 
 The GraphQL-over-HTTP Working Group meets regularly to discuss changes to the
 [GraphQL-over-HTTP Specification](https://graphql.github.io/graphql-over-http/).
@@ -81,7 +81,7 @@ This is an open meeting in which anyone in the GraphQL community may attend.
 
 We typically meet on the last Thursday of the month.
 
-- **Date & Time**: [July 31, 2025, 11:00 AM – 12:00 PM PDT](https://www.timeanddate.com/worldclock/converter.html?iso=20250731T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
+- **Date & Time**: [September 25, 2025, 11:00 AM – 12:00 PM PDT](https://www.timeanddate.com/worldclock/converter.html?iso=20250925T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
   - View the [calendar][], or subscribe ([Google Calendar][], [ical file][]).
   - _Please Note:_ The date or time may change. Please check this agenda the
     week of the meeting to confirm. While we try to keep all calendars accurate,
@@ -102,7 +102,6 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
-| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH            |
 
 
 ## Agenda
