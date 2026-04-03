@@ -432,7 +432,7 @@ recommended response. However, the server authors may know better about the
 specific clients consuming their endpoint, thus both approaches are permitted.
 
 A GraphQL server MUST support responses using the
-application/graphql-response+json media type.
+`application/graphql-response+json` media type.
 
 For maximal compatibility, a _server_ SHOULD support using both the
 `application/json` and the `application/graphql-response+json` media types for
