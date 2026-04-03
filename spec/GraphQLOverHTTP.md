@@ -431,15 +431,15 @@ one of the media types it has requested, hence `406 Not Acceptable` being the
 recommended response. However, the server authors may know better about the
 specific clients consuming their endpoint, thus both approaches are permitted.
 
-A server MUST support responses using at least one of the official GraphQL
-response media types.
+A GraphQL server MUST support responses using the
+application/graphql-response+json media type.
 
 For maximal compatibility, a _server_ SHOULD support using both the
 `application/json` and the `application/graphql-response+json` media types for
 responses.
 
-A GraphQL server MUST support responses using the
-application/graphql-response+json media type.
+Note: See [Appendix A](#sec-Appendix-application-json-responses) for more
+details about `application/json` responses.
 
 ## Validation
 
