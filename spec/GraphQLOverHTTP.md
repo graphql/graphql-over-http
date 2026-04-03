@@ -119,8 +119,15 @@ time.
 
 # HTTP protocol
 
-A server MUST comply with
+The details of the HTTP protocol used by GraphQL clients and servers are outside
+this specification.
+
+Where applicable, server and clients MUST comply with
 [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231) semantics.
+
+In particular, "header", "status code", "body", "Accept", and "Content-Type" are
+to be interpreted according to
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
 
 A server MUST support at least one version of the HTTP message format, such as
 [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc7230) or
