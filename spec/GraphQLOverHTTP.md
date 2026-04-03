@@ -239,21 +239,6 @@ client gets something useful, it needs to indicate the media types it supports.
 The client MUST include the media type `application/graphql-response+json` in
 the `Accept` header.
 
-If the client knows that the server supports
-`application/graphql-response+json`, it is RECOMMENDED that the client set the
-`Accept` header to `application/graphql-response+json`. Otherwise, to maximize
-compatibility the client SHOULD include the media type `application/json` in the
-`Accept` header and it is RECOMMENDED that the client set the `Accept` header to
-`application/graphql-response+json, application/json;q=0.9`.
-
-Note: The `q=0.9` parameter tells content negotiation that `application/json`
-should only be used if `application/graphql-response+json` is not supported.
-
-The `application/graphql-response+json` media type adds improved support for
-HTTP status codes compared to the legacy `application/json` media type. When
-accepting both media types, the client SHOULD indicate it prefers
-`application/graphql-response+json` over `application/json`.
-
 ## GET
 
 For HTTP GET requests, the _GraphQL-over-HTTP request_ parameters MUST be
@@ -453,27 +438,8 @@ For maximal compatibility, a _server_ SHOULD support using both the
 `application/json` and the `application/graphql-response+json` media types for
 responses.
 
-Each newly created or updated GraphQL _server_ SHOULD support responses using
-the `application/graphql-response+json` media type.
-
-:: A _legacy server_ is a _server_ that does not support responses using the
-`application/graphql-response+json` media type.
-
-Note: Prior to this specification, the media type `application/json` was in wide
-use for the HTTP response payload type. Unfortunately this means clients cannot
-trust responses from the server that do not use an HTTP 2xx status code (since
-these replies may come from non-compliant HTTP servers or proxies somewhere in
-the request chain). For this reason, this specification introduces the
-`application/graphql-response+json` media type on responses; however support for
-this new media type is optional to allow legacy servers time to transition.
-
-A server MAY choose to not support the `application/json` response media type,
-however doing so may limit compatibility with existing clients, so it is only
-recommended when creating a new GraphQL service.
-
-Note: Servers may wish to enforce that clients use the
-`application/graphql-response+json` data type so that related HTTP tooling may
-utilize the HTTP status codes of responses without having to be GraphQL-aware.
+A GraphQL server MUST support responses using the
+application/graphql-response+json media type.
 
 ## Validation
 
@@ -639,23 +605,6 @@ response; it still indicates successful execution.
 
 This section of the specification is non-normative, even where the words and
 phrases specified in RFC2119 are used.
-
-## Processing a response
-
-In some cases, the response received by a client may not originate from a
-GraphQL service, but instead from an intermediary—such as an API gateway, proxy,
-firewall or other middleware—that does not implement this specification. Such an
-intermediary might produce the response to indicate an error, returning a
-response with `4xx` or `5xx` status code and potentially using the standard
-`application/json` media type to encode the reason for the error. Such a
-response is unlikely to be a valid GraphQL response.
-
-For this reason, a client application can rely on the response being a
-well-formed _GraphQL response_ only if at least one of the following conditions
-is met:
-
-- the response media type is `application/graphql-response+json`, or
-- the status code is `200`.
 
 ## Partial success
 
