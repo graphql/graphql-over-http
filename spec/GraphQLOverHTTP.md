@@ -500,7 +500,7 @@ execution regardless of validation errors.
 ## Status Codes
 
 In case of errors that completely prevent the generation of a well-formed
-_GraphQL response_, the server MUST respond with the appropriate status code
+_GraphQL response_, the server SHOULD respond with the appropriate status code
 depending on the concrete error condition, and MUST NOT respond with a `2xx`
 status code.
 
