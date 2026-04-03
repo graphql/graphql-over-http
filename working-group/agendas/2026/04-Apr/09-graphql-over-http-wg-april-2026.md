@@ -98,6 +98,7 @@ We typically meet on the last Thursday of the month.
 <!-- prettier-ignore -->
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
+| Martin Bonnin | martinbonnin | apollo | AndroidMakers FR |
 
 
 ## Agenda
