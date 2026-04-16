@@ -302,6 +302,12 @@ Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). If a literal `null` is desired,
 either omit {operationName} or set it to the empty string.
 
+GET requests MUST NOT be used for executing mutation operations. If the values
+of {query} and {operationName} indicate that a mutation operation is to be
+executed, the server MUST respond with error status code `405` (Method Not
+Allowed) and halt execution. This restriction is necessary to conform with the
+long-established semantics of safe methods within HTTP.
+
 ### Example
 
 If we wanted to execute the following GraphQL query:
@@ -321,12 +327,6 @@ This request could be sent via an HTTP GET as follows:
 ```url example
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
-
-GET requests MUST NOT be used for executing mutation operations. If the values
-of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
 
 ## POST
 
