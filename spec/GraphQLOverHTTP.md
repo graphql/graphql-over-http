@@ -237,9 +237,6 @@ Note: An HTTP request that encodes parameters of the same names but of the wrong
 type, or that omits required parameters, is not a well-formed _GraphQL-over-HTTP
 request_.
 
-Note: Specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
-
 Note: So long as it is a string, {query} does not have to parse or validate to
 be part of a well-formed _GraphQL-over-HTTP request_.
 
@@ -285,18 +282,18 @@ the document as specified in
 
 The {operationName} parameter, if present, must be a string.
 
-Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
-a JSON string.
+Each of the {variables} and {extensions} parameters, if present and not the
+empty string, MUST be encoded as a JSON string.
 
-The {operationName} parameter, if supplied and not the empty string, represents
+The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
+
+Specifying the empty string for optional request parameters is equivalent to not
+specifying them at all.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
-
-Setting the value of the {operationName} parameter to the empty string is
-equivalent to omitting the {operationName} parameter.
 
 Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). If a literal `null` is desired,
@@ -383,6 +380,9 @@ object.
 
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
+
+Specifying null for optional request parameters is equivalent to not specifying
+them at all.
 
 ### Example
 
