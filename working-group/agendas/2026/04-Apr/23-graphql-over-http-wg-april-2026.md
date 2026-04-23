@@ -120,3 +120,5 @@ We typically meet on the last Thursday of the month.
    - https://github.com/graphql/graphql-over-http/pull/385
 1. Move "unknown parameters" so that it's common to both GET and POST requests
    - https://github.com/graphql/graphql-over-http/pull/384
+1. Fix typos
+   - https://github.com/graphql/graphql-over-http/pull/387
