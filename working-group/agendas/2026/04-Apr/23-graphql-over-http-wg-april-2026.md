@@ -98,7 +98,9 @@ We typically meet on the last Thursday of the month.
 <!-- prettier-ignore -->
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
-| Martin Bonnin | martinbonnin | Apollo | Paris |
+| Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR             |
+| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH            | 
+| Pascal Senn          | @pascalsenn   | ChilliCream        | Zurich, CH            | 
 
 
 ## Agenda
