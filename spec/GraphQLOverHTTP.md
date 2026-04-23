@@ -218,6 +218,14 @@ parameters in one of the manners described in this specification:
   extend the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
+All other parameters are reserved for future expansion. Servers receiving a
+request with additional parameters MUST ignore parameters they do not
+understand.
+
+If implementers need to add additional information to a request they MUST do so
+via other means; the RECOMMENDED approach is to add an implementer-scoped entry
+to the {extensions} object.
+
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
 specification you should note the _GraphQL schema_ and "initial value" are not
@@ -375,14 +383,6 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
 - {extensions} - an optional object (map) reserved for implementers to extend
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
-
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
-
-Servers receiving a request with additional properties MUST ignore properties
-they do not understand.
 
 ### Example
 
