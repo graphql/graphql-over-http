@@ -104,7 +104,7 @@ Requests an operation specified in the message `payload`. This message provides 
 
 If there is already an active subscriber for an operation matching the provided ID, regardless of the operation type, the server **must** close the socket immediately with the event `4409: Subscriber for <unique-operation-id> already exists`.
 
-The server needs only keep track of IDs for as long as the subscription is active. Once a client completes an operation, it is free to re-use that ID.
+The server needs only keep track of IDs for as long as the subscription is active. Once a client completes an operation, it is free to reuse that ID.
 
 ```typescript
 interface SubscribeMessage {
@@ -176,7 +176,7 @@ Direction: **bidirectional**
 
 Receiving a message of a type or format which is not specified in this document will result in an **immediate** socket closure with the event `4400: <error-message>`. The `<error-message>` can be vaguely descriptive on why the received message is invalid.
 
-Receiving a message (other than `Subscribe`) with an ID that belongs to an operation that has been previously completed does not constitute an error. It is permissable to simply ignore all _unknown_ IDs without closing the connection.
+Receiving a message (other than `Subscribe`) with an ID that belongs to an operation that has been previously completed does not constitute an error. It is permissible to simply ignore all _unknown_ IDs without closing the connection.
 
 ## Examples
 

@@ -18,7 +18,7 @@ Compliant servers must follow the HTTP/2 specification and not set the `Transfer
 
 ## `Content-Type: multipart/mixed`
 
-The HTTP response for an incrementally delivered response should conform to the [specification of multipart content defined by the W3 in rfc1341](https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html). The HTTP response must contain the `Content-Type` response header with a specified boundary, for example `Content-Type: multipart/mixed; boundary="-"`. A simple boundary of `-` can be used as there is no possiblity of conflict with JSON data. However, any arbitrary boundary may be used.
+The HTTP response for an incrementally delivered response should conform to the [specification of multipart content defined by the W3 in rfc1341](https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html). The HTTP response must contain the `Content-Type` response header with a specified boundary, for example `Content-Type: multipart/mixed; boundary="-"`. A simple boundary of `-` can be used as there is no possibility of conflict with JSON data. However, any arbitrary boundary may be used.
 
 An example response body will look like:
 
