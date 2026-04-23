@@ -242,6 +242,14 @@ client gets something useful, it needs to indicate the media types it supports.
 The client MUST include the media type `application/graphql-response+json` in
 the `Accept` header.
 
+For maximal compatibility, a _client_ SHOULD support receiving both
+`application/json` and the `application/graphql-response+json` responses. When
+doing this, it is recommended that the client set the `Accept` header to
+`application/graphql-response+json, application/json;q=0.9`.
+
+Note: See [Appendix A](#sec-Appendix-application-json-responses) for more
+details about `application/json` responses.
+
 ## GET
 
 For HTTP GET requests, the _GraphQL-over-HTTP request_ parameters MUST be
