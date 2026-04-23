@@ -685,7 +685,7 @@ request error_ has occurred it is seen as a "partial response" or "partial
 success".
 
 If the _GraphQL response_ does not contain the {data} entry then the server MUST
-reply with a `4xx` or `5xx` status code as appropriate:
+reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
