@@ -739,4 +739,4 @@ well-formed _GraphQL response_ since the source of the response may not be the
 server but instead some intermediary such as API gateways, proxies, firewalls,
 etc.
 
-# [Appendix: Persisted Document](Appendix%20A%20--%20Persisted%20Documents.md)
+# [Appendix: Persisted Documents](Appendix%20A%20--%20Persisted%20Documents.md)
