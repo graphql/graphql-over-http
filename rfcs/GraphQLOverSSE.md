@@ -59,11 +59,11 @@ interface CompleteMessage {
 
 Having aforementioned limitations in mind, a "single connection mode" is proposed. In this mode, a single established SSE connection transmits **all** results from the server while separate HTTP requests dictate the behaviour.
 
-Additionally, due to various limitations with the browser's native [`EventSource` interface](https://developer.mozilla.org/en-US/docs/Web/API/EventSource), like the lack of supplying custom headers or vague connection error information, a "reservation" tactic is RECOMMENDED. This means that the client requests an SSE connection reservation from the server through a regular HTTP request which is later fulfiled with the actual SSE connection matching the reservation requirements.
+Additionally, due to various limitations with the browser's native [`EventSource` interface](https://developer.mozilla.org/en-US/docs/Web/API/EventSource), like the lack of supplying custom headers or vague connection error information, a "reservation" tactic is RECOMMENDED. This means that the client requests an SSE connection reservation from the server through a regular HTTP request which is later fulfilled with the actual SSE connection matching the reservation requirements.
 
 ### Making reservations
 
-The client requests a reservation for an incoming SSE connection through a `PUT` HTTP request. Since this is a regular HTTP request, it may transmit authentication details however the implementor sees fit.
+The client requests a reservation for an incoming SSE connection through a `PUT` HTTP request. Since this is a regular HTTP request, it may transmit authentication details however the implementer sees fit.
 
 The server accepts the reservation request by responding with `201` (Created) and a reservation token in the body of the response. This token is then presented alongside the incoming SSE connection as an entrance ticket. If using the [`EventSource` interface](https://developer.mozilla.org/en-US/docs/Web/API/EventSource), the token may be encoded in the URL's search parameters.
 
@@ -78,7 +78,7 @@ For security reasons, **only one** SSE connection can fulfil a reservation at a 
 
 While having a single SSE connection (or reservation), separate HTTP requests solicit GraphQL operations conforming to the [GraphQL over HTTP spec](https://github.com/graphql/graphql-over-http/blob/main/spec/GraphQLOverHTTP.md) with **only one difference**: successful responses (execution results) get accepted with a `202` (Accepted) and are then streamed through the single SSE connection. Validation issues and other request problems are handled as documented in the [GraphQL over HTTP spec](https://github.com/graphql/graphql-over-http/blob/main/spec/GraphQLOverHTTP.md).
 
-Since the client holds the task of publishing the SSE messages to the relevant listeners through a single connection, an operation ID identifying the messages destinations is necessary. The unique operation ID SHOULD be sent through the `extensions` parameter of the GraphQL reqeust inside the `operationId` field. This operation ID accompanies the SSE messages for destination discovery (more details below).
+Since the client holds the task of publishing the SSE messages to the relevant listeners through a single connection, an operation ID identifying the messages destinations is necessary. The unique operation ID SHOULD be sent through the `extensions` parameter of the GraphQL request inside the `operationId` field. This operation ID accompanies the SSE messages for destination discovery (more details below).
 
 The HTTP request MUST contain the matching reservation token.
 
