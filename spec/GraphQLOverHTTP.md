@@ -381,8 +381,8 @@ object.
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
 
-Specifying `null` for optional request parameters is equivalent to not specifying
-them at all.
+Specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
 
 ### Example
 
