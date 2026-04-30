@@ -102,9 +102,10 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
-| Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR   |
-| Shane Krueger        | @shane32      | GraphQL.NET        | Detroit, USA   |
-| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH   |
+| Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR             |
+| Shane Krueger        | @shane32      | GraphQL.NET        | Detroit, USA          |
+| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH            |
+| Pascal Senn          | @pascalsenn   | ChilliCream        | Zurich, CH            |
 
 
 ## Agenda
