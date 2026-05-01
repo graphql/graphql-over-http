@@ -124,7 +124,8 @@ time.
 
 A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
 
-Each GraphQL schema a _server_ provides MUST be served via one or more URLs.
+Each GraphQL schema a _server_ provides MUST be served via one or more URLs,
+each URL is called a _GraphQL endpoint_.
 
 A _server_ MUST NOT require the _client_ to use different URLs for different
 GraphQL query and mutation requests to the same GraphQL schema.
@@ -152,15 +153,15 @@ It is RECOMMENDED to end the path component of the URL with `/graphql`, for
 example:
 
 ```url example
-http://example.com/graphql
+https://example.com/graphql
 ```
 
 ```url example
-http://product.example.com/graphql
+https://product.example.com/graphql
 ```
 
 ```url example
-http://example.com/product/graphql
+https://example.com/product/graphql
 ```
 
 # Serialization Format
@@ -321,7 +322,7 @@ With the following query variables:
 This request could be sent via an HTTP GET as follows:
 
 ```url example
-http://example.com/graphql?query=query(%24id%3AID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
+https://example.com/graphql?query=query(%24id%3AID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
 GET requests MUST NOT be used for executing mutation operations. If the values

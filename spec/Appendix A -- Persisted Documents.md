@@ -32,6 +32,51 @@ thus should generate different document identifiers.
 A _document identifier_ must either be a _prefixed document identifier_ or a
 _custom document identifier_.
 
+A _document identifier_ must only contain colons (`:`) and characters that are
+defined as
+[`unreserved` in RFC3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.3)
+(alphanumeric characters (`A-Z`, `a-z`, `0-9`), dashes (`-`), periods (`.`),
+underscores (`_`), and tildes (`~`)).
+
+DocumentIdentifier ::
+
+- PrefixedDocumentIdentifier
+- CustomDocumentIdentifier
+
+PrefixedDocumentIdentifier ::
+
+- UnreservedCharacter+ PrefixedDocumentIdentifierContinue+
+
+PrefixedDocumentIdentifierContinue ::
+
+- Colon UnreservedCharacter\*
+
+CustomDocumentIdentifier ::
+
+- UnreservedCharacter+ [lookahead != Colon]
+
+UnreservedCharacter ::
+
+- Letter
+- Digit
+- `-`
+- `.`
+- `_`
+- `~`
+
+Letter :: one of
+
+- `A` `B` `C` `D` `E` `F` `G` `H` `I` `J` `K` `L` `M`
+- `N` `O` `P` `Q` `R` `S` `T` `U` `V` `W` `X` `Y` `Z`
+- `a` `b` `c` `d` `e` `f` `g` `h` `i` `j` `k` `l` `m`
+- `n` `o` `p` `q` `r` `s` `t` `u` `v` `w` `x` `y` `z`
+
+Digit :: one of
+
+- `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
+
+Colon :: `:`
+
 ### Prefixed Document Identifier
 
 :: A _prefixed document identifier_ is a document identifier that contains at
@@ -86,14 +131,46 @@ Would have this different _SHA256 hex document identifier_:
 sha256:71f7dc5758652baac68e4a10c50be732b741c892ade2883a99358f52b555286b
 ```
 
+Persisted Documents may contain multiple (named) operations and fragments too;
+so the following GraphQL document (with no trailing newline):
+
+```graphql example
+query UserName($id: ID!) {
+  user(id: $id) {
+    name
+  }
+}
+
+query FriendsNames($id: ID!) {
+  user(id: $id) {
+    ...User
+    friends {
+      ...User
+    }
+  }
+}
+
+fragment User on User {
+  id
+  name
+}
+```
+
+Would have the following _SHA256 hex document identifier_:
+
+```example
+sha256:517c56d2ba0779653b7698881207f749509f331bdaccbe951a82c378bc869556
+```
+
 ### Custom Document Identifier
 
 :: A _custom document identifier_ is a document identifier that contains no
 colon symbols (`:`). The meaning of a custom document identifier is
 implementation specific.
 
-Note: A 32 character hexadecimal _custom document identifier_ is likely to be an
-MD5 hash of the GraphQL document, as traditionally used by Relay.
+Note: A 32 character hexadecimal lower-case _custom document identifier_ is
+likely to be an MD5 hash of the GraphQL document, as traditionally used by
+Relay.
 
 ## Persisting a Document
 
@@ -105,12 +182,11 @@ specific.
 
 Note: When used as an operation allow-list, persisted documents are typically
 stored into a trusted shared key-value store at client build time (either
-directly, or indirectly via an authenticated request to the server) such that
-the server may retrieve them given the identifier at request time. This must be
-done in a secure manner (preventing untrusted third parties from adding their
-own persisted document) such that the server will be able to retrieve the
-identified document within a _persisted document request_ and know that it is
-trusted.
+directly, or indirectly via authenticated requests to the server) such that the
+server may retrieve them given the identifier at request time. This must be done
+in a secure manner (preventing untrusted third parties from adding their own
+persisted document) such that the server will be able to retrieve the identified
+document within a _persisted document request_ and know that it is trusted.
 
 Note: When used solely as a bandwidth optimization, as in the technique known
 colloquially as "automatic persisted queries (APQ)," an error-based mechanism
@@ -130,12 +206,16 @@ deployed client.
 
 ## Persisted Document Request
 
-A server MAY accept a _persisted document request_ via `GET` or `POST`.
+A server MAY accept a _persisted document request_ via an HTTP `GET` or `POST`
+request to a _GraphQL endpoint_ or subpath thereof.
 
 ### Persisted Document Request Parameters
 
-:: A _persisted document request_ is an HTTP request that encodes the following
-parameters in one of the manners described in this specification:
+:: A _persisted document request_ is an HTTP request that encodes the _persisted
+document request parameters_ in one of the manners described in this
+specification.
+
+:: The _persisted document request parameters_ are as follows:
 
 - {documentId} - (_Required_, string): The string identifier for the Document.
 - {operationName} - (_Optional_, string): The name of the Operation in the
@@ -145,12 +225,49 @@ parameters in one of the manners described in this specification:
 - {extensions} - (_Optional_, map): This entry is reserved for implementors to
   extend the protocol however they see fit.
 
+### Persisted Document Request URL
+
+To enable non-GraphQL HTTP tooling to better integrate with a Persisted Document
+Request, it is recommended that the URL to which a Persisted Document Request is
+sent is a subpath of the _GraphQL endpoint_ containing the {documentId} and the
+{operationName} (if any) separated by a forward slash character (`/`). It is
+recommended that this practice is only followed when {documentId} is a prefixed
+document identifier, since the prefix helps avoid clashes with other subpaths of
+the _GraphQL endpoint_.
+
+Note: By following this practice, traditional HTTP tooling can exercise concerns
+such as caching, rate limiting, audit logging, access-pattern analysis, error
+detection, monitoring and more without needing to fully parse the incoming
+GraphQL request.
+
+For example, if the _GraphQL endpoint_ is `https://example.com/graphql` then a
+persisted document request may be made to an endpoint such as
+`https://example.com/graphql/sha256:517c56d2ba0779653b7698881207f749509f331bdaccbe951a82c378bc869556/FriendNames`.
+For documents containing a single anonymous operation the final segment must be
+omitted, e.g.
+`https://example.com/graphql/sha256:71f7dc5758652baac68e4a10c50be732b741c892ade2883a99358f52b555286b`.
+
+Legacy persisted document implementations often issue requests to the _GraphQL
+endpoint_ directly (i.e. without a subpath), so it's recommended to support this
+pattern too.
+
+:: The term _remaining parameters_ refers to the _persisted document request
+parameters_ that are not encoded via the URL subpath; i.e. when the GraphQL
+endpoint is queried directly the remaining request parameters are {documentId},
+{operationName}, {variables} and {extensions}, whereas when the subpath
+technique described above is used the remaining parameters are {variables} and
+{extensions}.
+
 ### GET
 
-For a _persisted document request_ using HTTP GET, parameters SHOULD be provided
-in the query component of the request URL, encoded in the
+For a _persisted document request_ using HTTP GET, the _remaining parameters_
+SHOULD be provided in the query component of the request URL, encoded in the
 `application/x-www-form-urlencoded` format as specified by the
 [WhatWG URLSearchParams class](https://url.spec.whatwg.org/#interface-urlsearchparams).
+
+Note: This is only a SHOULD recommendation to allow for variables which are too
+long for the query component to be encoded in an alternative way, for example
+via headers.
 
 The {documentId} parameter must be a string _document identifier_.
 
@@ -158,6 +275,11 @@ The {operationName} parameter, if present, must be a string.
 
 Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
 a JSON string.
+
+Note: JSON encoding is used here to enable reliable encoding of custom scalars
+and composite/list inputs; traditional HTTP query strings do not encode enough
+detail to tell the difference between a boolean `true` and the string `"true"`,
+for example.
 
 Setting the value of the {operationName} parameter to the empty string is
 equivalent to omitting the {operationName} parameter.
