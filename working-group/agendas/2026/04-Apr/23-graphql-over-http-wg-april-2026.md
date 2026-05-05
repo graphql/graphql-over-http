@@ -98,6 +98,9 @@ We typically meet on the last Thursday of the month.
 <!-- prettier-ignore -->
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
+| Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR             |
+| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH            | 
+| Pascal Senn          | @pascalsenn   | ChilliCream        | Zurich, CH            | 
 
 
 ## Agenda
@@ -113,3 +116,11 @@ We typically meet on the last Thursday of the month.
 1. Review agenda (2m, Host)
 1. Check for [ready for review agenda items](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc) (5m, Host)
 1. Reminder: [grants available for key initiatives](https://graphql.org/community/foundation/community-grant/) (1m, Host)
+2. Appendix A: `application/json`
+   - https://github.com/graphql/graphql-over-http/pull/379
+1. Remove ambiguity about `operationName=null` in GET requests
+   - https://github.com/graphql/graphql-over-http/pull/385
+1. Move "unknown parameters" so that it's common to both GET and POST requests
+   - https://github.com/graphql/graphql-over-http/pull/384
+1. Fix typos
+   - https://github.com/graphql/graphql-over-http/pull/387

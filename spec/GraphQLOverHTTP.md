@@ -222,9 +222,6 @@ Note: An HTTP request that encodes parameters of the same names but of the wrong
 type, or that omits required parameters, is not a well-formed _GraphQL-over-HTTP
 request_.
 
-Note: Specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
-
 Note: So long as it is a string, {query} does not have to parse or validate to
 be part of a well-formed _GraphQL-over-HTTP request_.
 
@@ -263,22 +260,28 @@ the document as specified in
 
 The {operationName} parameter, if present, must be a string.
 
-Each of the {variables} and {extensions} parameters, if used, MUST be encoded as
-a JSON string.
+Each of the {variables} and {extensions} parameters, if present and not the
+empty string, MUST be encoded as a JSON string.
 
-The {operationName} parameter, if supplied and not the empty string, represents
+The {operationName} parameter, if present and not the empty string, represents
 the name of the operation to be executed within the {query} as a string.
+
+Specifying the empty string for optional request parameters is equivalent to not
+specifying them at all.
 
 Note: In the final URL all of these parameters will appear in the query
 component of the request URL as URL-encoded values due to the WHATWG
 URLSearchParams encoding specified above.
 
-Setting the value of the {operationName} parameter to the empty string is
-equivalent to omitting the {operationName} parameter.
-
 Note: By the above, `operationName=null` represents an operation with the name
 `"null"` (such as `query null { __typename }`). If a literal `null` is desired,
 either omit {operationName} or set it to the empty string.
+
+GET requests MUST NOT be used for executing mutation operations. If the values
+of {query} and {operationName} indicate that a mutation operation is to be
+executed, the server MUST respond with error status code `405` (Method Not
+Allowed) and halt execution. This restriction is necessary to conform with the
+long-established semantics of safe methods within HTTP.
 
 ### Example
 
@@ -299,12 +302,6 @@ This request could be sent via an HTTP GET as follows:
 ```url example
 http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
-
-GET requests MUST NOT be used for executing mutation operations. If the values
-of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
 
 ## POST
 
@@ -361,6 +358,9 @@ object.
 
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
+
+Specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
 
 ### Example
 
@@ -500,7 +500,7 @@ request error_ has occurred it is seen as a "partial response" or "partial
 success".
 
 If the _GraphQL response_ does not contain the {data} entry then the server MUST
-reply with a `4xx` or `5xx` status code as appropriate:
+reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
