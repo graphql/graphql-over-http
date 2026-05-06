@@ -439,9 +439,9 @@ in the `Accept` HTTP header, the server MUST either:
 1. Respond with a `406 Not Acceptable` status code and stop processing the
    request.
 
-If the `Accept` header does not indicate support for
-`application/graphql-response+json` but does indicate support for
-`application/json`, the server MUST either:
+If the `Accept` header does not indicate support for one of the server's
+supported media types but does indicate support for `application/json`, the
+server MUST either:
 
 1. Respond with the `application/graphql-response+json` media type
    (RECOMMENDED); OR
