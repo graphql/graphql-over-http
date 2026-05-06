@@ -65,7 +65,7 @@ generated or modified by an intermediary. See
 [processing a response](#sec-Processing-a-response) for more details.
 
 If the _GraphQL response_ contains a non-null {data} entry then the server MUST
-use the `200` status code.
+use a `2xx` status code and SHOULD use the `200` status code.
 
 Note: This indicates that no _GraphQL request error_ was raised, though one or
 more _GraphQL field error_ may have been raised this is still a successful
