@@ -443,11 +443,13 @@ If the `Accept` header does not indicate support for one of the server's
 supported media types but does indicate support for `application/json`, the
 server MUST either:
 
-1. Respond with the `application/graphql-response+json` media type
-   (RECOMMENDED); OR
+1. Disregard the `Accept` header and respond with the
+   `application/graphql-response+json` media type (RECOMMENDED); OR
 1. Respond with the `application/json` media type as detailed in
    [Appendix A](#sec-Appendix-application-json-responses) (RECOMMENDED if
    support for legacy clients is desired); OR
+1. Disregard the `Accept` header and respond with the server's choice of media
+   type; OR
 1. Respond with a `406 Not Acceptable` status code and stop processing the
    request (NOT RECOMMENDED).
 
