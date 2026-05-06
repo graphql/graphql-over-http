@@ -438,10 +438,10 @@ In alignment with the
 specification, when a client does not include at least one supported media type
 in the `Accept` HTTP header, the server MUST either:
 
-1. Disregard the `Accept` header and respond with the server's choice of media
-   type; OR
 1. Respond with a `406 Not Acceptable` status code and stop processing the
-   request.
+   request; OR.
+1. Disregard the `Accept` header and respond with the server's choice of media
+   type.
 
 If the `Accept` header does not indicate support for one of the server's
 preferred media types but does indicate support for `application/json`, to
