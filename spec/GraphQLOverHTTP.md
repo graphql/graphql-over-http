@@ -460,9 +460,9 @@ the request chain), hence the introduction of
 continue to issue `Accept: application/json`, so to maintain interoperability it
 is recommended to continue to serve these requests.
 
-If the `Accept` header is present but does not indicate support for any of the
-server's supported media types, it is RECOMMENDED to respond with
-`406 Not Acceptable`.
+If the `Accept` header is present but indicates support for neither any of the
+server's supported media types nor `application/json`, it is RECOMMENDED to
+respond with `406 Not Acceptable`.
 
 Note: It is unlikely that a client can process a response that does not match
 one of the media types it has requested, hence `406 Not Acceptable` being the
