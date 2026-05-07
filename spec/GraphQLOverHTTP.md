@@ -239,11 +239,14 @@ client gets something useful, it needs to indicate the media types it supports.
 The client MUST include the media type `application/graphql-response+json` in
 the `Accept` header.
 
+:: A _legacy client_ is a client that does not support responses using the
+`application/graphql-response+json` media type, and thus does not conform to
+this specification.
+
 If the client doesn't know that the server supports
 `application/graphql-response+json`, it is RECOMMENDED that the client set the
-`Accept` header to `application/graphql-response+json, application/json;q=0.9`.
-
-See [Appendix A](#sec-Appendix-application-json-responses) for more details
+`Accept` header to `application/graphql-response+json, application/json;q=0.9`;
+see [Appendix A](#sec-Appendix-application-json-responses) for more details
 about `application/json` responses.
 
 ## GET
@@ -419,6 +422,13 @@ A server MUST indicate the media type of the response with a `Content-Type`
 header, and SHOULD indicate the encoding (e.g.
 `application/graphql-response+json; charset=utf-8`).
 
+A server MUST support responses using the `application/graphql-response+json`
+media type.
+
+:: A _legacy server_ is a server that does not support responses using the
+`application/graphql-response+json` media type, and thus does not conform to
+this specification.
+
 If an `Accept` header is provided, the server MUST respect the given `Accept`
 header and attempt to encode the response in the highest priority media type
 listed that is supported by the server.
@@ -429,24 +439,38 @@ specification, when a client does not include at least one supported media type
 in the `Accept` HTTP header, the server MUST either:
 
 1. Respond with a `406 Not Acceptable` status code and stop processing the
-   request (RECOMMENDED); OR
-2. Disregard the `Accept` header and respond with the server's choice of media
-   type (NOT RECOMMENDED).
+   request; OR.
+1. Disregard the `Accept` header and respond with the server's choice of media
+   type.
+
+If the `Accept` header does not indicate support for one of the server's
+preferred media types but does indicate support for `application/json`, to
+improve compatibility with _legacy client_ it is RECOMMENDED that the server
+either:
+
+1. Respond with the `application/json` media type as detailed in
+   [Appendix A](#sec-Appendix-application-json-responses); OR
+1. Disregard the `Accept` header and respond with the
+   `application/graphql-response+json` media type.
+
+Note: Responding to such a request with the `application/json` media type only
+if it contains non-null {data} (and thus would produce HTTP `2xx` under both
+`application/json` and `application/graphql-response+json` media types) allows
+for richer status codes for unsuccessful requests whilst maximizing
+compatibility with _legacy client_ for successful and partially successful
+requests. A response with the `application/json` media type could originate from
+non-GraphQL intermediary servers and middlewares handling failures (HTTP `4xx`
+and `5xx`), so clients can typically only rely on an `application/json` response
+to be from GraphQL when it uses HTTP `2xx` status code.
+
+If the `Accept` header is present but indicates support for neither any of the
+server's supported media types nor `application/json`, it is RECOMMENDED to
+respond with `406 Not Acceptable`.
 
 Note: It is unlikely that a client can process a response that does not match
 one of the media types it has requested, hence `406 Not Acceptable` being the
 recommended response. However, the server authors may know better about the
 specific clients consuming their endpoint, thus both approaches are permitted.
-
-A GraphQL server MUST support responses using the
-`application/graphql-response+json` media type.
-
-For maximal compatibility, a _server_ SHOULD support using both the
-`application/json` and the `application/graphql-response+json` media types for
-responses.
-
-Note: See [Appendix A](#sec-Appendix-application-json-responses) for more
-details about `application/json` responses.
 
 ## Validation
 
@@ -474,8 +498,30 @@ execution regardless of validation errors.
 
 In case of errors that completely prevent the generation of a well-formed
 _GraphQL response_, the server SHOULD respond with the appropriate status code
-depending on the concrete error condition, and MUST NOT respond with a `2xx`
-status code.
+depending on the concrete error condition.
+
+Otherwise, the status code to use depends on the media type with which the
+GraphQL response will be served.
+
+For legacy `application/json` responses, see
+[Appendix A](#sec-Appendix-application-json-responses).
+
+### application/graphql-response+json
+
+This section only applies when the response body uses the
+`application/graphql-response+json` media type.
+
+Clients should process the response as a well-formed _GraphQL response_
+independent of the HTTP status code.
+
+Note: With `application/graphql-response+json`, clients know the response is
+well formed and should determine the detailed status of the response from the
+response body alone, allowing server authors to adopt more appropriate status
+codes without impacting behavior of existing clients. Intermediary servers may
+use the status code to determine the status of the _GraphQL response_ without
+needing to process the response body; this is useful in request logs, developer
+tooling, anomaly and intrusion detection, metrics and observability, API
+gateways, and more.
 
 If the _GraphQL response_ contains the {data} entry and it is not {null}, then
 the server MUST reply with a `2xx` status code.
