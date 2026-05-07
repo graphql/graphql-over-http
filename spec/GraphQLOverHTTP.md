@@ -512,8 +512,7 @@ This section only applies when the response body uses the
 `application/graphql-response+json` media type.
 
 Clients should process the response as a well-formed _GraphQL response_
-independent of the HTTP status code, and should read the response body
-(specifically {data} and {errors}) to determine the status of the response.
+independent of the HTTP status code.
 
 Note: With `application/graphql-response+json`, clients know the response is
 well formed and should determine the detailed status of the response from the
