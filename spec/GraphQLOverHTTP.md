@@ -117,6 +117,25 @@ interact with a _GraphQL service_.
 Note: GraphQL Subscriptions are beyond the scope of this specification at this
 time.
 
+# HTTP protocol
+
+The details of the HTTP protocol used by GraphQL clients and servers are outside
+this specification.
+
+Where applicable, server and clients MUST comply with
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231) semantics.
+
+In particular, "header", "status code", "body", "Accept", and "Content-Type" are
+to be interpreted according to
+[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+A server MUST support at least one version of the HTTP message format, such as
+[HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc7230) or
+[HTTP/2](https://datatracker.ietf.org/doc/html/rfc9113).
+
+A server MAY support several versions of the HTTP message format for wider
+compatibility.
+
 # URL
 
 A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
