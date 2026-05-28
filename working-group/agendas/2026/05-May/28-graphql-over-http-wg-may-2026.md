@@ -102,7 +102,8 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
-| Martin Bonnin | @martinbonnin       | Apollo           | Paris, FR   |
+| Martin Bonnin        | @martinbonnin | Apollo             | Paris, FR             |
+| Michael Staib        | @michaelstaib | ChilliCream        | Zurich, CH            |
 
 
 ## Agenda
