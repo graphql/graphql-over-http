@@ -485,32 +485,22 @@ execution regardless of validation errors.
 
 ## Status Codes
 
-In case of errors that completely prevent the generation of a well-formed
-_GraphQL response_, the server SHOULD respond with the appropriate status code
-depending on the concrete error condition.
-
-Otherwise, the status code to use depends on the media type with which the
-GraphQL response will be served.
-
-For legacy `application/json` responses, see
-[Appendix A](#sec-Appendix-application-json-responses).
-
-### application/graphql-response+json
-
-This section only applies when the response body uses the
-`application/graphql-response+json` media type.
-
-Clients should process the response as a well-formed _GraphQL response_
-independent of the HTTP status code.
+Clients should process a response using the `application/graphql-response+json`
+media type as a well-formed _GraphQL response_ independent of the HTTP status
+code.
 
 Note: With `application/graphql-response+json`, clients know the response is
 well formed and should determine the detailed status of the response from the
 response body alone, allowing server authors to adopt more appropriate status
-codes without impacting behavior of existing clients. Intermediary servers may
-use the status code to determine the status of the _GraphQL response_ without
-needing to process the response body; this is useful in request logs, developer
-tooling, anomaly and intrusion detection, metrics and observability, API
-gateways, and more.
+codes without impacting behavior of existing clients. Intermediary servers and
+services may use the status code to determine the status of the _GraphQL
+response_ without needing to process the response body; this is useful in
+request logs, developer tooling, anomaly and intrusion detection, metrics and
+observability, API gateways, and more.
+
+In case of errors that completely prevent the generation of a well-formed
+_GraphQL response_, the server SHOULD respond with the appropriate HTTP `4xx` or
+`5xx` status code depending on the concrete error condition.
 
 If the _GraphQL response_ contains the {data} entry and it is not {null}, then
 the server MUST reply with a `2xx` status code.
@@ -529,7 +519,7 @@ well as encountered errors. Errors that happen during execution of the GraphQL
 operation typically become part of the result, as long as the server is still
 able to produce a well-formed _GraphQL response_. For details of why status code
 `294` is recommended, see [Partial success](#sec-Partial-success). Using `4xx`
-and `5xx` status codes in this situation is not appropriate - since no _GraphQL
+and `5xx` status codes in this situation is not appropriate: since no _GraphQL
 request error_ has occurred it is seen as a "partial response" or "partial
 success".
 
@@ -543,8 +533,9 @@ reply with an appropriate `4xx` or `5xx` status code:
   - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
-  - If none of the media types in the `Accept` header are supported, status code
-    `406` is RECOMMENDED.
+  - If none of the media types in the `Accept` header are supported and the
+    `Accept` header does not include `application/json` then status code `406`
+    is RECOMMENDED.
   - If the client did not produce a request within the time that the server was
     prepared to wait, status code `408` is RECOMMENDED.
   - If the size of the URI was too large, status code `414` is RECOMMENDED (and
@@ -567,10 +558,10 @@ reply with an appropriate `4xx` or `5xx` status code:
     definitions, status code `422` is RECOMMENDED.
   - If the client is not permitted to issue the GraphQL request then the server
     SHOULD reply with `401`, `403` or similar appropriate status code.
-  - If the server is a short and stout ceramic vessel, status code `418` is
-    RECOMMENDED.
+  - If the server cannot process the request due to being a short and stout
+    ceramic vessel, status code `418` is RECOMMENDED.
 - When the server is the reason for failure, the appropriate `5xx` status code
-  should be used; for example, if the server is not able to execute requests at
+  should be used. For example, if the server is not able to execute requests at
   this time due to maintenance or load-shedding then status code `503` is
   RECOMMENDED.
 
@@ -580,9 +571,8 @@ _GraphQL response_ does not include the {data} entry is one in which the
 
 #### Examples
 
-The following examples provide guidance on how to deal with specific error cases
-when using the `application/graphql-response+json` media type to encode the
-response body:
+The following examples provide guidance on how to deal with specific error
+cases:
 
 ##### JSON parsing failure
 
@@ -750,5 +740,3 @@ conflicts with future versions of this specification as ongoing development aims
 to standardize and ensure the security and interoperability of GraphQL over HTTP
 whilst accounting for its growing feature set. For this reason, it is
 recommended to adhere to the officially recognized formats outlined here.
-
-# [Appendix: application/json](Appendix%20A%20--%20application-json.md)
