@@ -546,6 +546,8 @@ reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
+  - If a mutation is attempted via the `GET` verb, status code `405` MUST be
+    used.
   - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
