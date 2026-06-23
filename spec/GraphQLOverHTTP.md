@@ -438,25 +438,19 @@ in the `Accept` HTTP header, the server MUST either:
 1. Disregard the `Accept` header and respond with the server's choice of media
    type.
 
-If the `Accept` header does not indicate support for one of the server's
-preferred media types but does indicate support for `application/json`, to
-improve compatibility with _legacy client_ it is RECOMMENDED that the server
-either:
+To improve compatibility with _legacy client_, if the `Accept` header does not
+indicate support for one of the server's preferred media types but does indicate
+support for `application/json`, it is RECOMMENDED to perform the request as if
+it had `Accept: application/graphql-response+json` but use
+`Content-Type: application/json` for any response with a `2xx` status code.
 
-1. Respond with the `application/json` media type as detailed in
-   [Appendix A](#sec-Appendix-application-json-responses); OR
-1. Disregard the `Accept` header and respond with the
-   `application/graphql-response+json` media type.
-
-Note: Responding to such a request with the `application/json` media type only
-if it contains non-null {data} (and thus would produce HTTP `2xx` under both
-`application/json` and `application/graphql-response+json` media types) allows
-for richer status codes for unsuccessful requests whilst maximizing
-compatibility with _legacy client_ for successful and partially successful
-requests. A response with the `application/json` media type could originate from
-non-GraphQL intermediary servers and middlewares handling failures (HTTP `4xx`
-and `5xx`), so clients can typically only rely on an `application/json` response
-to be from GraphQL when it uses HTTP `2xx` status code.
+Note: This recommendation uses this specification's full range of HTTP status
+codes whilst maximizing compatibility with _legacy client_ for successful and
+partially successful requests. HTTP responses could originate from non-GraphQL
+intermediary servers and middlewares handling failures (HTTP `4xx` and `5xx`),
+so clients typically can only rely on a response to be from GraphQL either when
+it is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
+response (`Content-Type: application/graphql-response+json`).
 
 If the `Accept` header is present but indicates support for neither any of the
 server's supported media types nor `application/json`, it is RECOMMENDED to
