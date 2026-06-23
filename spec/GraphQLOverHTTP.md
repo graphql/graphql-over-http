@@ -240,11 +240,9 @@ the `Accept` header.
 `application/graphql-response+json` media type, and thus does not conform to
 this specification.
 
-If the client doesn't know that the server supports
-`application/graphql-response+json`, it is RECOMMENDED that the client set the
-`Accept` header to `application/graphql-response+json, application/json;q=0.9`;
-see [Appendix A](#sec-Appendix-application-json-responses) for more details
-about `application/json` responses.
+If if is not known that the server supports `application/graphql-response+json`,
+it is RECOMMENDED that the client set the `Accept` header to
+`application/graphql-response+json, application/json;q=0.9`.
 
 ## GET
 
