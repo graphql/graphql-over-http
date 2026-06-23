@@ -574,7 +574,7 @@ _GraphQL response_ does not include the {data} entry is one in which the
 The following examples provide guidance on how to deal with specific error
 cases:
 
-#### JSON parsing failure
+**JSON parsing failure**
 
 For example a POST request body of `NONSENSE` or `{"query":` (note: invalid
 JSON).
@@ -582,7 +582,7 @@ JSON).
 Requests that the server cannot interpret should result in status code `400`
 (Bad Request).
 
-#### Invalid parameters
+**Invalid parameters**
 
 For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 `{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}` (note: invalid
@@ -591,32 +591,32 @@ shape for `variables`).
 A request that does not constitute a well-formed _GraphQL-over-HTTP request_
 SHOULD result in status code `422` (Unprocessable Content).
 
-#### Document parsing failure
+**Document parsing failure**
 
 For example a POST request body of `{"query": "{"}`.
 
 Requests where the _GraphQL document_ cannot be parsed should result in status
 code `400` (Bad Request).
 
-#### Document validation failure
+**Document validation failure**
 
 If a request fails _GraphQL validation_, the server SHOULD return a status code
 of `422` (Unprocessable Content) without proceeding to GraphQL execution.
 
-#### Operation cannot be determined
+**Operation cannot be determined**
 
 If [GetOperation()](<https://spec.graphql.org/draft/#GetOperation()>) raises a
 _GraphQL request error_, the server SHOULD NOT execute the request and SHOULD
 return a status code of `422` (Unprocessable Content).
 
-#### Variable coercion failure
+**Variable coercion failure**
 
 If
 [CoerceVariableValues()](<https://spec.graphql.org/draft/#CoerceVariableValues()>)
 raises a _GraphQL request error_, the server SHOULD NOT execute the request and
 SHOULD return a status code of `422` (Unprocessable Content).
 
-#### Field errors encountered during execution
+**Field errors encountered during execution**
 
 If the operation is executed and no _GraphQL request error_ is raised then the
 server SHOULD respond with a status code of `200` (Okay). This is the case even
