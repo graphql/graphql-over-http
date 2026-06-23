@@ -115,9 +115,6 @@ A _server_ MUST enable GraphQL requests to one or more GraphQL schemas.
 
 Each GraphQL schema a _server_ provides MUST be served via one or more URLs.
 
-A _server_ MUST NOT require the _client_ to use different URLs for different
-GraphQL query and mutation requests to the same GraphQL schema.
-
 The GraphQL schema available via a single URL MAY be different for different
 clients. For example, alpha testers or authenticated users may have access to a
 schema with additional fields.
