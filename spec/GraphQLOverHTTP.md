@@ -434,7 +434,7 @@ specification, when a client does not include at least one supported media type
 in the `Accept` HTTP header, the server MUST either:
 
 1. Respond with a `406 Not Acceptable` status code and stop processing the
-   request; OR.
+   request; OR
 1. Disregard the `Accept` header and respond with the server's choice of media
    type.
 
@@ -452,8 +452,8 @@ clients typically can only rely on a response to be from GraphQL either when it
 is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
 response (`Content-Type: application/graphql-response+json`).
 
-If the `Accept` header is present but indicates support for neither any of the
-server's supported media types nor `application/json`, it is RECOMMENDED to
+If the `Accept` header is present but does not indicate support for any of the
+server's supported media types or `application/json`, it is RECOMMENDED to
 respond with `406 Not Acceptable`.
 
 Note: It is unlikely that a client can process a response that does not match
@@ -490,7 +490,7 @@ media type as a well-formed _GraphQL response_ independent of the HTTP status
 code.
 
 Note: With `application/graphql-response+json`, clients know the response is
-well formed and should determine the detailed status of the response from the
+well-formed and should determine the detailed status of the response from the
 response body alone, allowing server authors to adopt more appropriate status
 codes without impacting behavior of existing clients. Intermediary servers and
 services may use the status code to determine the status of the _GraphQL
@@ -506,13 +506,13 @@ If the _GraphQL response_ contains the {data} entry and it is not {null}, then
 the server MUST reply with a `2xx` status code.
 
 If the _GraphQL response_ contains the {data} entry and does not contain the
-{errors} entry, then the server SHOULD reply with `200` status code.
+{errors} entry, then the server SHOULD reply with a `200` status code.
 
 Note: There are no circumstances where the GraphQL specification allows for a
 response having {data} as {null} without {errors} being present.
 
 If the _GraphQL response_ contains both the {data} entry (even if it is {null})
-and the {errors} entry, then the server SHOULD reply with `294` status code.
+and the {errors} entry, then the server SHOULD reply with a `294` status code.
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
@@ -534,7 +534,7 @@ reply with an appropriate `4xx` or `5xx` status code:
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
   - If none of the media types in the `Accept` header are supported and the
-    `Accept` header does not include `application/json` then status code `406`
+    `Accept` header does not include `application/json`, then status code `406`
     is RECOMMENDED.
   - If the client did not produce a request within the time that the server was
     prepared to wait, status code `408` is RECOMMENDED.
@@ -556,13 +556,13 @@ reply with an appropriate `4xx` or `5xx` status code:
     `422` is RECOMMENDED.
   - If the variable values cannot be coerced to match the operation's variable
     definitions, status code `422` is RECOMMENDED.
-  - If the client is not permitted to issue the GraphQL request then the server
+  - If the client is not permitted to issue the GraphQL request, then the server
     SHOULD reply with `401`, `403` or similar appropriate status code.
   - If the server cannot process the request due to being a short and stout
     ceramic vessel, status code `418` is RECOMMENDED.
 - When the server is the reason for failure, the appropriate `5xx` status code
   should be used. For example, if the server is not able to execute requests at
-  this time due to maintenance or load-shedding then status code `503` is
+  this time due to maintenance or load-shedding, then status code `503` is
   RECOMMENDED.
 
 Note: The GraphQL specification indicates that the only situation in which the
@@ -576,7 +576,7 @@ cases:
 
 **JSON parsing failure**
 
-For example a POST request body of `NONSENSE` or `{"query":` (note: invalid
+For example, a POST request body of `NONSENSE` or `{"query":` (note: invalid
 JSON).
 
 Requests that the server cannot interpret should result in status code `400`
@@ -584,7 +584,7 @@ Requests that the server cannot interpret should result in status code `400`
 
 **Invalid parameters**
 
-For example a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
+For example, a POST request body of `{"qeury": "{__typename}"}` (note: typo) or
 `{"query": "query Q ($i:Int!) { q(i: $i) }", "variables": [7]}` (note: invalid
 shape for `variables`).
 
@@ -593,7 +593,7 @@ SHOULD result in status code `422` (Unprocessable Content).
 
 **Document parsing failure**
 
-For example a POST request body of `{"query": "{"}`.
+For example, a POST request body of `{"query": "{"}`.
 
 Requests where the _GraphQL document_ cannot be parsed should result in status
 code `400` (Bad Request).
@@ -618,7 +618,7 @@ SHOULD return a status code of `422` (Unprocessable Content).
 
 **Field errors encountered during execution**
 
-If the operation is executed and no _GraphQL request error_ is raised then the
+If the operation is executed and no _GraphQL request error_ is raised, then the
 server SHOULD respond with a status code of `200` (Okay). This is the case even
 if a _GraphQL field error_ is raised during
 [GraphQL's ExecuteQuery()](<https://spec.graphql.org/draft/#ExecuteQuery()>) or
