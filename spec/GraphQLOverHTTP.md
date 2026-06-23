@@ -447,9 +447,9 @@ it had `Accept: application/graphql-response+json` but use
 Note: This recommendation uses this specification's full range of HTTP status
 codes whilst maximizing compatibility with _legacy client_ for successful and
 partially successful requests. HTTP responses could originate from non-GraphQL
-intermediary servers and middlewares handling failures (HTTP `4xx` and `5xx`),
-so clients typically can only rely on a response to be from GraphQL either when
-it is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
+intermediary servers and middleware handling failures (HTTP `4xx` and `5xx`), so
+clients typically can only rely on a response to be from GraphQL either when it
+is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
 response (`Content-Type: application/graphql-response+json`).
 
 If the `Accept` header is present but indicates support for neither any of the
