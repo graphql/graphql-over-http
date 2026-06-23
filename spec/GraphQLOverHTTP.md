@@ -304,8 +304,8 @@ http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname
 
 ## POST
 
-A GraphQL POST request instructs the server to perform a query or mutation
-operation. A GraphQL POST request MUST have a body which contains values of the
+A POST request instructs the GraphQL-over-HTTP server to perform a query or
+mutation operation. The request MUST have a body which contains values of the
 _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
 
