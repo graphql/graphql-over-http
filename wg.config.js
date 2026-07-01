@@ -18,7 +18,6 @@ const config = {
   attendeesTemplate: `\
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
-| Benjie Gillam (Host) | @benjie       | Graphile           | Chandler's Ford, UK   |
 `,
   dateAndTimeLocations:
     "&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604",
