@@ -441,8 +441,9 @@ in the `Accept` HTTP header, the server MUST either:
 To improve _legacy client_ compatibility, if the `Accept` header does not
 indicate support for one of the server's preferred media types but does indicate
 support for `application/json`, it is RECOMMENDED to perform the request as if
-it had `Accept: application/graphql-response+json` but use
-`Content-Type: application/json` for any response with a `2xx` status code.
+it had `Accept: application/graphql-response+json` but return
+`Content-Type: application/json` for any response that produces a `2xx` status
+code.
 
 Note: This recommendation uses this specification's full range of HTTP status
 codes whilst maximizing _legacy client_ compatibility for successful and
