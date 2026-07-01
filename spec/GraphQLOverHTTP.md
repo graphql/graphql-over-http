@@ -500,7 +500,8 @@ observability, API gateways, and more.
 
 In case of errors that completely prevent the generation of a well-formed
 _GraphQL response_, the server SHOULD respond with the appropriate HTTP `4xx` or
-`5xx` status code depending on the concrete error condition.
+`5xx` status code depending on the concrete error condition, and MUST NOT use
+the `application/graphql-response+json` media type.
 
 If the _GraphQL response_ contains the {data} entry and it is not {null}, then
 the server MUST reply with a `2xx` status code.
