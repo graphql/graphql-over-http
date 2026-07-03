@@ -182,7 +182,7 @@ assumed).
 # Request
 
 A server MUST accept POST requests, and MAY accept other HTTP methods, such as
-GET.
+GET or QUERY.
 
 ## Request Parameters
 
@@ -398,6 +398,70 @@ And the body:
 }
 ```
 
+## QUERY
+
+A [QUERY](https://www.rfc-editor.org/rfc/rfc10008.html) request instructs the
+GraphQL-over-HTTP server to perform a query operation. The request MUST have a
+body which contains values of the _GraphQL-over-HTTP request_ parameters encoded
+in one of the officially recognized GraphQL media types, or another media type
+supported by the server.
+
+A client MUST indicate the media type of a request body using the `Content-Type`
+header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+
+If a server supports QUERY requests, it MUST support QUERY requests using the
+`application/json` media type (as indicated by the `Content-Type` header)
+encoded with UTF-8.
+
+For QUERY requests using an officially recognized GraphQL `Content-Type` without
+indicating an encoding, the server MUST assume the encoding is `utf-8`.
+
+If the client does not supply a `Content-Type` header with a QUERY request, the
+server SHOULD reject the request using the appropriate `4xx` status code.
+
+Note: Rejecting such requests encourages clients to supply a `Content-Type`
+header with every QUERY request. A server has the option to assume any media
+type they wish when none is supplied, with the understanding that parsing the
+request may fail.
+
+A server MAY support QUERY requests encoded with and/or accepting other media
+types or encodings.
+
+If a client does not know the media types the server supports then it SHOULD
+encode the request body in JSON (i.e. with `Content-Type: application/json`).
+
+QUERY requests MUST NOT be used for executing mutation operations. If the values
+of {query} and {operationName} indicate that a mutation operation is to be
+executed, the server MUST respond with error status code `405` (Method Not
+Allowed) and halt execution. This restriction is necessary to conform with the
+long-established semantics of safe methods within HTTP.
+
+### JSON Encoding
+
+When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
+(map), with the properties specified by the GraphQL-over-HTTP request:
+
+- {query} - the string representation of the Source Text of the Document as
+  specified in
+  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
+- {operationName} - an optional string
+- {variables} - an optional object (map), the keys of which are the variable
+  names and the values of which are the variable values
+- {extensions} - an optional object (map) reserved for implementers to extend
+  the protocol however they see fit, as specified in
+  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
+
+All other property names are reserved for future expansion. If implementers need
+to add additional information to a request they MUST do so via other means; the
+RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
+object.
+
+Servers receiving a request with additional properties MUST ignore properties
+they do not understand.
+
+Specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
+
 # Response
 
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
@@ -531,8 +595,8 @@ reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
-  - If a mutation is attempted via the `GET` verb, status code `405` MUST be
-    used.
+  - If a mutation is attempted via the `GET` or `QUERY` verb, status code `405`
+    MUST be used.
   - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
@@ -542,11 +606,11 @@ reply with an appropriate `4xx` or `5xx` status code:
   - If the client did not produce a request within the time that the server was
     prepared to wait, status code `408` is RECOMMENDED.
   - If the size of the URI was too large, status code `414` is RECOMMENDED (and
-    the client should consider using `POST` instead).
+    the client should consider using `POST` or `QUERY` instead).
   - If the size of the request headers (or any one header) was too large, status
     code `431` is RECOMMENDED.
-  - If the size of the `POST` request body was too large, status code `413` is
-    RECOMMENDED.
+  - If the size of the `POST` or `QUERY` request body was too large, status code
+    `413` is RECOMMENDED.
   - If the JSON body of the request could not be parsed, status code `400` is
     RECOMMENDED.
   - If the request is not a well-formed _GraphQL-over-HTTP request_, status code
