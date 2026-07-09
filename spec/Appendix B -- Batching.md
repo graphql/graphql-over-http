@@ -48,10 +48,8 @@ This appendix extends the `{variables}` request parameter:
 - `{variables}` MAY be a list of maps for variable batching.
 - If `{variables}` is a list, each item in the list MUST be a map.
 
-A batching request body MUST be one of the following:
-
-- A single _GraphQL-over-HTTP request_ object.
-- A list of _GraphQL-over-HTTP request_ objects.
+To add support for request batching, the JSON encoding of a _GraphQL-over-HTTP
+request_ is extended such that the body of the request may also be a list of _GraphQL-over-HTTP request_ maps.
 
 If a request object's `{variables}` value is a list, the server MUST execute
 that request once per variables entry.
