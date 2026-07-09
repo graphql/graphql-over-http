@@ -57,7 +57,6 @@ independent _GraphQL-over-HTTP request_.
 
 When a request object's `{variables}` value is a list, each variables map
 represents a distinct execution of that request object.
-
 The server MAY execute these executions in any order, including concurrently,
 and the client MUST NOT assume serial execution or any ordering based on
 variables list position.
