@@ -42,11 +42,7 @@ time with a different {variableValues} map.
 
 A batching request is sent as a POST request with a JSON-encoded body.
 
-This appendix extends the `{variables}` request parameter:
-
-- `{variables}` MAY be a map (as defined in the main specification).
-- `{variables}` MAY be a list of maps for variable batching.
-- If `{variables}` is a list, each item in the list MUST be a map.
+To add support for variable batching, the {variables} _request parameter_ is extended such that it may now also accept a list of maps.
 
 To add support for request batching, the JSON encoding of a _GraphQL-over-HTTP
 request_ is extended such that the body of the request may also be a list of _GraphQL-over-HTTP request_ maps.
