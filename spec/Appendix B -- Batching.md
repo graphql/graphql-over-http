@@ -34,8 +34,9 @@ query ($vendorId: ID!, $productId: ID!) {
 }
 ```
 
-A list of variable maps allows this operation to execute multiple times in one
-HTTP request, each time with a different pair of variable values.
+Supplying the document to execute alongside a _list_ of {variableValues} maps
+allows this operation to execute multiple times in a single HTTP request, each
+time with a different {variableValues} map.
 
 ### Request Shapes
 
