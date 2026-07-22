@@ -1,0 +1,1 @@
+Cancelled due to a conflict with the [secondary working group](https://github.com/graphql/graphql-wg/blob/main/agendas/2026/04-Apr/16-wg-secondary-eu.md). 
