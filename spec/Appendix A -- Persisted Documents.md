@@ -95,6 +95,54 @@ implementation specific.
 Note: A 32 character hexadecimal _custom document identifier_ is likely to be an
 MD5 hash of the GraphQL document, as traditionally used by Relay.
 
+### Document identifier syntax
+
+A _document identifier_ must only contain colons (`:`) and characters that are
+defined as
+[`unreserved` in RFC3986](https://datatracker.ietf.org/doc/html/rfc3986#section-2.3)
+(alphanumeric characters (`A-Z`, `a-z`, `0-9`), dashes (`-`), periods (`.`),
+underscores (`_`), and tildes (`~`)).
+
+DocumentIdentifier ::
+
+- PrefixedDocumentIdentifier
+- CustomDocumentIdentifier
+
+PrefixedDocumentIdentifier ::
+
+- Prefix `:` Payload
+
+Prefix :: UnreservedCharacter+
+
+Payload :: PayloadCharacter+
+
+CustomDocumentIdentifier :: UnreservedCharacter+ [lookahead != `:`]
+
+PayloadCharacter ::
+
+- UnreservedCharacter
+- `:`
+
+UnreservedCharacter ::
+
+- Letter
+- Digit
+- `-`
+- `.`
+- `_`
+- `~`
+
+Letter :: one of
+
+- `A` `B` `C` `D` `E` `F` `G` `H` `I` `J` `K` `L` `M`
+- `N` `O` `P` `Q` `R` `S` `T` `U` `V` `W` `X` `Y` `Z`
+- `a` `b` `c` `d` `e` `f` `g` `h` `i` `j` `k` `l` `m`
+- `n` `o` `p` `q` `r` `s` `t` `u` `v` `w` `x` `y` `z`
+
+Digit :: one of
+
+- `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
+
 ## Persisting a Document
 
 To utilize persisted documents for a request, the client must possess a unique
