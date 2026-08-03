@@ -646,7 +646,8 @@ response; it still indicates successful execution.
 # Non-normative notes
 
 This section of the specification is non-normative, even where the words and
-phrases specified in IETF RFC 2119 are used.
+phrases specified in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119) are
+used.
 
 ## Partial success
 
