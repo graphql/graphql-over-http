@@ -434,7 +434,7 @@ header and attempt to encode the response in the highest priority media type
 listed that is supported by the server.
 
 In alignment with the
-[IETF RFC 9110 specification of `Accept`](https://httpwg.org/specs/rfc9110.html#field.accept),
+[IETF RFC 9110 Content Negotiation](https://httpwg.org/specs/rfc9110.html#content.negotiation),
 when the request includes an `Accept` header and no supported media type is
 acceptable according to that header, the server MUST either:
 
