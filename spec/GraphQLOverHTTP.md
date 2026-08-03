@@ -225,8 +225,8 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 ## Accept
 
 A client MUST indicate the media types that it supports in responses using the
-`Accept` HTTP header as specified in
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+`Accept` HTTP header; this header is specified in
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.accept).
 
 Note: If a client does not supply the `Accept` header then the server may
 respond with an error, or with any content type it chooses (including serving a
@@ -282,7 +282,7 @@ necessary to conform with the long-established semantics of safe methods within
 HTTP.
 
 Note: If status code `405` is used then the `Allow` header must be included as
-per [RFC9110](https://httpwg.org/specs/rfc9110.html#status.405).
+required by [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#status.405).
 
 ### Example
 
@@ -312,7 +312,8 @@ _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
-header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+header; this header is specified in
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.content-type).
 
 A server MUST support POST requests encoded with the `application/json` media
 type (as indicated by the `Content-Type` header) encoded with UTF-8.
@@ -410,7 +411,7 @@ validating and executing the requested operation if successful, and describes
 any errors encountered during the request.
 
 A server must comply with
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html).
 
 ## Body
 
@@ -645,7 +646,7 @@ response; it still indicates successful execution.
 # Non-normative notes
 
 This section of the specification is non-normative, even where the words and
-phrases specified in RFC2119 are used.
+phrases specified in IETF RFC 2119 are used.
 
 ## Partial success
 
@@ -736,9 +737,9 @@ HTTP request size would suggest.
 ### Other resources
 
 For more detailed security considerations, please refer to
-[RFC 7231](https://tools.ietf.org/html/rfc7231),
-[RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and other
-resources such as [OWASP](https://owasp.org).
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html),
+[IETF RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and
+other resources such as [OWASP](https://owasp.org).
 
 ## Future compatibility
 
