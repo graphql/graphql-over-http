@@ -435,8 +435,8 @@ listed that is supported by the server.
 
 In alignment with the
 [IETF RFC 9110 specification of `Accept`](https://httpwg.org/specs/rfc9110.html#field.accept),
-when a client does not include at least one supported media type in the `Accept`
-HTTP header, the server MUST either:
+when the request includes an `Accept` header and no supported media type is
+acceptable according to that header, the server MUST either:
 
 1. Respond with a `406 Not Acceptable` status code and stop processing the
    request; OR
