@@ -434,9 +434,9 @@ header and attempt to encode the response in the highest priority media type
 listed that is supported by the server.
 
 In alignment with the
-[HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2)
-specification, when a client does not include at least one supported media type
-in the `Accept` HTTP header, the server MUST either:
+[IETF RFC 9110 specification of `Accept`](https://httpwg.org/specs/rfc9110.html#field.accept),
+when a client does not include at least one supported media type in the `Accept`
+HTTP header, the server MUST either:
 
 1. Respond with a `406 Not Acceptable` status code and stop processing the
    request; OR
