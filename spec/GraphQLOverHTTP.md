@@ -276,9 +276,13 @@ either omit {operationName} or set it to the empty string.
 
 GET requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
+executed, the server MUST respond with an appropriate `4xx` status code and halt
+execution. Using `405` (Method Not Allowed) is RECOMMENDED. This restriction is
+necessary to conform with the long-established semantics of safe methods within
+HTTP.
+
+Note: If status code `405` is used then the `Allow` header must be included as
+per [RFC9110](https://httpwg.org/specs/rfc9110.html#status.405).
 
 ### Example
 
@@ -531,8 +535,8 @@ reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
-  - If a mutation is attempted via the `GET` verb, status code `405` MUST be
-    used.
+  - If a mutation is attempted via the `GET` verb, status code `405` is
+    RECOMMENDED.
   - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
