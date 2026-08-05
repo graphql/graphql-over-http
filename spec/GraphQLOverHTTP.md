@@ -437,8 +437,8 @@ encode the request body in JSON (i.e. with `Content-Type: application/json`).
 
 QUERY requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
+executed, the server MUST respond with error status code `422` (Unprocessable
+Entity) and halt execution. This restriction is necessary to conform with the
 long-established semantics of safe methods within HTTP.
 
 ### JSON Encoding
