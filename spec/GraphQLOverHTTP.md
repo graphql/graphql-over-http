@@ -225,8 +225,8 @@ be part of a well-formed _GraphQL-over-HTTP request_.
 ## Accept
 
 A client MUST indicate the media types that it supports in responses using the
-`Accept` HTTP header as specified in
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+`Accept` HTTP header; this header is specified in
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.accept).
 
 Note: If a client does not supply the `Accept` header then the server may
 respond with an error, or with any content type it chooses (including serving a
@@ -276,9 +276,13 @@ either omit {operationName} or set it to the empty string.
 
 GET requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
-executed, the server MUST respond with error status code `405` (Method Not
-Allowed) and halt execution. This restriction is necessary to conform with the
-long-established semantics of safe methods within HTTP.
+executed, the server MUST respond with an appropriate `4xx` status code and halt
+execution. Using `405` (Method Not Allowed) is RECOMMENDED. This restriction is
+necessary to conform with the long-established semantics of safe methods within
+HTTP.
+
+Note: If status code `405` is used then the `Allow` header must be included as
+required by [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#status.405).
 
 ### Example
 
@@ -308,7 +312,8 @@ _GraphQL-over-HTTP request_ parameters encoded in one of the officially
 recognized GraphQL media types, or another media type supported by the server.
 
 A client MUST indicate the media type of a request body using the `Content-Type`
-header as specified in [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+header; this header is specified in
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.content-type).
 
 A server MUST support POST requests encoded with the `application/json` media
 type (as indicated by the `Content-Type` header) encoded with UTF-8.
@@ -470,7 +475,7 @@ validating and executing the requested operation if successful, and describes
 any errors encountered during the request.
 
 A server must comply with
-[RFC7231](https://datatracker.ietf.org/doc/html/rfc7231).
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html).
 
 ## Body
 
@@ -493,9 +498,9 @@ header and attempt to encode the response in the highest priority media type
 listed that is supported by the server.
 
 In alignment with the
-[HTTP 1.1 Accept](https://tools.ietf.org/html/rfc7231#section-5.3.2)
-specification, when a client does not include at least one supported media type
-in the `Accept` HTTP header, the server MUST either:
+[IETF RFC 9110 Content Negotiation](https://httpwg.org/specs/rfc9110.html#content.negotiation),
+when the request includes an `Accept` header and no supported media type is
+acceptable according to that header, the server MUST either:
 
 1. Respond with a `406 Not Acceptable` status code and stop processing the
    request; OR
@@ -596,7 +601,7 @@ reply with an appropriate `4xx` or `5xx` status code:
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
   - If a mutation is attempted via the `GET` or `QUERY` verb, status code `405`
-    MUST be used.
+    is RECOMMENDED.
   - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
   - If the `Content-Type` of the request is not supported, status code `415` is
     RECOMMENDED.
@@ -705,7 +710,8 @@ response; it still indicates successful execution.
 # Non-normative notes
 
 This section of the specification is non-normative, even where the words and
-phrases specified in RFC2119 are used.
+phrases specified in [IETF RFC 2119](https://tools.ietf.org/html/rfc2119) are
+used.
 
 ## Partial success
 
@@ -796,9 +802,9 @@ HTTP request size would suggest.
 ### Other resources
 
 For more detailed security considerations, please refer to
-[RFC 7231](https://tools.ietf.org/html/rfc7231),
-[RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and other
-resources such as [OWASP](https://owasp.org).
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html),
+[IETF RFC 6454](https://tools.ietf.org/html/rfc6454), other relevant RFCs, and
+other resources such as [OWASP](https://owasp.org).
 
 ## Future compatibility
 
