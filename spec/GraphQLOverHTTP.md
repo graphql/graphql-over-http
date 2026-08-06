@@ -198,7 +198,7 @@ parameters in one of the manners described in this specification:
   Operation.
 - {extensions} - (_Optional_, map): This entry is reserved for implementers to
   extend the protocol however they see fit, as specified in
-  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
+  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Extensions).
 
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
