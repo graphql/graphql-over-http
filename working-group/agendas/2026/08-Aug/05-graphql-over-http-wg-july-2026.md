@@ -99,10 +99,11 @@ We typically meet on the last Thursday of the month.
 ## Attendees
 
 <!-- prettier-ignore -->
-| Name          | GitHub       | Organization | Location  |
-|:--------------|:-------------|:-------------|:----------|
-| Martin Bonnin | martinbonnin | Apollo       | Paris, FR |
-| Benjie Gillam | @benjie      | Graphile     | Chandler's Ford, UK |
+| Name          | GitHub        | Organization | Location  |
+|:--------------|:--------------|:-------------|:--------------------|
+| Martin Bonnin | martinbonnin  | Apollo       | Paris, FR           |
+| Benjie Gillam | @benjie       | Graphile     | Chandler's Ford, UK |
+| Michael Staib | @michaelstaib | ChilliCream  | Zurich, CH          |
 
 
 ## Agenda
