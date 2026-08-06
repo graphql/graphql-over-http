@@ -73,7 +73,7 @@ https://github.com/graphql/graphql-spec/blob/main/CONTRIBUTING.md#rfc-contributi
 | This is an open meeting: To attend, read [JoiningAMeeting.md][] then edit and PR this file. (Edit: ✎ above, or press "e") |
 | ---------------------------------------------------------------------------------------- |
 
-# GraphQL-over-HTTP WG — July 2026
+# GraphQL-over-HTTP WG — October 2026
 
 The GraphQL-over-HTTP Working Group meets regularly to discuss changes to the
 [GraphQL-over-HTTP Specification](https://graphql.github.io/graphql-over-http/).
@@ -81,7 +81,7 @@ This is an open meeting in which anyone in the GraphQL community may attend.
 
 We typically meet on the last Thursday of the month.
 
-- **Date & Time**: [August 5, 2026, 11:00 AM – 12:00 PM PDT](https://www.timeanddate.com/worldclock/converter.html?iso=20260805T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
+- **Date & Time**: [October 29, 2026, 11:00 AM – 12:00 PM PDT](https://www.timeanddate.com/worldclock/converter.html?iso=20261029T180000&&p1=3775&p2=110&p3=24&p4=37&p5=188&p6=496&p7=676&p8=438&p9=268&p10=234&p11=78&p12=604)
   - View the [calendar][], or subscribe ([Google Calendar][], [ical file][]).
   - _Please Note:_ The date or time may change. Please check this agenda the
     week of the meeting to confirm. While we try to keep all calendars accurate,
@@ -99,11 +99,8 @@ We typically meet on the last Thursday of the month.
 ## Attendees
 
 <!-- prettier-ignore -->
-| Name          | GitHub        | Organization | Location  |
-|:--------------|:--------------|:-------------|:--------------------|
-| Martin Bonnin | martinbonnin  | Apollo       | Paris, FR           |
-| Benjie Gillam | @benjie       | Graphile     | Chandler's Ford, UK |
-| Michael Staib | @michaelstaib | ChilliCream  | Zurich, CH          |
+| Name                 | GitHub        | Organization       | Location              |
+| :------------------- | :------------ | :----------------- | :-------------------- |
 
 
 ## Agenda
@@ -119,9 +116,3 @@ We typically meet on the last Thursday of the month.
 1. Review agenda (2m, Host)
 1. Check for [ready for review agenda items](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc) (5m, Host)
 1. Reminder: [grants available for key initiatives](https://graphql.org/community/foundation/community-grant/) (1m, Host)
-1. `QUERY` HTTP verb (5min, Martin)
-   - https://github.com/graphql/graphql-over-http/pull/411
-   - Aim: feedback
-1. Release status (5min, Martin)
-   - When do we plan the release, what scope?
-   - Aim: synchronization
