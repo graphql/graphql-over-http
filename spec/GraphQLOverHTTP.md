@@ -353,9 +353,10 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means, for
-example by adding an implementer-scoped entry to the {extensions} object.
+All other property names are reserved for future expansion. Implementers MUST
+NOT add additional properties to the request object; additional information
+should instead use other means, for example HTTP headers or an
+implementer-scoped entry in the {extensions} object.
 
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
