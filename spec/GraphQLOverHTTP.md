@@ -181,8 +181,8 @@ assumed).
 
 # Request
 
-A server MUST accept POST requests, and MAY accept other HTTP methods, such as
-GET or QUERY.
+A server MUST accept POST requests, SHOULD accept QUERY requests, and MAY accept
+other HTTP methods, such as GET.
 
 ## Request Parameters
 
