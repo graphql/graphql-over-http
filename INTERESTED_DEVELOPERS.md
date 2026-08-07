@@ -76,6 +76,9 @@ yourself by username.
 - @mike-marcacci
   - Company/Project/Repo: https://github.com/boltline
   - Reason: Interested in client/server spec
+- @miqui
+  - Company/Project/Repo: N/A
+  - Reason: Interested in a common HTTP spec
 - @mmatsa
   - Company/Project/Repo: https://github.com/graphql/libgraphqlparser
   - Reason: Interested in client/server in C++
