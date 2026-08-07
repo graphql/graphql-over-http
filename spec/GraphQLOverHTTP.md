@@ -433,7 +433,7 @@ properties in one of the manners described in this specification:
 Note: There are no circumstances where the GraphQL specification allows for a
 response having data absent without errors being present.
 
-Note: When comparing _GraphQL-over-HTTP request_ against the term
+Note: When comparing _GraphQL-over-HTTP response_ against the term
 ["response"](https://spec.graphql.org/draft/#response) in the GraphQL
 specification you should note that a _GraphQL-over-HTTP response_ is either an
 [Execution Result](https://spec.graphql.org/draft/#execution-result) or a
