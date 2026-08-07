@@ -424,7 +424,7 @@ properties in one of the manners described in this specification:
   [request error](https://spec.graphql.org/draft/#request-error) happened.
 - {errors} - (_Optional_, list): a list of
   [errors](https://spec.graphql.org/draft/#sec-Errors) as specified in the
-  GraphQL specification if present. Absent if no error happened. 
+  GraphQL specification if present. Absent if no error happened.
 - {extensions} - an optional object (map) reserved for implementers to extend
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
