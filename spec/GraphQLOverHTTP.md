@@ -163,10 +163,11 @@ throughout this specification.
 
 The following are the officially recognized GraphQL media types:
 
-| Name                                | Description                           |
-| ----------------------------------- | ------------------------------------- |
-| `application/json`                  | Media type for GraphQL JSON requests  |
-| `application/graphql-response+json` | Media type for GraphQL JSON responses |
+| Name                                | Description                                 |
+| ----------------------------------- | ------------------------------------------- |
+| `application/graphql-request+json`  | Media type for GraphQL JSON requests        |
+| `application/graphql-response+json` | Media type for GraphQL JSON responses       |
+| `application/json`                  | Legacy media type for GraphQL JSON requests |
 
 For details of the shapes of these JSON payloads, please see
 [Request](#sec-Request) and [Response](#sec-Response).
@@ -177,10 +178,10 @@ types, then `utf-8` MUST be assumed (e.g. for header
 `Content-Type: application/graphql-response+json`, UTF-8 encoding would be
 assumed).
 
-## `application/json` media type
+## application/graphql-request+json
 
-The `application/json` media type indicates a _GraphQL-over-HTTP request_
-encoded as a JSON object (map), with the properties specified by the
+The `application/graphql-request+json` media type indicates a _GraphQL-over-HTTP
+request_ encoded as a JSON object (map), with the properties specified by the
 _GraphQL-over-HTTP request_:
 
 - {query}
@@ -223,7 +224,7 @@ This request could be sent via an HTTP POST to the relevant URL using the JSON
 encoding with the header:
 
 ```headers example
-Content-Type: application/json
+Content-Type: application/graphql-request+json
 ```
 
 And the body:
@@ -237,7 +238,7 @@ And the body:
 }
 ```
 
-## `application/graphql-response+json`
+## application/graphql-response+json
 
 The `application/graphql-response+json` media type indicates a
 _GraphQL-over-HTTP response_ encoded as a JSON object (map), with the properties
@@ -315,6 +316,15 @@ The response would not contain any {data}:
   ]
 }
 ```
+
+## application/json
+
+The `application/json` media type indicates a _GraphQL-over-HTTP request_
+encoded as a JSON object (map), with the properties specified by the
+_GraphQL-over-HTTP request_, similar to `application/graphql-request+json`.
+
+The dedicated media type makes it possible for application servers to determine
+the contents of a request is GraphQL without having to parse them.
 
 # Request
 
@@ -452,8 +462,14 @@ A client MUST indicate the media type of a request body using the `Content-Type`
 header; this header is specified in
 [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.content-type).
 
-A server MUST support POST requests encoded with the `application/json` media
-type (as indicated by the `Content-Type` header) encoded with UTF-8.
+A server MUST support POST requests encoded with the `application/json` and
+`application/graphql-request+json` media type (as indicated by the
+`Content-Type` header) encoded with UTF-8.
+
+Note: Prior versions of this specification did not include the
+`application/graphql-request+json` media type.
+`application/graphql-request+json` is the preferred media type moving forward
+but servers must keep supporting `application/json` for compatiblity.
 
 For POST requests using an officially recognized GraphQL `Content-Type` without
 indicating an encoding, the server MUST assume the encoding is `utf-8`.
@@ -470,7 +486,8 @@ A server MAY support POST requests encoded with and/or accepting other media
 types or encodings.
 
 If a client does not know the media types the server supports then it SHOULD
-encode the request body in JSON (i.e. with `Content-Type: application/json`).
+encode the request body in JSON (i.e. with
+`Content-Type: application/graphql-response+json`).
 
 Note: Request encoding with media type `application/json` is supported by every
 compliant _server_.
