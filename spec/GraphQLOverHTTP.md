@@ -149,7 +149,7 @@ http://product.example.com/graphql
 http://example.com/product/graphql
 ```
 
-# Serialization Format
+# Media types
 
 The GraphQL specification allows for many
 [serialization formats to be implemented](https://spec.graphql.org/draft/#sec-Serialization-Format).
@@ -161,8 +161,6 @@ Note: Allowing other media types, particularly on requests, can be insecure.
 For consistency and ease of notation, examples of the response are given in JSON
 throughout this specification.
 
-## Media Types
-
 The following are the officially recognized GraphQL media types:
 
 | Name                                | Description                           |
@@ -170,14 +168,150 @@ The following are the officially recognized GraphQL media types:
 | `application/json`                  | Media type for GraphQL JSON requests  |
 | `application/graphql-response+json` | Media type for GraphQL JSON responses |
 
-For details of the shapes of these JSON payloads, please see
-[Request](#sec-Request) and [Response](#sec-Response).
-
 If the media type in a `Content-Type` or `Accept` header does not include
 encoding information and matches one of the officially recognized GraphQL media
 types, then `utf-8` MUST be assumed (e.g. for header
 `Content-Type: application/graphql-response+json`, UTF-8 encoding would be
 assumed).
+
+## `application/json` media type
+
+The `application/json` media type indicates a _GraphQL-over-HTTP request_
+encoded as a JSON object (map), with the properties specified by the
+_GraphQL-over-HTTP request_:
+
+- {query}
+- {operationName}
+- {variables}
+- {extensions}
+
+All other property names are reserved for future expansion. If implementers need
+to add additional information to a request they MUST do so via other means; the
+RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
+object.
+
+Servers receiving a request with additional properties MUST ignore properties
+they do not understand.
+
+Specifying `null` for optional request parameters is equivalent to not
+specifying them at all.
+
+### Example
+
+If we wanted to execute the following GraphQL query:
+
+```raw graphql example
+query ($id: ID!) {
+  user(id: $id) {
+    name
+  }
+}
+```
+
+With the following query variables:
+
+```json example
+{
+  "id": "QVBJcy5ndXJ1"
+}
+```
+
+This request could be sent via an HTTP POST to the relevant URL using the JSON
+encoding with the header:
+
+```headers example
+Content-Type: application/json
+```
+
+And the body:
+
+```json example
+{
+  "query": "query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}",
+  "variables": {
+    "id": "QVBJcy5ndXJ1"
+  }
+}
+```
+
+## `application/graphql-response+json`
+
+The `application/graphql-response+json` media type indicates a
+_GraphQL-over-HTTP response_ encoded as a JSON object (map), with the properties
+specified by the _GraphQL-over-HTTP response_:
+
+- {data}
+- {errors}
+- {extensions}
+
+### Example
+
+If we wanted to execute the following GraphQL query:
+
+```raw graphql example
+query ($id: ID!) {
+  user(id: $id) {
+    name
+  }
+}
+```
+
+A successful response would contain the `application/graphql-response+json`
+header:
+
+```headers example
+Content-Type: application/graphql-response+json
+```
+
+And a body containing {data}:
+
+```json example
+{
+  "data": {
+    "user": {
+      "name": "Luke Skywalker"
+    }
+  }
+}
+```
+
+A partial response would also contain {errors}:
+
+```json example
+{
+  "data": {
+    "user": {
+      "name": null
+    }
+  },
+  "errors": [
+    {
+      "message": "An error occured resolving field 'name'",
+      "path": ["user", "name"]
+    }
+  ]
+}
+```
+
+If we wanted to send an invalid query:
+
+```raw graphql example
+query {
+  someInvalidField
+}
+```
+
+The response would not contain any {data}:
+
+```json example
+{
+  "errors": [
+    {
+      "message": "Cannot request 'someInvalidField' on type 'Query'"
+    }
+  ]
+}
+```
 
 # Request
 
@@ -337,71 +471,6 @@ encode the request body in JSON (i.e. with `Content-Type: application/json`).
 
 Note: Request encoding with media type `application/json` is supported by every
 compliant _server_.
-
-### JSON Encoding
-
-When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
-(map), with the properties specified by the GraphQL-over-HTTP request:
-
-- {query} - the string representation of the Source Text of the Document as
-  specified in
-  [the Language section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Language).
-- {operationName} - an optional string
-- {variables} - an optional object (map), the keys of which are the variable
-  names and the values of which are the variable values
-- {extensions} - an optional object (map) reserved for implementers to extend
-  the protocol however they see fit, as specified in
-  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
-
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
-
-Servers receiving a request with additional properties MUST ignore properties
-they do not understand.
-
-Specifying `null` for optional request parameters is equivalent to not
-specifying them at all.
-
-### Example
-
-If we wanted to execute the following GraphQL query:
-
-```raw graphql example
-query ($id: ID!) {
-  user(id: $id) {
-    name
-  }
-}
-```
-
-With the following query variables:
-
-```json example
-{
-  "id": "QVBJcy5ndXJ1"
-}
-```
-
-This request could be sent via an HTTP POST to the relevant URL using the JSON
-encoding with the headers:
-
-```headers example
-Content-Type: application/json
-Accept: application/graphql-response+json
-```
-
-And the body:
-
-```json example
-{
-  "query": "query ($id: ID!) {\n  user(id: $id) {\n    name\n  }\n}",
-  "variables": {
-    "id": "QVBJcy5ndXJ1"
-  }
-}
-```
 
 # Response
 
