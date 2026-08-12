@@ -149,7 +149,7 @@ http://product.example.com/graphql
 http://example.com/product/graphql
 ```
 
-# Serialization Format
+# Media types
 
 The GraphQL specification allows for many
 [serialization formats to be implemented](https://spec.graphql.org/draft/#sec-Serialization-Format).
@@ -167,9 +167,6 @@ The following are the officially recognized GraphQL media types:
 | ----------------------------------- | ------------------------------------- |
 | `application/json`                  | Media type for GraphQL JSON requests  |
 | `application/graphql-response+json` | Media type for GraphQL JSON responses |
-
-For details of the shapes of these JSON payloads, please see
-[Request](#sec-Request) and [Response](#sec-Response).
 
 If the media type in a `Content-Type` or `Accept` header does not include
 encoding information and matches one of the officially recognized GraphQL media
