@@ -181,8 +181,8 @@ assumed).
 
 # Request
 
-A server MUST accept POST requests, and MAY accept other HTTP methods, such as
-GET.
+A server MUST support _GraphQL-over-HTTP request_ via `POST`, and MAY support
+_GraphQL-over-HTTP request_ via other HTTP methods, such as `GET`.
 
 ## Request Parameters
 
