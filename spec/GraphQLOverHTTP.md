@@ -413,6 +413,11 @@ any errors encountered during the request.
 A server must comply with
 [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html).
 
+Note: Detailing the requirements of HTTP, such as
+[requiring support for GET and HEAD verbs](https://httpwg.org/specs/rfc9110.html#method.overview)
+is beyond the scope of this specification. Please refer to IETF RFC 9110 for
+such requirements.
+
 ## Body
 
 The body of the server's response MUST follow the requirements for a _GraphQL
