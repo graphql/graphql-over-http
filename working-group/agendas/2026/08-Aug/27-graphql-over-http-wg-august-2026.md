@@ -102,6 +102,7 @@ We typically meet on the last Thursday of the month.
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam        | @benjie       | Graphile           | Chandler's Ford, UK   |
+| Martin Bonnin | @martinbonnin | Apollo | Paris, FR |
 
 
 ## Agenda
@@ -117,3 +118,17 @@ We typically meet on the last Thursday of the month.
 1. Review agenda (2m, Host)
 1. Check for [ready for review agenda items](https://github.com/graphql/graphql-over-http/issues?q=is%3Aissue+is%3Aopen+label%3A%22Ready+for+review+%F0%9F%99%8C%22+sort%3Aupdated-desc) (5m, Host)
 1. Reminder: [grants available for key initiatives](https://graphql.org/community/foundation/community-grant/) (1m, Host)
+1. Introduce GraphQL over HTTP Response (5m, Martin)
+   - https://github.com/graphql/graphql-over-http/pull/423
+   - Aim: merge
+1. Release status (5m, Martin)
+   - Aim: alignment
+1. `QUERY` (5m, Martin)
+   - https://github.com/graphql/graphql-over-http/pull/411
+   - Aim: feedback
+1. `application/graphql-response+json` media type (5m, Martin)
+   - https://github.com/graphql/graphql-over-http/pull/427
+   - Aim: feedback
+1. Recommendation for GET requests? (5m, Martin)
+   - https://github.com/graphql/graphql-over-http/issues/205#issuecomment-5387265220
+   - Aim: discussion
