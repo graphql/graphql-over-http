@@ -126,7 +126,7 @@ We typically meet on the last Thursday of the month.
 1. `QUERY` (5m, Martin)
    - https://github.com/graphql/graphql-over-http/pull/411
    - Aim: feedback
-1. `application/graphql-response+json` media type (5m, Martin)
+1. `application/graphql-request+json` media type (5m, Martin)
    - https://github.com/graphql/graphql-over-http/pull/427
    - Aim: feedback
 1. Recommendation for GET requests? (5m, Martin)
