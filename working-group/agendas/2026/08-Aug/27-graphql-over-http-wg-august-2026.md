@@ -101,6 +101,7 @@ We typically meet on the last Thursday of the month.
 <!-- prettier-ignore -->
 | Name                 | GitHub        | Organization       | Location              |
 | :------------------- | :------------ | :----------------- | :-------------------- |
+| Benjie Gillam        | @benjie       | Graphile           | Chandler's Ford, UK   |
 
 
 ## Agenda
