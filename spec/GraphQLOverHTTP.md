@@ -408,8 +408,8 @@ And the body:
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
 a well‐formed _GraphQL-over-HTTP response_.
 
-:: A _GraphQL-over-HTTP response_ is formed of the _GraphQL result_ along with
-the relevant headers and status code.
+:: A _GraphQL-over-HTTP response_ is formed of the encoded _GraphQL result_
+along with the relevant headers and status code.
 
 :: The _GraphQL result_ describes the result of parsing, validating and (if
 successful) executing the requested operation, and any errors encountered during
