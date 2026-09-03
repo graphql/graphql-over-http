@@ -647,7 +647,7 @@ SHOULD return a status code of `422` (Unprocessable Content).
 
 If the operation is executed and no _GraphQL request error_ is raised, then the
 server SHOULD respond with a status code of `200` (Okay). This is the case even
-if a _GraphQL field error_ is raised during
+if a _GraphQL execution error_ is raised during
 [GraphQL's ExecuteQuery()](<https://spec.graphql.org/draft/#ExecuteQuery()>) or
 [GraphQL's ExecuteMutation()](<https://spec.graphql.org/draft/#ExecuteMutation()>).
 
@@ -658,9 +658,9 @@ should be added to the above.
 -->
 
 Note: The GraphQL specification
-[differentiates field errors from request errors](https://spec.graphql.org/draft/#sec-Handling-Field-Errors)
-and refers to the situation wherein a _GraphQL field error_ occurs as a partial
-response; it still indicates successful execution.
+[differentiates execution errors from request errors](https://spec.graphql.org/draft/#sec-Handling-Field-Errors)
+and refers to the situation wherein a _GraphQL execution error_ occurs as a
+partial response; it still indicates successful execution.
 
 # Non-normative notes
 

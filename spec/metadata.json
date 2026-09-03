@@ -7,8 +7,8 @@
       "graphql-response": "#sec-Response",
       "graphql-execution-result": "#sec-Execution-Result",
       "graphql-request-error-result": "#sec-Request-Error-Result",
-      "graphql-request-error": "#sec-Errors.Request-errors",
-      "graphql-field-error": "#sec-Errors.Field-errors",
+      "graphql-request-error": "#sec-Errors.Request-Errors",
+      "graphql-execution-error": "#sec-Errors.Execution-Errors",
       "graphql-document": "#sec-Document",
       "graphql-validation": "#sec-Validation"
     }
