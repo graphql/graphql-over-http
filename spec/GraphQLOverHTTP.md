@@ -134,8 +134,8 @@ Server URLs which enable GraphQL requests MAY also be used for other purposes,
 as long as they don't conflict with the server's responsibility to handle
 GraphQL requests.
 
-It is RECOMMENDED to end the path component of the URL with `/graphql`, for
-example:
+It is a common convention to end the path component of the URL with `/graphql`,
+for example:
 
 ```url example
 http://example.com/graphql
@@ -181,8 +181,8 @@ assumed).
 
 # Request
 
-A server MUST accept POST requests, and MAY accept other HTTP methods, such as
-GET.
+A server MUST support _GraphQL-over-HTTP request_ via `POST`, and MAY support
+_GraphQL-over-HTTP request_ via other HTTP methods, such as `GET`.
 
 ## GraphQL-over-HTTP request
 
@@ -198,7 +198,7 @@ parameters in one of the manners described in this specification:
   Operation.
 - {extensions} - (_Optional_, map): This entry is reserved for implementers to
   extend the protocol however they see fit, as specified in
-  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
+  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format).
 
 Note: When comparing _GraphQL-over-HTTP request_ against the term
 ["request"](https://spec.graphql.org/draft/#request) in the GraphQL
@@ -241,7 +241,7 @@ the `Accept` header.
 this specification.
 
 If it is not known that the server supports `application/graphql-response+json`,
-it is RECOMMENDED that the client set the `Accept` header to
+the client SHOULD set the `Accept` header to
 `application/graphql-response+json, application/json;q=0.9`.
 
 ## GET
@@ -277,9 +277,9 @@ either omit {operationName} or set it to the empty string.
 GET requests MUST NOT be used for executing mutation operations. If the values
 of {query} and {operationName} indicate that a mutation operation is to be
 executed, the server MUST respond with an appropriate `4xx` status code and halt
-execution. Using `405` (Method Not Allowed) is RECOMMENDED. This restriction is
-necessary to conform with the long-established semantics of safe methods within
-HTTP.
+execution; status code `405` (Method Not Allowed) is RECOMMENDED. This
+restriction is necessary to conform with the long-established semantics of safe
+methods within HTTP.
 
 Note: If status code `405` is used then the `Allow` header must be included as
 required by [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#status.405).
@@ -353,10 +353,10 @@ When encoded in JSON, a _GraphQL-over-HTTP request_ is encoded as a JSON object
   the protocol however they see fit, as specified in
   [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
 
-All other property names are reserved for future expansion. If implementers need
-to add additional information to a request they MUST do so via other means; the
-RECOMMENDED approach is to add an implementer-scoped entry to the {extensions}
-object.
+All other property names are reserved for future expansion. Implementers MUST
+NOT add additional properties to the request object; additional information
+should instead use other means, for example HTTP headers or an
+implementer-scoped entry in the {extensions} object.
 
 Servers receiving a request with additional properties MUST ignore properties
 they do not understand.
@@ -412,6 +412,11 @@ describes any errors encountered during the request.
 
 A server must comply with
 [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html).
+
+Note: Detailing the requirements of HTTP, such as
+[requiring support for GET and HEAD verbs](https://httpwg.org/specs/rfc9110.html#method.overview)
+is beyond the scope of this specification. Please refer to IETF RFC 9110 for
+such requirements.
 
 ## GraphQL-over-HTTP response
 
@@ -472,8 +477,8 @@ acceptable according to that header, the server MUST either:
 
 If the `Accept` header does not indicate support for one of the server's
 preferred media types but does indicate support for `application/json`, as may
-be the case for a _legacy client_, it is RECOMMENDED to perform the request
-following the requirements of this specification as if the request had specified
+be the case for a _legacy client_, the request SHOULD be performed following the
+requirements of this specification as if the request had specified
 `Accept: application/graphql-response+json`, except any response that produces a
 `2xx` status code should replace the `Content-Type` header with
 `Content-Type: application/json`.
@@ -487,8 +492,8 @@ is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
 response (`Content-Type: application/graphql-response+json`).
 
 If the `Accept` header is present but does not indicate support for any of the
-server's supported media types or `application/json`, it is RECOMMENDED to
-respond with `406 Not Acceptable`.
+server's supported media types or `application/json`, the server SHOULD respond
+with `406 Not Acceptable`.
 
 Note: It is unlikely that a client can process a response that does not match
 one of the media types it has requested, hence `406 Not Acceptable` being the
@@ -565,46 +570,51 @@ server MUST reply with an appropriate `4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
-  - If a mutation is attempted via the `GET` verb, status code `405` is
-    RECOMMENDED.
-  - If an unsupported HTTP method is used, status code `405` is RECOMMENDED.
-  - If the `Content-Type` of the request is not supported, status code `415` is
-    RECOMMENDED.
+  - If a mutation is attempted via the `GET` verb, status code `405` SHOULD be
+    used.
+  - If the request uses an unsupported HTTP method, status code `405` SHOULD be
+    used.
+  - If the `Content-Type` of the request is not supported, status code `415`
+    SHOULD be used.
   - If none of the media types in the `Accept` header are supported and the
     `Accept` header does not include `application/json`, then status code `406`
-    is RECOMMENDED.
+    SHOULD be used.
   - If the client did not produce a request within the time that the server was
-    prepared to wait, status code `408` is RECOMMENDED.
-  - If the size of the URI was too large, status code `414` is RECOMMENDED (and
+    prepared to wait, status code `408` SHOULD be used.
+  - If the size of the URI was too large, status code `414` SHOULD be used (and
     the client should consider using `POST` instead).
   - If the size of the request headers (or any one header) was too large, status
-    code `431` is RECOMMENDED.
-  - If the size of the `POST` request body was too large, status code `413` is
-    RECOMMENDED.
-  - If the JSON body of the request could not be parsed, status code `400` is
-    RECOMMENDED.
+    code `431` SHOULD be used.
+  - If the size of the `POST` request body was too large, status code `413`
+    SHOULD be used.
+  - If the JSON body of the request could not be parsed, status code `400`
+    SHOULD be used.
   - If the request is not a well-formed _GraphQL-over-HTTP request_, status code
-    `422` is RECOMMENDED.
+    `422` SHOULD be used.
   - If the GraphQL document in the request cannot be parsed, status code `400`
-    is RECOMMENDED.
-  - If the request does not pass GraphQL validation, status code `422` is
-    RECOMMENDED.
+    SHOULD be used.
+  - If the request does not pass GraphQL validation, status code `422` SHOULD be
+    used.
   - If the operation to execute cannot be unambiguously determined, status code
-    `422` is RECOMMENDED.
+    `422` SHOULD be used.
   - If the variable values cannot be coerced to match the operation's variable
-    definitions, status code `422` is RECOMMENDED.
+    definitions, status code `422` SHOULD be used.
   - If the client is not permitted to issue the GraphQL request, then the server
     SHOULD reply with `401`, `403` or similar appropriate status code.
   - If the server cannot process the request due to being a short and stout
-    ceramic vessel, status code `418` is RECOMMENDED.
+    ceramic vessel, status code `418` SHOULD be used.
 - When the server is the reason for failure, the appropriate `5xx` status code
   should be used. For example, if the server is not able to execute requests at
-  this time due to maintenance or load-shedding, then status code `503` is
-  RECOMMENDED.
+  this time due to maintenance or load-shedding, then status code `503` SHOULD
+  be used.
 
 Note: The GraphQL specification indicates that the only situation in which the
 _GraphQL-over-HTTP response_ does not include the {data} entry is one in which
 the {errors} entry is populated.
+
+Note: Implementers should be careful to always comply with the HTTP spec, for
+example when using status code `405` the `Allow` header MUST be specified, as
+required by [RFC9110](https://httpwg.org/specs/rfc9110.html#status.405).
 
 ### Examples
 
