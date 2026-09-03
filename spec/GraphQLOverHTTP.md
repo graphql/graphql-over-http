@@ -289,7 +289,7 @@ required by [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#status.405).
 If we wanted to execute the following GraphQL query:
 
 ```raw graphql example
-query($id: ID!){user(id:$id){name}}
+query($id:ID!){user(id:$id){name}}
 ```
 
 With the following query variables:
@@ -301,7 +301,7 @@ With the following query variables:
 This request could be sent via an HTTP GET as follows:
 
 ```url example
-http://example.com/graphql?query=query(%24id%3A%20ID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
+http://example.com/graphql?query=query(%24id%3AID!)%7Buser(id%3A%24id)%7Bname%7D%7D&variables=%7B%22id%22%3A%22QVBJcy5ndXJ1%22%7D
 ```
 
 ## POST
@@ -759,3 +759,5 @@ conflicts with future versions of this specification as ongoing development aims
 to standardize and ensure the security and interoperability of GraphQL over HTTP
 whilst accounting for its growing feature set. For this reason, it is
 recommended to adhere to the officially recognized formats outlined here.
+
+# [Appendix: Persisted Documents](Appendix%20A%20--%20Persisted%20Documents.md)
