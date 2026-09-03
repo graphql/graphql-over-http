@@ -411,7 +411,7 @@ a well‐formed _GraphQL-over-HTTP response_.
 :: A _GraphQL-over-HTTP response_ is formed of the encoded _GraphQL result_
 along with the relevant headers and status code.
 
-:: The _GraphQL result_ describes the result of parsing, validating and (if
+:: A _GraphQL result_ describes the result of parsing, validating and (if
 successful) executing the requested operation, and any errors encountered during
 the request. If execution occurred then the GraphQL result represents a _GraphQL
 execution result_, otherwise (for example, in the case of parse or validation
