@@ -5,10 +5,10 @@
       "graphql-schema": "#sec-Schema",
       "graphql-request": "#request",
       "graphql-response": "#sec-Response",
-      "graphql-execution-result": "#sec-Execution-Result",
-      "graphql-request-error-result": "#sec-Request-Error-Result",
-      "graphql-request-error": "#sec-Errors.Request-Errors",
-      "graphql-execution-error": "#sec-Errors.Execution-Errors",
+      "graphql-execution-result": "#execution-result",
+      "graphql-request-error-result": "#request-error-result",
+      "graphql-request-error": "#request-error",
+      "graphql-execution-error": "#execution-error",
       "graphql-document": "#sec-Document",
       "graphql-validation": "#sec-Validation"
     }
