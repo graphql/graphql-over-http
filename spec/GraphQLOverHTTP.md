@@ -184,7 +184,7 @@ assumed).
 A server MUST support _GraphQL-over-HTTP request_ via `POST`, and MAY support
 _GraphQL-over-HTTP request_ via other HTTP methods, such as `GET`.
 
-## GraphQL-over-HTTP request
+## GraphQL-over-HTTP Request
 
 :: A _GraphQL-over-HTTP request_ is an HTTP request that encodes the following
 parameters in one of the manners described in this specification:
@@ -406,9 +406,16 @@ And the body:
 # Response
 
 When a server receives a well-formed _GraphQL-over-HTTP request_, it must return
-a well‐formed _GraphQL-over-HTTP response_. The server's response describes the
-result of validating and executing the requested operation if successful, and
-describes any errors encountered during the request.
+a well‐formed _GraphQL-over-HTTP response_.
+
+:: A _GraphQL-over-HTTP response_ is formed of the _GraphQL result_ along with
+the relevant headers and status code.
+
+:: The _GraphQL result_ describes the result of parsing, validating and (if
+successful) executing the requested operation, and any errors encountered during
+the request. If execution occurred then the GraphQL result represents a _GraphQL
+execution result_, otherwise (for example, in the case of parse or validation
+failure) it represents a _GraphQL request error result_.
 
 A server must comply with
 [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html).
@@ -418,37 +425,11 @@ Note: Detailing the requirements of HTTP, such as
 is beyond the scope of this specification. Please refer to IETF RFC 9110 for
 such requirements.
 
-## GraphQL-over-HTTP response
-
-:: A _GraphQL-over-HTTP response_ is an HTTP response that encodes the following
-properties in one of the manners described in this specification:
-
-- {data} - (_Optional_, _Nullable_, map): the result of the execution of the
-  requested operation if present. That result may be null if execution errors
-  prevented the formation of data. Absent when a
-  [request error](https://spec.graphql.org/draft/#request-error) happened.
-- {errors} - (_Optional_, list): a list of
-  [errors](https://spec.graphql.org/draft/#sec-Errors) as specified in the
-  GraphQL specification if present. Absent if no error happened.
-- {extensions} - an optional object (map) reserved for implementers to extend
-  the protocol however they see fit, as specified in
-  [the Response section of the GraphQL specification](https://spec.graphql.org/draft/#sec-Response-Format.Response).
-
-Note: There are no circumstances where the GraphQL specification allows for a
-response having data absent without errors being present.
-
-Note: When comparing _GraphQL-over-HTTP response_ against the term
-["response"](https://spec.graphql.org/draft/#response) in the GraphQL
-specification you should note that a _GraphQL-over-HTTP response_ is either an
-[Execution Result](https://spec.graphql.org/draft/#execution-result) or a
-[Request Error Result](https://spec.graphql.org/draft/#sec-Request-Error-Result)
-but never a
-[Response Stream](https://spec.graphql.org/draft/#sec-Response-Format.Response-Stream).
-
 ## Body
 
-The body of the server's response MUST follow the requirements for a
-_GraphQL-over-HTTP response_, encoded according to the chosen media type.
+The body of the server's response MUST follow the requirements for either a
+_GraphQL execution result_ or a _GraphQL request error result_, encoded directly
+in the chosen media type.
 
 A server MUST indicate the media type of the response with a `Content-Type`
 header, and SHOULD indicate the encoding (e.g.
@@ -488,8 +469,8 @@ codes whilst maximizing _legacy client_ compatibility for successful and
 partially successful requests. HTTP responses could originate from non-GraphQL
 intermediary servers and middleware handling failures (HTTP `4xx` and `5xx`), so
 clients typically can only rely on a response to be from GraphQL either when it
-is successful (HTTP `2xx`) or when it explicitly declares it is a GraphQL
-response (`Content-Type: application/graphql-response+json`).
+is successful (HTTP `2xx`) or when it explicitly declares it is a
+GraphQL-over-HTTP response (`Content-Type: application/graphql-response+json`).
 
 If the `Accept` header is present but does not indicate support for any of the
 server's supported media types or `application/json`, the server SHOULD respond
@@ -542,19 +523,17 @@ _GraphQL-over-HTTP response_, the server SHOULD respond with the appropriate
 HTTP `4xx` or `5xx` status code depending on the concrete error condition, and
 MUST NOT use the `application/graphql-response+json` media type.
 
-If the _GraphQL-over-HTTP response_ contains the {data} entry and it is not
-{null}, then the server MUST reply with a `2xx` status code.
+If the _GraphQL result_ contains the {data} entry and it is not {null}, then the
+server MUST reply with a `2xx` status code.
 
-If the _GraphQL-over-HTTP response_ contains the {data} entry and does not
-contain the {errors} entry, then the server SHOULD reply with a `200` status
-code.
+If the _GraphQL result_ contains the {data} entry and does not contain the
+{errors} entry, then the server SHOULD reply with a `200` status code.
 
 Note: There are no circumstances where the GraphQL specification allows for a
-response having {data} as {null} without {errors} being present.
+_GraphQL result_ having {data} as {null} without {errors} being present.
 
-If the _GraphQL-over-HTTP response_ contains both the {data} entry (even if it
-is {null}) and the {errors} entry, then the server SHOULD reply with a `294`
-status code.
+If the _GraphQL result_ contains both the {data} entry (even if it is {null})
+and the {errors} entry, then the server SHOULD reply with a `294` status code.
 
 Note: The result of executing a GraphQL operation may contain partial data as
 well as encountered errors. Errors that happen during execution of the GraphQL
@@ -565,8 +544,9 @@ Using `4xx` and `5xx` status codes in this situation is not appropriate: since
 no _GraphQL request error_ has occurred it is seen as a "partial response" or
 "partial success".
 
-If the _GraphQL-over-HTTP response_ does not contain the {data} entry then the
-server MUST reply with an appropriate `4xx` or `5xx` status code:
+If the _GraphQL result_ does not contain the {data} entry then it represents a
+_GraphQL request error result_ and the server MUST reply with an appropriate
+`4xx` or `5xx` status code:
 
 - If the failure is due to an issue in the request itself, the appropriate `4xx`
   status code should be used:
@@ -609,8 +589,8 @@ server MUST reply with an appropriate `4xx` or `5xx` status code:
   be used.
 
 Note: The GraphQL specification indicates that the only situation in which the
-_GraphQL-over-HTTP response_ does not include the {data} entry is one in which
-the {errors} entry is populated.
+_GraphQL result_ does not include the {data} entry is one in which the {errors}
+entry is populated.
 
 Note: Implementers should be careful to always comply with the HTTP spec, for
 example when using status code `405` the `Allow` header MUST be specified, as

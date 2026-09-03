@@ -1,10 +1,12 @@
 {
   "biblio": {
-    "https://spec.graphql.org/draft/": {
+    "https://spec.graphql.org/September2025/": {
       "graphql-service": "#sec-Overview",
       "graphql-schema": "#sec-Schema",
       "graphql-request": "#request",
       "graphql-response": "#sec-Response",
+      "graphql-execution-result": "#sec-Execution-Result",
+      "graphql-request-error-result": "#sec-Request-Error-Result",
       "graphql-request-error": "#sec-Errors.Request-errors",
       "graphql-field-error": "#sec-Errors.Field-errors",
       "graphql-document": "#sec-Document",
