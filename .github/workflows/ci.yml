@@ -14,9 +14,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24.x"
-      - run: corepack enable
-      - run: yarn
-      - run: yarn test
+      - run: npm ci
+      - run: npm test
   publish:
     if: github.ref == 'refs/heads/main'
     needs: test
@@ -28,9 +27,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24.x"
-      - run: corepack enable
-      - run: yarn
-      - run: yarn run build
+      - run: npm ci
+      - run: npm run build
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
