@@ -1,13 +1,6 @@
-## GraphQL Over HTTP
-
-Note: **Stage 2: Draft** &mdash; this spec is not yet official, but is now a
-fully formed solution. Drafts may continue to evolve and change, occasionally
-dramatically, and are not guaranteed to be accepted. Therefore, it is unwise to
-rely on a draft in a production GraphQL Service.
-
----
-
 # GraphQL over HTTP
+
+_Current Working Draft_
 
 **Introduction**
 
