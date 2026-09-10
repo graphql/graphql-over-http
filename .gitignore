@@ -2,6 +2,13 @@
 logs
 *.log
 npm-debug.log*
+.yarn/*
+!.yarn/releases
+!.yarn/releases/*
+!.yarn/plugins
+!.yarn/plugins/*
+!.yarn/patches
+!.yarn/patches/*
 yarn-debug.log*
 yarn-error.log*
 
@@ -69,4 +76,3 @@ npm-debug.log
 /build
 /public
 /gh-pages
-yarn.lock
