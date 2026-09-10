@@ -17,7 +17,7 @@ jobs:
     steps:
       # SECURITY: it's critical we do not check out the source pull request!
       - name: Checkout the main branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           ref: main
 
