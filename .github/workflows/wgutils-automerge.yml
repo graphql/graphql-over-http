@@ -22,7 +22,7 @@ jobs:
           ref: main
 
       # We need wgutils to be installed
-      - run: yarn install
+      - run: npm ci
 
       - name: Wait for checks to pass
         env:
@@ -49,6 +49,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if yarn wgutils can-automerge "${{ github.event.pull_request.number }}" "${{ github.event.pull_request.head.sha }}"; then
+          if npm exec wgutils -- can-automerge "${{ github.event.pull_request.number }}" "${{ github.event.pull_request.head.sha }}"; then
             gh pr merge "${{ github.event.pull_request.number }}" --squash --auto --match-head-commit "${{ github.event.pull_request.head.sha }}"
           fi
