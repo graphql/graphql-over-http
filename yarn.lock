@@ -1181,7 +1181,7 @@ __metadata:
     nodemon: "npm:^2.0.20"
     prettier: "npm:^2.3.0"
     spec-md: "npm:^3.1.0"
-    wgutils: "npm:^1.4.1"
+    wgutils: "npm:^1.4.2"
   languageName: unknown
   linkType: soft
 
@@ -1935,9 +1935,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wgutils@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "wgutils@npm:1.4.1"
+"wgutils@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "wgutils@npm:1.4.2"
   dependencies:
     date-fns: "npm:^2"
     date-fns-tz: "npm:^2.0.0"
@@ -1946,7 +1946,7 @@ __metadata:
     zod: "npm:^3.22.4"
   bin:
     wgutils: dist/cli.js
-  checksum: 10c0/2c01f5d229cb9c6a335de89b1798452f042449c404aeda7581e7703af0793fb612599101ec9d95cc3f5ebd9083690c2b38cf74f19b03b0701eae96daa00d0dd9
+  checksum: 10c0/fdd9b470dbc15c0c9336d7557fe07e1571ec13a1ebf79f674a2f77668c0fe6e127dd5fd9af00f40721d5594d984f1349b599b65dc9c6cdd637287f9e979a837e
   languageName: node
   linkType: hard
 
