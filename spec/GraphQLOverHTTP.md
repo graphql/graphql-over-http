@@ -695,6 +695,18 @@ but allows servers to indicate partial success such that intermediaries that do
 not implement this specification may still track the not-fully-successful
 request (for example, for observability).
 
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html) requires clients that do
+not recognize a status code treat it as equivalent to the `x00` status code of
+its class; so, even though status code "294 Partial Success" is not yet
+registered with IANA, clients that don't explicitly recognize it should treat it
+equivalently to "200 OK" (notwithstanding that `294` does not appear in the list
+of status codes that are heuristically cacheable).
+
+Note: Infrastructure that assigns behavior using a fixed list of status codes
+might handle `200` and `294` differently. Implementers should verify that
+clients, servers, and intermediaries behave as intended for every status code in
+use, particularly with respect to caching and status-dependent header handling.
+
 ## Security
 
 This specification focuses solely on the intersection of GraphQL and HTTP.
