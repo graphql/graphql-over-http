@@ -680,20 +680,34 @@ appropriate; since no _GraphQL request error_ has occurred it is seen as a
 "partial response" or "partial success".
 
 There's currently not an approved official HTTP status code to use for a
-"partial success". Contenders include "203 Non-Authoritative information" (which
-indicates the response has been transformed), "206 Partial Content" (which
-requires the `Range` header), and WebDAV's status code "207 Multi-Status" (which
+"partial success". Contenders include `203 Non-Authoritative information` (which
+indicates the response has been transformed), `206 Partial Content` (which
+requires the `Range` header), and WebDAV's status code `207 Multi-Status` (which
 "provides status for multiple _independent_ operations"). None of those quite
-fit GraphQL's needs, so we recommend using custom code "294 Partial Success".
-Since we are defining the code ourselves, rather than the IETF, we only
-recommend its usage alongside the `application/graphql-response+json` media type
-which makes the meaning explicit.
+fit GraphQL's needs, so we recommend using the custom code
+`294 Partial Success`. Since we are defining the code ourselves, rather than the
+IETF, we only recommend its usage alongside the
+`application/graphql-response+json` media type which makes the meaning explicit.
 
 Note: This status code is not to help clients, who should ignore the status code
 of a response when receiving the `application/graphql-response+json` media type,
 but allows servers to indicate partial success such that intermediaries that do
 not implement this specification may still track the not-fully-successful
 request (for example, for observability).
+
+[IETF RFC 9110](https://httpwg.org/specs/rfc9110.html) requires HTTP clients
+that do not recognize a status code to treat it as equivalent to the `x00`
+status code of its class. Therefore, although it is not yet registered with
+IANA, HTTP clients that don't explicitly recognize status code
+`294 Partial Success` must treat it as equivalent to `200 OK` (notwithstanding
+that `294` does not appear in the list of status codes that are
+[heuristically cacheable](https://httpwg.org/specs/rfc9110.html#overview.of.status.codes)).
+
+Note: Infrastructure may apply specific behaviors based on a fixed list of
+status codes; because `294` is unlikely to appear in such lists by default,
+`294` might be handled differently from `200`. Implementers should verify that
+clients, servers, and intermediaries behave as intended for every status code in
+use, including `294`, particularly with respect to caching and header handling.
 
 ## Security
 

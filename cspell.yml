@@ -13,6 +13,7 @@ words:
   - structs
   - subselection
   - mitigations
+  - cacheable
   # Software
   - ical
   - WebDAV
