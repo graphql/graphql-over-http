@@ -684,10 +684,10 @@ There's currently not an approved official HTTP status code to use for a
 indicates the response has been transformed), `206 Partial Content` (which
 requires the `Range` header), and WebDAV's status code `207 Multi-Status` (which
 "provides status for multiple _independent_ operations"). None of those quite
-fit GraphQL's needs, so we recommend using the custom code `294 Partial Success`.
-Since we are defining the code ourselves, rather than the IETF, we only
-recommend its usage alongside the `application/graphql-response+json` media type
-which makes the meaning explicit.
+fit GraphQL's needs, so we recommend using the custom code
+`294 Partial Success`. Since we are defining the code ourselves, rather than the
+IETF, we only recommend its usage alongside the
+`application/graphql-response+json` media type which makes the meaning explicit.
 
 Note: This status code is not to help clients, who should ignore the status code
 of a response when receiving the `application/graphql-response+json` media type,
