@@ -4,6 +4,11 @@
 const config = {
   name: "GraphQL-over-HTTP WG",
   repoUrl: "https://github.com/graphql/graphql-over-http",
+  spec: {
+    mainFile: "spec/GraphQLOverHTTP.md",
+    url: "https://http-spec.graphql.org",
+    sentenceName: "the GraphQL-over-HTTP specification"
+  },
   repoSubpath: "working-group",
   videoConferenceDetails: `https://zoom.us/j/92781382543
   - _Password:_ httpwg`,
