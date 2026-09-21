@@ -103,6 +103,7 @@ We typically meet on the last Thursday of the month.
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Benjie Gillam        | @benjie       | Graphile           | Chandler's Ford, UK   |
 | Martin Bonnin | @martinbonnin | Apollo | Paris, FR |
+| Michael Staib | @michaelstaib | ChilliCream | Zurich, CH |
 
 
 ## Agenda
