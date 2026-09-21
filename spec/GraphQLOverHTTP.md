@@ -182,8 +182,8 @@ assumed).
 # Request
 
 A server MUST support _GraphQL-over-HTTP request_ via `POST`, SHOULD support
-_GraphQL-over-HTTP request_ via `QUERY`, and MAY support
-_GraphQL-over-HTTP request_ via other HTTP methods, such as `GET`.
+_GraphQL-over-HTTP request_ via `QUERY`, and MAY support _GraphQL-over-HTTP
+request_ via other HTTP methods, such as `GET`.
 
 ## GraphQL-over-HTTP Request
 
