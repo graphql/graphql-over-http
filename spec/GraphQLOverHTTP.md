@@ -610,7 +610,7 @@ reply with an appropriate `4xx` or `5xx` status code:
   status code should be used:
   - If a mutation is attempted via the `GET` verb, status code `405` SHOULD be
     used.
-  - If a mutation is attempted via the `QUERY` verb, status code `405` SHOULD be
+  - If a mutation is attempted via the `QUERY` verb, status code `422` SHOULD be
     used.
   - If the request uses an unsupported HTTP method, status code `405` SHOULD be
     used.
