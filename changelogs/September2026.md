@@ -17,61 +17,36 @@ issues with long GraphQL documents and their related variables being encoded
 into the query string, so `POST` became the de facto standard. Responses with
 non-`2xx` status codes could originate from non-GraphQL middleware such as rate
 limiters and reverse proxies, confusing the client when they attempted to decode
-the message as if it were a GraphQL response - so `200` became the de factor
-standard even for error responses. This lead to issues with minitoring tools and
-related infrastructure, which could not determine the status of GraphQL requests
-without reading the response body.
+the message as if it were a GraphQL response &mdash; so `200` became the de
+facto standard even for error responses. This led to issues with monitoring
+tools and related infrastructure, which could not determine the status of
+GraphQL requests without reading the response body.
 
-The GraphQL over HTTP specification aims to improve interoperability whilst
-addressing the problems of the past and laying the groundwork for where we'd
-like to see GraphQL delivered over HTTP expand in the future. This first edition
-is the result of countless hours of collaboration between over 20 contributors
-over 8+ years. It's key change over the simple conventions laid out in 2016,
-other than strict specification of every behavior in the interests of reliable
-interoperability, is the introduction of a response media type.
+The GraphQL over HTTP specification builds on those initial conventions,
+improving interoperability and addressing these problems, whilst also laying the
+groundwork for where we'd like to see GraphQL over HTTP expand in the future.
+This first edition is the result of 8 years of collaboration between over 20
+contributors. Its most significant addition is
+`application/graphql-response+json`, a media type indicating a response is a
+GraphQL response honoring this specification. With the ambiguity of traditional
+`application/json` responses resolved, GraphQL servers can use appropriate HTTP
+status codes, and clients can recognize a GraphQL response independent of status
+code.
 
-The `application/graphql-response+json` media type unambigously indicates that
-the response a client is receiving is from a GraphQL server, and honours the
-GraphQL specification. This enables servers to use the full range of suitable
-HTTP status codes to indicate the status of a request without worrying that it
-makes the request unsafe for a client to interpret. This first version comes
-with guidance on which status codes should be used with which response types,
-and introduces a new status code, `294 Partial Success`, to indicate that a
-request executed successfully, but met some errors. This is particularly useful
-for monitoring, where a spike in `294` status codes might indicate something
-worth investigating.
+When using this new media type, the custom `294 Partial Success` status code is
+recommended to represent that a request executed, but delivers both `data` and
+`errors`. This enables monitoring tools to spot partially successful requests
+without reading response bodies.
 
-This is only the first version of this spec, there are many open pull requests
-for features we hope to include in future editions, including (in no particular
-order):
-
-- HTTP `QUERY` verb support, to enable caching GraphQL responses without the
-  historical query length limitations of the `GET` verb that made it broadly
-  unsuitable for GraphQL interoperability
-- A shared specification of persisted documents to make it easier for clients,
-  servers and tooling to adopt allowlist-based security practices, eliminating
-  the dangers of malicious documents for first-party-only GraphQL servers
-  exposed to the internet.
-- Dedicated URLs for each persisted document and operation therein to enable
-  even greater compatibility with HTTP monitoring software.
-- Variable batching support to enable clients to request the execution of a
-  single document with a list of variable values, enabling greater efficiency
-  for some key use cases including distributed GraphQL execution.
-- A request media type, to identify a request as coming from a modern GraphQL
-  client and enabling features such as the above to be utilised.
-- A service capabilities endpoint indicating the features the service supports
-  to aid with client configuration - for example if the server does not indicate
-  support for empty selection sets, a client might choose to automatically add
-  `__typename` into such positions.
-- An endpoint from which the GraphQL schema's SDL can be retrieved without
-  needing to invoke introspection.
-
-There is yet more to explore; so if you'd also like to see the advancement of
-GraphQL delivered over HTTP, why not
-[get involved](https://github.com/graphql/graphql-over-http/blob/main/CONTRIBUTING.md)?
+This is only the first edition. In future editions, we hope to explore HTTP
+`QUERY` verb support, persisted documents, dedicated operation URLs, variable
+batching, _request_ media type(s), feature discovery for client
+auto-configuration, an endpoint to retrieve the GraphQL schema SDL, and more. If
+you wish to help advance this specification,
+[get involved](https://github.com/graphql/graphql-over-http/blob/main/CONTRIBUTING.md)!
 
 I would like to extend a huge thank you to all of the contributors who have
-helped turn years of parctical experience, discussion and review into this first
+helped turn years of practical experience, discussion and review into this first
 release, and all the server, library and framework authors who have supplied
 feedback from their implementations.
 
