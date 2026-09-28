@@ -3,19 +3,24 @@
   "private": true,
   "license": "OWFa-1.0",
   "scripts": {
-    "test": "npm run test:build && npm run test:spellcheck",
-    "test:build": "spec-md --metadata spec/metadata.json spec/GraphQLOverHTTP.md > /dev/null",
+    "test": "npm run test:spelling && npm run test:format && npm run test:build",
+    "test:build": "wgutils spec build --test",
     "test:spellcheck": "cspell \"spec/**/*.md\" README.md",
     "format": "prettier --write \"**/*.{md,yml,yaml,json}\"",
     "format:check": "prettier --check \"**/*.{md,yml,yaml,json}\"",
-    "build": "./build.sh",
+    "build": "wgutils spec build",
     "watch": "nodemon -e json,md --exec \"npm run build\"",
-    "gen-agenda": "wgutils agenda gen"
+    "gen-agenda": "wgutils agenda gen",
+    "test:spelling": "cspell \"spec/**/*.md\" README.md LICENSE.md",
+    "test:format": "prettier --check \"**/*.{md,yml,yaml,json}\" || npm run suggest:format",
+    "suggest:format": "echo \"\nTo resolve this, run: $(tput bold)npm run format$(tput sgr0)\" && exit 1",
+    "version:prepare": "wgutils spec version",
+    "version:release": "wgutils spec release"
   },
   "devDependencies": {
-    "cspell": "6.31.1",
+    "cspell": "^6.31.1",
     "nodemon": "^3.1.14",
-    "prettier": "^2.3.0",
+    "prettier": "^2.8.8",
     "spec-md": "^3.1.0",
     "wgutils": "^2.1.2"
   },
