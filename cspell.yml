@@ -6,6 +6,7 @@ words:
   # Terms of art
   - roadmap
   - endianness
+  - cacheable
   - interoperation
   - monospace
   - openwebfoundation
