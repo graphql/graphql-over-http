@@ -24,21 +24,22 @@ contribution to this edition of the GraphQL over HTTP specification.
 | Ben Evans          | [@kittylyst](https://github.com/kittylyst)           |
 | Benedikt Franke    | [@spawnia](https://github.com/spawnia)               |
 | Benjie             | [@benjie](https://github.com/benjie)                 |
-| Benoit 'BoD' Lubek | BoD@JRAF.org                                         |
+| Benoit 'BoD' Lubek | [@BoD](https://github.com/BoD)                       |
 | David Glasser      | [@glasser](https://github.com/glasser)               |
 | Gabriel McAdams    | [@ghmcadams](https://github.com/ghmcadams)           |
+| Ivan Goncharov     | [@ivangoncharov](https://github.com/ivangoncharov)   |
 | Ivan Maximov       | [@sungam3r](https://github.com/sungam3r)             |
 | Jayden Seric       | [@jaydenseric](https://github.com/jaydenseric)       |
 | Laurin             | [@n1ru4l](https://github.com/n1ru4l)                 |
 | Lee Byron          | [@leebyron](https://github.com/leebyron)             |
 | Martin Bonnin      | [@martinbonnin](https://github.com/martinbonnin)     |
-| mmatsa             | [@mmatsa](https://github.com/mmatsa)                 |
-| Moved to @Benjie!  | [@BenjieGillam](https://github.com/BenjieGillam)     |
+| Michael Staib      | [@michaelstaib](https://github.com/michaelstaib)     |
+| Mmatsa             | [@mmatsa](https://github.com/mmatsa)                 |
 | Phillip Krüger     | [@phillip-kruger](https://github.com/phillip-kruger) |
 | Poornima Nayar     | [@poornimanayar](https://github.com/poornimanayar)   |
 | Ralf Handl         | [@ralfhandl](https://github.com/ralfhandl)           |
 | Rhys Evans         | [@wheresrhys](https://github.com/wheresrhys)         |
-| sam parsons        | [@sam-parsons](https://github.com/sam-parsons)       |
+| Sam Parsons        | [@sjparsons](https://github.com/sjparsons)           |
 | Shane Krueger      | [@Shane32](https://github.com/Shane32)               |
 
 ## Notable contributions
@@ -115,11 +116,23 @@ Listed in reverse-chronological order (latest commit on top).
 | [01f72c7](https://github.com/graphql/graphql-spec/commit/01f72c784d2b18f2838c59810f522aeaab954118) | Update repo to reflect recent Working Group decisions (#154)                                   | mmatsa <mmatsa@users.noreply.github.com> Benjie Gillam <benjie@jemjie.com>                                                                                    |
 | [a6a16c6](https://github.com/graphql/graphql-spec/commit/a6a16c6101428063da6032f1146491cf46319cf3) | Converting spec to spec-md format.                                                             | Morris <mmatsa@us.ibm.com>                                                                                                                                    |
 | [a89f159](https://github.com/graphql/graphql-spec/commit/a89f1595a0ed8bdad0cbc66bb053e017d1c50869) | Move the spec to its new location.                                                             | Morris <mmatsa@us.ibm.com>                                                                                                                                    |
+| [bcf4f89](https://github.com/graphql/graphql-spec/commit/bcf4f89b5ffebf8169af169b590dab2b38cd7e89) | Added extensions to the graphql request (#4)                                                   | Michael Staib <michael@chillicream.com> Ivan Maximov <sungam3r@yandex.ru>                                                                                     |
+| [6d8d585](https://github.com/graphql/graphql-spec/commit/6d8d585683f27908c74f122ed2ef01152fc021f3) | Clarify URL requirements (#94)                                                                 | Benedikt Franke <benedikt@franke.tech> Gabriel McAdams <ghmcadams@users.noreply.github.com>                                                                   |
+| [fe1f468](https://github.com/graphql/graphql-spec/commit/fe1f4682e9f6170cdad69cece94297e67bb155f6) | Add slack link to README                                                                       | Sam Parsons <sjparsons@gmail.com>                                                                                                                             |
+| [0443ead](https://github.com/graphql/graphql-spec/commit/0443ead815d5a745b03b6f3c931cddbba7b666ad) | URL encoding of query strings (#50)                                                            | Benjie Gillam <benjie@jemjie.com>                                                                                                                             |
+| [6abb440](https://github.com/graphql/graphql-spec/commit/6abb440699d53942136e136fe99ffc5fe93736ca) | update links to spec (#58)                                                                     | Ivan Maximov <sungam3r@yandex.ru>                                                                                                                             |
+| [d8dd25b](https://github.com/graphql/graphql-spec/commit/d8dd25b7d979a8d36416e8adf5d5619ba7e5a70e) | Add info about how the de-facto standard came to be (#41)                                      | Benedikt Franke <benedikt@franke.tech>                                                                                                                        |
+| [0e97976](https://github.com/graphql/graphql-spec/commit/0e97976b9a208c356b01d8f68a96d5d94cc4d46e) | Begin ROADMAP doc                                                                              | Sam Parsons <sam.parsons@getbraintree.com>                                                                                                                    |
+| [82a491b](https://github.com/graphql/graphql-spec/commit/82a491b20559f45a0c37cc46d066783ca56e069b) | Minor edits                                                                                    | Benjie Gillam <benjie@jemjie.com>                                                                                                                             |
+| [ac035d7](https://github.com/graphql/graphql-spec/commit/ac035d773b975051ad157517ee9551b0020856f0) | Add MVP of "GraphQL over HTTP" spec                                                            | Ivan Goncharov <ivan.goncharov.ua@gmail.com>                                                                                                                  |
 
 Generated with:
 
 ```sh
+# For the `spec/` folder
 git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..e28746596c38a414015e0f61d7d3e92b8ce54912 --format="[%h](https://github.com/graphql/graphql-spec/commit/%H) | %s | %an <%ae> %(trailers:key=Co-authored-by,valueonly,separator=%x20)" -- spec
+# For the original location: the README
+git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..bcf4f89b5ffebf8169af169b590dab2b38cd7e89 --format="[%h](https://github.com/graphql/graphql-spec/commit/%H) | %s | %an <%ae> %(trailers:key=Co-authored-by,valueonly,separator=%x20)" -- README.md
 ```
 
 ## Notes
