@@ -411,21 +411,24 @@ And the body:
 
 ## QUERY
 
-A [QUERY](https://www.rfc-editor.org/rfc/rfc10008.html) request instructs the
+A [QUERY](https://httpwg.org/specs/rfc10008.html) request instructs the
 GraphQL-over-HTTP server to perform a query operation. The request MUST have a
 body which contains values of the _GraphQL-over-HTTP request_ parameters encoded
 in one of the officially recognized GraphQL media types, or another media type
 supported by the server.
 
-As stated in
-[IETF RFC 10008](https://datatracker.ietf.org/doc/html/rfc10008#name-query-method)
-a client MUST indicate the media type of a request body using the `Content-Type`
+As stated in [IETF RFC 10008](https://httpwg.org/specs/rfc10008.html#query) a
+client MUST indicate the media type of a request body using the `Content-Type`
 header; this header is specified in
 [IETF RFC 9110](https://httpwg.org/specs/rfc9110.html#field.accept).
 
 If a server supports QUERY requests, it MUST support QUERY requests using the
 `application/json` media type (as indicated by the `Content-Type` header)
 encoded with UTF-8.
+
+A server SHOULD indicate it supports QUERY using the HTTP semantics, as
+indicated in the
+[IETF RFC 10008](https://httpwg.org/specs/rfc10008.html#example.discovery.method).
 
 For QUERY requests using an officially recognized GraphQL `Content-Type` without
 indicating an encoding, the server MUST assume the encoding is `utf-8`.
