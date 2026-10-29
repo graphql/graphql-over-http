@@ -103,6 +103,8 @@ We typically meet on the last Thursday of the month.
 | :------------------- | :------------ | :----------------- | :-------------------- |
 | Martin Bonnin| martinbonnin | ApolloGraphQL | Paris, FR |
 | Benjie Gillam        | @benjie       | Graphile           | Chandler's Ford, UK   |
+| Miguel Quintero        | @miqui       | adapt.com          | Georgia, GA , US   |
+
 
 
 ## Agenda
