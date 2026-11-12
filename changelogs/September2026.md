@@ -90,7 +90,7 @@ contribution to this edition of the GraphQL over HTTP specification.
 
 - [GitHub: all Accepted RFC PRs merged before initial spec cut](https://github.com/graphql/graphql-over-http/pulls?q=is%3Apr+is%3Amerged+base%3Amain+merged%3A2018-01-29..2026-09-28+label%3A%22%F0%9F%8F%81+Accepted+%28RFC+3%29%22)
 - [GitHub: all Editorial PRs merged before initial spec cut](https://github.com/graphql/graphql-over-http/pulls?page=1&q=is%3Apr+is%3Amerged+base%3Amain+merged%3A2018-01-29..2026-09-28+label%3A%22%E2%9C%8F%EF%B8%8F+Editorial%22)
-- [GitHub: all changes before initial spec cut](https://github.com/graphql/graphql-over-http/compare/b6a5d05a7d6a363755b51df789d6b3138d6f2713...e28746596c38a414015e0f61d7d3e92b8ce54912)
+- [GitHub: all changes before initial spec cut](https://github.com/graphql/graphql-over-http/compare/b6a5d05a7d6a363755b51df789d6b3138d6f2713...September2026)
 
 Listed in reverse-chronological order (latest commit on top).
 
@@ -170,7 +170,7 @@ Generated with:
 
 ```sh
 # For the `spec/` folder
-git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..e28746596c38a414015e0f61d7d3e92b8ce54912 --format="[%h](https://github.com/graphql/graphql-spec/commit/%H) | %s | %an <%ae> %(trailers:key=Co-authored-by,valueonly,separator=%x20)" -- spec
+git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..September2026 --format="[%h](https://github.com/graphql/graphql-spec/commit/%H) | %s | %an <%ae> %(trailers:key=Co-authored-by,valueonly,separator=%x20)" -- spec
 # For the original location: the README
 git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..bcf4f89b5ffebf8169af169b590dab2b38cd7e89 --format="[%h](https://github.com/graphql/graphql-spec/commit/%H) | %s | %an <%ae> %(trailers:key=Co-authored-by,valueonly,separator=%x20)" -- README.md
 ```
@@ -180,5 +180,5 @@ git log b6a5d05a7d6a363755b51df789d6b3138d6f2713..bcf4f89b5ffebf8169af169b590dab
 This changeset was generated with the help of
 
 ```sh
-yarn wgutils spec version --no-previous --current e28746596c38a414015e0f61d7d3e92b8ce54912 September2026
+yarn wgutils spec version --no-previous --current September2026 September2026
 ```
