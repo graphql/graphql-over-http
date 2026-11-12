@@ -1,6 +1,6 @@
 # GraphQL over HTTP
 
-_Current Working Draft_
+_September 2026 Edition_
 
 **Introduction**
 
